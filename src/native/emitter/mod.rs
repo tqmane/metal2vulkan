@@ -1,6 +1,6 @@
 use super::cfg::{
     block_index_by_label, id_ref_operand, infer_branch_merges, infer_loop_merges,
-    infer_switch_merges, lower_unstructured_switches, LoopMergeInfo,
+    infer_switch_merges, infer_unique_switch_merges, lower_unstructured_switches, LoopMergeInfo,
 };
 use super::ir::{
     LlDeclaration, LlFunction, LlGep, LlGlobal, LlModule, LlType, LlTypeCapability, LlValue,

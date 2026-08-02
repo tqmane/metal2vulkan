@@ -45,7 +45,7 @@ pub(super) use structured_emit::{
 
 pub(super) use blocks::{
     implicit_entry_block_name, infer_branch_merges, infer_loop_merges, infer_switch_merges,
-    lower_unstructured_switches, split_body_blocks,
+    infer_unique_switch_merges, lower_unstructured_switches, split_body_blocks,
 };
 pub(super) use repair::{block_index_by_label, id_ref_operand};
 

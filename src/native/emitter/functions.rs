@@ -326,9 +326,14 @@ impl Emitter {
                 self.loop_merges.clear();
                 self.switch_merges = infer_switch_merges(&body_blocks);
             } else {
+                // Uniqueness-enforcing: two nested switches otherwise infer the
+                // same merge block, which SPIR-V forbids and spirv-val rejects,
+                // sending an already-large function to the relooper for want of
+                // one pass-through block. Splits before the branch and loop
+                // merges are read so they see the final block list.
+                self.switch_merges = infer_unique_switch_merges(&mut body_blocks);
                 self.branch_merges = infer_branch_merges(&body_blocks);
                 self.loop_merges = infer_loop_merges(&body_blocks);
-                self.switch_merges = infer_switch_merges(&body_blocks);
             }
         }
         // R3: index resolved typed operands by result name, built from the now-finalized structurized

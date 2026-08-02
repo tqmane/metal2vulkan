@@ -815,6 +815,138 @@ pub(in crate::native) fn infer_switch_merges(blocks: &[BodyBlock]) -> HashMap<St
     merges
 }
 
+/// Infer switch merges, splitting any block two constructs would both claim.
+///
+/// [`infer_switch_merges`] answers each switch independently — the first block
+/// in layout order that every arm reaches — and never asks whether some other
+/// construct already took it. SPIR-V does ask: a block may be the merge block of
+/// at most one header, and spirv-val reports the violation as *"Block '%N' is
+/// already a merge block for another header"*.
+///
+/// Two nested switches collide immediately. Core Animation's `UberShader` — the
+/// compositor fragment shader carrying every backdrop-blur kernel — has an outer
+/// `OpSwitch` whose only non-default target is an inner `OpSwitch` header, and
+/// both reconverge on the same block:
+///
+/// ```text
+/// OpSelectionMerge %6102 None
+/// OpSwitch %5857 %6102  26 %6065  41 %6065  44 %6065  45 %6065
+/// %6065 = OpLabel
+/// OpSelectionMerge %6102 None
+/// OpSwitch %5859 %6102  6 %6101  1 %6066  2 %6072 ...
+/// ```
+///
+/// This path is reached whenever the structured planner declines, so the module
+/// it produces is the one a rejecting plan falls back to. Before this, that
+/// module was invalid and the cascade continued to the relooper, whose
+/// switch-dispatch form a driver was measured taking over eleven minutes to
+/// compile without returning — for a shader the guest draws every frame.
+///
+/// The repair is the standard one: the claimant nothing else dominates keeps the
+/// block, and each claimant nested inside it gets a private pass-through that
+/// branches on to the original. Only predecessors the inner header dominates are
+/// redirected, so the outer construct's own edge into the merge is untouched.
+pub(in crate::native) fn infer_unique_switch_merges(
+    blocks: &mut Vec<BodyBlock>,
+) -> HashMap<String, String> {
+    let mut counter = 9_000_000usize;
+    for _ in 0..64 {
+        let merges = infer_switch_merges(blocks);
+        // Conditionals infer their merges the same independent way, and a
+        // conditional and a switch can land on one block just as easily as two
+        // switches can. Both kinds are counted here so the split happens
+        // wherever the collision is, not only where this map can see it.
+        let branch = infer_branch_merges(blocks);
+        let branch_by_header: HashMap<String, String> = blocks
+            .iter()
+            .filter_map(|block| {
+                let (t, f) = conditional_branch_targets(block)?;
+                let merge = branch.get(&(t, f))?;
+                Some((block.name.clone(), merge.clone()))
+            })
+            .collect();
+        let mut claimants: HashMap<&str, Vec<&str>> = HashMap::new();
+        for (header, merge) in merges.iter().chain(branch_by_header.iter()) {
+            let entry = claimants.entry(merge.as_str()).or_default();
+            if !entry.contains(&header.as_str()) {
+                entry.push(header.as_str());
+            }
+        }
+        let shared: Vec<(String, Vec<String>)> = claimants
+            .iter()
+            .filter(|(_, headers)| headers.len() > 1)
+            .map(|(merge, headers)| {
+                (
+                    (*merge).to_string(),
+                    headers.iter().map(|h| (*h).to_string()).collect(),
+                )
+            })
+            .collect();
+        if shared.is_empty() {
+            return merges;
+        }
+        let forest = analyze(blocks);
+        // One split per round, because each insertion invalidates the forest the
+        // next one would read. A merge with no header-dominated predecessor to
+        // redirect cannot be split, so move on to the next candidate rather than
+        // giving up on the whole function for it.
+        let mut moved = false;
+        for (merge, mut headers) in shared {
+            // Outermost first: a header another claimant dominates is nested
+            // inside it, and the nested one is what moves.
+            headers.sort_by(|a, b| {
+                let a_outer = forest.dominates(a, b);
+                let b_outer = forest.dominates(b, a);
+                b_outer.cmp(&a_outer).then_with(|| a.cmp(b))
+            });
+            for header in headers.into_iter().skip(1) {
+                let synth = if super::structured_emit::block_has_phi(blocks, &merge) {
+                    super::structured_emit::synth_unique_selection_merge_phi(
+                        blocks,
+                        &forest,
+                        &header,
+                        &merge,
+                        &mut counter,
+                    )
+                } else {
+                    super::structured_emit::synth_unique_selection_merge(
+                        blocks,
+                        &forest,
+                        &header,
+                        &merge,
+                        &mut counter,
+                    )
+                };
+                if let Some(private) = synth {
+                    // The header's own edge into the shared block — a switch's
+                    // default arm, a conditional's else — is a predecessor the
+                    // dominance filter does not select, because a block does not
+                    // dominate itself here. Leaving it pointed at the original
+                    // means not every arm reaches the new pass-through, the next
+                    // inference picks the shared block again, and the repair
+                    // oscillates without converging.
+                    if let Some(block) = blocks.iter_mut().find(|b| b.name == header) {
+                        if let Some(carrier) = &mut block.typed {
+                            carrier.redirect_successor(&merge, &private);
+                        }
+                    }
+                    moved = true;
+                    break;
+                }
+            }
+            if moved {
+                break;
+            }
+        }
+        if !moved {
+            // Nothing left that this repair can split. Report what we have; the
+            // established fallback path handles the residue.
+            return merges;
+        }
+    }
+    infer_switch_merges(blocks)
+}
+
 pub(in crate::native) fn lower_unstructured_switches(blocks: &[BodyBlock]) -> Vec<BodyBlock> {
     lower_switches(blocks, false)
 }
