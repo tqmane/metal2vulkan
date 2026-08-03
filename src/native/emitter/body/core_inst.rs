@@ -507,7 +507,24 @@ impl Emitter {
             if let Some(nullness) = nullness {
                 self.record_pointer_nullness(name.to_string(), nullness);
             }
-            if self.raw_buffer_params.contains(name) {
+            // A pointer argument that already resolves to an offset inside a raw buffer carries that
+            // offset onto the parameter, together with the unmodeled flag that marks loads through it
+            // as raw. Dropping the pair here leaves the callee's own GEPs with no provenance: they
+            // fall through to the generic path and index the `Private` byte placeholder that stands
+            // in for the pointer, which reads zeros and indexes a non-composite type.
+            let (propagated_raw, argument_unmodeled) = match &argument.value {
+                LlValue::Local(source) => (
+                    self.raw_offsets.get(source).cloned(),
+                    self.unmodeled_pointers.contains(source),
+                ),
+                _ => (None, false),
+            };
+            if argument_unmodeled {
+                self.unmodeled_pointers.insert(name.to_string());
+            }
+            if let Some(raw) = propagated_raw {
+                self.raw_offsets.insert(name.to_string(), raw);
+            } else if self.raw_buffer_params.contains(name) {
                 self.raw_offsets.insert(
                     name.to_string(),
                     RawBufferOffset::root(name.to_string(), addrspace),
@@ -666,10 +683,9 @@ impl Emitter {
         let result_ty = self.resolve_type(&composite.ty)?;
         let result_type = self.type_id(&result_ty)?;
         let result = self.result_id(&name, &result_ty)?;
-        let mut ops = vec![
-            Operand::IdRef(self.value_id_in(&object.value, &object.ty, instructions)?),
-            Operand::IdRef(self.value_id_in(&composite.value, &composite.ty, instructions)?),
-        ];
+        let object_id = self.value_id_in(&object.value, &object.ty, instructions)?;
+        let composite_id = self.value_id_in(&composite.value, &composite.ty, instructions)?;
+        let mut ops = vec![Operand::IdRef(object_id), Operand::IdRef(composite_id)];
         ops.extend(indices.iter().copied().map(Operand::LiteralBit32));
         instructions.push(Self::inst(
             Op::CompositeInsert,
@@ -677,7 +693,108 @@ impl Emitter {
             Some(result),
             ops,
         ));
+        if let LlValue::Local(object_name) = &object.value {
+            self.insertvalue_sources.insert(
+                result,
+                (composite_id, indices.to_vec(), object_name.clone()),
+            );
+            let parent = match &composite.value {
+                LlValue::Local(parent) => Some(parent.clone()),
+                _ => None,
+            };
+            self.insertvalue_sources_by_name
+                .insert(name, (parent, indices.to_vec(), object_name.clone()));
+        }
         Ok(())
+    }
+
+    /// Walk an aggregate's `insertvalue` chain back to the value written at exactly `path`.
+    ///
+    /// A write to a disjoint path is transparently skipped; a write that overlaps `path` — at, above
+    /// or below it — makes the round trip ambiguous, so nothing is claimed. A base this emitter never
+    /// saw built (a call result, a phi, poison) ends the walk with no answer.
+    /// Follow the inliner's placeholder ids to the value they stand for. The substitutions are
+    /// applied to the emitted blocks only after the whole function has lowered, so a lookup made
+    /// while emitting still sees the placeholder.
+    fn resolve_inline_placeholder(&self, mut id: Word) -> Word {
+        for _ in 0..=self.inline_parameter_substitutions.len() {
+            let Some((_, target)) = self
+                .inline_parameter_substitutions
+                .iter()
+                .find(|(placeholder, _)| *placeholder == id)
+            else {
+                return id;
+            };
+            id = *target;
+        }
+        id
+    }
+
+    /// The name-keyed twin of [`Emitter::aggregate_pointer_source`], with the same disjoint-skip and
+    /// overlap-bail rules.
+    fn aggregate_pointer_source_by_name(&self, aggregate: &str, path: &[u32]) -> Option<String> {
+        self.aggregate_pointer_source_by_name_within(aggregate, path, 8)
+    }
+
+    fn aggregate_pointer_source_by_name_within(
+        &self,
+        aggregate: &str,
+        path: &[u32],
+        depth: usize,
+    ) -> Option<String> {
+        if depth == 0 {
+            return None;
+        }
+        let mut current = aggregate.to_string();
+        for _ in 0..=self.insertvalue_sources_by_name.len() {
+            if let Some((parent, written, value)) = self.insertvalue_sources_by_name.get(&current) {
+                if written.as_slice() == path {
+                    return Some(value.clone());
+                }
+                let shared = written.len().min(path.len());
+                if written[..shared] == path[..shared] {
+                    return None;
+                }
+                current = parent.clone()?;
+                continue;
+            }
+            // The inliner joins a helper's return value into the caller through a phi at the
+            // continuation block, so the aggregate reaches its extract as a phi rather than as the
+            // `insertvalue` that built it. Look through it only when every incoming agrees.
+            let incomings = self.tir_phi_incomings.get(&current)?;
+            let mut answer: Option<String> = None;
+            for (value, _label) in incomings {
+                let LlValue::Local(incoming) = value else {
+                    return None;
+                };
+                let resolved =
+                    self.aggregate_pointer_source_by_name_within(incoming, path, depth - 1)?;
+                match &answer {
+                    None => answer = Some(resolved),
+                    Some(existing) if *existing == resolved => {}
+                    Some(_) => return None,
+                }
+            }
+            return answer;
+        }
+        None
+    }
+
+    fn aggregate_pointer_source(&self, aggregate: Word, path: &[u32]) -> Option<String> {
+        let mut current = self.resolve_inline_placeholder(aggregate);
+        // SSA cannot cycle, but bound the walk so a malformed module cannot spin here.
+        for _ in 0..=self.insertvalue_sources.len() {
+            let (parent, written, value) = self.insertvalue_sources.get(&current)?;
+            if written.as_slice() == path {
+                return Some(value.clone());
+            }
+            let shared = written.len().min(path.len());
+            if written[..shared] == path[..shared] {
+                return None;
+            }
+            current = self.resolve_inline_placeholder(*parent);
+        }
+        None
     }
 
     /// The operand-resolved core of the `extractvalue` handler. Driven from `TirInst.operands`
@@ -705,7 +822,42 @@ impl Emitter {
         ));
         if let LlType::Ptr(addrspace) = result_ty {
             self.pointer_storage
-                .insert(name, llvm_pointer_storage(addrspace)?);
+                .insert(name.clone(), llvm_pointer_storage(addrspace)?);
+            // A pointer that round-trips through an aggregate keeps the provenance of the pointer
+            // that was inserted. Without it the extracted name carries only an address space, so a
+            // GEP on it takes the generic path and indexes the `Private` byte placeholder that
+            // stands in for the pointer — an access chain into a non-composite type, and zeros
+            // where the buffer's contents belong.
+            {
+                let resolved = self
+                    .aggregate_pointer_source(composite_id, indices)
+                    .or_else(|| match &composite.value {
+                        LlValue::Local(aggregate) => {
+                            self.aggregate_pointer_source_by_name(aggregate, indices)
+                        }
+                        _ => None,
+                    });
+                if let Some(source) = resolved {
+                    if let Some(storage) = self.pointer_storage.get(&source).copied() {
+                        self.pointer_storage.insert(name.clone(), storage);
+                    }
+                    if let Some(pointee) = self.pointer_pointees.get(&source).cloned() {
+                        self.pointer_pointees.insert(name.clone(), pointee);
+                    }
+                    if let Some(raw) = self.raw_offsets.get(&source).cloned() {
+                        self.raw_offsets.insert(name.clone(), raw);
+                    }
+                    if let Some(provenance) = self.gep_provenance.get(&source).cloned() {
+                        self.gep_provenance.insert(name.clone(), provenance);
+                    }
+                    if let Some(is_null) = self.pointer_nullness.get(&source).copied() {
+                        self.record_pointer_nullness(name.clone(), is_null);
+                    }
+                    if self.unmodeled_pointers.contains(&source) {
+                        self.unmodeled_pointers.insert(name);
+                    }
+                }
+            }
         }
         Ok(())
     }

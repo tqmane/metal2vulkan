@@ -499,7 +499,9 @@ pub(crate) fn drop_workgroup_struct_padding_byte_zero_stores_module(module: &mut
 /// variable it actually stood for, and the chain built on it still declares a
 /// `UniformConstant` result:
 ///
-///     %214 = OpInBoundsAccessChain %_ptr_UniformConstant_v4float %50 %uint_0 %uint_0
+/// ```text
+/// %214 = OpInBoundsAccessChain %_ptr_UniformConstant_v4float %50 %uint_0 %uint_0
+/// ```
 ///
 /// The pointee is right and only the storage class is stale, so the repair is to
 /// re-declare the result as a pointer to the same pointee in the base's class,
@@ -617,39 +619,6 @@ pub(crate) fn repair_access_chain_storage_classes_module(module: &mut Module) ->
     changed
 }
 
-/// The type of the member `path` reaches inside `composite`, or `None` when the
-/// path leaves a type this walk models.
-///
-/// Only the aggregates a composite insert/extract can index are followed —
-/// struct members by literal index, and the uniform element of an array, vector
-/// or matrix. An index past the end of a struct, or into anything else, gives up
-/// rather than guessing, because the caller uses the answer to decide whether a
-/// write is ill-typed and a wrong answer there would delete a real one.
-fn member_type_at(
-    types: &HashMap<Word, Instruction>,
-    composite: Word,
-    path: &[u32],
-) -> Option<Word> {
-    let mut current = composite;
-    for index in path {
-        let inst = types.get(&current)?;
-        current = match inst.class.opcode {
-            Op::TypeStruct => match inst.operands.get(*index as usize)? {
-                Operand::IdRef(member) => *member,
-                _ => return None,
-            },
-            Op::TypeArray | Op::TypeRuntimeArray | Op::TypeVector | Op::TypeMatrix => {
-                match inst.operands.first()? {
-                    Operand::IdRef(element) => *element,
-                    _ => return None,
-                }
-            }
-            _ => return None,
-        };
-    }
-    Some(current)
-}
-
 /// Forward opaque handles out of the composites the AIR calling convention
 /// bundles them into, so no `OpCompositeInsert` ever names one.
 ///
@@ -665,11 +634,13 @@ fn member_type_at(
 /// The shape is a resource bundle assembled, carried across a branch, and taken
 /// apart again — inserted at depth two, read back at depth one and then one more:
 ///
-///     %212 = OpCompositeInsert %bundle %101 %undef 0 0   ; %101 = OpLoad image
-///     %213 = OpCompositeInsert %bundle %99  %212  1 0    ; %99  = OpLoad sampler
-///     %217 = OpPhi %bundle %215 %211
-///     %218 = OpCompositeExtract %wrapper %217 0
-///     %222 = OpCompositeExtract %image %218 0
+/// ```text
+/// %212 = OpCompositeInsert %bundle %101 %undef 0 0   ; %101 = OpLoad image
+/// %213 = OpCompositeInsert %bundle %99  %212  1 0    ; %99  = OpLoad sampler
+/// %217 = OpPhi %bundle %215 %211
+/// %218 = OpCompositeExtract %wrapper %217 0
+/// %222 = OpCompositeExtract %image %218 0
+/// ```
 ///
 /// Every read of an opaque member is resolved back to the value that was written
 /// and replaced with it directly. The insert chain then has no live consumer and

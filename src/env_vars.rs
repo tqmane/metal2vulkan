@@ -51,6 +51,11 @@ pub const REGISTRY: &[EnvVar] = &[
         effect: "path to dump a failing inline+SROA module (debug)",
     },
     EnvVar {
+        name: "METAL2VULKAN_DUMP_INVALID",
+        default: "unset",
+        effect: "directory to write each tier's spirv-val-rejected module to (debug)",
+    },
+    EnvVar {
         name: "METAL2VULKAN_<TOOL>",
         default: "PATH search",
         effect: "dynamic family: per-external-tool path override — METAL2VULKAN_<CMD> (uppercased, \
@@ -262,6 +267,12 @@ pub fn repro_dir() -> Option<OsString> {
 
 pub fn retry_dump() -> Option<OsString> {
     std::env::var_os("METAL2VULKAN_RETRY_DUMP")
+}
+
+/// Directory to write each retry tier's spirv-val-rejected module into, from
+/// `METAL2VULKAN_DUMP_INVALID`. Absent -> rejected bytes are dropped.
+pub fn dump_invalid() -> Option<OsString> {
+    std::env::var_os("METAL2VULKAN_DUMP_INVALID")
 }
 
 /// Optional path override for an external tool `cmd` (`llvm-dis`, `spirv-val`, …), read from

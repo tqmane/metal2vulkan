@@ -38,6 +38,11 @@ fn main() {
     let mut stage = "auto".to_string();
     let mut emit_meta: Option<String> = None;
     let mut simd_cluster32 = false;
+    // The threadgroup dimensions the consumer dispatches at. They change the
+    // emitted module, so reproducing a kernel captured from a guest needs the
+    // same ones the guest used; the default here is not what any real dispatch
+    // uses.
+    let mut local_size: Option<[u32; 3]> = None;
     let mut pos: Vec<String> = vec![];
     let mut i = 0;
     while i < args.len() {
@@ -63,6 +68,19 @@ fn main() {
             "--simd-cluster32" => {
                 simd_cluster32 = true;
                 i += 1;
+            }
+            // The dispatch's threadgroup dimensions, as `X,Y,Z`.
+            "--local-size" => {
+                if let Some(v) = args.get(i + 1) {
+                    let parts: Vec<u32> = v
+                        .split(',')
+                        .filter_map(|part| part.trim().parse::<u32>().ok())
+                        .collect();
+                    if let [x, y, z] = parts[..] {
+                        local_size = Some([x, y, z]);
+                    }
+                }
+                i += 2;
             }
             // accept (and ignore) the legacy flags so the harness/contract is a superset.
             "--entry" | "--local" => {
@@ -96,7 +114,9 @@ fn main() {
     let tmp = env::temp_dir().join(format!("metal2vulkan_{}", process::id()));
     let _ = fs::create_dir_all(&tmp);
 
+    let default_options = TransformOptions::default();
     let options = TransformOptions {
+        kernel_local_size: local_size.unwrap_or(default_options.kernel_local_size),
         simd_cluster32,
         ..TransformOptions::default()
     };

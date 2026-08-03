@@ -7669,3 +7669,71 @@ rhs:
         tools::spirv_val_bytes(&out, &tmp).expect("spirv-val");
     }
 }
+
+#[test]
+fn native_buffer_pointer_round_tripping_an_aggregate_keeps_its_binding() {
+    // A buffer pointer packed into a struct on both arms of a branch, joined by a phi, and taken
+    // back out with `extractvalue` before being indexed. The extracted name has to inherit the raw
+    // offset of the pointer that was inserted, or the GEP lowers against the `Private` byte
+    // placeholder that stands in for the pointer — an access chain into a non-composite type, and
+    // zeros where the buffer's contents belong.
+    let ll = r#"
+source_filename = "case.metal"
+
+%struct.Holder = type { <2 x float>, ptr addrspace(2) }
+%struct.Mat = type { [4 x <4 x float>] }
+
+define void @rowpick(ptr addrspace(2) noundef readonly align 16 "air-buffer-no-alias" %buffer0, ptr addrspace(1) noundef align 16 "air-buffer-no-alias" %out) local_unnamed_addr #0 {
+entry:
+  %base = getelementptr i8, ptr addrspace(2) %buffer0, i64 16
+  %word = load i32, ptr addrspace(2) %buffer0, align 4
+  %cond = icmp ugt i32 %word, 0
+  br i1 %cond, label %left, label %right
+
+left:
+  %seed.left = insertvalue %struct.Holder poison, <2 x float> zeroinitializer, 0
+  %held.left = insertvalue %struct.Holder %seed.left, ptr addrspace(2) %base, 1
+  br label %join
+
+right:
+  %seed.right = insertvalue %struct.Holder poison, <2 x float> zeroinitializer, 0
+  %held.right = insertvalue %struct.Holder %seed.right, ptr addrspace(2) %base, 1
+  br label %join
+
+join:
+  %held = phi %struct.Holder [ %held.left, %left ], [ %held.right, %right ]
+  %ptr = extractvalue %struct.Holder %held, 1
+  %row = getelementptr %struct.Mat, ptr addrspace(2) %ptr, i64 0, i32 0, i64 1
+  %value = load <4 x float>, ptr addrspace(2) %row, align 16
+  store <4 x float> %value, ptr addrspace(1) %out, align 16
+  ret void
+}
+
+attributes #0 = { nounwind }
+
+!air.kernel = !{!0}
+!0 = !{ptr @rowpick, !1, !2}
+!1 = !{}
+!2 = !{!3, !4}
+!3 = !{i32 0, !"air.buffer", !"air.location_index", i32 0, i32 1, !"air.read", !"air.address_space", i32 2, !"air.arg_type_name", !"void", !"air.arg_name", !"buffer0"}
+!4 = !{i32 1, !"air.buffer", !"air.buffer_size", i32 16, !"air.location_index", i32 1, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 16, !"air.arg_type_align_size", i32 16, !"air.arg_type_name", !"float4", !"air.arg_name", !"out"}
+"#;
+    let tmp = std::env::temp_dir().join(format!(
+        "metal2vulkan_native_aggregate_pointer_round_trip_{}",
+        std::process::id()
+    ));
+    let _ = std::fs::create_dir_all(&tmp);
+    let spv = crate::translate_sanitized_native(ll, Stage::Kernel, &tmp).expect("translate");
+    let asm = disassemble(&spv).expect("disassemble");
+    // The pointer survives the round trip as a buffer offset, so the row is read out of the bound
+    // buffer. Losing it indexes the function-private byte stand-in instead, which is an access
+    // chain into a non-composite type — invalid, and zeros where the buffer's contents belong.
+    assert!(asm.contains("StorageBuffer"), "{asm}");
+    if std::process::Command::new("spirv-val")
+        .arg("--version")
+        .output()
+        .is_ok()
+    {
+        tools::spirv_val_bytes(&spv, &tmp).expect("spirv-val");
+    }
+}

@@ -49,6 +49,8 @@ impl Emitter {
         self.param_values.clear();
         self.inline_parameter_substitutions.clear();
         self.raw_offsets.clear();
+        self.insertvalue_sources.clear();
+        self.insertvalue_sources_by_name.clear();
         self.int_alignments.clear();
         self.unmodeled_pointers.clear();
         for global in &self.ir.globals.clone() {

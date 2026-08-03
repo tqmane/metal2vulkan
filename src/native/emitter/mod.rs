@@ -102,6 +102,14 @@ pub(super) struct Emitter {
     /// never textures/samplers). Rebuilt per emit_function from `ir.metadata_data_buffer_params`.
     data_buffer_params: HashSet<String>,
     raw_offsets: HashMap<String, RawBufferOffset>,
+    /// Per `insertvalue` result id: the id of the aggregate it was built from, the path written, and
+    /// the name of the value written there. Keyed by id rather than by SSA name so an aggregate that
+    /// reaches its use under another name — an inlined helper's return value bound to the caller's
+    /// call result — still resolves. See [`Emitter::aggregate_pointer_source`].
+    insertvalue_sources: HashMap<Word, (Word, Vec<u32>, String)>,
+    /// The same chain keyed by SSA name, for the tiers where the aggregate reaches its extract under
+    /// the name it was built with rather than under a placeholder id.
+    insertvalue_sources_by_name: HashMap<String, (Option<String>, Vec<u32>, String)>,
     int_alignments: HashMap<String, u64>,
     unmodeled_pointers: HashSet<String>,
     /// SSA value names bound by `air.get_null_texture_*`. A strict subset of `unmodeled_pointers`
@@ -444,6 +452,8 @@ impl Emitter {
             raw_buffer_params: HashSet::new(),
             data_buffer_params: HashSet::new(),
             raw_offsets: HashMap::new(),
+            insertvalue_sources: HashMap::new(),
+            insertvalue_sources_by_name: HashMap::new(),
             int_alignments: HashMap::new(),
             unmodeled_pointers: HashSet::new(),
             null_texture_values: HashSet::new(),
