@@ -850,7 +850,7 @@ pub(in crate::native) fn infer_unique_switch_merges(
     blocks: &mut Vec<BodyBlock>,
 ) -> HashMap<String, String> {
     let mut counter = 9_000_000usize;
-    for _ in 0..64 {
+    for _ in 0..512 {
         let merges = infer_switch_merges(blocks);
         // Conditionals infer their merges the same independent way, and a
         // conditional and a switch can land on one block just as easily as two
@@ -899,12 +899,38 @@ pub(in crate::native) fn infer_unique_switch_merges(
             return merges;
         }
         let forest = analyze(blocks);
-        // One split per round, because each insertion invalidates the forest the
-        // next one would read. A merge with no header-dominated predecessor to
-        // redirect cannot be split, so move on to the next candidate rather than
-        // giving up on the whole function for it.
+        // Repair every collision whose blocks are disjoint from the ones already
+        // repaired this round. An insertion invalidates the forest only around
+        // what it touched, so a collision sharing no block with an earlier split
+        // in the same round still reads a forest that describes it.
+        //
+        // One split per round is correct but does not finish: a compositor
+        // fragment module collides in the hundreds, and re-deriving dominance
+        // over its whole CFG once per split is what sent it to the relooper on a
+        // wall-clock budget rather than on its shape. A merge with no
+        // header-dominated predecessor to redirect cannot be split, so move on
+        // to the next candidate rather than giving up on the whole function.
+        let successors_now: HashMap<String, Vec<String>> = blocks
+            .iter()
+            .map(|b| (b.name.clone(), block_successors(b)))
+            .collect();
+        let mut touched: HashSet<String> = HashSet::new();
         let mut moved = false;
         for (merge, mut headers) in shared {
+            // The region a split reads and rewrites: the shared block, every
+            // claimant, and each claimant's other arms — redirecting one edge
+            // changes the predecessor set of whatever the header also reaches.
+            let mut region: HashSet<String> = HashSet::new();
+            region.insert(merge.clone());
+            for header in &headers {
+                region.insert(header.clone());
+                if let Some(successors) = successors_now.get(header.as_str()) {
+                    region.extend(successors.iter().cloned());
+                }
+            }
+            if region.iter().any(|block| touched.contains(block)) {
+                continue;
+            }
             // Outermost first: a header another claimant dominates is nested
             // inside it, and the nested one is what moves.
             headers.sort_by(|a, b| {
@@ -921,6 +947,37 @@ pub(in crate::native) fn infer_unique_switch_merges(
                     b_outer.cmp(&a_outer).then_with(|| a.cmp(b))
                 })
             });
+            // A short-circuit pair reconverges on `merge` from both levels, so no
+            // pass-through in front of `merge` can separate them. Re-nest it instead.
+            let mut renested = false;
+            'pairs: for i in 0..headers.len() {
+                for j in (i + 1)..headers.len() {
+                    let Some((outer, inner, shared)) =
+                        short_circuit_pair(blocks, &headers[i], &headers[j], &merge)
+                    else {
+                        continue;
+                    };
+                    if super::structured_emit::synth_short_circuit_renest(
+                        blocks,
+                        &outer,
+                        &inner,
+                        &shared,
+                        &merge,
+                        &mut counter,
+                    )
+                    .is_some()
+                    {
+                        renested = true;
+                        break 'pairs;
+                    }
+                }
+            }
+            if renested {
+                moved = true;
+                touched.extend(region);
+                continue;
+            }
+            let mut split_here = false;
             for header in headers.into_iter().skip(1) {
                 if loop_headers.contains(header.as_str()) {
                     continue;
@@ -955,12 +1012,13 @@ pub(in crate::native) fn infer_unique_switch_merges(
                             carrier.redirect_successor(&merge, &private);
                         }
                     }
-                    moved = true;
+                    split_here = true;
                     break;
                 }
             }
-            if moved {
-                break;
+            if split_here {
+                moved = true;
+                touched.extend(region);
             }
         }
         if !moved {
@@ -1633,6 +1691,54 @@ fn unconditional_branch_target(block: Option<&BodyBlock>) -> Option<String> {
     }
 }
 
+/// Recognize `outer: br c1 ? shared : inner` over `inner: br c2 ? shared : natural`, the
+/// short-circuit pair that makes both headers reconverge on `natural`.
+///
+/// Requires `outer` to be `inner`'s only predecessor: with any other way in, `inner` is not
+/// nested inside `outer`'s selection and re-nesting the pair would move code that reaches it
+/// by another path. Returns `(outer, inner, shared)`.
+fn short_circuit_pair(
+    blocks: &[BodyBlock],
+    first: &str,
+    second: &str,
+    natural: &str,
+) -> Option<(String, String, String)> {
+    let by_name: HashMap<&str, &BodyBlock> =
+        blocks.iter().map(|b| (b.name.as_str(), b)).collect();
+    for (outer, inner) in [(first, second), (second, first)] {
+        let Some((outer_true, outer_false)) = conditional_branch_targets(by_name.get(outer)?) else {
+            continue;
+        };
+        let Some((inner_true, inner_false)) = conditional_branch_targets(by_name.get(inner)?) else {
+            continue;
+        };
+        // `inner` is one arm of `outer`; the other arm is the block they share.
+        let shared = if outer_true == inner {
+            outer_false
+        } else if outer_false == inner {
+            outer_true
+        } else {
+            continue;
+        };
+        let inner_targets = [inner_true.as_str(), inner_false.as_str()];
+        if !inner_targets.contains(&shared.as_str()) || !inner_targets.contains(&natural) {
+            continue;
+        }
+        if shared == natural {
+            continue;
+        }
+        let mut preds = blocks
+            .iter()
+            .filter(|b| block_successors(b).iter().any(|s| s == inner));
+        let only_pred = preds.next().map(|b| b.name.clone());
+        if preds.next().is_some() || only_pred.as_deref() != Some(outer) {
+            continue;
+        }
+        return Some((outer.to_string(), inner.to_string(), shared));
+    }
+    None
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1643,6 +1749,48 @@ mod tests {
             vec![terminator.to_string()],
             BlockRole::Normal,
         )
+    }
+
+    /// `if (c1 || c2) shared else join`: two selection headers, one reconvergence point.
+    /// Re-nesting has to leave each of them a merge block no other header claims.
+    #[test]
+    fn short_circuit_pair_is_renested_into_one_merge_each() {
+        let mut blocks = vec![
+            block("%outer", "br i1 %c1, label %shared, label %inner"),
+            block("%inner", "br i1 %c2, label %shared, label %join"),
+            block("%shared", "br i1 %c3, label %big, label %small"),
+            block("%big", "br label %join"),
+            block("%small", "br label %join"),
+            block("%join", "ret void"),
+        ];
+        let (outer, inner, shared) =
+            short_circuit_pair(&blocks, "%outer", "%inner", "%join").expect("shape recognized");
+        assert_eq!((outer.as_str(), inner.as_str(), shared.as_str()), ("%outer", "%inner", "%shared"));
+
+        let before = blocks.len();
+        infer_unique_switch_merges(&mut blocks);
+        let merges = infer_branch_merges(&blocks);
+        let by_header: HashMap<String, String> = blocks
+            .iter()
+            .filter_map(|b| {
+                let (t, f) = conditional_branch_targets(b)?;
+                Some((b.name.clone(), merges.get(&(t, f))?.clone()))
+            })
+            .collect();
+        let mut claimed: HashMap<&str, usize> = HashMap::new();
+        for merge in by_header.values() {
+            *claimed.entry(merge.as_str()).or_default() += 1;
+        }
+        assert!(
+            claimed.values().all(|count| *count == 1),
+            "a block is still the merge of two headers: {claimed:?} from {by_header:?}"
+        );
+        // The repair converges instead of inserting a pass-through per round forever.
+        assert!(
+            blocks.len() < before + 16,
+            "repair grew the function without converging: {before} -> {}",
+            blocks.len()
+        );
     }
 
     #[test]

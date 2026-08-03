@@ -1093,3 +1093,160 @@ pub(in crate::native) fn bare_exit_escape_reason(
     }
     None
 }
+
+/// Re-nest a short-circuit selection pair so that each header owns a merge block.
+///
+/// `outer: br c1 ? shared : inner` with `inner: br c2 ? shared : natural`, where `outer`
+/// is `inner`'s only predecessor, is `if (c1 || c2) shared else natural`. Both selections
+/// reconverge on `natural`, and no pass-through inserted in front of it can give either
+/// one a merge of its own: whatever is inserted, each header's two arms still meet where
+/// they always did, the next inference names `natural` again, and the repair grows the
+/// function without converging.
+///
+/// Re-nesting fixes it without duplicating a block. The two conditions are funnelled into
+/// one boolean and the choice between `shared` and `natural` is made once, below both
+/// selections:
+///
+/// ```text
+/// outer:    br c1 ? ot : inner        ot: br gouter
+/// inner:    br c2 ? it : el           it: br g          el: br g
+/// g:        %t    = phi i1 [ true, it ], [ false, el ] ; br gouter   <- inner's merge
+/// gouter:   %take = phi i1 [ true, ot ], [ %t, g ]                   <- outer's merge
+///           br %take ? shared : natural
+/// ```
+///
+/// Returns the new merge block for `outer`, or `None` when the shape does not hold or
+/// `shared` joins the two arms with a phi that disagrees across them — that value would
+/// have to be funnelled too, and guessing it wrong silently changes what the shader reads.
+pub(in crate::native) fn synth_short_circuit_renest(
+    blocks: &mut Vec<BodyBlock>,
+    outer: &str,
+    inner: &str,
+    shared: &str,
+    natural: &str,
+    counter: &mut usize,
+) -> Option<String> {
+    let base = format!("{SPLIT_PREFIX}sc{counter}");
+    *counter += 1;
+    let ot = format!("{base}.ot");
+    let it = format!("{base}.it");
+    let el = format!("{base}.el");
+    let g = format!("{base}.g");
+    let gouter = format!("{base}.gouter");
+    let t = format!("{base}.t");
+    let take = format!("{base}.take");
+
+    // `shared` loses both its edges from this pair and gains one from `gouter`. A phi there
+    // that names both with different values cannot be rebuilt from one edge.
+    let shared_idx = blocks.iter().position(|b| b.name == shared)?;
+    let mut shared_rewrites: Vec<(String, Vec<(crate::native::ir::LlValue, String)>)> = Vec::new();
+    if let Some(carrier) = &blocks[shared_idx].typed {
+        for inst in &carrier.insts {
+            let (Some(dst), Some((_, incomings))) = (inst.result.clone(), inst.phi_incoming.clone())
+            else {
+                continue;
+            };
+            let from_outer = incomings.iter().find(|(_, pred)| pred == outer).cloned();
+            let from_inner = incomings.iter().find(|(_, pred)| pred == inner).cloned();
+            if from_outer.is_none() && from_inner.is_none() {
+                continue;
+            }
+            if let (Some((a, _)), Some((b, _))) = (&from_outer, &from_inner) {
+                // `LlValue` carries no equality; the printed form distinguishes the operands
+                // that matter here (a local by name, a literal by value).
+                if format!("{a:?}") != format!("{b:?}") {
+                    return None;
+                }
+            }
+            let value = from_outer.or(from_inner)?.0;
+            let mut kept: Vec<_> = incomings
+                .into_iter()
+                .filter(|(_, pred)| pred != outer && pred != inner)
+                .collect();
+            kept.push((value, gouter.clone()));
+            shared_rewrites.push((dst, kept));
+        }
+    }
+
+    // `natural` keeps every other predecessor; the edge that came from `inner` now arrives
+    // through `gouter`.
+    let natural_idx = blocks.iter().position(|b| b.name == natural)?;
+    let mut natural_rewrites: Vec<(String, Vec<(crate::native::ir::LlValue, String)>)> = Vec::new();
+    if let Some(carrier) = &blocks[natural_idx].typed {
+        for inst in &carrier.insts {
+            let (Some(dst), Some((_, incomings))) = (inst.result.clone(), inst.phi_incoming.clone())
+            else {
+                continue;
+            };
+            if !incomings.iter().any(|(_, pred)| pred == inner) {
+                continue;
+            }
+            let rebound = incomings
+                .into_iter()
+                .map(|(value, pred)| {
+                    if pred == inner {
+                        (value, gouter.clone())
+                    } else {
+                        (value, pred)
+                    }
+                })
+                .collect();
+            natural_rewrites.push((dst, rebound));
+        }
+    }
+
+    if let Some(carrier) = &mut blocks[shared_idx].typed {
+        for (dst, incomings) in &shared_rewrites {
+            carrier.set_phi_incomings(dst, incomings);
+        }
+    }
+    if let Some(carrier) = &mut blocks[natural_idx].typed {
+        for (dst, incomings) in &natural_rewrites {
+            carrier.set_phi_incomings(dst, incomings);
+        }
+    }
+
+    for block in blocks.iter_mut() {
+        if block.name == outer {
+            if let Some(carrier) = &mut block.typed {
+                carrier.redirect_successor(shared, &ot);
+            }
+        } else if block.name == inner {
+            if let Some(carrier) = &mut block.typed {
+                carrier.redirect_successor(shared, &it);
+                carrier.redirect_successor(natural, &el);
+            }
+        }
+    }
+
+    // `gouter` dominates both `shared` and `natural`, and SPIR-V requires a dominator to
+    // appear first, so the gateway goes in front of whichever of the two comes earlier —
+    // but never in front of the pair it is built from.
+    let inner_at = blocks.iter().position(|b| b.name == inner)?;
+    let shared_at = blocks.iter().position(|b| b.name == shared)?;
+    let at = shared_at.min(natural_idx).max(inner_at + 1);
+    let new_blocks = [
+        (ot.clone(), vec![format!("br label {gouter}")]),
+        (it.clone(), vec![format!("br label {g}")]),
+        (el.clone(), vec![format!("br label {g}")]),
+        (
+            g.clone(),
+            vec![
+                format!("{t} = phi i1 [ true, {it} ], [ false, {el} ]"),
+                format!("br label {gouter}"),
+            ],
+        ),
+        (
+            gouter.clone(),
+            vec![
+                format!("{take} = phi i1 [ true, {ot} ], [ {t}, {g} ]"),
+                format!("br i1 {take}, label {shared}, label {natural}"),
+            ],
+        ),
+    ];
+    for (offset, (name, lines)) in new_blocks.into_iter().enumerate() {
+        let role = role_for_name(&name);
+        blocks.insert(at + offset, synthetic_block(name, lines, role));
+    }
+    Some(gouter)
+}

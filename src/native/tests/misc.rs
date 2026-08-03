@@ -955,3 +955,71 @@ fn native_parser_accepts_byte_string_constant_array() {
         .collect::<Vec<_>>();
     assert_eq!(bytes, [3, 6, 11, 16, 23, 32, 41, 64]);
 }
+
+#[test]
+fn native_short_circuit_selection_pair_structures_without_a_shared_merge() {
+    // `if (c1 || c2) shared else join` puts two selection headers on one reconvergence
+    // point. SPIR-V lets a block be the merge of exactly one header, and no pass-through
+    // inserted in front of the join separates them — each header's arms still meet where
+    // they always did — so the repair used to grow the function without converging and the
+    // module ended up at the relooper. Re-nesting the pair structures it in place.
+    let ll = r#"
+source_filename = "case.metal"
+
+define void @shortcircuit(ptr addrspace(1) noundef align 4 "air-buffer-no-alias" %out, ptr addrspace(2) noundef readonly align 4 "air-buffer-no-alias" %in) local_unnamed_addr #0 {
+entry:
+  %w = load i32, ptr addrspace(2) %in, align 4
+  %c1 = icmp ugt i32 %w, 10
+  %c2 = icmp ugt i32 %w, 20
+  br i1 %c1, label %shared, label %inner
+
+inner:
+  br i1 %c2, label %shared, label %join
+
+shared:
+  %c3 = icmp ugt i32 %w, 30
+  br i1 %c3, label %big, label %small
+
+big:
+  %scaled = mul i32 %w, 4
+  br label %join
+
+small:
+  %halved = lshr i32 %w, 1
+  br label %join
+
+join:
+  %value = phi i32 [ %scaled, %big ], [ %halved, %small ], [ %w, %inner ]
+  store i32 %value, ptr addrspace(1) %out, align 4
+  ret void
+}
+
+attributes #0 = { nounwind }
+
+!air.kernel = !{!0}
+!0 = !{ptr @shortcircuit, !1, !2}
+!1 = !{}
+!2 = !{!3, !4}
+!3 = !{i32 0, !"air.buffer", !"air.buffer_size", i32 4, !"air.location_index", i32 0, i32 1, !"air.write", !"air.address_space", i32 1, !"air.arg_type_size", i32 4, !"air.arg_type_align_size", i32 4, !"air.arg_type_name", !"uint", !"air.arg_name", !"out"}
+!4 = !{i32 1, !"air.buffer", !"air.buffer_size", i32 4, !"air.location_index", i32 1, i32 1, !"air.read", !"air.address_space", i32 2, !"air.arg_type_size", i32 4, !"air.arg_type_align_size", i32 4, !"air.arg_type_name", !"uint", !"air.arg_name", !"in"}
+"#;
+    let tmp = std::env::temp_dir().join(format!(
+        "metal2vulkan_native_short_circuit_{}",
+        std::process::id()
+    ));
+    let _ = std::fs::create_dir_all(&tmp);
+    let spv = crate::translate_sanitized_native(ll, Stage::Kernel, &tmp).expect("translate");
+    let asm = disassemble(&spv).expect("disassemble");
+    // Both headers are structured, each owning its own merge.
+    assert!(
+        asm.matches("OpSelectionMerge").count() >= 2,
+        "short-circuit pair did not structure:\n{asm}"
+    );
+    if std::process::Command::new("spirv-val")
+        .arg("--version")
+        .output()
+        .is_ok()
+    {
+        tools::spirv_val_bytes(&spv, &tmp).expect("spirv-val");
+    }
+}
