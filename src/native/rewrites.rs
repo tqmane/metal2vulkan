@@ -490,6 +490,446 @@ pub(crate) fn drop_workgroup_struct_padding_byte_zero_stores_module(module: &mut
     changed
 }
 
+/// Give a placeholder scalar variable the aggregate type its own access chains
+/// require.
+///
+/// The AIR model can promote a read-only table to a `Private` variable typed as
+/// a byte — `%50 = OpVariable %_ptr_Private_uchar Private %17` with
+/// `%17 = OpConstantNull %uchar` — and then index it as though it were a struct:
+///
+///     %215 = OpInBoundsAccessChain %_ptr_Private_v4float %50 %uint_0 %uint_0
+///     %217 = OpInBoundsAccessChain %_ptr_Private_v4float %50 %uint_0 %uint_1
+///
+/// spirv-val rejects that with "OpInBoundsAccessChain reached non-composite type
+/// while indexes still remain to be traversed", and every translation tier for
+/// CoreImage's separable-Gaussian blur passes fails on exactly this one line.
+///
+/// The shape is recoverable from the chains themselves: each names a constant
+/// index path and the pointee it expects at the end, so the smallest aggregate
+/// satisfying all of them is well determined for every access that exists. Here
+/// that is `struct { struct { v4float, v4float } }`.
+///
+/// Value-preserving, and gated so it stays that way:
+///
+/// * the variable's pointee must NOT already be a composite — the module is
+///   invalid at this variable and nothing valid is being rewritten;
+/// * no store may reach it or any chain on it, so re-typing cannot change what
+///   is read;
+/// * every index must be a constant, since a dynamic one says nothing about the
+///   shape;
+/// * the initializer must be `OpConstantNull`, which becomes a null of the new
+///   type — the reads yielded zero before and yield zero after, except that they
+///   are now defined rather than undefined.
+///
+/// Members no chain names are filled with the same leaf type. That only affects
+/// the layout of a table every element of which is zero.
+pub(crate) fn retype_placeholder_scalar_variables_module(module: &mut Module) -> bool {
+    use std::collections::{BTreeMap, HashMap};
+
+    let mut next_id = module.header.as_ref().map_or(1, |header| header.bound);
+
+    let type_of: HashMap<Word, Instruction> = module
+        .types_global_values
+        .iter()
+        .filter_map(|inst| inst.result_id.map(|id| (id, inst.clone())))
+        .collect();
+    let is_composite = |ty: Word| {
+        type_of.get(&ty).is_some_and(|inst| {
+            matches!(
+                inst.class.opcode,
+                Op::TypeStruct | Op::TypeArray | Op::TypeRuntimeArray | Op::TypeVector | Op::TypeMatrix
+            )
+        })
+    };
+    let constant_value = |id: Word| -> Option<u32> {
+        let inst = type_of.get(&id)?;
+        match inst.class.opcode {
+            Op::Constant => match inst.operands.first()? {
+                Operand::LiteralBit32(v) => Some(*v),
+                _ => None,
+            },
+            Op::ConstantNull => Some(0),
+            _ => None,
+        }
+    };
+
+    // Candidate variables: scalar pointee, null initializer.
+    let mut candidates: HashMap<Word, (StorageClass, Word)> = HashMap::new();
+    for inst in &module.types_global_values {
+        if inst.class.opcode != Op::Variable {
+            continue;
+        }
+        let (Some(rid), Some(ptr_ty)) = (inst.result_id, inst.result_type) else {
+            continue;
+        };
+        let Some(ptr) = type_of.get(&ptr_ty) else {
+            continue;
+        };
+        let (Some(Operand::StorageClass(class)), Some(Operand::IdRef(pointee))) =
+            (ptr.operands.first(), ptr.operands.get(1))
+        else {
+            continue;
+        };
+        if is_composite(*pointee) {
+            continue;
+        }
+        let null_initialized = match inst.operands.get(1) {
+            Some(Operand::IdRef(init)) => {
+                type_of.get(init).is_some_and(|i| i.class.opcode == Op::ConstantNull)
+            }
+            _ => false,
+        };
+        if null_initialized {
+            candidates.insert(rid, (*class, *pointee));
+        }
+    }
+    if candidates.is_empty() {
+        return false;
+    }
+
+    // Every chain rooted at a candidate, plus a veto on anything stored to.
+    let mut chains: HashMap<Word, Vec<(Vec<u32>, Word)>> = HashMap::new();
+    let mut vetoed: HashSet<Word> = HashSet::new();
+    let mut chain_root: HashMap<Word, Word> = HashMap::new();
+    for function in &module.functions {
+        for block in &function.blocks {
+            for inst in &block.instructions {
+                match inst.class.opcode {
+                    Op::AccessChain | Op::InBoundsAccessChain => {
+                        let (Some(rid), Some(rty), Some(Operand::IdRef(base))) =
+                            (inst.result_id, inst.result_type, inst.operands.first())
+                        else {
+                            continue;
+                        };
+                        if !candidates.contains_key(base) {
+                            continue;
+                        }
+                        chain_root.insert(rid, *base);
+                        let mut path = Vec::new();
+                        let mut ok = true;
+                        for operand in &inst.operands[1..] {
+                            match operand {
+                                Operand::IdRef(id) => match constant_value(*id) {
+                                    Some(v) => path.push(v),
+                                    None => ok = false,
+                                },
+                                _ => ok = false,
+                            }
+                        }
+                        let Some(pointee) =
+                            type_of.get(&rty).and_then(|p| match p.operands.get(1) {
+                                Some(Operand::IdRef(id)) => Some(*id),
+                                _ => None,
+                            })
+                        else {
+                            continue;
+                        };
+                        if ok && !path.is_empty() {
+                            chains.entry(*base).or_default().push((path, pointee));
+                        } else {
+                            vetoed.insert(*base);
+                        }
+                    }
+                    Op::Store | Op::CopyMemory => {
+                        if let Some(Operand::IdRef(target)) = inst.operands.first() {
+                            if candidates.contains_key(target) {
+                                vetoed.insert(*target);
+                            }
+                            if let Some(root) = chain_root.get(target) {
+                                vetoed.insert(*root);
+                            }
+                        }
+                    }
+                    _ => {}
+                }
+            }
+        }
+    }
+
+    // Build the smallest aggregate satisfying every chain on one variable.
+    fn build(
+        paths: &[(Vec<u32>, Word)],
+        depth: usize,
+        next_id: &mut Word,
+        minted: &mut Vec<Instruction>,
+    ) -> Option<Word> {
+        // At this depth every path either ends (its pointee is the type here) or
+        // continues into a member.
+        let mut here: Option<Word> = None;
+        let mut members: BTreeMap<u32, Vec<(Vec<u32>, Word)>> = BTreeMap::new();
+        for (path, pointee) in paths {
+            match path.get(depth) {
+                None => match here {
+                    None => here = Some(*pointee),
+                    Some(existing) if existing == *pointee => {}
+                    // Two chains disagree about the type at one place.
+                    Some(_) => return None,
+                },
+                Some(index) => members
+                    .entry(*index)
+                    .or_default()
+                    .push((path.clone(), *pointee)),
+            }
+        }
+        if members.is_empty() {
+            return here;
+        }
+        if here.is_some() {
+            // A path both ends here and continues past here.
+            return None;
+        }
+        let count = members.keys().max().copied()? as usize + 1;
+        let mut member_types = Vec::with_capacity(count);
+        let mut filler: Option<Word> = None;
+        for index in 0..count as u32 {
+            match members.get(&index) {
+                Some(paths) => {
+                    let ty = build(paths, depth + 1, next_id, minted)?;
+                    filler.get_or_insert(ty);
+                    member_types.push(ty);
+                }
+                // A gap no chain names; filled with a neighbour's type so the
+                // struct is well formed. Every element is zero either way.
+                None => member_types.push(0),
+            }
+        }
+        let filler = filler?;
+        for ty in member_types.iter_mut() {
+            if *ty == 0 {
+                *ty = filler;
+            }
+        }
+        let id = *next_id;
+        *next_id += 1;
+        minted.push(Instruction::new(
+            Op::TypeStruct,
+            None,
+            Some(id),
+            member_types.into_iter().map(Operand::IdRef).collect(),
+        ));
+        Some(id)
+    }
+
+    let mut minted: Vec<Instruction> = Vec::new();
+    let mut retyped: HashMap<Word, (Word, Word)> = HashMap::new();
+    for (variable, paths) in &chains {
+        if vetoed.contains(variable) {
+            continue;
+        }
+        let Some((class, _)) = candidates.get(variable).copied() else {
+            continue;
+        };
+        let Some(aggregate) = build(paths, 0, &mut next_id, &mut minted) else {
+            continue;
+        };
+        let pointer = next_id;
+        next_id += 1;
+        minted.push(Instruction::new(
+            Op::TypePointer,
+            None,
+            Some(pointer),
+            vec![Operand::StorageClass(class), Operand::IdRef(aggregate)],
+        ));
+        let null = next_id;
+        next_id += 1;
+        minted.push(Instruction::new(
+            Op::ConstantNull,
+            Some(aggregate),
+            Some(null),
+            Vec::new(),
+        ));
+        retyped.insert(*variable, (pointer, null));
+    }
+    if retyped.is_empty() {
+        return false;
+    }
+
+    module.types_global_values.extend(minted);
+    for inst in module.types_global_values.iter_mut() {
+        let Some(rid) = inst.result_id else { continue };
+        let Some((pointer, null)) = retyped.get(&rid).copied() else {
+            continue;
+        };
+        inst.result_type = Some(pointer);
+        if inst.operands.len() > 1 {
+            inst.operands[1] = Operand::IdRef(null);
+        }
+    }
+    if let Some(header) = module.header.as_mut() {
+        header.bound = next_id;
+    }
+
+    // Minted types are appended, but SPIR-V requires a definition to precede
+    // every use of it and the variables being re-typed sit earlier in the
+    // section. Reorder the whole section so each instruction follows everything
+    // it names — a stable pass that keeps the existing order wherever it already
+    // satisfies that, so a module needing no move comes out byte-identical.
+    let section = std::mem::take(&mut module.types_global_values);
+    let mut defined: HashSet<Word> = HashSet::new();
+    let mut pending: Vec<Instruction> = section;
+    let mut ordered: Vec<Instruction> = Vec::with_capacity(pending.len());
+    while !pending.is_empty() {
+        let mut progressed = false;
+        let mut deferred = Vec::with_capacity(pending.len());
+        for inst in pending {
+            let ready = inst
+                .result_type
+                .map(|ty| defined.contains(&ty))
+                .unwrap_or(true)
+                && inst.operands.iter().all(|operand| match operand {
+                    Operand::IdRef(id) => defined.contains(id),
+                    _ => true,
+                });
+            if ready {
+                if let Some(rid) = inst.result_id {
+                    defined.insert(rid);
+                }
+                ordered.push(inst);
+                progressed = true;
+            } else {
+                deferred.push(inst);
+            }
+        }
+        if !progressed {
+            // A cycle, or a reference outside this section (a forward-declared
+            // function id in an initializer). Emit the rest in their original
+            // order rather than dropping anything.
+            ordered.extend(deferred);
+            break;
+        }
+        pending = deferred;
+    }
+    module.types_global_values = ordered;
+    true
+}
+
+/// Re-type access chains whose result storage class no longer matches their base.
+///
+/// SPIR-V requires the two to agree, and spirv-val says so: "The result pointer
+/// storage class and base pointer storage class in OpInBoundsAccessChain do not
+/// match". They stop agreeing when a base is repaired — forwarding a bundled
+/// value replaces a `UniformConstant` placeholder pointer with the `Private`
+/// variable it actually stood for, and the chain built on it still declares a
+/// `UniformConstant` result:
+///
+///     %214 = OpInBoundsAccessChain %_ptr_UniformConstant_v4float %50 %uint_0 %uint_0
+///
+/// The pointee is right and only the storage class is stale, so the repair is to
+/// re-declare the result as a pointer to the same pointee in the base's class,
+/// reusing an existing type when the module already has one. Runs to a fixed
+/// point, because a re-typed chain can be the base of the next.
+///
+/// Only chains whose classes disagree are touched; a module where they already
+/// agree is returned unchanged.
+pub(crate) fn repair_access_chain_storage_classes_module(module: &mut Module) -> bool {
+    use std::collections::HashMap;
+
+    let mut next_id = module.header.as_ref().map_or(1, |header| header.bound);
+    let mut changed = false;
+
+    for _ in 0..8 {
+        // (storage class, pointee) -> pointer type id, and the reverse.
+        let mut pointer_of: HashMap<(StorageClass, Word), Word> = HashMap::new();
+        let mut pointer_info: HashMap<Word, (StorageClass, Word)> = HashMap::new();
+        for inst in &module.types_global_values {
+            if inst.class.opcode != Op::TypePointer {
+                continue;
+            }
+            let (Some(id), Some(Operand::StorageClass(class)), Some(Operand::IdRef(pointee))) =
+                (inst.result_id, inst.operands.first(), inst.operands.get(1))
+            else {
+                continue;
+            };
+            pointer_of.insert((*class, *pointee), id);
+            pointer_info.insert(id, (*class, *pointee));
+        }
+        let mut result_type: HashMap<Word, Word> = module
+            .types_global_values
+            .iter()
+            .filter_map(|inst| Some((inst.result_id?, inst.result_type?)))
+            .collect();
+        for function in &module.functions {
+            for block in &function.blocks {
+                for inst in &block.instructions {
+                    if let (Some(rid), Some(rty)) = (inst.result_id, inst.result_type) {
+                        result_type.insert(rid, rty);
+                    }
+                }
+            }
+        }
+
+        // What each chain should be re-typed to, decided before anything is
+        // mutated so the scan reads one consistent module.
+        let mut retype: HashMap<Word, (StorageClass, Word)> = HashMap::new();
+        for function in &module.functions {
+            for block in &function.blocks {
+                for inst in &block.instructions {
+                    if !matches!(
+                        inst.class.opcode,
+                        Op::AccessChain | Op::InBoundsAccessChain | Op::PtrAccessChain
+                    ) {
+                        continue;
+                    }
+                    let (Some(rid), Some(rty), Some(Operand::IdRef(base))) =
+                        (inst.result_id, inst.result_type, inst.operands.first())
+                    else {
+                        continue;
+                    };
+                    let (Some((result_class, pointee)), Some(base_ty)) =
+                        (pointer_info.get(&rty).copied(), result_type.get(base))
+                    else {
+                        continue;
+                    };
+                    let Some((base_class, _)) = pointer_info.get(base_ty).copied() else {
+                        continue;
+                    };
+                    if base_class != result_class {
+                        retype.insert(rid, (base_class, pointee));
+                    }
+                }
+            }
+        }
+        if retype.is_empty() {
+            break;
+        }
+
+        // Reuse a matching pointer type where the module has one; mint the rest.
+        let mut minted: Vec<Instruction> = Vec::new();
+        let mut resolved: HashMap<Word, Word> = HashMap::new();
+        for (rid, (class, pointee)) in &retype {
+            let ty = *pointer_of.entry((*class, *pointee)).or_insert_with(|| {
+                let id = next_id;
+                next_id += 1;
+                minted.push(Instruction::new(
+                    Op::TypePointer,
+                    None,
+                    Some(id),
+                    vec![Operand::StorageClass(*class), Operand::IdRef(*pointee)],
+                ));
+                id
+            });
+            resolved.insert(*rid, ty);
+        }
+        module.types_global_values.extend(minted);
+        if let Some(header) = module.header.as_mut() {
+            header.bound = next_id;
+        }
+        for function in module.functions.iter_mut() {
+            for block in function.blocks.iter_mut() {
+                for inst in block.instructions.iter_mut() {
+                    if let Some(rid) = inst.result_id {
+                        if let Some(ty) = resolved.get(&rid) {
+                            inst.result_type = Some(*ty);
+                            changed = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    changed
+}
+
 /// The type of the member `path` reaches inside `composite`, or `None` when the
 /// path leaves a type this walk models.
 ///
@@ -731,10 +1171,23 @@ pub(crate) fn forward_opaque_composite_members_module(module: &mut Module) -> bo
             let Some(value) = resolve(*base, path, &inserts, &phis, 0) else {
                 continue;
             };
-            let resolves_to_handle = result_type
-                .get(&value)
-                .is_some_and(|ty| opaque_types.contains(ty));
-            if resolves_to_handle && value != *rid {
+            // Forwarded whenever the value that was written is typed differently
+            // from the read that takes it back out. That difference IS the
+            // placeholder: the bundle declares every member as a
+            // `UniformConstant` byte pointer, so a handle read reads as a byte
+            // pointer and a `Private` variable read reads as a `UniformConstant`
+            // one. Both are the same defect, and in both the written value is
+            // the real thing the use wants.
+            //
+            // A read that agrees with what was written is left alone — there is
+            // nothing to repair and the composite is expressible as it stands.
+            let read_ty = result_type.get(rid);
+            let value_ty = result_type.get(&value);
+            let placeholder_read = match (read_ty, value_ty) {
+                (Some(read), Some(written)) => read != written,
+                _ => false,
+            };
+            if placeholder_read && value != *rid {
                 replace.insert(*rid, value);
             }
         }
