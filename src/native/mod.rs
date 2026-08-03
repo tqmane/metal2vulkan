@@ -87,7 +87,6 @@ pub(crate) use rewrites::{
 pub(crate) use rewrites::{
     drop_dangling_debug_targets_module, drop_workgroup_struct_padding_byte_zero_stores_module,
     forward_opaque_composite_members_module, repair_access_chain_storage_classes_module,
-    retype_placeholder_scalar_variables_module,
     has_bodiless_agx_call_module, has_cross_binding_pointer_phi_module,
     module_has_wide_raw_store_guard, prune_constant_branches_module,
     prune_constant_branches_module_preserving, reconcile_whole_buffer_scalar_arms_module,

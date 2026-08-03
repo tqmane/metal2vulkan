@@ -628,12 +628,6 @@ fn finish_module(
     // which can leave an access chain built on it declaring the old storage
     // class. Re-type those before validation rather than after.
     native::repair_access_chain_storage_classes_module(&mut out);
-    // A read-only table promoted to a scalar-typed variable is indexed as an
-    // aggregate by its own access chains; give it the shape they require so the
-    // chains are traversable.
-    native::retype_placeholder_scalar_variables_module(&mut out);
-    // Re-typing the variable moves its storage class consumers again.
-    native::repair_access_chain_storage_classes_module(&mut out);
     native::drop_dangling_debug_targets_module(&mut out);
     // M4/Keystone-2: node-split a multi-entry loop whose header is entered from two different
     // selections' arms (the irreducible shape `structured_plan` over-admits — the mlx-steel
