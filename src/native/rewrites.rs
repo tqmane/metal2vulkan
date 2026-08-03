@@ -751,13 +751,34 @@ pub(crate) fn forward_opaque_composite_members_module(module: &mut Module) -> bo
         // away. An unread write has no value to forward to a use, and the only
         // thing it accomplishes is to make the module invalid, so it goes.
         //
-        // Decided by whether any read actually resolved to THIS handle, not by
-        // comparing paths: a path is only meaningful against the composite it
-        // indexes, and an unrelated `OpCompositeExtract %float %vec 0` elsewhere
-        // in the function would otherwise make every `[0, ...]` write look read.
-        // The forwarding above already computed exactly which handles a read
-        // depends on.
-        let forwarded: HashSet<Word> = replace.values().copied().collect();
+        // Decided by reachability, not by whether the forwarding above happened
+        // to succeed.
+        //
+        // `resolve` returns `None` for "cannot tell" as well as for "nothing
+        // there" — a phi whose incomings disagree, a partial write over the
+        // region, a base this walk does not model. Reading that as "no reader"
+        // and deleting the write is unsound, and it is not a theoretical
+        // unsoundness: a handle removed that way leaves the shader sampling an
+        // undefined image, which took the host process down at the dispatch.
+        //
+        // So the question asked is the conservative one: can any read reach this
+        // write at all? Walk back from every extract's base through insert bases
+        // and phi incomings; a write whose result is not in that set has no
+        // reader on any path and only then goes.
+        let mut reachable: HashSet<Word> = HashSet::new();
+        let mut pending: Vec<Word> = flattened.values().map(|(base, _)| *base).collect();
+        while let Some(id) = pending.pop() {
+            if !reachable.insert(id) {
+                continue;
+            }
+            if let Some((object, base, _)) = inserts.get(&id) {
+                pending.push(*base);
+                pending.push(*object);
+            }
+            if let Some(incoming) = phis.get(&id) {
+                pending.extend(incoming.iter().copied());
+            }
+        }
         for (rid, (object, base, _)) in &inserts {
             if replace.contains_key(rid) {
                 continue;
@@ -765,7 +786,7 @@ pub(crate) fn forward_opaque_composite_members_module(module: &mut Module) -> bo
             let writes_handle = result_type
                 .get(object)
                 .is_some_and(|ty| opaque_types.contains(ty));
-            if writes_handle && !forwarded.contains(object) {
+            if writes_handle && !reachable.contains(rid) {
                 replace.insert(*rid, *base);
             }
         }
