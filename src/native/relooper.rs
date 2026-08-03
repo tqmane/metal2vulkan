@@ -419,6 +419,31 @@ fn rewrite_function(function: &mut Function, tc: &mut TypeCtx, max_blocks: usize
                     value_type.insert(rid, rty);
                 }
                 def_block.insert(rid, bi);
+                // Anything whose RESULT TYPE is an opaque handle has to be
+                // rematerialized, whatever produced it: handles have no memory
+                // representation under the Logical addressing model, so the
+                // spill path cannot carry them across case boundaries. Spilling
+                // one produces `OpCompositeInsert <struct> <image> ...`, which
+                // spirv-val rejects with "The Object type (OpTypeImage) does not
+                // match the type that results from indexing into the Composite".
+                //
+                // Driven off the type rather than an opcode list, which is what
+                // let `OpSampledImage` and `OpImage` through: the previous list
+                // named `OpLoad` alone, so an image loaded and then combined with
+                // a sampler — the ordinary shape of any sampling kernel — was
+                // spilled. CoreImage's separable-Gaussian passes
+                // (`ci_asgDownH_affine_nearest`,
+                // `ci_..._asgDownV_nearest`, the backdrop blur behind macOS
+                // vibrancy) all fail exactly there.
+                let opaque_result = matches!(
+                    inst.result_type.and_then(|ty| tc.type_opcode(ty)),
+                    Some(
+                        Op::TypeImage
+                            | Op::TypeSampler
+                            | Op::TypeSampledImage
+                            | Op::TypeAccelerationStructureKHR
+                    )
+                );
                 let rematerializable_shape = matches!(
                     inst.class.opcode,
                     Op::AccessChain
@@ -426,15 +451,10 @@ fn rewrite_function(function: &mut Function, tc: &mut TypeCtx, max_blocks: usize
                         | Op::PtrAccessChain
                         | Op::Select
                         | Op::CopyObject
-                ) || (inst.class.opcode == Op::Load
+                ) || (opaque_result
                     && matches!(
-                        inst.result_type.and_then(|ty| tc.type_opcode(ty)),
-                        Some(
-                            Op::TypeImage
-                                | Op::TypeSampler
-                                | Op::TypeSampledImage
-                                | Op::TypeAccelerationStructureKHR
-                        )
+                        inst.class.opcode,
+                        Op::Load | Op::SampledImage | Op::Image | Op::CopyObject
                     ));
                 if rematerializable_shape {
                     ptr_def.insert(rid, inst.clone());

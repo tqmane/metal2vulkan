@@ -1151,16 +1151,93 @@ fn implicit_entry_block_id(params: &[String], body: &[String]) -> Option<String>
         }
         break; // first real line is an instruction -> implicit entry
     }
-    // Require params to be exactly the unnamed sequence %0..%(n-1) so the entry id is `params.len()`.
-    let mut ids: Vec<u32> = Vec::with_capacity(params.len());
+    // LLVM numbers only the UNNAMED values in a function, so the implicit entry
+    // block's id is one past the highest numbered parameter — and a named
+    // parameter consumes no number at all. Requiring every parameter to be
+    // numeric, as this did, gives up on any callee that mixes the two:
+    //
+    //     params = ["%0", "%1", "%.0.val", "%.16.val", "%2", "%3", "%4", "%5"]
+    //
+    // has numeric ids 0..=5 and an implicit entry of `%6`, but the old check saw
+    // `%.0.val` fail to parse and returned None. The reference then survived
+    // inlining un-renamed and the emitter failed with "unknown block label %6",
+    // which is what stopped every SROA tier on CoreImage's separable-Gaussian
+    // blur passes — `ci_asgDownH_affine_nearest` and its vertical counterpart,
+    // the backdrop blur behind macOS vibrancy — leaving the AIR calling
+    // convention's resource struct un-scalarized and the module invalid.
+    let mut ids: Vec<u32> = Vec::new();
     for p in params {
-        ids.push(p.strip_prefix('%')?.parse::<u32>().ok()?);
+        let bare = p.strip_prefix('%')?;
+        // A named parameter is skipped, not rejected: it takes no number.
+        if let Ok(id) = bare.parse::<u32>() {
+            ids.push(id);
+        }
     }
     ids.sort_unstable();
-    if ids.iter().enumerate().any(|(i, id)| *id != i as u32) {
-        return None; // gapped/named params -> cannot derive the implicit id
+    ids.dedup();
+    // The numbered ones must still form `0..=k` with no gap, or the count says
+    // nothing about where numbering reached.
+    if !ids.is_empty() && ids.iter().enumerate().all(|(i, id)| *id == i as u32) {
+        return Some(ids.len().to_string());
     }
-    Some(params.len().to_string())
+    // Gapped or named parameters, so the entry id cannot be derived by counting
+    // them. Derive it from the body instead: the implicit entry is the one block
+    // a phi names as an incoming predecessor that has no `label:` line of its
+    // own. There is at most one such block, because every other predecessor must
+    // be written down to be branched to.
+    //
+    // Without this the reference survives inlining un-renamed and the emitter
+    // fails with "unknown block label %N" — which is what stopped every SROA
+    // tier on CoreImage's separable-Gaussian blur passes
+    // (`ci_asgDownH_affine_nearest` and its vertical counterpart, the backdrop
+    // blur behind macOS vibrancy), leaving the resource struct un-scalarized and
+    // the module invalid.
+    let mut labelled: HashSet<&str> = HashSet::new();
+    for line in body {
+        if let Some(bare) = block_label_id(line) {
+            labelled.insert(bare);
+        }
+    }
+    let mut candidates: Vec<String> = Vec::new();
+    for line in body {
+        let t = line.trim();
+        if !t.contains(" = phi ") {
+            continue;
+        }
+        for token in phi_incoming_labels(t) {
+            if !labelled.contains(token.as_str()) && !candidates.contains(&token) {
+                candidates.push(token);
+            }
+        }
+    }
+    match candidates.as_slice() {
+        [only] => Some(only.clone()),
+        _ => None,
+    }
+}
+
+/// The block labels a `phi` line names as incoming predecessors, without the
+/// leading `%`. Reads the `[ value, %label ]` pairs positionally rather than by
+/// regex so a bracketed value (a vector or array literal) cannot be mistaken for
+/// a predecessor.
+fn phi_incoming_labels(line: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let mut rest = line;
+    while let Some(open) = rest.find('[') {
+        let after = &rest[open + 1..];
+        let Some(close) = after.find(']') else { break };
+        let inner = &after[..close];
+        if let Some(comma) = inner.rfind(',') {
+            let label = inner[comma + 1..].trim();
+            if let Some(bare) = label.strip_prefix('%') {
+                if !bare.is_empty() && bare.chars().all(is_name_char) {
+                    out.push(bare.to_string());
+                }
+            }
+        }
+        rest = &after[close + 1..];
+    }
+    out
 }
 
 /// The `%name` LHS of a `%name = ...` definition line, else None.

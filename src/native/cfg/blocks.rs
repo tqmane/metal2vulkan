@@ -865,8 +865,21 @@ pub(in crate::native) fn infer_unique_switch_merges(
                 Some((block.name.clone(), merge.clone()))
             })
             .collect();
+        // A loop's merge block is a merge block too, so a selection that
+        // reconverges on one is the same violation. Included by loop header, so
+        // a loop owning its own merge is one claim and not a collision.
+        let loops = infer_loop_merges(blocks);
+        let loop_by_header: HashMap<String, String> = loops
+            .iter()
+            .map(|(header, info)| (header.clone(), info.merge.clone()))
+            .collect();
+        let loop_headers: HashSet<&str> = loops.keys().map(|h| h.as_str()).collect();
         let mut claimants: HashMap<&str, Vec<&str>> = HashMap::new();
-        for (header, merge) in merges.iter().chain(branch_by_header.iter()) {
+        for (header, merge) in merges
+            .iter()
+            .chain(branch_by_header.iter())
+            .chain(loop_by_header.iter())
+        {
             let entry = claimants.entry(merge.as_str()).or_default();
             if !entry.contains(&header.as_str()) {
                 entry.push(header.as_str());
@@ -895,11 +908,23 @@ pub(in crate::native) fn infer_unique_switch_merges(
             // Outermost first: a header another claimant dominates is nested
             // inside it, and the nested one is what moves.
             headers.sort_by(|a, b| {
-                let a_outer = forest.dominates(a, b);
-                let b_outer = forest.dominates(b, a);
-                b_outer.cmp(&a_outer).then_with(|| a.cmp(b))
+                // A loop header keeps its merge unconditionally: the loop's merge
+                // is where its back edge and exits are defined, and moving it
+                // would change the loop, not just the reconvergence. Otherwise
+                // outermost first — a header another claimant dominates is nested
+                // inside it, and the nested one is what moves.
+                let a_loop = loop_headers.contains(a.as_str());
+                let b_loop = loop_headers.contains(b.as_str());
+                b_loop.cmp(&a_loop).then_with(|| {
+                    let a_outer = forest.dominates(a, b);
+                    let b_outer = forest.dominates(b, a);
+                    b_outer.cmp(&a_outer).then_with(|| a.cmp(b))
+                })
             });
             for header in headers.into_iter().skip(1) {
+                if loop_headers.contains(header.as_str()) {
+                    continue;
+                }
                 let synth = if super::structured_emit::block_has_phi(blocks, &merge) {
                     super::structured_emit::synth_unique_selection_merge_phi(
                         blocks,

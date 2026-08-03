@@ -619,6 +619,11 @@ fn finish_module(
     // Logical SPIR-V when rooted at a struct pointer. Drop the provably-padding zero stores before
     // validation so the normal retry cascade only sees semantic failures.
     native::drop_workgroup_struct_padding_byte_zero_stores_module(&mut out);
+    // An opaque handle written into a composite is not expressible in Vulkan
+    // and no retyping makes it so, but the reads of it can be answered from the
+    // value that was written. Runs before validation so the retry cascade only
+    // sees failures that are actually about semantics.
+    native::forward_opaque_composite_members_module(&mut out);
     native::drop_dangling_debug_targets_module(&mut out);
     // M4/Keystone-2: node-split a multi-entry loop whose header is entered from two different
     // selections' arms (the irreducible shape `structured_plan` over-admits — the mlx-steel

@@ -490,6 +490,299 @@ pub(crate) fn drop_workgroup_struct_padding_byte_zero_stores_module(module: &mut
     changed
 }
 
+/// Forward opaque handles out of the composites the AIR calling convention
+/// bundles them into, so no `OpCompositeInsert` ever names one.
+///
+/// Vulkan is explicit that a handle cannot live in a composite —
+/// `VUID-StandaloneSpirv-None-04667`, "OpTypeStruct must not contain an invalid
+/// opaque type" — so the bundle's members are modelled as byte pointers and the
+/// real handle is inserted into them anyway. spirv-val rejects that insert: "The
+/// Object type (OpTypeImage) does not match the type that results from indexing
+/// into the Composite (OpTypePointer)". Retyping the member is not an escape;
+/// the type itself would then be the illegal thing, which a minimal repro
+/// confirms.
+///
+/// The shape is a resource bundle assembled, carried across a branch, and taken
+/// apart again — inserted at depth two, read back at depth one and then one more:
+///
+///     %212 = OpCompositeInsert %bundle %101 %undef 0 0   ; %101 = OpLoad image
+///     %213 = OpCompositeInsert %bundle %99  %212  1 0    ; %99  = OpLoad sampler
+///     %217 = OpPhi %bundle %215 %211
+///     %218 = OpCompositeExtract %wrapper %217 0
+///     %222 = OpCompositeExtract %image %218 0
+///
+/// Every read of an opaque member is resolved back to the value that was written
+/// and replaced with it directly. The insert chain then has no live consumer and
+/// is removed, leaving the byte-pointer members untouched and unread — which is
+/// legal, because the illegal part was only ever the write.
+///
+/// This is what stops CoreImage's separable-Gaussian passes —
+/// `ci_asgDownH_affine_nearest` and its vertical counterpart, the backdrop blur
+/// behind macOS vibrancy — from translating at all.
+///
+/// Deliberately conservative. A read is forwarded only when it resolves to one
+/// value on every path: through a phi all incomings must agree, and a partial
+/// write over the region being read gives up. Only opaque-typed reads are
+/// touched, so a module that already validates is unchanged.
+pub(crate) fn forward_opaque_composite_members_module(module: &mut Module) -> bool {
+    use std::collections::HashMap;
+
+    let opaque_types: HashSet<Word> = module
+        .types_global_values
+        .iter()
+        .filter(|inst| {
+            matches!(
+                inst.class.opcode,
+                Op::TypeImage | Op::TypeSampler | Op::TypeSampledImage
+            )
+        })
+        .filter_map(|inst| inst.result_id)
+        .collect();
+    if opaque_types.is_empty() {
+        return false;
+    }
+
+    /// Resolve `extract(composite, path)` to the single value written there, or
+    /// `None` when no single value answers on every path.
+    fn resolve(
+        composite: Word,
+        path: &[u32],
+        inserts: &HashMap<Word, (Word, Word, Vec<u32>)>,
+        phis: &HashMap<Word, Vec<Word>>,
+        depth: u32,
+    ) -> Option<Word> {
+        if depth > 32 {
+            return None;
+        }
+        if path.is_empty() {
+            return Some(composite);
+        }
+        if let Some((object, base, written)) = inserts.get(&composite) {
+            if written.as_slice() == path {
+                return Some(*object);
+            }
+            if path.starts_with(written.as_slice()) {
+                return resolve(*object, &path[written.len()..], inserts, phis, depth + 1);
+            }
+            if written.starts_with(path) {
+                // A partial write over the region being read: not one value.
+                return None;
+            }
+            return resolve(*base, path, inserts, phis, depth + 1);
+        }
+        if let Some(incoming) = phis.get(&composite) {
+            let mut answer: Option<Word> = None;
+            for value in incoming {
+                let resolved = resolve(*value, path, inserts, phis, depth + 1)?;
+                match answer {
+                    None => answer = Some(resolved),
+                    Some(prev) if prev == resolved => {}
+                    Some(_) => return None,
+                }
+            }
+            return answer;
+        }
+        None
+    }
+
+    let mut changed = false;
+    for function in module.functions.iter_mut() {
+        let mut inserts: HashMap<Word, (Word, Word, Vec<u32>)> = HashMap::new();
+        let mut phis: HashMap<Word, Vec<Word>> = HashMap::new();
+        let mut extracts: HashMap<Word, (Word, Vec<u32>)> = HashMap::new();
+        let mut result_type: HashMap<Word, Word> = HashMap::new();
+
+        for block in &function.blocks {
+            for inst in &block.instructions {
+                let Some(rid) = inst.result_id else { continue };
+                if let Some(rty) = inst.result_type {
+                    result_type.insert(rid, rty);
+                }
+                match inst.class.opcode {
+                    Op::CompositeInsert => {
+                        let (Some(Operand::IdRef(object)), Some(Operand::IdRef(base))) =
+                            (inst.operands.first(), inst.operands.get(1))
+                        else {
+                            continue;
+                        };
+                        let path: Vec<u32> = inst.operands[2..]
+                            .iter()
+                            .filter_map(|op| match op {
+                                Operand::LiteralBit32(v) => Some(*v),
+                                _ => None,
+                            })
+                            .collect();
+                        if path.len() + 2 == inst.operands.len() {
+                            inserts.insert(rid, (*object, *base, path));
+                        }
+                    }
+                    Op::CompositeExtract => {
+                        let Some(Operand::IdRef(base)) = inst.operands.first() else {
+                            continue;
+                        };
+                        let path: Vec<u32> = inst.operands[1..]
+                            .iter()
+                            .filter_map(|op| match op {
+                                Operand::LiteralBit32(v) => Some(*v),
+                                _ => None,
+                            })
+                            .collect();
+                        if path.len() + 1 == inst.operands.len() {
+                            extracts.insert(rid, (*base, path));
+                        }
+                    }
+                    Op::Phi => {
+                        let mut incoming = Vec::new();
+                        let mut k = 0;
+                        while k + 1 < inst.operands.len() {
+                            if let Operand::IdRef(v) = &inst.operands[k] {
+                                incoming.push(*v);
+                            }
+                            k += 2;
+                        }
+                        phis.insert(rid, incoming);
+                    }
+                    _ => {}
+                }
+            }
+        }
+
+        // Extract-of-extract is one read at a joined path, which is how a
+        // two-level bundle is taken apart.
+        let flattened: HashMap<Word, (Word, Vec<u32>)> = extracts
+            .iter()
+            .map(|(rid, (base, path))| {
+                let mut base = *base;
+                let mut path = path.clone();
+                for _ in 0..32 {
+                    let Some((outer_base, outer_path)) = extracts.get(&base) else {
+                        break;
+                    };
+                    let mut combined = outer_path.clone();
+                    combined.extend_from_slice(&path);
+                    base = *outer_base;
+                    path = combined;
+                }
+                (*rid, (base, path))
+            })
+            .collect();
+
+        let mut replace: HashMap<Word, Word> = HashMap::new();
+        for (rid, (base, path)) in &flattened {
+            let opaque_read = result_type
+                .get(rid)
+                .is_some_and(|ty| opaque_types.contains(ty));
+            if !opaque_read {
+                continue;
+            }
+            if let Some(value) = resolve(*base, path, &inserts, &phis, 0) {
+                if value != *rid {
+                    replace.insert(*rid, value);
+                }
+            }
+        }
+
+        // A write with no reader at all.
+        //
+        // When nothing in the function ever reads a handle back out — no
+        // `OpCompositeExtract` anywhere yields an opaque type — the writes into
+        // the bundle are dead, and the only thing they accomplish is to make the
+        // module invalid. The bundle is still assembled and carried; it simply
+        // has nothing in the members Vulkan will not let it hold.
+        //
+        // This is the shape the AIR calling convention leaves behind once its
+        // stitched helpers are inlined: the resources were bundled for a call
+        // that no longer exists. Gated on the whole-function absence of an
+        // opaque read, so a bundle whose handle IS consumed keeps its write and
+        // falls to the established path instead of being silently emptied.
+        let any_opaque_read = flattened.keys().any(|rid| {
+            result_type
+                .get(rid)
+                .is_some_and(|ty| opaque_types.contains(ty))
+        });
+        if !any_opaque_read {
+            for (rid, (object, base, _)) in &inserts {
+                let writes_handle = result_type
+                    .get(object)
+                    .is_some_and(|ty| opaque_types.contains(ty));
+                if writes_handle {
+                    replace.insert(*rid, *base);
+                }
+            }
+        }
+        if replace.is_empty() {
+            continue;
+        }
+
+        // Chained writes replace to each other — dropping `insert(h, %780)` and
+        // `insert(h, %288)` maps 781 to 780 and 780 to 288, and 780 is itself
+        // going away. Fold each entry to its final destination before rewriting,
+        // or the use is left naming a deleted id.
+        let keys: Vec<Word> = replace.keys().copied().collect();
+        for key in keys {
+            let mut value = replace[&key];
+            for _ in 0..64 {
+                match replace.get(&value) {
+                    Some(next) if *next != value => value = *next,
+                    _ => break,
+                }
+            }
+            replace.insert(key, value);
+        }
+
+        for block in function.blocks.iter_mut() {
+            for inst in block.instructions.iter_mut() {
+                for operand in inst.operands.iter_mut() {
+                    if let Operand::IdRef(id) = operand {
+                        if let Some(value) = replace.get(id) {
+                            *operand = Operand::IdRef(*value);
+                            changed = true;
+                        }
+                    }
+                }
+            }
+            block
+                .instructions
+                .retain(|inst| !inst.result_id.is_some_and(|rid| replace.contains_key(&rid)));
+        }
+
+        // The inserts that named a handle now have no consumer. Drop them and
+        // whatever else in the chain went dead with them; bounded rounds, since
+        // each round only removes.
+        for _ in 0..16 {
+            let used: HashSet<Word> = function
+                .blocks
+                .iter()
+                .flat_map(|b| b.instructions.iter())
+                .flat_map(|inst| inst.operands.iter())
+                .filter_map(|op| match op {
+                    Operand::IdRef(id) => Some(*id),
+                    _ => None,
+                })
+                .collect();
+            let mut removed = false;
+            for block in function.blocks.iter_mut() {
+                let before = block.instructions.len();
+                block.instructions.retain(|inst| {
+                    let dead = matches!(
+                        inst.class.opcode,
+                        Op::CompositeInsert | Op::CompositeExtract | Op::Phi
+                    ) && inst.result_id.is_some_and(|rid| !used.contains(&rid));
+                    !dead
+                });
+                if block.instructions.len() != before {
+                    removed = true;
+                    changed = true;
+                }
+            }
+            if !removed {
+                break;
+            }
+        }
+    }
+    changed
+}
+
 /// Remove debug/decorate records whose target id was deleted by a prior module rewrite.
 ///
 /// Rewrites such as constant-branch pruning can delete function-constant helper globals, and a later
