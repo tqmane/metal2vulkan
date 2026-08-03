@@ -306,6 +306,41 @@ pub fn translate_reflected_with_options(
     Ok((spv, reflection))
 }
 
+/// [`translate_reflected_with_options`] with the contract a consumer that
+/// executes the result needs: `Ok` means the bytes passed `spirv-val`.
+///
+/// The cascade's fallthrough is `.unwrap_or(out)` — when no tier validates it
+/// returns the unvalidated primary module rather than an error, and callers that
+/// only inspect or disassemble the output are fine with that. The CLI covers the
+/// gap by validating the result itself before reporting PASS or FALLBACK.
+///
+/// A consumer that hands the bytes to a driver cannot. reims-vgpu takes them
+/// straight to `vkCreateComputePipelines`, where an invalid module is not a
+/// decline but whatever the driver decides to do: on an NVIDIA host it segfaults
+/// inside `nvoglv64.dll` and takes the process with it, with nothing in the
+/// Vulkan validation log because the module never reached a layer that would
+/// have rejected it. Three of forty-three kernels captured from a live macOS
+/// session came back that way.
+///
+/// Kept as a separate entry point rather than folded into
+/// [`translate_reflected_with_options`], because the looser contract is what the
+/// inspection callers and their tests are written against; only the executing
+/// consumer needs this one.
+pub fn translate_reflected_validated(
+    src: &str,
+    stage: passes::Stage,
+    tmp: &Path,
+    options: passes::TransformOptions,
+) -> Result<(Vec<u8>, reflect::ShaderReflection), String> {
+    let (spv, reflection) = translate_reflected_with_options(src, stage, tmp, options)?;
+    match tools::spirv_val_bytes(&spv, tmp) {
+        Ok(()) => Ok((spv, reflection)),
+        Err(error) => Err(format!(
+            "metal2vulkan: no tier produced a valid module; spirv-val: {error}"
+        )),
+    }
+}
+
 /// [`translate_sanitized_native_with_options`] plus the reflection facade. See [`translate_reflected`].
 pub fn translate_sanitized_native_reflected(
     san_ll: &str,
