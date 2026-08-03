@@ -490,6 +490,39 @@ pub(crate) fn drop_workgroup_struct_padding_byte_zero_stores_module(module: &mut
     changed
 }
 
+/// The type of the member `path` reaches inside `composite`, or `None` when the
+/// path leaves a type this walk models.
+///
+/// Only the aggregates a composite insert/extract can index are followed —
+/// struct members by literal index, and the uniform element of an array, vector
+/// or matrix. An index past the end of a struct, or into anything else, gives up
+/// rather than guessing, because the caller uses the answer to decide whether a
+/// write is ill-typed and a wrong answer there would delete a real one.
+fn member_type_at(
+    types: &HashMap<Word, Instruction>,
+    composite: Word,
+    path: &[u32],
+) -> Option<Word> {
+    let mut current = composite;
+    for index in path {
+        let inst = types.get(&current)?;
+        current = match inst.class.opcode {
+            Op::TypeStruct => match inst.operands.get(*index as usize)? {
+                Operand::IdRef(member) => *member,
+                _ => return None,
+            },
+            Op::TypeArray | Op::TypeRuntimeArray | Op::TypeVector | Op::TypeMatrix => {
+                match inst.operands.first()? {
+                    Operand::IdRef(element) => *element,
+                    _ => return None,
+                }
+            }
+            _ => return None,
+        };
+    }
+    Some(current)
+}
+
 /// Forward opaque handles out of the composites the AIR calling convention
 /// bundles them into, so no `OpCompositeInsert` ever names one.
 ///
@@ -585,12 +618,27 @@ pub(crate) fn forward_opaque_composite_members_module(module: &mut Module) -> bo
         None
     }
 
+    // Type declarations, so a write's member type can be checked against what it
+    // stores. Collected once; `module.functions` is borrowed mutably below.
+    let module_types: HashMap<Word, Instruction> = module
+        .types_global_values
+        .iter()
+        .filter_map(|inst| inst.result_id.map(|id| (id, inst.clone())))
+        .collect();
+
     let mut changed = false;
     for function in module.functions.iter_mut() {
         let mut inserts: HashMap<Word, (Word, Word, Vec<u32>)> = HashMap::new();
         let mut phis: HashMap<Word, Vec<Word>> = HashMap::new();
         let mut extracts: HashMap<Word, (Word, Vec<u32>)> = HashMap::new();
-        let mut result_type: HashMap<Word, Word> = HashMap::new();
+        // Seeded with the module scope: a bundle member is often a global
+        // `Private` variable, whose result type lives in `types_global_values`
+        // and not in any block. Without it the ill-typed-write check silently
+        // skips exactly the writes it exists to find.
+        let mut result_type: HashMap<Word, Word> = module_types
+            .values()
+            .filter_map(|inst| Some((inst.result_id?, inst.result_type?)))
+            .collect();
 
         for block in &function.blocks {
             for inst in &block.instructions {
@@ -669,45 +717,56 @@ pub(crate) fn forward_opaque_composite_members_module(module: &mut Module) -> bo
 
         let mut replace: HashMap<Word, Word> = HashMap::new();
         for (rid, (base, path)) in &flattened {
-            let opaque_read = result_type
-                .get(rid)
-                .is_some_and(|ty| opaque_types.contains(ty));
-            if !opaque_read {
+            // Keyed on what the read RESOLVES to, not on how the read is typed.
+            // The bundle's members are declared as `UniformConstant` byte
+            // pointers, so the read of a handle is declared that way too:
+            //
+            //     %255 = OpCompositeExtract %_ptr_UniformConstant_uchar %216 0
+            //     %257 = OpSampledImage %86 %255 %256
+            //
+            // — a byte pointer handed straight to `OpSampledImage` as its image.
+            // Testing the read's own type would miss every one of these, which is
+            // the whole class. The written value is the real handle, and putting
+            // it at the use makes both the use and the module well-typed.
+            let Some(value) = resolve(*base, path, &inserts, &phis, 0) else {
                 continue;
-            }
-            if let Some(value) = resolve(*base, path, &inserts, &phis, 0) {
-                if value != *rid {
-                    replace.insert(*rid, value);
-                }
+            };
+            let resolves_to_handle = result_type
+                .get(&value)
+                .is_some_and(|ty| opaque_types.contains(ty));
+            if resolves_to_handle && value != *rid {
+                replace.insert(*rid, value);
             }
         }
+        if replace.is_empty() && inserts.is_empty() {
+            continue;
+        }
 
-        // A write with no reader at all.
+        // A handle written where nothing reads it.
         //
-        // When nothing in the function ever reads a handle back out — no
-        // `OpCompositeExtract` anywhere yields an opaque type — the writes into
-        // the bundle are dead, and the only thing they accomplish is to make the
-        // module invalid. The bundle is still assembled and carried; it simply
-        // has nothing in the members Vulkan will not let it hold.
+        // The same bundle appears in two shapes depending on which tier produced
+        // the module: in one the handle's slot is read back and handed to
+        // `OpSampledImage` — forwarded above — and in the other nothing reads it
+        // at all, because the call the bundle was assembled for has been inlined
+        // away. An unread write has no value to forward to a use, and the only
+        // thing it accomplishes is to make the module invalid, so it goes.
         //
-        // This is the shape the AIR calling convention leaves behind once its
-        // stitched helpers are inlined: the resources were bundled for a call
-        // that no longer exists. Gated on the whole-function absence of an
-        // opaque read, so a bundle whose handle IS consumed keeps its write and
-        // falls to the established path instead of being silently emptied.
-        let any_opaque_read = flattened.keys().any(|rid| {
-            result_type
-                .get(rid)
-                .is_some_and(|ty| opaque_types.contains(ty))
-        });
-        if !any_opaque_read {
-            for (rid, (object, base, _)) in &inserts {
-                let writes_handle = result_type
-                    .get(object)
-                    .is_some_and(|ty| opaque_types.contains(ty));
-                if writes_handle {
-                    replace.insert(*rid, *base);
-                }
+        // Decided by whether any read actually resolved to THIS handle, not by
+        // comparing paths: a path is only meaningful against the composite it
+        // indexes, and an unrelated `OpCompositeExtract %float %vec 0` elsewhere
+        // in the function would otherwise make every `[0, ...]` write look read.
+        // The forwarding above already computed exactly which handles a read
+        // depends on.
+        let forwarded: HashSet<Word> = replace.values().copied().collect();
+        for (rid, (object, base, _)) in &inserts {
+            if replace.contains_key(rid) {
+                continue;
+            }
+            let writes_handle = result_type
+                .get(object)
+                .is_some_and(|ty| opaque_types.contains(ty));
+            if writes_handle && !forwarded.contains(object) {
+                replace.insert(*rid, *base);
             }
         }
         if replace.is_empty() {

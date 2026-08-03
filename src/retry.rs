@@ -269,6 +269,17 @@ impl<'a> RetryCtx<'a> {
                 true
             }
             Err(e) => {
+                // `METAL2VULKAN_DUMP_INVALID=<dir>` writes the rejected bytes
+                // per tier. spirv-val names an instruction by SPIR-V id, which
+                // cannot be mapped back to the source without the module the ids
+                // belong to; this is how a failing tier is disassembled.
+                if let Ok(dir) = std::env::var("METAL2VULKAN_DUMP_INVALID") {
+                    let safe: String = name
+                        .chars()
+                        .map(|c| if c.is_alphanumeric() { c } else { '_' })
+                        .collect();
+                    let _ = std::fs::write(format!("{dir}/invalid-{safe}.spv"), bytes);
+                }
                 if self.retry_debug_on {
                     let head: Vec<&str> = e.lines().take(4).collect();
                     eprintln!(
