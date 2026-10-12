@@ -273,8 +273,8 @@ impl Device {
     /// TTG-nil10-m4); `Private` or `Memoryless` storage, as Metal stops them, and an undefined
     /// option (`Invalid`); a device
     /// without `VK_EXT_external_memory_host` (`Unsupported`, naming it); memory this device
-    /// cannot import exactly (`Unsupported`, `HostMemory`), among it on Linux a page this process
-    /// cannot write ([`HostMemory::new`]); pages past the device's allocation size
+    /// cannot import exactly (`Unsupported`, `HostMemory`), among it on Linux and Windows a page
+    /// this process cannot write ([`HostMemory::new`]); pages past the device's allocation size
     /// (`OutOfMemory`). Pages not mapped, or mapped without access, which Metal makes no buffer
     /// over (nil), are refused here too, typed as the check or the import answers, though such
     /// memory breaks [`HostMemory::new`]'s contract.

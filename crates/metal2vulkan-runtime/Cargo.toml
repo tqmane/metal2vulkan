@@ -54,8 +54,7 @@ metal2vulkan = { version = "0.2.0", path = "../metal2vulkan", features = ["ash"]
 # `ash/loaded` opens the Vulkan loader with `dlopen` when a device is created; nothing is linked at
 # build time.
 ash = { workspace = true, features = ["std", "loaded"] }
-# No-copy buffers take the host's page size on unix; elsewhere they are
-# refused typed. It also registers the exit guard's exit handler on unix.
+# Unix's host page size, and the exit guard's C exit handler on Unix and Windows.
 libc.workspace = true
 # The shader cache's entry names and the binary archive's keys.
 sha2.workspace = true

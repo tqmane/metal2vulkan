@@ -111,6 +111,10 @@
 //! - **Forks.** The hook acts only in the process it was registered in: a child forked without
 //!   exec, which has none of its parent's threads, runs it as a no-op, and registers its own with
 //!   its first device.
+//! - **Windows.** The same hook is registered through the linked CRT's `atexit`, covering normal
+//!   CRT exit and return from `main`. GNU Rust 1.98.1's `std::process::exit` bypasses those handlers,
+//!   as do direct `ExitProcess` and forced termination. DLL unload under the loader lock is not
+//!   supported: this hook requires the runtime's threads and driver entry points to remain live.
 
 use super::loaded;
 use std::cell::Cell;
@@ -982,8 +986,9 @@ fn register_again() {
     }
 }
 
-/// Register [`on_exit`] with the C library's exit handlers.
-#[cfg(unix)]
+/// Register [`on_exit`] with the C library's exit handlers. On Windows this covers CRT exit,
+/// not ExitProcess or a DLL unloaded under the loader lock.
+#[cfg(any(unix, windows))]
 fn install() {
     INSTALLED.fetch_add(1, Ordering::Relaxed);
     // SAFETY: `on_exit` is a function with no arguments that never unwinds. Registration fails
@@ -991,12 +996,12 @@ fn install() {
     unsafe { libc::atexit(on_exit) };
 }
 
-/// Nothing to register: the runtime is built for unix hosts, whose exit order the hook relies on.
-#[cfg(not(unix))]
+/// Nothing to register on hosts without a supported C exit handler.
+#[cfg(not(any(unix, windows)))]
 fn install() {}
 
 /// The exit handler.
-#[cfg(unix)]
+#[cfg(any(unix, windows))]
 extern "C" fn on_exit() {
     hook(
         &GUARD,

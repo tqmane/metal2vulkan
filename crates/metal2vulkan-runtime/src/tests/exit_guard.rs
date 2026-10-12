@@ -18,6 +18,69 @@ fn none_in_process() -> InProcessDevices {
     InProcessDevices::new()
 }
 
+/// The Windows CRT calls the registered guard before older handlers, while other threads can
+/// still finish their sections. Windows' Rust process::exit bypasses the CRT handlers.
+#[cfg(windows)]
+#[test]
+fn windows_crt_exit_closes_the_guard_and_drains_sections() {
+    const CHILD: &str = "M2V_WINDOWS_CRT_EXIT_CHILD";
+    if let Some(mode) = std::env::var_os(CHILD) {
+        static ENDED: AtomicBool = AtomicBool::new(false);
+        extern "C" fn observed() {
+            if !exit_guard::closed() || !ENDED.load(Ordering::SeqCst) {
+                // SAFETY: the child reports a failed exit observation without unwinding.
+                unsafe { libc::_exit(3) };
+            }
+            // SAFETY: the observer, rather than a skipped handler, reports success.
+            unsafe { libc::_exit(42) };
+        }
+        exit_guard::register();
+        // SAFETY: the handler has C's signature and never unwinds.
+        assert_eq!(unsafe { libc::atexit(observed) }, 0);
+        let before = exit_guard::sections();
+        {
+            let _busy = exit_guard::enter().unwrap();
+            exit_guard::called(Call::ALL[0]);
+        }
+        assert!(exit_guard::was_called(Call::ALL[0]));
+        assert!(exit_guard::sections() > before);
+        let (ready, entered) = mpsc::channel();
+        std::thread::spawn(move || {
+            let busy = exit_guard::enter().unwrap();
+            ready.send(()).unwrap();
+            while !exit_guard::closed() {
+                std::thread::yield_now();
+            }
+            ENDED.store(true, Ordering::SeqCst);
+            drop(busy);
+        });
+        entered.recv().unwrap();
+        assert!(exit_guard::registrations().total > 0);
+        if mode == "return" {
+            return;
+        }
+        if mode == "rust" {
+            std::process::exit(0);
+        }
+        // SAFETY: ends only this test's child, running its CRT exit handlers.
+        unsafe { libc::exit(0) };
+    }
+    for mode in ["crt", "return", "rust"] {
+        let output = std::process::Command::new(std::env::current_exe().unwrap())
+            .args([
+                "--exact",
+                "tests::exit_guard::windows_crt_exit_closes_the_guard_and_drains_sections",
+                "--nocapture",
+            ])
+            .env(CHILD, mode)
+            .output()
+            .unwrap();
+        eprintln!("Windows exit {mode}: {output:?}");
+        let observed = if mode == "rust" { 0 } else { 42 };
+        assert_eq!(output.status.code(), Some(observed), "{mode}: {output:?}");
+    }
+}
+
 #[test]
 fn sections_start_until_the_guard_closes_and_never_after() {
     let guard = guard();

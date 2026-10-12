@@ -3,7 +3,7 @@
 //! domain a calibration reads; the extension's preferred form; and the device's timestamp pools,
 //! their slots held by the command buffers in flight, made as those need them up to the most.
 
-use crate::gpu_time::{host_domain, host_time, Extension, GpuClock, Pair, Pool, Pools, SLOTS};
+use crate::gpu_time::{host_time, Extension, GpuClock, Pair, Pool, Pools, SLOTS};
 use ash::vk;
 use std::collections::BTreeSet;
 use std::ffi::CString;
@@ -71,6 +71,7 @@ fn a_span_is_placed_by_the_pair_or_ends_at_the_completion() {
 #[cfg(unix)]
 #[test]
 fn calibration_reads_the_devices_domain_and_a_monotonic_host_one() {
+    use crate::gpu_time::host_domain;
     use vk::TimeDomainKHR as D;
     // `TimeDomainKHR` has no `Debug` without ash's `debug` feature: compared, not printed.
     let chosen = |offered: &[D]| host_domain(offered);

@@ -20,7 +20,7 @@
 //!   alignment above the host page whose rounding would take pages the range does not touch, an
 //!   offset in the pages that misses the buffer's memory alignment, no memory type both allow, or
 //!   a driver that refuses the pointer.
-//! - **Pages the process cannot write** are refused typed on Linux, before the import
+//! - **Pages the process cannot write** are refused typed on Linux and Windows, before the import
 //!   ([`refuse_unwritable`] asks the kernel for the process's own mappings over the window, with
 //!   `PROCMAP_QUERY` on `/proc/self/maps`, or reads that file's lines where the kernel predates
 //!   the query, Linux 6.11). Linux drivers pin
@@ -28,6 +28,12 @@
 //!   it, and ANV imported it and lost the device at the GPU's first read. lavapipe read one, so
 //!   there the rule refuses a little more than the driver would. On macOS, MoltenVK hands the
 //!   range to Metal, which reads read-only pages, so there is no check.
+//!   Windows queries each region with `VirtualQuery`, refusing uncommitted, read-only, no-access
+//!   and guarded pages. Measured on an RTX 4070 SUPER, Windows NVIDIA 616.56: host pages and import
+//!   alignment are both 4096 bytes; private pages, writable shared sections and reversed 4 KiB
+//!   section views through `MapViewOfFile3` import and read/write through GPU blits. A read-only
+//!   view of the same section was refused by the driver as out of device memory. The runtime
+//!   refuses it as host memory instead; a consumer can supply a writable alias of its pages.
 //! - **What drivers answered**. Private anonymous memory was imported on every venue measured. RADV
 //!   refused shared memory (anonymous shared, or a mapping of a shared memory object) typed: Mesa
 //!   26.2.4 answers `VK_ERROR_INVALID_EXTERNAL_HANDLE`, 26.0.8 `VK_ERROR_UNKNOWN`, and both are
@@ -68,6 +74,9 @@ use std::ffi::c_void;
 use std::ptr::NonNull;
 use std::sync::Mutex;
 
+#[cfg(windows)]
+mod windows;
+
 /// Host memory a buffer wraps without a copy: a pointer whose bytes the caller vouches for (the
 /// `pointer` of `newBufferWithBytesNoCopy:length:options:deallocator:`).
 #[derive(Debug)]
@@ -97,10 +106,10 @@ impl HostMemory {
     /// Reading or writing them through the pointer while the GPU writes them is a data race, as
     /// Metal's `contents` is.
     ///
-    /// On Linux a buffer over a page this process maps without write permission is refused
-    /// (`Unsupported`, `HostMemory`), though Metal reads such pages: Linux drivers pin imported
-    /// pages for writing, and one (ANV) imported a read-only page and then lost the device at the
-    /// GPU's first read. Some drivers also refuse shared memory (RADV refused anonymous shared
+    /// On Linux and Windows a buffer over a page this process maps without write permission is
+    /// refused (`Unsupported`, `HostMemory`), though Metal reads such pages: Linux drivers pin
+    /// imported pages for writing, and one (ANV) imported a read-only page and then lost the device
+    /// at the GPU's first read. Some drivers also refuse shared memory (RADV refused anonymous shared
     /// memory and mappings of shared memory objects); private memory imports everywhere measured.
     pub unsafe fn new(pointer: NonNull<u8>) -> HostMemory {
         HostMemory(pointer)
@@ -244,8 +253,14 @@ pub(super) fn host_page() -> Option<u64> {
     u64::try_from(page).ok().filter(|&page| page > 0)
 }
 
+/// Windows' page size, not its allocation granularity (`GetSystemInfo`).
+#[cfg(windows)]
+pub(super) fn host_page() -> Option<u64> {
+    windows::host_page()
+}
+
 /// The host's page size, where the runtime knows how to ask for it: not on this system.
-#[cfg(not(unix))]
+#[cfg(not(any(unix, windows)))]
 pub(super) fn host_page() -> Option<u64> {
     None
 }
@@ -369,9 +384,19 @@ pub(super) fn queried_writable(maps: &std::fs::File, start: u64, end: u64) -> Op
     Some(true)
 }
 
-/// Refuse the window's pages unless the process can write them: no check off Linux (MoltenVK
-/// hands the range to Metal, which reads read-only pages).
-#[cfg(not(target_os = "linux"))]
+/// Refuse Windows pages the process cannot write before asking the driver to import them:
+/// NVIDIA's Windows driver refuses read-only section views as out of device memory.
+#[cfg(windows)]
+pub(super) fn refuse_unwritable(window: &ImportWindow) -> Result<(), Error> {
+    if windows::writable(window.start, window.size) {
+        Ok(())
+    } else {
+        Err(not_importable())
+    }
+}
+
+/// No check on other hosts (MoltenVK hands the range to Metal, which reads read-only pages).
+#[cfg(not(any(target_os = "linux", windows)))]
 pub(super) fn refuse_unwritable(_window: &ImportWindow) -> Result<(), Error> {
     Ok(())
 }

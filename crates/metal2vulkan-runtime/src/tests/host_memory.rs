@@ -211,7 +211,16 @@ fn the_host_page_is_known_on_unix() {
     assert!(page.is_power_of_two() && page >= 4096, "{page}");
 }
 
-#[cfg(not(unix))]
+#[cfg(windows)]
+#[test]
+fn the_host_page_is_known_on_windows() {
+    let page = host_page().unwrap();
+    assert!(page.is_power_of_two() && page >= 4096, "{page}");
+    #[cfg(target_arch = "x86_64")]
+    assert_eq!(page, 4096);
+}
+
+#[cfg(not(any(unix, windows)))]
 #[test]
 fn the_host_page_is_unknown_elsewhere() {
     assert_eq!(host_page(), None);

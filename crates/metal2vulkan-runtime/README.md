@@ -179,10 +179,15 @@ the runtime made.
   `Error::PlacementConflict`.
 - **Host memory without a copy.** `unsafe Device::new_buffer_with_bytes_no_copy` imports host
   memory through `VK_EXT_external_memory_host`; memory the device cannot import exactly is refused.
+  Windows reads the host page size with `GetSystemInfo` and checks every import region with
+  `VirtualQuery`. Uncommitted, guarded or nonwritable pages are refused as `Unsupported(HostMemory)`;
+  give a read-only mapping a writable alias when its GPU reads need an import. The device still
+  decides the extension, import alignment, importable buffer usages and coherent memory types.
   `unsafe Device::new_heap_with_bytes_no_copy` is its heap twin. `Buffer::rebind_bytes_no_copy`
   and `Heap::rebind_bytes_no_copy` move either to another range, keeping the objects, addresses and
   IDs. `CommandBuffer::used_resources` lists what a command buffer uses until it completes, so a
   program knows when it may take memory away.
+
 - **Hazards** are tracked as Metal tracks them. A heap's resources are untracked by default, so
   encoders that share them order themselves with fences. Commands that reach a resource through an
   address or ID in memory need it resident (`use_resource`, `use_heap`), as on Metal. The runtime
@@ -194,6 +199,13 @@ the runtime made.
   program; no order of either changes a result.
 - **Textures over buffers** share the buffer's bytes; where the device's linear images cannot hold
   Metal's layout the runtime keeps a copy and announces it (`shadowed-texture`).
+
+On Windows the shutdown guard runs through the linked CRT's `atexit`, before older handlers:
+normal CRT exit and return from `main` close the guard and let active sections finish. GNU Rust
+1.98.1's `std::process::exit`, direct `ExitProcess` and forced termination bypass it. Unloading
+the runtime from a DLL under the loader lock is unsupported, and exit through a different CRT
+has not been verified. The guard does not wait for a physical GPU or free imported pages at exit;
+the OS reclaims them with the process, as on the other supported hosts.
 
 ## Runtime extensions
 

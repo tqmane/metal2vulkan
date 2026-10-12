@@ -223,41 +223,45 @@ fn a_kind_at_every_occurrence_is_announced_in_the_program_s_call_or_a_host_step(
 /// thread.
 #[test]
 fn an_announcement_breaking_d625_item_11_ends_the_process_where_debug_assertions_are_on() {
-    use crate::degradation::{announcement_breach, check_announcement, Degradation, NoticePlace};
+    use crate::degradation::{announcement_breach, NoticePlace};
     use crate::exit_guard::spawn;
     use crate::pipeline::pool::{Joined, Pool};
-    // First, before this process starts a thread: a child whose one piece, run on its own
-    // thread as the joined set's first, announces.
-    // SAFETY: the child runs a piece on its only thread (the joined set's first piece runs on
-    // the caller's), writes a line and aborts, or exits at once.
-    let child = unsafe { libc::fork() };
-    if child == 0 {
-        let pieces: Vec<Joined<()>> = vec![Box::new(|| {
-            let place = check_announcement(Degradation::EncodedUseRebound, false);
-            if place != Some(NoticePlace::PipelinePoolPiece) {
-                // SAFETY: ends the child at once, telling the parent the answer was wrong.
-                unsafe { libc::_exit(3) };
-            }
-        })];
-        drop(Pool::default().join_all(pieces, true, |_, _| {}));
-        // SAFETY: ends the child at once; the check did not end it.
-        unsafe { libc::_exit(0) };
-    }
-    assert!(child > 0, "fork");
-    let mut status = 0;
-    // SAFETY: `child` is this process's child.
-    let reaped = unsafe { libc::waitpid(child, &mut status, 0) };
-    assert_eq!(reaped, child);
-    if cfg!(debug_assertions) {
-        assert!(
-            libc::WIFSIGNALED(status) && libc::WTERMSIG(status) == libc::SIGABRT,
-            "the child announcing inside a piece was not aborted: {status}"
-        );
-    } else {
-        assert!(
+    #[cfg(unix)]
+    {
+        use crate::degradation::{check_announcement, Degradation};
+        // First, before this process starts a thread: a child whose one piece, run on its own
+        // thread as the joined set's first, announces.
+        // SAFETY: the child runs a piece on its only thread (the joined set's first piece runs on
+        // the caller's), writes a line and aborts, or exits at once.
+        let child = unsafe { libc::fork() };
+        if child == 0 {
+            let pieces: Vec<Joined<()>> = vec![Box::new(|| {
+                let place = check_announcement(Degradation::EncodedUseRebound, false);
+                if place != Some(NoticePlace::PipelinePoolPiece) {
+                    // SAFETY: ends the child at once, telling the parent the answer was wrong.
+                    unsafe { libc::_exit(3) };
+                }
+            })];
+            drop(Pool::default().join_all(pieces, true, |_, _| {}));
+            // SAFETY: ends the child at once; the check did not end it.
+            unsafe { libc::_exit(0) };
+        }
+        assert!(child > 0, "fork");
+        let mut status = 0;
+        // SAFETY: `child` is this process's child.
+        let reaped = unsafe { libc::waitpid(child, &mut status, 0) };
+        assert_eq!(reaped, child);
+        if cfg!(debug_assertions) {
+            assert!(
+                libc::WIFSIGNALED(status) && libc::WTERMSIG(status) == libc::SIGABRT,
+                "the child announcing inside a piece was not aborted: {status}"
+            );
+        } else {
+            assert!(
             libc::WIFEXITED(status) && libc::WEXITSTATUS(status) == 0,
             "the child announcing inside a piece did not go on, answered as misplaced: {status}"
         );
+        }
     }
     // The program's thread keeps the rule.
     assert_eq!(
