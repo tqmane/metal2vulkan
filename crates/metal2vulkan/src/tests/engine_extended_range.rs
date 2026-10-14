@@ -79,10 +79,9 @@ const FORMS: [ExtendedRange; 6] = [
 fn assemble(name: &str, body: &str) -> Option<Vec<u8>> {
     static NEXT: AtomicU64 = AtomicU64::new(0);
     let dir = std::env::temp_dir().join(format!(
-        "m2v-extended-range-{}-{}-{}",
+        "m2v-extended-range-{}-{}",
         std::process::id(),
-        NEXT.fetch_add(1, Ordering::Relaxed),
-        name.replace(' ', "-")
+        NEXT.fetch_add(1, Ordering::Relaxed)
     ));
     std::fs::create_dir_all(&dir).expect("scratch");
     let ll = dir.join("k.ll");

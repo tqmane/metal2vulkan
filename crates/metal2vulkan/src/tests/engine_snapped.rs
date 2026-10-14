@@ -36,10 +36,9 @@ const HEADER: &str = "target datalayout = \"e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16
 fn assemble(name: &str, body: &str) -> Option<Vec<u8>> {
     static NEXT: AtomicU64 = AtomicU64::new(0);
     let dir = std::env::temp_dir().join(format!(
-        "m2v-snapped-{}-{}-{}",
+        "m2v-snapped-{}-{}",
         std::process::id(),
-        NEXT.fetch_add(1, Ordering::Relaxed),
-        name.replace(' ', "-")
+        NEXT.fetch_add(1, Ordering::Relaxed)
     ));
     std::fs::create_dir_all(&dir).expect("scratch");
     let ll = dir.join("k.ll");
