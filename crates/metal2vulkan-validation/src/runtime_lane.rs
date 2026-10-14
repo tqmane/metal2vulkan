@@ -231,6 +231,8 @@ mod device_lockstep;
 mod discard_counts;
 #[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]
 mod discard_hoist;
+#[cfg(all(test, any(m2v_gpu, m2v_cpu_icd), target_os = "linux"))]
+mod dma_buf_imports;
 #[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]
 mod dont_care_stores;
 #[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]
@@ -336,6 +338,8 @@ mod helper_tangle;
 mod hidden_depth;
 #[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]
 mod host_bytes;
+#[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]
+mod host_copied_textures;
 #[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]
 mod host_memory;
 #[cfg(all(test, any(m2v_gpu, m2v_cpu_icd)))]

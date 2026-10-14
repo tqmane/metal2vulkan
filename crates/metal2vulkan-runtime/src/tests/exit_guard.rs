@@ -694,7 +694,7 @@ fn runtime_sources() -> Vec<(String, String)> {
                 .strip_prefix(root)
                 .unwrap()
                 .to_string_lossy()
-                .into_owned();
+                .replace('\\', "/");
             if path.is_dir() {
                 if relative != "tests" {
                     walk(&path, root, out);

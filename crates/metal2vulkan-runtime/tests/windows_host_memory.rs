@@ -42,7 +42,12 @@ fn round_trip(device: &Device, at: NonNull<u8>, observed: NonNull<u8>, writable:
     // SAFETY: the test owns committed pages until every resource below is released; the GPU
     // writes only the writable view, and the CPU reads only after completion.
     let imported = unsafe {
-        device.new_buffer_with_bytes_no_copy(at, BYTES as u64, ResourceOptions::shared(), None)
+        device.new_buffer_with_bytes_no_copy(
+            metal2vulkan_runtime::HostMemory::new(at),
+            BYTES as u64,
+            ResourceOptions::shared(),
+            None,
+        )
     };
     let buffer = match imported {
         Ok(buffer) => buffer,

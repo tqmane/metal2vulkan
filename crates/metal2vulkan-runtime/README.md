@@ -178,14 +178,17 @@ the runtime made.
   `IdPlacement`, `Device::reserve_resource_ids`); a pin the space cannot honour is
   `Error::PlacementConflict`.
 - **Host memory without a copy.** `unsafe Device::new_buffer_with_bytes_no_copy` imports host
-  memory through `VK_EXT_external_memory_host`; memory the device cannot import exactly is refused.
+  memory, given as a `HostMemory`, through `VK_EXT_external_memory_host`; memory the device cannot
+  import exactly is refused. `unsafe Device::new_heap_with_bytes_no_copy` is its heap twin.
+  `Buffer::rebind_bytes_no_copy` and `Heap::rebind_bytes_no_copy` move either to another range,
+  keeping the objects, addresses and IDs. Where a driver refuses the pointer (RADV refuses shared
+  mappings, a `memfd`'s among them), memory made with `HostMemory::with_dma_buf` is imported from
+  dma-bufs of its pages instead ([HOWTO](../../docs/HOWTO.md#6-host-memory-a-driver-refuses)).
   Windows reads the host page size with `GetSystemInfo` and checks every import region with
   `VirtualQuery`. Uncommitted, guarded or nonwritable pages are refused as `Unsupported(HostMemory)`;
   give a read-only mapping a writable alias when its GPU reads need an import. The device still
   decides the extension, import alignment, importable buffer usages and coherent memory types.
-  `unsafe Device::new_heap_with_bytes_no_copy` is its heap twin. `Buffer::rebind_bytes_no_copy`
-  and `Heap::rebind_bytes_no_copy` move either to another range, keeping the objects, addresses and
-  IDs. `CommandBuffer::used_resources` lists what a command buffer uses until it completes, so a
+  `CommandBuffer::used_resources` lists what a command buffer uses until it completes, so a
   program knows when it may take memory away.
 
 - **Hazards** are tracked as Metal tracks them. A heap's resources are untracked by default, so
@@ -224,6 +227,8 @@ Calls Metal does not have, for a consumer that emulates a Metal device:
   its sampler's.
 - Resource ID reservations, placements and counts (`Device::reserve_resource_ids`,
   `IdPlacement`, `Device::sampler_ids_live`), and the private getters of indirect commands.
+- `HostMemory::with_dma_buf` and its `DmaBufSource`: dma-bufs of a no-copy object's pages, for a
+  device that refuses their pointer.
 
 [docs/API.md section 10](../../docs/API.md#10-accepted-differences) lists where the runtime
 answers otherwise than Metal on purpose.

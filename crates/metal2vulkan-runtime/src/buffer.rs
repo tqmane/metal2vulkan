@@ -31,7 +31,7 @@ use super::generated_commands::PREPROCESS_BUFFER;
 use super::heap::{Heap, HeapType};
 use super::host_aliases::Alias;
 use super::host_memory::{KeepAlive, Release};
-use super::memory::{MemoryClass, Placement};
+use super::memory::{MemoryClass, Placement, BLOCK_BYTES};
 use super::rebind::Unexact;
 use super::resource::{Identity, ObjectId, ResourceKey};
 use super::texture::first_move::Filled;
@@ -266,6 +266,8 @@ pub(super) struct Detached {
     /// The index of the memory type of the pages it was detached from: a texture made over the
     /// bytes meanwhile takes the route it would over them (`texture/heap.rs`).
     type_index: u32,
+    /// Whether the pages it was detached from were imported as dma-bufs, for the same.
+    over_dma_buf: bool,
 }
 
 impl Detached {
@@ -301,6 +303,7 @@ impl Detached {
             _stand_in: stand_in,
             pages,
             type_index: from.type_index(),
+            over_dma_buf: from.over_dma_buf(),
         })
     }
 }
@@ -506,6 +509,23 @@ impl HostPages {
         self.import.pages.memory.placement.type_index()
     }
 
+    /// Whether they were imported as dma-bufs (`dma_buf.rs`), not by their pointer.
+    pub(super) fn over_dma_buf(&self) -> bool {
+        self.import.pages.memory.placement.over_dma_buf()
+    }
+
+    /// Where they lie as dma-bufs (`dma_buf.rs`): the imports, with the caller's source; the host
+    /// address where their bytes start (from which an image over them reckons its texels'); and
+    /// the imports' memory type. `None` for pages imported by their pointer.
+    #[cfg(unix)]
+    pub(super) fn dma_buf(&self) -> Option<(&Arc<crate::dma_buf::DmaBufPages>, u64, u32)> {
+        let pages = &self.import.pages;
+        let placement = &pages.memory.placement;
+        let imports = placement.dma_buf_pages()?;
+        let start = (placement.mapped?.as_ptr() as u64).checked_add(pages.offset)?;
+        Some((imports, start, placement.type_index()))
+    }
+
     /// Release the pages to `release` when they go.
     pub(super) fn release_to(&self, release: Release) {
         // A refused set leaves the deallocator unrun, as a refused call does: never reached,
@@ -600,10 +620,13 @@ impl Drop for HostImport {
             return;
         };
         let shared = self.device.shared();
+        // A submission that used the pages waited for their sparse binding: waited for here
+        // where none did.
+        self.pages.memory.placement.settle();
         // SAFETY: no pending command buffer uses the pages: one whose commands used them holds
         // them until it completed (`rebind.rs`), one that may read a texture's image over them
         // holds the image, which holds the import (`heap_sets.rs`), and every buffer over them
-        // let go of them.
+        // let go of them; their binding completed.
         unsafe { release::object(shared.vk(), self.pages.raw) };
         lock(&shared.memory).free(shared.vk(), &self.pages.memory.placement);
         drop(busy);
@@ -899,16 +922,29 @@ impl Modes {
 pub(super) const LINEAR_IMAGE_ALIGNMENT: u64 = 256;
 
 /// A buffer's memory `requirements`, placed at a multiple of [`LINEAR_IMAGE_ALIGNMENT`] as well
-/// (Vulkan's alignments are powers of two, so the larger one is a multiple of both), and taking
-/// whole units of that alignment. So the next buffer placed in the pool starts where the last
-/// ends: a buffer shorter than the alignment would leave the rest of its unit free, a gap no
-/// buffer takes, and the pool's first-fit search (`range.rs`) walks every such gap for each
-/// later placement, which made each new buffer cost time in proportion to the buffers before it.
+/// (Vulkan's alignments are powers of two, so the larger one is a multiple of both), and, up to
+/// half a pooled block, taking whole units of that alignment. So the next buffer placed in the
+/// pool starts where the last ends: a buffer shorter than the alignment would leave the rest of
+/// its unit free, a gap no buffer takes, and the pool's first-fit search (`range.rs`) walks every
+/// such gap for each later placement, which made each new buffer cost time in proportion to the
+/// buffers before it. A buffer past half a pooled block keeps its own size: it never lies in a
+/// pooled block but takes a block of its own (`memory.rs`'s `place`; a pooled block is
+/// [`BLOCK_BYTES`] on every device, whose `maxMemoryAllocationSize` Vulkan puts at 1 GiB or
+/// more), where nothing follows it.
+/// Rounded up to a heap's 256 KiB (`texture/heap.rs`'s `HEAP_BASE_ALIGNMENT`), the largest heap
+/// would ask past the device's `maxMemoryAllocationSize`: 4 GiB on RADV, whose largest allocation
+/// is 4 GiB less 4 bytes, and 41,747,218,432 bytes on MoltenVK on an M3 Max, whose largest is
+/// 41,747,087,360.
 pub(super) fn placed(requirements: vk::MemoryRequirements) -> vk::MemoryRequirements {
     let alignment = requirements.alignment.max(LINEAR_IMAGE_ALIGNMENT);
+    let size = if requirements.size > BLOCK_BYTES / 2 {
+        requirements.size
+    } else {
+        requirements.size.next_multiple_of(alignment)
+    };
     vk::MemoryRequirements {
         alignment,
-        size: requirements.size.next_multiple_of(alignment),
+        size,
         ..requirements
     }
 }
@@ -1956,6 +1992,14 @@ impl Buffer {
         }
     }
 
+    /// The host pages the buffer's bytes lie in now ([`Buffer::pages_cell`]): a no-copy
+    /// buffer's, or a no-copy heap's for a buffer of the heap; `None` for any other buffer, and
+    /// while they are detached.
+    #[cfg(unix)]
+    pub(super) fn host_pages(&self) -> Option<Arc<HostPages>> {
+        self.pages_cell()?.current()
+    }
+
     /// Where the bytes of the host pages the buffer lies in ([`Buffer::pages_cell`]) start in
     /// their memory, which an aliasing image's place in them is reckoned from. Refused (an
     /// internal error) for a buffer over no host pages.
@@ -2018,6 +2062,17 @@ impl Buffer {
             Some(Lying::In(pages)) => pages.type_index(),
             Some(Lying::Detached(detached)) => detached.type_index,
             None => self.memory().2,
+        }
+    }
+
+    /// Whether the host pages the buffer's bytes lie in (a no-copy buffer's, or for a heap's
+    /// buffer its heap's), or lay in while they are detached, were imported as dma-bufs
+    /// (`dma_buf.rs`); false for a buffer over no host pages.
+    pub(super) fn over_dma_buf(&self) -> bool {
+        match self.pages_cell().map(|cell| cell.lying()) {
+            Some(Lying::In(pages)) => pages.over_dma_buf(),
+            Some(Lying::Detached(detached)) => detached.over_dma_buf,
+            None => false,
         }
     }
 

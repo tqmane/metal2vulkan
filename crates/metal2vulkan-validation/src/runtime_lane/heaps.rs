@@ -25,8 +25,9 @@ use crate::executor_contract::out_of_bounds::{GUARD_FILL, PAD_FILL};
 use crate::gpu::TEST_DEVICE;
 use metal2vulkan_runtime::{
     Buffer, CommandBufferStatus, CommandQueue, CpuCacheMode, Degradation, Device, Error,
-    HazardTrackingMode, Heap, HeapDescriptor, HeapProblem, HeapType, Invalid, MemoryKind, Nil,
-    Problem, PurgeableState, ResourceOptions, RuntimeGap, SizeAndAlign, StorageMode,
+    HazardTrackingMode, Heap, HeapDescriptor, HeapProblem, HeapType, HostMemory, Invalid,
+    MemoryKind, Nil, Problem, PurgeableState, ResourceOptions, RuntimeGap, SizeAndAlign,
+    StorageMode,
 };
 use std::collections::BTreeMap;
 use std::time::{Duration, Instant};
@@ -216,6 +217,58 @@ fn heaps_answer_as_metal_s_do() {
         option_rules(device);
         aliasable_rules(device);
         purgeable_rules(device);
+    });
+}
+
+/// The largest heap the device takes (the lower of one allocation and one `VkBuffer`, in whole
+/// 16 KiB) lies in one allocation of at most `maxMemoryAllocationSize` bytes, whose block's buffer
+/// of addresses, as long as the block, is at most `maxBufferSize` (the validation layer reports
+/// nothing): the runtime's memory grows by the heap's size and no more than one allocation. RADV's
+/// largest heap is 4 GiB less 16 KiB, of an allocation of at most 4 GiB less 4 bytes. Made where
+/// it is at most 4 GiB (RADV, ANV, lavapipe), else not; out of device memory is an answer too.
+#[test]
+fn the_largest_heap_lies_in_one_allocation() {
+    on_device(|device| {
+        let limits = device.compile_device().allocation();
+        let buffer = match limits.max_buffer_size {
+            0 => u64::MAX,
+            size => size,
+        };
+        let largest = limits.max_memory_allocation_size.min(buffer) / 16384 * 16384;
+        if largest > 4 << 30 {
+            eprintln!("HEAP the largest heap, {largest} bytes, is past 4 GiB: not made");
+            return;
+        }
+        // A heap first, so that the pools the runtime keeps room in have it before the count.
+        let _first = heap(
+            device,
+            HeapType::Placement,
+            16384,
+            ResourceOptions::private(),
+        );
+        let before = device.work_counts().device_memory_allocated;
+        let made = device.new_heap(&HeapDescriptor::new(
+            HeapType::Placement,
+            largest,
+            ResourceOptions::private(),
+        ));
+        let grown = device.work_counts().device_memory_allocated - before;
+        match made {
+            Ok(made) => {
+                eprintln!("HEAP the largest heap, {largest} bytes, took {grown} bytes of memory");
+                assert_eq!(made.size(), largest);
+                assert!(
+                    (largest..=limits.max_memory_allocation_size).contains(&grown),
+                    "the largest heap, {largest} bytes, took {grown} bytes, past one allocation \
+                     of {}",
+                    limits.max_memory_allocation_size
+                );
+            }
+            Err(Error::OutOfMemory(MemoryKind::Device)) => {
+                eprintln!("HEAP the largest heap, {largest} bytes: out of device memory");
+            }
+            Err(other) => panic!("the largest heap, {largest} bytes: {other:?}"),
+        }
     });
 }
 
@@ -1405,7 +1458,7 @@ fn a_loaded_pointer_reaches_a_rebound_no_copy_buffer_once_a_command_used_it_agai
         let new = Mapping::anonymous(len);
         new.write(0, &bytes);
         // SAFETY: `new` outlives the buffer, which is dropped first, and no other thread uses it.
-        unsafe { pages.rebind_bytes_no_copy(new.pointer(), None, None) }.unwrap();
+        unsafe { pages.rebind_bytes_no_copy(HostMemory::new(new.pointer()), None, None) }.unwrap();
         old.write(0, &bytes);
         let produced = walk_unnamed(device, &queue, &walker, &pages, None);
         assert!(
@@ -1443,7 +1496,7 @@ fn a_loaded_pointer_reaches_a_no_copy_buffer_rebound_before_its_use_once_a_comma
         let new = Mapping::anonymous(len);
         new.write(0, &bytes);
         // SAFETY: `new` outlives the buffer, which is dropped first, and no other thread uses it.
-        unsafe { pages.rebind_bytes_no_copy(new.pointer(), None, None) }.unwrap();
+        unsafe { pages.rebind_bytes_no_copy(HostMemory::new(new.pointer()), None, None) }.unwrap();
         let produced = walk_unnamed(device, &queue, &walker, &pages, None);
         assert!(produced != walker.metal_output, "no command used it");
         gpu_read(&queue, &pages, 0..4);
@@ -1493,7 +1546,7 @@ fn a_loaded_pointer_reaches_a_rebound_heap_s_buffer_once_a_command_used_the_heap
         let new = Mapping::anonymous(HEAP);
         new.write(AT, &bytes);
         // SAFETY: `new` outlives the heap, which is dropped first, and no other thread uses it.
-        unsafe { heap.rebind_bytes_no_copy(new.pointer(), None, None) }.unwrap();
+        unsafe { heap.rebind_bytes_no_copy(HostMemory::new(new.pointer()), None, None) }.unwrap();
         old.write(AT, &bytes);
         let produced = walk_unnamed(device, &queue, &walker, &placed, None);
         assert!(
@@ -1537,7 +1590,8 @@ fn a_rebind_of_one_of_two_buffers_over_a_memory_ends_only_its_use() {
         let new = Mapping::anonymous(len);
         new.write(0, &bytes);
         // SAFETY: `new` outlives the buffer, which is dropped first, and no other thread uses it.
-        unsafe { rebound.rebind_bytes_no_copy(new.pointer(), None, None) }.unwrap();
+        unsafe { rebound.rebind_bytes_no_copy(HostMemory::new(new.pointer()), None, None) }
+            .unwrap();
         memory.write(0, &bytes);
         let produced = walk_unnamed(device, &queue, &walker, &rebound, None);
         assert!(
