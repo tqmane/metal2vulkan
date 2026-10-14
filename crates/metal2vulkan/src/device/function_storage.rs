@@ -22,6 +22,11 @@
 //! (`Unsupported{PrivateMemory}`, or `Unsupported{Recursion}` for a stage with a call stack,
 //! needing `VkLimit::FunctionStorageBytesPerThread`).
 //!
+//! Windows' RTX 4070 SUPER on NVIDIA 616.56 has a conservative measured bound of 16 KiB:
+//! `windows_private_memory` checks 4, 8 and 16 KiB at all four thread counts under Vulkan
+//! validation. It stops at the existing floor rather than searching for a failure, so this
+//! registration increases no memory budget and says nothing about larger arrays.
+//!
 //! [`ProfileFields::function_storage`]: crate::device::profile::ProfileFields::function_storage
 //! [`DriverWorkaround`]: crate::device::profile::DriverWorkaround
 
@@ -113,6 +118,16 @@ pub(crate) const FLOOR: u64 = 16 * KIB;
 /// The Function storage a thread of `desc`'s device holds correctly: the measured value of its
 /// identity, or the assumed [`FLOOR`] for a device not measured.
 pub(crate) fn of(desc: &DeviceDescription) -> FunctionStorage {
+    // RTX 4070 SUPER, Windows NVIDIA 616.56: windows_private_memory checks 4, 8 and 16 KiB
+    // over 1, 64, 4096 and 262144 threads. This conservative bound enables no larger array;
+    // a higher bound or another driver release needs its own measurement.
+    if desc.driver_id == Some(vk::DriverId::NVIDIA_PROPRIETARY)
+        && desc.vendor_id == 0x10de
+        && desc.device_id == 0x2783
+        && desc.driver_version == super::driver_facts::nvidia(616, 56, 0)
+    {
+        return FunctionStorage::Measured(FLOOR);
+    }
     MEASURED
         .iter()
         .find(|d| {

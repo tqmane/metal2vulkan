@@ -1201,6 +1201,12 @@ fn function_storage_is_the_measured_value_of_the_device() {
     desc.device_id = 0x15bf;
     desc.driver_id = Some(vk::DriverId::AMD_OPEN_SOURCE);
     assert_eq!(storage(desc), Assumed(16 * kib));
+    let mut desc = profile("nvidia-rtx5080-laptop");
+    desc.device_id = 0x2783;
+    desc.driver_version = crate::device::driver_facts::nvidia(616, 56, 0);
+    assert_eq!(storage(desc.clone()), Measured(16 * kib));
+    desc.driver_version += 1;
+    assert_eq!(storage(desc), Assumed(16 * kib));
 }
 
 /// `DriverWorkaround::InterpolationNotMetals` is keyed on NVIDIA's driver from the release measured

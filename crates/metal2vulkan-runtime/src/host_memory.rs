@@ -41,7 +41,7 @@
 //!   imports a host pointer through amdgpu's userptr, which the kernel takes only over anonymous
 //!   pages. Mesa 26.2.4 answers `VK_ERROR_INVALID_EXTERNAL_HANDLE`, 26.0.8 `VK_ERROR_UNKNOWN`, and
 //!   both are refusals ([`import_refused`]). NVIDIA and lavapipe imported the same shared memory.
-//! - **Dma-bufs of the pages** ([`HostMemory::with_dma_buf`]), the last resort before that
+//! - **Dma-bufs of the pages** (`HostMemory::with_dma_buf` (Unix only)), the last resort before that
 //!   refusal: where the device refuses the pointer ([`refused`]: the import window, the buffer's
 //!   binding in it, the memory types, or the driver) and imports dma-bufs, the buffer is bound in
 //!   imports of the source's dma-bufs of the pages instead (`dma_buf.rs`). Every import the device
@@ -90,7 +90,7 @@ mod windows;
 /// Host memory a buffer or heap wraps without a copy: a pointer whose bytes the caller vouches for
 /// (the `pointer` of `newBufferWithBytesNoCopy:length:options:deallocator:`), and, as a runtime
 /// extension, a source of dma-bufs of its pages for a device that refuses the pointer itself
-/// ([`HostMemory::with_dma_buf`]).
+/// (`HostMemory::with_dma_buf` (Unix only)).
 pub struct HostMemory {
     pointer: NonNull<u8>,
     source: Option<Source>,
@@ -145,7 +145,7 @@ impl HostMemory {
     /// pages for writing, and one (ANV) imported a read-only page and then lost the device at the
     /// GPU's first read. Some drivers also refuse shared memory (RADV refused anonymous shared
     /// memory and mappings of shared memory objects, `memfd` mappings among them); private memory
-    /// imports everywhere measured. [`HostMemory::with_dma_buf`] imports such memory where the
+    /// imports everywhere measured. `HostMemory::with_dma_buf` (Unix only) imports such memory where the
     /// device imports dma-bufs.
     pub unsafe fn new(pointer: NonNull<u8>) -> HostMemory {
         HostMemory {

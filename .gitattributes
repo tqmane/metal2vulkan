@@ -1,0 +1,2 @@
+# Source fingerprints must see the same bytes on Windows and Unix.
+* text=auto eol=lf

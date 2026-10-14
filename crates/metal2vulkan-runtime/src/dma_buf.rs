@@ -90,7 +90,7 @@ use std::time::Duration;
 
 /// A runtime extension (Metal has none): makes dma-bufs of the host pages a no-copy import
 /// covers, for a device that refuses the pages' pointer
-/// ([`HostMemory::with_dma_buf`](crate::HostMemory::with_dma_buf)).
+/// (`HostMemory::with_dma_buf`, Unix only).
 ///
 /// Called on the thread making the object, with no lock of the runtime's held: for a buffer or
 /// heap (or its rebind), only where the device refuses the pointer and imports dma-bufs for it;
@@ -712,7 +712,7 @@ impl Device {
                     "the driver refuses a DRM_FORMAT_MOD_LINEAR plane at offset {offset} of its \
                      first page with rows {} bytes apart ({error:?})",
                     texels.row_pitch
-                )))
+                )));
             }
         };
         let refuse = |why: String| {
@@ -745,7 +745,7 @@ impl Device {
                     "its image's memory, {} bytes from the first page of its texels, runs past \
                      the pages the buffer's range touches",
                     requirements.size
-                ))
+                ));
             }
         };
         if requirements.memory_type_bits & (1 << texels.type_index) == 0 {
@@ -799,7 +799,7 @@ impl Device {
                 return refuse(format!(
                     "the caller's source made no dma-buf of its {} bytes of pages: {error}",
                     request.length
-                ))
+                ));
             }
         };
         // A request whose granule is its length takes one chunk (`chunks_cover`).
@@ -831,7 +831,7 @@ impl Device {
                 return refuse(format!(
                     "the driver imports the dma-buf as none of the pages' memory type {}",
                     texels.type_index
-                ))
+                ));
             }
             Err(ImportFailure::Vulkan(vk::Result::ERROR_DEVICE_LOST)) => {
                 // SAFETY: the image is live and unbound, and no command uses it.
@@ -839,7 +839,7 @@ impl Device {
                 return Err(Error::DeviceLost);
             }
             Err(ImportFailure::Vulkan(error)) => {
-                return refuse(format!("the driver refuses the import ({error:?})"))
+                return refuse(format!("the driver refuses the import ({error:?})"));
             }
         };
         // SAFETY: the image is unbound; the memory is its dedicated allocation, of its size.
@@ -873,7 +873,7 @@ impl Device {
                     "the device enables no VK_EXT_image_drm_format_modifier and \
                      VK_EXT_queue_family_foreign beside its dma-buf imports"
                         .to_owned(),
-                ))
+                ));
             }
         };
         if plan.levels != 1 || plan.extent[2] != 1 || plan.samples != SampleCountFlags::COUNT_1 {
@@ -942,7 +942,7 @@ impl Device {
                 return Ok(Err(format!(
                     "the driver refuses a DRM_FORMAT_MOD_LINEAR image of its own layout \
                      ({error:?})"
-                )))
+                )));
             }
         };
         // SAFETY: `raw` is a live image of a DRM format modifier's tiling, whose one memory plane

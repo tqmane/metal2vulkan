@@ -123,6 +123,39 @@ fn tool_bin(cmd: &str) -> PathBuf {
 mod tests {
     use super::*;
 
+    #[cfg(windows)]
+    #[test]
+    fn tool_runner_reports_windows_output_and_exit_without_retrying() {
+        let (stdout, stderr) =
+            run("cmd.exe", &["/D", "/C", "echo output&echo diagnostic 1>&2"]).unwrap();
+        assert_eq!(String::from_utf8_lossy(&stdout).trim(), "output");
+        assert_eq!(String::from_utf8_lossy(&stderr).trim(), "diagnostic");
+        let failure = run(
+            "cmd.exe",
+            &["/D", "/C", "echo partial&echo rejected 1>&2&exit /B 7"],
+        )
+        .unwrap_err();
+        let ToolError::Exit { output, .. } = failure else {
+            panic!("expected process exit")
+        };
+        assert_eq!(output.status.code(), Some(7));
+        assert_eq!(String::from_utf8_lossy(&output.stdout).trim(), "partial");
+        assert_eq!(String::from_utf8_lossy(&output.stderr).trim(), "rejected");
+        let executable =
+            std::env::temp_dir().join(format!("m2v-missing-tool-{}.exe", std::process::id()));
+        let failure = run(executable.to_str().unwrap(), &[] as &[&str]).unwrap_err();
+        let ToolError::Launch {
+            source,
+            executable: reported,
+            ..
+        } = failure
+        else {
+            panic!("expected launch failure")
+        };
+        assert_eq!(source.kind(), std::io::ErrorKind::NotFound);
+        assert_eq!(reported, executable);
+    }
+
     #[cfg(unix)]
     #[test]
     fn tool_runner_reports_output_exit_and_signal_without_retrying() {
