@@ -19,6 +19,8 @@ use super::{decode_as_written, metal_as, write_decoded, AssembleError};
 use crate::gpu::compile::xcrun;
 use crate::ScratchDir;
 
+mod fixture_flags;
+
 // ---- An id-free rendering of everything the IR keeps ----
 
 /// The structure of a decoded module with every arena id replaced by what it denotes: types and
@@ -435,9 +437,10 @@ fn files(dir: &Path, suffix: &str) -> Vec<PathBuf> {
 }
 
 /// Typed AIR of an MSL source, compiled as `scripts/regen-air-fixtures` compiles a public
-/// fixture's: `xcrun metal -c`, with `-std=` from a `// metal-std:` line. A source with
-/// `// air-rename: <declared> <intrinsic>` lines declares functions it never defines that stand
-/// for intrinsics MSL cannot spell (`llvm.agx3.yield`); its AIR is `xcrun metal-as` of its typed
+/// fixture's: `xcrun metal -c`, with `-std=` from `// metal-std:` and the minimum deployment
+/// target from `// metal-macos-min:`. Without that directive the oracle's default stays.
+/// A source with `// air-rename: <declared> <intrinsic>` lines declares functions it never defines.
+/// These represent intrinsics MSL cannot spell (`llvm.agx3.yield`); its AIR is `xcrun metal-as` of its typed
 /// text (`-S -emit-llvm`) with every call `@<declared>(` renamed `@<intrinsic>(`, the module its
 /// `.air.ll` companion records, since the plain compile leaves the declaration unresolved and
 /// `xcrun metallib` refuses it.
@@ -445,9 +448,6 @@ pub(crate) fn compile_msl(src: &Path, scratch: &ScratchDir) -> Result<Vec<u8>, S
     let text = std::fs::read_to_string(src).map_err(|e| e.to_string())?;
     let directive =
         |key: &'static str| text.lines().filter_map(move |l| l.trim().strip_prefix(key));
-    let std = directive("// metal-std:")
-        .next()
-        .map(|s| format!("-std={}", s.trim()));
     let renames = directive("// air-rename:")
         .map(|r| match r.split_whitespace().collect::<Vec<_>>()[..] {
             [from, to] => Ok((format!("@{from}("), format!("@{to}("))),
@@ -465,7 +465,7 @@ pub(crate) fn compile_msl(src: &Path, scratch: &ScratchDir) -> Result<Vec<u8>, S
     let args = mode
         .iter()
         .map(OsString::from)
-        .chain(std.map(OsString::from))
+        .chain(fixture_flags::compile_flags(&text))
         .chain([src.into(), "-o".into(), out.clone().into()]);
     let result = xcrun("metal", args).map_err(|e| e.to_string())?;
     if !result.success {

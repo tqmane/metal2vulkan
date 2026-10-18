@@ -43,6 +43,46 @@ const READS: ColorUse = ColorUse {
     ..WRITES
 };
 
+#[test]
+fn normalized_source_over_keeps_the_ordered_storage_form() {
+    use crate::metal::BlendFactor;
+    let p = profile("nvidia-rtx50-linux", &[]);
+    for pf in [
+        PixelFormat::R8Unorm,
+        PixelFormat::RG8Unorm,
+        PixelFormat::RGBA8Unorm,
+        PixelFormat::BGRA8Unorm,
+        PixelFormat::RGBA16Unorm,
+    ] {
+        for mask in [
+            ColorWriteMask::ALL,
+            ColorWriteMask::RED | ColorWriteMask::BLUE,
+            ColorWriteMask::NONE,
+        ] {
+            let inputs = state(pf, |c| {
+                c.blending_enabled = true;
+                c.destination_rgb_blend_factor = BlendFactor::OneMinusSourceAlpha;
+                c.destination_alpha_blend_factor = BlendFactor::OneMinusSourceAlpha;
+                c.write_mask = mask;
+            });
+            let view = form(&inputs, false, WRITES, &p).expect("ordered source-over");
+            let stores = !channels(pf).intersection(mask).is_empty();
+            assert_eq!(
+                view.blend,
+                stores.then_some(inputs.attachments[&0].unwrap().equation.unwrap()),
+                "{pf:?} {mask:?}"
+            );
+            let mut coverage = inputs;
+            coverage.alpha_to_coverage = true;
+            assert_eq!(
+                form(&coverage, false, WRITES, &p).is_ok(),
+                !stores,
+                "coverage must still gate a stored write: {pf:?} {mask:?}"
+            );
+        }
+    }
+}
+
 fn form(
     inputs: &FramebufferFetchInputs,
     multisampled: bool,

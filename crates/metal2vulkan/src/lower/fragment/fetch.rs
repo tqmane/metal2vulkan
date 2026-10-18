@@ -31,10 +31,10 @@
 //! - one view and one layer: no vertex amplification (the binder also refuses a pass of more
 //!   than one layer);
 //! - for a written attachment whose write mask covers some of its format's channels (one that
-//!   covers none stores nothing, so none of this bears on it): no blending but one and zero, added,
-//!   for color and alpha, which stores the source as no blending does (a signed normalized format's
-//!   aside: its NaN stores another code under it; any other blend would need Metal's blend
-//!   arithmetic in the shader, which is not measured), no alpha to coverage (it can drop the
+//!   covers none stores nothing, so none of this bears on it): a replacing blend, or premultiplied
+//!   source-over into a directly stored unsigned normalized format (`source_over`), computed in
+//!   `float` inside the interlock, retaining `DeviceColorConversion` for its arithmetic and
+//!   conversion; other ordinary blends stay refused. No alpha to coverage (it can drop the
 //!   fragment's samples), no signed normalized format under a write mask that keeps some of its
 //!   channels (its two codes of -1 read alike, so a channel written back would lose the texel's
 //!   bits), and, with a depth or stencil attachment, early fragment tests: the module declares them
@@ -183,6 +183,8 @@ use crate::vk;
 
 use super::{not_lowered, ColorInput};
 
+mod source_over;
+
 /// Whether `p` orders framebuffer fetch only through the ordered pixel interlock: no
 /// rasterization-order color attachment access, with `fragmentShaderPixelInterlock`.
 pub(crate) fn interlock_orders(p: &DeviceProfile) -> bool {
@@ -325,7 +327,8 @@ pub struct StorageView {
     pub extended: Option<ExtendedRange>,
     /// The blend a write of an extended-range attachment computes in the shader, from the texel
     /// it reads first (`extended_range::blend::blend`): the pipeline's, where it enables blending
-    /// there. `None` for an unblended write, no write, or another format.
+    /// there; also a normalized attachment's premultiplied source-over, and the exact half-float
+    /// blend. `None` for an unblended write or no write.
     pub blend: Option<BlendEquation>,
     /// The unsigned-integer format of the texel size an sRGB attachment is viewed in
     /// (`StorageAttachmentUse::uint_view`): the declaration's texels are its `uint`s, which a
@@ -540,10 +543,13 @@ pub(crate) fn storage_form(
         && use_.math == extended_range::blend::BlendMath::Rounded
         && half_float_format(pf)
         && attachment.blending_enabled;
+    let source_over = attachment
+        .equation
+        .is_some_and(|eq| source_over::accepts(format, eq));
     let blend = attachment
         .equation
-        .filter(|_| (extended.is_some_and(|e| !e.padded()) || half_blend) && stores);
-    if let Some(eq) = blend {
+        .filter(|_| (extended.is_some_and(|e| !e.padded()) || half_blend || source_over) && stores);
+    if let Some(eq) = blend.filter(|_| !source_over) {
         let written = all.intersection(attachment.write_mask);
         let planned = match extended {
             Some(form) => extended_range::Blend::of(&eq, form, written, use_.math),
@@ -875,11 +881,27 @@ pub(super) fn plan(cx: &mut SelectCx<'_>) -> Result<(), Error> {
     if read.is_empty() {
         return Ok(());
     }
-    // Metal's blend into an extended-range attachment is modelled for a `half4` output, and for a
-    // `float4` one under a blend that takes it rounded to `half` (`extended_range::Blend::takes`);
-    // another `float` one is rounded otherwise, unfitted.
+    // The output's four-lane float form, for the extended-range blend's model and normalized
+    // source-over. Other outputs keep their existing storage write or refusal.
     let mut outputs4 = BTreeMap::new();
-    for (color, ty) in blended {
+    for (output, ty) in cx
+        .entry
+        .ep
+        .outputs
+        .iter()
+        .zip(stage_io::output_types(cx)?.1)
+    {
+        let OutputRole::RenderTarget {
+            attachment: AbiInt::Const(color),
+            index: 0,
+            ..
+        } = output.role
+        else {
+            continue;
+        };
+        if !read.contains(&color) {
+            continue;
+        }
         let f =
             super::color::form(cx, ty).map_err(|e| e.at_attachment(Attachment::Color(color)))?;
         if f.lanes == 4 {
@@ -993,6 +1015,16 @@ pub(super) fn plan(cx: &mut SelectCx<'_>) -> Result<(), Error> {
         let form =
             storage_form(color, &inputs, cx.inputs.multisampled, use_, cx.profile).map_err(tied)?;
         let form = match form {
+            Ok(view)
+                if view
+                    .blend
+                    .is_some_and(|eq| source_over::accepts(view.format, eq)) =>
+            {
+                match outputs4.get(&color) {
+                    Some(FloatFmt::F32 | FloatFmt::Half) => Ok((view, None)),
+                    _ => Err(not_implemented()),
+                }
+            }
             // Metal's 16-bit float blend, modelled for a `half4` output alone.
             Ok(view) if view.blend.is_some() && view.extended.is_none() => {
                 match half4_output(cx.entry, color) {
@@ -1048,9 +1080,13 @@ pub(super) fn plan(cx: &mut SelectCx<'_>) -> Result<(), Error> {
                 // The blend color as the encoder set it, where Metal's 16-bit float blend reads
                 // it.
                 if let (Some(eq), None) = (view.blend, view.extended) {
-                    let half = extended_range::Blend::half_float(&eq, written(view.kept));
-                    if half.is_ok_and(|h| h.reads_constant()) {
-                        cx.push.insert(PushField::HalfBlendColor);
+                    if source_over::accepts(view.format, eq) {
+                        cx.precision.insert(PrecisionNote::DeviceColorConversion);
+                    } else {
+                        let half = extended_range::Blend::half_float(&eq, written(view.kept));
+                        if half.is_ok_and(|h| h.reads_constant()) {
+                            cx.push.insert(PushField::HalfBlendColor);
+                        }
                     }
                 }
                 // The channels a partial write mask keeps, as the draw's word.
@@ -1075,6 +1111,9 @@ pub(super) fn plan(cx: &mut SelectCx<'_>) -> Result<(), Error> {
                     kept: view.kept,
                     blend: view.blend,
                     rounded: view.blend.is_some()
+                        && !view
+                            .blend
+                            .is_some_and(|eq| source_over::accepts(view.format, eq))
                         && use_.math == extended_range::blend::BlendMath::Rounded,
                 });
                 cx.descriptors.storage_images = cx
@@ -1413,6 +1452,14 @@ pub(super) fn words(cx: &SelectCx<'_>, uses: u64, rets: u64) -> u64 {
         .values()
         .filter(|sc| sc.writes && sc.view.extended.is_some() && sc.view.blend.is_none())
         .count() as u64;
+    let source_over = fetch
+        .values()
+        .filter(|sc| {
+            sc.view
+                .blend
+                .is_some_and(|eq| source_over::accepts(sc.view.format, eq))
+        })
+        .count() as u64;
     // A shadowed attachment's object, and a read and a write of its shadow at each return.
     let shadowed = fetch.values().filter(|sc| sc.shadowed).count() as u64;
     // An extended-range attachment's read decodes its texel, an sRGB one's reorders its bytes and
@@ -1437,6 +1484,7 @@ pub(super) fn words(cx: &SelectCx<'_>, uses: u64, rets: u64) -> u64 {
         .saturating_add(READ.saturating_mul(merged))
         .saturating_add(KEPT_AT_DRAW.saturating_mul(at_draw))
         .saturating_add(blend)
+        .saturating_add((READ + 100).saturating_mul(source_over))
         .saturating_add(stage_io::extended_color::WORDS.saturating_mul(unblended))
         .saturating_add(srgb_write.saturating_mul(srgb_writes))
         .saturating_add((READ + WRITE + 8).saturating_mul(shadowed))
@@ -1749,8 +1797,14 @@ pub(super) fn emit_return(
             }
             (None, _) if sc.view.uint_view.is_some() => srgb_texel(cx, fb, color, &sc, form, part)?,
             (None, _) => {
-                // Metal's 16-bit float blend of a `half4` output, over the texel.
+                // A normalized source-over or Metal's exact half-float blend, over the texel.
                 let part = match sc.view.blend {
+                    Some(eq) if source_over::accepts(sc.view.format, eq) => {
+                        let (image, at, ops) = image_and_texel(cx, fb, color, sc.view.samples)?;
+                        let mem = memory_model::coherence(cx.plan).texel(fb)?;
+                        let destination = fb.read(image, at, &ops, mem)?;
+                        source_over::emit(fb, part, destination)?
+                    }
                     Some(eq) => half_blended(cx, fb, color, &sc, eq, part)?,
                     None => part,
                 };
@@ -1844,11 +1898,13 @@ fn half_blended(
 /// Whether the function writes color attachment `color` through the storage form under Metal's
 /// 16-bit float blend of a `half4` output, which the shader computes.
 pub(super) fn blends_half(cx: &SelectCx<'_>, color: u32) -> bool {
-    cx.families
-        .fragment
-        .fetch
-        .get(&color)
-        .is_some_and(|sc| sc.view.blend.is_some() && sc.view.extended.is_none())
+    cx.families.fragment.fetch.get(&color).is_some_and(|sc| {
+        sc.view.extended.is_none()
+            && sc
+                .view
+                .blend
+                .is_some_and(|eq| !source_over::accepts(sc.view.format, eq))
+    })
 }
 
 /// Output `part` (of `form`, in its lowered representation) of storage-form attachment `color`

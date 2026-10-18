@@ -246,10 +246,12 @@ pub enum RuntimeFact {
     /// does not write the attachment); a pipeline of another mask is `NeedsInput(FramebufferFetch)`
     /// too. `blend`: the blend the function computes in the shader, from the texel it reads first,
     /// for an extended-range attachment it writes under blending, which the function then need not
-    /// read; a pipeline of another blend there is `NeedsInput(FramebufferFetch)` too. `rounded`:
+    /// read, an exact half-float blend, or premultiplied source-over into an unsigned normalized
+    /// attachment; a pipeline of another blend there is `NeedsInput(FramebufferFetch)` too. `rounded`:
     /// that blend is computed without fast math, each product rounded to `half` before the sum
     /// (`lower::arith::extended_range::blend::BlendMath::Rounded`), whose model holds blends the
-    /// fast one refuses; link checks the blend under that math.
+    /// fast one refuses; link checks the blend under that math. Always false for normalized
+    /// source-over, whose arithmetic is `float` in either math mode.
     InterlockedFramebufferFetch {
         color: u32,
         format: crate::vk::Format,

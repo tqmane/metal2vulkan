@@ -468,6 +468,120 @@ fn fetch_state(read: &[u32], formats: &[PixelFormat], blending: bool) -> Lowerin
     inputs
 }
 
+/// The authored `fetch_ordered` shader reads color 0, returns half of it, then blends that
+/// output over the fetched texel. The second, unwritten color is independent of the blend.
+#[test]
+fn normalized_fetch_source_over_compiles_and_links_in_the_interlock() {
+    use crate::metal::{BlendFactor, ColorWriteMask};
+    let (Some(fetch), Some(vertex), Some(half)) = (
+        fixture("fragment_fetch"),
+        fixture("stage_io"),
+        fixture("con_fetch_coverage"),
+    ) else {
+        return;
+    };
+    let function = |bc: &[u8], name: &str| {
+        FunctionDescriptor::new(Library::from_air(bc).unwrap().function(name).unwrap())
+    };
+    for stem in [
+        "moltenvk-m3",
+        "amd-rdna3-radv",
+        "intel-irisxe-anv",
+        "nvidia-rtx50-linux",
+    ] {
+        let path = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../metal2vulkan-validation/profiles")
+            .join(format!("{stem}.json"));
+        let description =
+            DeviceDescription::from_khronos_json(&std::fs::read_to_string(path).unwrap(), None)
+                .unwrap();
+        let device = Device::new(description, DevicePolicy::default()).unwrap();
+        for format in [PixelFormat::RGBA8Unorm, PixelFormat::BGRA8Unorm] {
+            for mask in [
+                ColorWriteMask::ALL,
+                ColorWriteMask::RED | ColorWriteMask::BLUE,
+            ] {
+                let mut color = ColorAttachmentDescriptor::new(format);
+                color.blending_enabled = true;
+                color.destination_rgb_blend_factor = BlendFactor::OneMinusSourceAlpha;
+                color.destination_alpha_blend_factor = BlendFactor::OneMinusSourceAlpha;
+                color.write_mask = mask;
+                let mut unused = ColorAttachmentDescriptor::new(PixelFormat::RGBA16Float);
+                unused.write_mask = ColorWriteMask::NONE;
+                let mut descriptor = RenderPipelineDescriptor::new(StageSource::Function(
+                    function(&vertex, "stage_io_vertex_position"),
+                ));
+                descriptor.fragment =
+                    Some(StageSource::Function(function(&fetch, "fetch_ordered")));
+                descriptor.color_attachments[0] = Some(color);
+                descriptor.color_attachments[1] = Some(unused);
+                let inputs = LoweringInputs {
+                    framebuffer_fetch: Some(FramebufferFetchInputs::of(
+                        [0],
+                        &descriptor.color_attachments,
+                        false,
+                        false,
+                        1,
+                    )),
+                    ..LoweringInputs::new()
+                };
+                let compiled =
+                    match compile_with(&fetch, "fetch_ordered", device.profile(), &inputs) {
+                        Ok(compiled) => compiled,
+                        Err(Error::Unsupported(gap))
+                            if format == PixelFormat::BGRA8Unorm
+                                && !device
+                                    .profile()
+                                    .enabled()
+                                    .features
+                                    .contains(&VkFeature::ShaderStorageImageReadWithoutFormat) =>
+                        {
+                            assert_eq!(gap.feature, Feature::FramebufferFetch);
+                            assert_eq!(
+                                gap.needs,
+                                Needs::AnyOf(vec![vec![Capability::Feature(
+                                    VkFeature::ShaderStorageImageReadWithoutFormat
+                                )]])
+                            );
+                            continue;
+                        }
+                        Err(error) => panic!("{stem} {format:?} {mask:?}: {error}"),
+                    };
+                link_and_validate(&compiled, device.profile()).unwrap();
+                assert!(compiled
+                    .precision
+                    .contains(&PrecisionNote::DeviceColorConversion));
+                let pipeline = device
+                    .compile_render_pipeline(&descriptor, &Budget::standard())
+                    .unwrap_or_else(|e| panic!("{stem} {format:?} {mask:?}: {e}"));
+                assert_eq!(pipeline.graphics.storage_attachments.len(), 1);
+                assert_eq!(pipeline.graphics.storage_attachments[0].color_index, 0);
+                assert!(pipeline.graphics.color_attachments[0].is_none());
+                // A half4 output written in the storage form by a pass variant, beside a
+                // half2 attachment the function fetches but whose mask stores nothing.
+                let mut half_colors = descriptor.color_attachments;
+                let mut coverage = ColorAttachmentDescriptor::new(PixelFormat::RG16Float);
+                coverage.write_mask = ColorWriteMask::NONE;
+                half_colors[1] = Some(coverage);
+                let half_inputs = LoweringInputs {
+                    framebuffer_fetch: Some(FramebufferFetchInputs::of(
+                        [0, 1],
+                        &half_colors,
+                        false,
+                        false,
+                        1,
+                    )),
+                    ..LoweringInputs::new()
+                };
+                let compiled =
+                    compile_with(&half, "con_fetch_coverage", device.profile(), &half_inputs)
+                        .unwrap_or_else(|e| panic!("{stem} {format:?} {mask:?}, half4: {e}"));
+                link_and_validate(&compiled, device.profile()).unwrap();
+            }
+        }
+    }
+}
+
 /// Each color index a function reads is read in an ordered form wherever the device has one. With
 /// rasterization-order color attachment access it is one input attachment with a `FramebufferFetch`
 /// fact. With only the ordered pixel interlock it is one storage image read (and written) inside
