@@ -153,8 +153,16 @@ jobs:
 
       # GPU-free on every host: tests that open a device compile only under `--cfg m2v_gpu` or
       # `--cfg m2v_cpu_icd`, and no device-opening code runs without one of them.
+      # The three whole-fixture native writer/fuel checks run in writer-fixtures with the
+      # compiler their AIR 2.9 / Metal 4.1 inputs require; every other macOS check stays here.
       - name: Test validation suite
-        run: cargo nextest run -p metal2vulkan-validation --all-features
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            cargo nextest run -p metal2vulkan-validation --all-features \
+              -E 'not test(/^(air_writer::tests::(typed_fixtures_round_trip|msl_fixtures_round_trip)|oracle_fuel::tests::public_fixtures_with_loops_round_trip_instrumented)$/)'
+          else
+            cargo nextest run -p metal2vulkan-validation --all-features
+          fi
 
       # nextest does not run doctests.
       - name: Doc tests
@@ -182,3 +190,40 @@ jobs:
           set -euo pipefail
           cargo build -p metal2vulkan-validation --bins
           bash scripts/qualify-public-cases target/debug
+
+  writer-fixtures:
+    name: CPU AIR writer and fuel fixtures (Xcode 27)
+    runs-on: xcode-27
+    timeout-minutes: 60
+    env:
+      CARGO_BUILD_JOBS: "1"
+      NEXTEST_TEST_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the official Metal Toolchain component
+        timeout-minutes: 3
+        run: xcodebuild -downloadComponent MetalToolchain
+      - name: Require and record the native compiler tools
+        run: |
+          set -euo pipefail
+          python3 -c 'import os; print("DEVELOPER_DIR=" + os.environ.get("DEVELOPER_DIR", "<unset>"))'
+          xcode-select -p
+          xcodebuild -version
+          xcrun --sdk macosx --show-sdk-version
+          for tool in metal metal-as metallib metal-opt; do
+            xcrun --sdk macosx --find "$tool"
+          done
+          xcrun --sdk macosx metal --version
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+      - name: Install cargo-nextest
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-nextest
+      - name: Run all native writer and fuel fixture round trips
+        run: >-
+          cargo nextest run -p metal2vulkan-validation --lib --all-features
+          --success-output immediate
+          -E 'test(/^(air_writer::tests::(typed_fixtures_round_trip|msl_fixtures_round_trip)|oracle_fuel::tests::public_fixtures_with_loops_round_trip_instrumented)$/)'

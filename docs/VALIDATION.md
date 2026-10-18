@@ -33,6 +33,22 @@ cargo test --workspace --all-features --doc
 None of these opens a device. They use the repository's own synthetic fixtures; private AIR and
 GPU runs are optional and explicit.
 
+CI keeps the full product tests, native support inventory, oracle checks and other validation on
+`macos-26`. The **CPU AIR writer and fuel fixtures (Xcode 27)** job runs these three existing
+whole-fixture aggregates with the compiler required by their AIR 2.9 and Metal 4.1 inputs:
+
+- `air_writer::tests::typed_fixtures_round_trip`
+- `air_writer::tests::msl_fixtures_round_trip`
+- `oracle_fuel::tests::public_fixtures_with_loops_round_trip_instrumented`
+
+Only these three are excluded from the macOS 26 validation selection; all their inputs and
+assertions run in the compatible compiler job, with native aggregate counts printed. Linux's
+selection is unchanged. The compiler job installs the official Metal Toolchain component and
+requires `metal`, `metal-as`, `metallib` and `metal-opt` before testing, recording their
+paths, compiler version and SDK. It opens no GPU. MSL fixtures pass their declared
+`metal-macos-min` as an explicit compiler argument; the oracle's default deployment target
+stays 26.0 when no fixture override is declared.
+
 ## Device tests and GPU safety
 
 A shader that never terminates keeps a GPU busy after its process is killed, and a wedged GPU can
