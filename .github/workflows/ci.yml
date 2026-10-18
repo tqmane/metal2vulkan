@@ -222,6 +222,21 @@ jobs:
         uses: taiki-e/install-action@v2
         with:
           tool: cargo-nextest
+      - name: Install LLVM + SPIR-V tools (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          set -euo pipefail
+          brew install llvm spirv-tools
+          # llvm is keg-only: not linked into /opt/homebrew/bin. GITHUB_PATH only
+          # affects *later* steps, so export PATH here before command -v probes.
+          export PATH="/opt/homebrew/opt/llvm/bin:/usr/local/opt/llvm/bin:${PATH}"
+          echo "/opt/homebrew/opt/llvm/bin" >> "$GITHUB_PATH"
+          echo "/usr/local/opt/llvm/bin" >> "$GITHUB_PATH"
+          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
+          command -v llvm-dis
+          command -v spirv-val
+          command -v spirv-as
+
       - name: Run all native writer and fuel fixture round trips
         run: >-
           cargo nextest run -p metal2vulkan-validation --lib --all-features
