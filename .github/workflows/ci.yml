@@ -138,6 +138,14 @@ jobs:
       - name: Package the published crates
         run: cargo package --workspace --exclude metal2vulkan-validation --exclude metal2vulkan-devtools
 
+      # This shard needs Apple's typed-pointer assembler. Check it before the full suites so
+      # a stale native inventory row reports its observed values without waiting for them.
+      - name: Check typed AIR inventory shard 4 (macOS)
+        if: runner.os == 'macOS'
+        run: >-
+          cargo nextest run -p metal2vulkan --lib --all-features
+          -E 'test(/^tests::public_fixtures_engine::metal_as::part_4_of_4$/)'
+
       # With the AIR front end's crate's own tests, and the dev-tools crate's:
       # its tool runner and L3 checks.
       - name: Test metal2vulkan
