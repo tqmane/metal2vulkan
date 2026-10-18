@@ -13,7 +13,7 @@
 //! Under `FramebufferFetchPolicy::AcceptUnordered`, which a caller may pass in
 //! `DeviceOptions::policy`, the compile layer also emits input attachments without that access
 //! where neither form is open to the pipeline (a device with neither feature, or a pipeline
-//! state the storage form cannot keep exact, such as a blending fetched attachment), recording
+//! state the storage form cannot run, such as an unsupported blend of a fetched attachment), recording
 //! `PrecisionNote::UnorderedFramebufferFetch`. The runtime runs only the ordered forms, which
 //! are Metal's, so it refuses such a pipeline where it makes it ([`ordered`]).
 //!

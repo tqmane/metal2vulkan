@@ -957,6 +957,9 @@ pub enum PrecisionNote {
     /// attachment that so blends stores the device's blend arithmetic (NVIDIA's 615.71.09 one `f32`
     /// ulp from Metal's in some source-over sums, a NaN as `0x7fffffff` where Metal stores
     /// `0x7fc00000`).
+    /// An unsigned normalized attachment fetched in the ordered pixel interlock can compute
+    /// premultiplied source-over in `float` there. Its blend arithmetic and the storage image's
+    /// conversion likewise retain this note; no bit-exact Metal blend is claimed for that form.
     ///
     /// Also: a function writes a `float` texel through an argument buffer's texture buffer (a heap
     /// texture buffer, which carries no texel class) that may hold a normalized format the device

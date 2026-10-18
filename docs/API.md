@@ -1703,7 +1703,9 @@ fast forms record, and each `PrecisionNote`'s rustdoc states its bound.
   whose conversion the device makes, not Metal's rule (`ChannelWrite::Device`): an attachment that
   blends with factors other than one and zero, the alpha of attachment 0 under alpha-to-coverage, a
   format whose conversion Metal was not measured with (the packed 16-bit unorm formats, `A8Unorm`,
-  the packed floats).
+  the packed floats). This also records a normalized attachment's premultiplied source-over
+  computed in `float` inside the ordered pixel interlock: the order is preserved, its arithmetic
+  and storage-image conversion are not claimed bit-identical to Metal's blend.
 - `metal2vulkan-degrade-device-interpolation` (precision). `PrecisionNote::DeviceInterpolation`: A
   fragment function reads a varying the device interpolates (`center_perspective`, `centroid`,
   `sample` or `no_perspective`, not `flat`) on a device whose interpolation is measured to differ

@@ -7,7 +7,7 @@
 //! The function compiled under its pipeline's state (`LoweringInputs::framebuffer_fetch`); link
 //! decides the form again from the state of the pipeline it links into, with the same rule, and
 //! a stage whose form, attachment format, kept channels (a write mask short of the format's
-//! channels), or in-shader blend (an extended-range attachment's) that state would not choose (a
+//! channels), or in-shader blend that state would not choose (a
 //! write before a depth or stencil attachment's tests only where the function states
 //! `RuntimeFact::TestedStorageWrites`, which each draw's plan checks) was compiled for another
 //! pipeline: `NeedsInput(FramebufferFetch)`. A write mask that keeps some of a format's channels

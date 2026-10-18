@@ -54,6 +54,12 @@ rows.
 No switch gives Metal's answer here: the device lacks what an exact form needs, or no exact form is
 known. The rest of the differences are docs/API.md section 9's precision notes.
 
+A framebuffer fetch through the pixel interlock can blend a four-component `float` or `half`
+output premultiplied source-over into a direct unsigned normalized attachment. Its `float`
+arithmetic and storage-image conversion
+record `DeviceColorConversion`; this keeps the fragment order, not a claim of Metal's blend
+rounding. Other ordinary blends and an sRGB attachment's blend still return a typed refusal.
+
 | What it is | Why there is no switch | Note, code |
 |---|---|---|
 | `f32` denormals in operations left to the device (a remainder, a `double` conversion, `dot`'s fused sum, a function no routine computes): Metal reads them as zero. | Vulkan lets each device keep or flush them. `+ - *`, comparisons, `fma`, `sqrt`, `rsqrt`, `floor`, `ceil` and divisions read them as Metal on every device. | `DeviceDenormals` (`device-denormals`) |

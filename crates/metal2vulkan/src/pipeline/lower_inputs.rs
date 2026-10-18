@@ -1001,7 +1001,8 @@ pub struct FetchedAttachment {
     #[cfg_attr(feature = "serde", serde(default))]
     pub replaces: bool,
     /// The descriptor's blend where it enables blending, which the function computes in the
-    /// shader for an extended-range attachment (`metal::format::ExtendedRange`) it writes.
+    /// shader for an extended-range attachment (`metal::format::ExtendedRange`), an exact
+    /// half-float blend, or normalized premultiplied source-over in the ordered storage form.
     #[cfg_attr(feature = "serde", serde(default))]
     pub equation: Option<BlendEquation>,
 }
