@@ -255,7 +255,7 @@ engine/a4_atomic_load_only.air.ll	a4_atomic_load_only	ok	ok	ok	ok	ok	ok	ok	ok	ok
 engine/a4_atomic_load_only.ll	a4_atomic_load_only	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok
 engine/a4_constant_volatile_load.air.ll	a4_constant_volatile_load	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok
 engine/a4_constant_volatile_load.ll	a4_constant_volatile_load	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok
-engine/a4_device_fence.air.ll	a4_device_fence	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok
+engine/a4_device_fence.air.ll	a4_device_fence	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	Unsupported{SeqCstFence; AnyOf[[Feature(BufferDeviceAddress), Feature(ShaderInt64)]]}	ok	ok	ok	ok	ok	Unsupported{SeqCstFence; AnyOf[[Feature(ShaderInt64)]]}	Unsupported{SeqCstFence; AnyOf[[Feature(ShaderInt64)]]}	Unsupported{SeqCstFence; AnyOf[[Feature(BufferDeviceAddress), Feature(ShaderInt64)]]}	Unsupported{SeqCstFence; AnyOf[[Feature(BufferDeviceAddress), Feature(ShaderInt64)]]}
 engine/a4_device_fence.ll	a4_device_fence	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	Unsupported{SeqCstFence; AnyOf[[Feature(BufferDeviceAddress), Feature(ShaderInt64)]]}	ok	ok	ok	ok	ok	Unsupported{SeqCstFence; AnyOf[[Feature(ShaderInt64)]]}	Unsupported{SeqCstFence; AnyOf[[Feature(ShaderInt64)]]}	Unsupported{SeqCstFence; AnyOf[[Feature(BufferDeviceAddress), Feature(ShaderInt64)]]}	Unsupported{SeqCstFence; AnyOf[[Feature(BufferDeviceAddress), Feature(ShaderInt64)]]}
 engine/a4_fragment_select_sample.air.ll	a4_fragment_select_sample	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok
 engine/a4_fragment_select_sample.ll	a4_fragment_select_sample	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok	ok
