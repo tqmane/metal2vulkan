@@ -139,8 +139,10 @@ mod tests {
                 interp::run_with_images(&module, &Config::default(), resources, Vec::new())
                     .unwrap();
             let actual: Vec<f32> = result.buffers[0]
-                .chunks_exact(4)
-                .map(|b| f32::from_le_bytes(b.try_into().unwrap()))
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .map(|b| f32::from_le_bytes(*b))
                 .collect();
             assert_eq!(actual, expected);
         }

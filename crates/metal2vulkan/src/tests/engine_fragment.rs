@@ -559,7 +559,7 @@ fn normalized_fetch_source_over_compiles_and_links_in_the_interlock() {
                 assert!(pipeline.graphics.color_attachments[0].is_none());
                 // A half4 output written in the storage form by a pass variant, beside a
                 // half2 attachment the function fetches but whose mask stores nothing.
-                let mut half_colors = descriptor.color_attachments.clone();
+                let mut half_colors = descriptor.color_attachments;
                 let mut coverage = ColorAttachmentDescriptor::new(PixelFormat::RG16Float);
                 coverage.write_mask = ColorWriteMask::NONE;
                 half_colors[1] = Some(coverage);
