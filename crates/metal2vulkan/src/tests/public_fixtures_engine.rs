@@ -127,6 +127,27 @@ fn header(profiles: &[(String, DeviceProfile)]) -> String {
     line
 }
 
+#[test]
+#[ignore]
+fn record_engine_inventory() {
+    let profiles = committed_profiles().expect("committed profiles");
+    let expected = expected_rows();
+    let mut table = header(&profiles) + "\n";
+    for (name, path) in fixtures() {
+        let (rows, skipped) = fixture_rows(&name, &path, &profiles, &expected);
+        assert!(
+            !skipped,
+            "refusing to record without the assembler for {name}"
+        );
+        table.push_str(&rows);
+    }
+    std::fs::write(
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/public_fixture_expectations_engine.tsv"),
+        table,
+    )
+    .expect("write engine inventory");
+}
+
 /// The inventory rows of fixture `name` (each line with its newline), and whether they were taken
 /// from the expectations because its assembler is not installed (a visible skip).
 fn fixture_rows(

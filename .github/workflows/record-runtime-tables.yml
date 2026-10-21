@@ -1,0 +1,62 @@
+name: Record runtime fixture tables
+
+on:
+  push:
+    branches: [steelbrain/runtime-fixture-recording]
+
+permissions:
+  contents: read
+
+jobs:
+  record:
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      CARGO_BUILD_JOBS: "1"
+      RUSTFLAGS: -Dwarnings
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Require native assemblers and validators
+        run: |
+          set -euo pipefail
+          brew install llvm spirv-tools
+          echo /opt/homebrew/opt/llvm/bin >> "$GITHUB_PATH"
+          if ! xcrun --sdk macosx --find metal-as; then
+            xcodebuild -downloadComponent MetalToolchain
+          fi
+          xcrun --sdk macosx --find metal-as
+          /opt/homebrew/opt/llvm/bin/llvm-as --version
+          spirv-val --version
+      - name: Record through existing decoders and compilation checks
+        run: |
+          set -euo pipefail
+          cargo test --release -p metal2vulkan --all-features --lib -- \
+            tests::air_input::bless_engine_goldens \
+            tests::golden_hashes::bless_golden_hashes \
+            tests::public_fixtures_engine::record_engine_inventory \
+            --ignored --nocapture --test-threads=1
+          git diff --stat
+          python3 - <<'PY'
+          import subprocess
+          allowed = {
+              'crates/metal2vulkan/tests/air_input/native_sample_positions.txt',
+              'crates/metal2vulkan/tests/golden_hashes.tsv',
+              'crates/metal2vulkan/tests/public_fixture_expectations_engine.tsv',
+          }
+          changed = {row[3:] for row in subprocess.check_output(
+              ['git', 'status', '--porcelain', '--untracked-files=all'], text=True).splitlines()}
+          assert changed <= allowed, sorted(changed - allowed)
+          print('Generated snapshot files:', sorted(changed))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-fixture-tables
+          retention-days: 7
+          path: |
+            crates/metal2vulkan/tests/air_input/native_sample_positions.txt
+            crates/metal2vulkan/tests/golden_hashes.tsv
+            crates/metal2vulkan/tests/public_fixture_expectations_engine.tsv
