@@ -314,10 +314,11 @@ fn below_1_2_and_contradictory_policies_are_refused() {
 /// Each of the policy's choices between the device's answer and Metal's, with a function that
 /// flips it alone: the maths functions, the texel conversions, the `half` rounding, the NaN and
 /// minimum and maximum, the rounding order, and the 16-bit float blend of a `half` output.
-fn exactness_flips() -> [(&'static str, fn(DevicePolicy) -> DevicePolicy); 6] {
+fn exactness_flips() -> [(&'static str, fn(DevicePolicy) -> DevicePolicy); 7] {
     use crate::device::{
-        FloatMathsPolicy as F, HalfBlendPolicy as B, HalfRoundingPolicy as H, NanMinMaxPolicy as N,
-        RoundingOrderPolicy as R, TexelConversionPolicy as T,
+        FloatMathsPolicy as F, HalfBlendPolicy as B, HalfRoundingPolicy as H,
+        MultisamplePositionPolicy as M, NanMinMaxPolicy as N, RoundingOrderPolicy as R,
+        TexelConversionPolicy as T,
     };
     [
         ("float_maths", |p| DevicePolicy {
@@ -362,6 +363,13 @@ fn exactness_flips() -> [(&'static str, fn(DevicePolicy) -> DevicePolicy); 6] {
             },
             ..p
         }),
+        ("multisample_position", |p| DevicePolicy {
+            multisample_position: match p.multisample_position {
+                M::Device => M::Exact,
+                M::Exact => M::Device,
+            },
+            ..p
+        }),
     ]
 }
 
@@ -383,7 +391,10 @@ fn metal_s_own_answers_key_the_same_under_either_choice() {
     for (name, flip) in exactness_flips() {
         assert_eq!(
             fp(flip(base)) == fp(base),
-            !matches!(name, "texel_conversion" | "half_blend"),
+            !matches!(
+                name,
+                "texel_conversion" | "half_blend" | "multisample_position"
+            ),
             "{name}"
         );
     }
@@ -1335,4 +1346,26 @@ fn nvidia_keeps_dont_inline_calls_on_its_measured_gpu() {
     assert!(!carries(&profile("nvidia-pascal-linux")));
     assert!(!carries(&profile("amd-780m-radv")));
     assert!(!carries(&profile("moltenvk-m3")));
+}
+
+#[cfg(feature = "serde")]
+#[test]
+fn multisample_position_policy_round_trips_and_defaults() {
+    use crate::device::MultisamplePositionPolicy;
+    let policy = DevicePolicy::default().exact_answers();
+    let encoded = serde_json::to_value(policy).expect("policy JSON");
+    assert_eq!(
+        serde_json::from_value::<DevicePolicy>(encoded.clone()).unwrap(),
+        policy
+    );
+    let mut legacy = encoded;
+    legacy
+        .as_object_mut()
+        .unwrap()
+        .remove("multisample_position");
+    let decoded: DevicePolicy = serde_json::from_value(legacy).unwrap();
+    assert_eq!(
+        decoded.multisample_position,
+        MultisamplePositionPolicy::Device
+    );
 }

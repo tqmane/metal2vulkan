@@ -331,6 +331,7 @@ fn derive_fields(
         framebuffer_fetch: policy.framebuffer_fetch,
         texel_conversion: policy.texel_conversion,
         half_blend: policy.half_blend,
+        multisample_position: policy.multisample_position,
         // Metal's where a form is measured to be Metal's or the policy asks for Metal's rounding;
         // elsewhere the device's own.
         half_rounding: if policy.half_rounding == HalfRoundingPolicy::Exact

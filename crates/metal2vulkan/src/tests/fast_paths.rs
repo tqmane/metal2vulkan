@@ -8,8 +8,8 @@
 
 use crate::device::{
     DevicePolicy, FloatMathsPolicy, FramebufferFetchPolicy, HalfBlendPolicy, HalfRoundingPolicy,
-    NanMinMaxPolicy, RoundingOrderPolicy, SamplingPolicy, TexelConversionPolicy,
-    Unorm8LinearFilterPolicy,
+    MultisamplePositionPolicy, NanMinMaxPolicy, RoundingOrderPolicy, SamplingPolicy,
+    TexelConversionPolicy, Unorm8LinearFilterPolicy,
 };
 use crate::pipeline::PrecisionNote;
 use std::collections::BTreeSet;
@@ -68,6 +68,7 @@ fn choices() -> Vec<Choice> {
         nan_and_min_max: _,
         rounding_order: _,
         half_blend: _,
+        multisample_position: _,
     } = p;
     vec![
         choice!(p.framebuffer_fetch: FramebufferFetchPolicy { RequireOrdered, AcceptUnordered }),
@@ -79,6 +80,7 @@ fn choices() -> Vec<Choice> {
         choice!(p.nan_and_min_max: NanMinMaxPolicy { Native, Exact }),
         choice!(p.rounding_order: RoundingOrderPolicy { Native, Exact }),
         choice!(p.half_blend: HalfBlendPolicy { Device, Exact }),
+        choice!(p.multisample_position: MultisamplePositionPolicy { Device, Exact }),
     ]
 }
 
@@ -125,6 +127,7 @@ fn notes() -> Vec<(&'static str, Ledger)> {
             NativeMix,
             NativeHalfConversion,
             NativeHalfQuantize,
+            MultisamplePosition,
             HalfOutputPrecision,
         ],
         NotBuilt: [
@@ -156,7 +159,6 @@ fn notes() -> Vec<(&'static str, Ledger)> {
             TessellationFactorScale,
             TessellationFactorInstance,
             Fp8Value,
-            MultisamplePosition,
             RasterizationRateMap,
             SparseResidency,
             DeviceNanEncoding,

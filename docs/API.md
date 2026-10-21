@@ -87,7 +87,8 @@ compile does. `DevicePolicy::default()` is `DevicePolicy::UNTRUSTED`:
 - **Ordered framebuffer fetch required** (`FramebufferFetchPolicy::RequireOrdered`).
 - **Fast native forms off Apple's GPUs.** The device's own sampler, maths library, divisions,
   fused multiply-adds, texel conversions, `half` rounding, NaN bits, min/max, rounding order of
-  `dot`/`mix`/`fast::sqrt`, and blend of a `half` color. Each records a precision note with its
+  `dot`/`mix`/`fast::sqrt`, blend of a `half` color, and native per-sample pixel interpolation where
+  an exact pixel-center form is unavailable. Each records a precision note with its
   bound, and each has an exact switch. `DevicePolicy::exact_answers()` turns on every exact form
   but sampling's; `sampling = SamplingPolicy::Exact` emulates Metal's sampler too.
   [FAST-PATHS.md](FAST-PATHS.md) lists every choice, its bound and the measured cost of its exact
@@ -1619,7 +1620,7 @@ fast forms record, and each `PrecisionNote`'s rustdoc states its bound.
   where Metal's device here answers otherwise: Metal on Apple M3 compiles these reads but extends
   the carrier byte as an integer, the same for every format, so the result is unverified on Metal.
 - `metal2vulkan-degrade-multisample-position` (precision). `PrecisionNote::MultisamplePosition`: A
-  fragment function of a render pipeline that rasterizes more than one sample reads, at pixel rate,
+  fragment function of a render pipeline that rasterizes more than one sample reads, at pixel or sample rate,
   a value Metal reads at the pixel center in every invocation and Vulkan evaluates at an
   implementation-defined position within the fragment: `[[position]]`'s z or w (the interpolated
   depth and `1/w`, whose position Vulkan does not state), a center-sampled varying on a device
@@ -1627,7 +1628,11 @@ fast forms record, and each `PrecisionNote`'s rustdoc states its bound.
   center: "an implementation-defined position within the fragment area being shaded"), a centroid
   varying (anywhere in the fragment's covered area, where Metal, measured on Apple M3 Max, moves it
   to a covered sample's location only under partial coverage), `[[point_coord]]` ("the fragment
-  center, or the location of a sample"), or `[[barycentric_coord]]`.
+  center, or the location of a sample"), or `[[barycentric_coord]]`. Per-sample reads without their
+  pixel form use native interpolation under `multisample_position = MultisamplePositionPolicy::Device`
+  (the default). `MultisamplePositionPolicy::Exact`, also selected by `exact_answers()`, retains
+  their typed refusal. Missing sample-rate shading hardware, coverage-loop refusals and
+  incompatible compiled stage interfaces remain refusals under either policy.
 - `metal2vulkan-degrade-rasterization-rate-map` (precision). `PrecisionNote::RasterizationRateMap`:
   A render pass drawn by regions over a rasterization-rate map that is not the identity: its
   regions' lines are this crate's tiles' exact lines, where Apple's are its fixed-point ones, so a

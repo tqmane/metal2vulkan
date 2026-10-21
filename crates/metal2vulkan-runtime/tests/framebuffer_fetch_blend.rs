@@ -159,3 +159,102 @@ fn normalized_source_over_fetches_each_earlier_draw_and_keeps_masked_channels() 
     let errors = errors.lock().unwrap();
     assert!(errors.is_empty(), "{errors:?}");
 }
+
+/// An authored 4x depth read runs per sample, with atomic sums rather than racing
+/// stores, and the device announces its native-position precision note once.
+#[test]
+fn native_per_sample_pixel_positions_execute_and_announce_once() {
+    use metal2vulkan_runtime::{CommandBufferStatus, Degradation};
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    let path = std::env::temp_dir().join(format!("m2v-native-sample-{}", std::process::id()));
+    std::fs::create_dir(&path).unwrap();
+    let cache = Scratch(path);
+    let errors = Arc::new(Mutex::new(Vec::new()));
+    let collected = Arc::clone(&errors);
+    let notes = Arc::new(AtomicUsize::new(0));
+    let counted = Arc::clone(&notes);
+    let mut options = DeviceOptions::default();
+    options.kinds = if cfg!(m2v_cpu_icd) {
+        vec![DeviceKind::Cpu]
+    } else {
+        vec![DeviceKind::Discrete, DeviceKind::Integrated]
+    };
+    options.layers = vec![c"VK_LAYER_KHRONOS_validation".to_owned()];
+    options.shader_cache.directory = Some(cache.0.clone());
+    options.messages = Some(MessageSink::new(move |message| {
+        if message.kind.validation && message.severity == MessageSeverity::Error {
+            collected.lock().unwrap().push(message.text.clone());
+        }
+        if message
+            .degradation
+            .as_ref()
+            .is_some_and(|note| note.degradation == Degradation::MultisamplePosition)
+        {
+            counted.fetch_add(1, Ordering::Relaxed);
+        }
+    }));
+    let device = Device::system_default_with(&options).unwrap();
+    let source = library(&device, "native_sample_positions");
+    let function = |name| {
+        StageSource::Function(
+            source
+                .new_function_with_name(name)
+                .unwrap()
+                .function_descriptor(),
+        )
+    };
+    let mut descriptor = RenderPipelineDescriptor::new(function("native_position_vertex"));
+    descriptor.fragment = Some(function("native_sample_depth"));
+    descriptor.raster_sample_count = 4;
+    let queue = device.new_command_queue().unwrap();
+    for _ in 0..2 {
+        let pipeline = device
+            .new_render_pipeline_state(&descriptor, &PipelineOptions::default())
+            .unwrap();
+        let output = device
+            .new_buffer_with_bytes(&[0u8; 48], ResourceOptions::shared())
+            .unwrap();
+        let mut pass = RenderPassDescriptor::new();
+        pass.render_target_width = 2;
+        pass.render_target_height = 2;
+        pass.default_raster_sample_count = 4;
+        let commands = queue.command_buffer().unwrap();
+        let mut encoder = commands.render_command_encoder(&pass).unwrap();
+        encoder.set_render_pipeline_state(&pipeline).unwrap();
+        encoder.set_fragment_buffer(Some(&output), 0, 0).unwrap();
+        encoder
+            .draw_primitives(PrimitiveType::Triangle, 0, 3, 1, 0)
+            .unwrap();
+        encoder.end_encoding().unwrap();
+        commands.commit().unwrap();
+        commands
+            .wait_until_completed_for(Duration::from_secs(10))
+            .unwrap();
+        assert_eq!(commands.status(), CommandBufferStatus::Completed);
+        assert_eq!(commands.error(), None);
+        // SAFETY: the shared buffer lives here, and all GPU writes have completed.
+        let bytes = unsafe { std::slice::from_raw_parts(output.contents().unwrap().as_ptr(), 48) };
+        let words: Vec<_> = bytes
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .map(|word| u32::from_le_bytes(*word))
+            .collect();
+        assert_eq!(&words[..4], &[0.5f32.to_bits().wrapping_mul(4); 4]);
+        assert_eq!(&words[4..8], &[1.0f32.to_bits().wrapping_mul(4); 4]);
+        assert_eq!(&words[8..], &[4; 4]);
+    }
+    eprintln!(
+        "{}: actual 4x depth/w atomic sums and per-sample invocation counts passed twice",
+        device.name()
+    );
+    drop(queue);
+    drop(source);
+    drop(device);
+    assert_eq!(notes.load(Ordering::Relaxed), 1);
+    assert!(
+        errors.lock().unwrap().is_empty(),
+        "validation reported an error"
+    );
+}

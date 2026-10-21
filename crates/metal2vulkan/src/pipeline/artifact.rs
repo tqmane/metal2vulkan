@@ -544,7 +544,7 @@ pub enum PrecisionNote {
     /// contradicts it (and none verifies it either).
     Fp8Value,
     /// A fragment function of a render pipeline that rasterizes more than one sample reads, at
-    /// pixel rate, a value Metal reads at the pixel center in every invocation and Vulkan
+    /// pixel or sample rate, a value Metal reads at the pixel center in every invocation and Vulkan
     /// evaluates at an implementation-defined position within the fragment: `[[position]]`'s z or w
     /// (the interpolated depth and `1/w`, whose position Vulkan does not state), a center-sampled
     /// varying on a device without its pixel form (interpolation functions whose
@@ -553,7 +553,8 @@ pub enum PrecisionNote {
     /// covered area, where Metal, measured on Apple M3 Max, moves it to a covered sample's location
     /// only under partial coverage), `[[point_coord]]` ("the fragment center, or the location of a
     /// sample"), or `[[barycentric_coord]]`. Exact where the device evaluates each where Metal
-    /// does. A function that runs per sample never carries it: link refuses those reads there.
+    /// does. Per-sample reads without an exact pixel form use their native interpolation position
+    /// under `MultisamplePositionPolicy::Device`; `Exact` refuses them.
     MultisamplePosition,
     /// A render pass drawn by regions over a rasterization-rate map that is not the identity
     /// (`bind::RateMapRegions::precision`): its regions' lines are this crate's tiles' exact lines,

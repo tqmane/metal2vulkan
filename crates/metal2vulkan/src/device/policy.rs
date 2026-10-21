@@ -52,6 +52,10 @@ pub struct DevicePolicy {
     /// attachment in the device's blend (the default) or in Metal's `half` arithmetic, which the
     /// function computes in the shader.
     pub half_blend: HalfBlendPolicy,
+    /// Whether per-sample pixel inputs without a pixel-center form use native interpolation,
+    /// with a precision note, or retain the exact-form refusal.
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub multisample_position: MultisamplePositionPolicy,
 }
 
 impl DevicePolicy {
@@ -74,6 +78,7 @@ impl DevicePolicy {
         nan_and_min_max: NanMinMaxPolicy::Native,
         rounding_order: RoundingOrderPolicy::Native,
         half_blend: HalfBlendPolicy::Device,
+        multisample_position: MultisamplePositionPolicy::Device,
     };
 
     /// This policy with Metal's answer wherever the choices offer it: its maths functions,
@@ -81,7 +86,8 @@ impl DevicePolicy {
     /// ([`TexelConversionPolicy::Exact`]), its `half` rounding ([`HalfRoundingPolicy::Exact`]), its
     /// NaN and minimum and maximum ([`NanMinMaxPolicy::Exact`]), its rounding order
     /// ([`RoundingOrderPolicy::Exact`]), and its 16-bit float blend of a `half` output
-    /// ([`HalfBlendPolicy::Exact`]). Sampling and every other field are kept.
+    /// ([`HalfBlendPolicy::Exact`]), and its pixel-center requirement for per-sample pixel inputs
+    /// ([`MultisamplePositionPolicy::Exact`]). Sampling and every other field are kept.
     pub const fn exact_answers(self) -> DevicePolicy {
         DevicePolicy {
             float_maths: FloatMathsPolicy::Exact,
@@ -90,6 +96,7 @@ impl DevicePolicy {
             nan_and_min_max: NanMinMaxPolicy::Exact,
             rounding_order: RoundingOrderPolicy::Exact,
             half_blend: HalfBlendPolicy::Exact,
+            multisample_position: MultisamplePositionPolicy::Exact,
             ..self
         }
     }
@@ -100,6 +107,19 @@ impl Default for DevicePolicy {
     fn default() -> DevicePolicy {
         DevicePolicy::UNTRUSTED
     }
+}
+
+/// The interpolation position of pixel inputs in a per-sample fragment invocation.
+#[non_exhaustive]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum MultisamplePositionPolicy {
+    /// Use Vulkan's native position where no pixel-center form exists. The pipeline records
+    /// [`PrecisionNote::MultisamplePosition`](crate::pipeline::PrecisionNote::MultisamplePosition).
+    #[default]
+    Device,
+    /// Require the existing exact pixel form; refuse a per-sample pixel read without one.
+    Exact,
 }
 
 /// The containment choice. The encoding (robustness or in-shader checks) is selected by

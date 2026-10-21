@@ -2149,6 +2149,11 @@ fn multisampled_fragment_invocations_follow_metals_measured_rules() {
     use crate::error::RuntimeInput;
     use crate::pipeline::descriptor::ColorAttachmentDescriptor;
     use crate::pipeline::stage_io::StageBuiltin as B;
+    let exact_policy = DevicePolicy {
+        multisample_position: crate::device::MultisamplePositionPolicy::Exact,
+        ..DevicePolicy::default()
+    };
+    let profile = |stem| crate::pipeline::testing::profile(stem, exact_policy).expect("profile");
     let f4 = io_ty(IoNumeric::Float, 4);
     let smooth = |sampling| {
         Some(Interpolation::Smooth {
@@ -2348,7 +2353,7 @@ fn multisampled_fragment_invocations_follow_metals_measured_rules() {
         )
         .expect("description");
         edit(&mut d);
-        crate::device::Device::new(d, DevicePolicy::default())
+        crate::device::Device::new(d, exact_policy)
             .expect("device")
             .profile()
             .clone()
