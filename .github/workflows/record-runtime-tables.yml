@@ -35,14 +35,16 @@ jobs:
         run: |
           set -euo pipefail
           cargo test --release -p metal2vulkan --all-features --lib -- \
+            tests::air_canon::typed_and_opaque_fixtures_specialize_identically \
             tests::air_input::bless_engine_goldens \
             tests::golden_hashes::bless_golden_hashes \
             tests::public_fixtures_engine::record_engine_inventory \
-            --ignored --nocapture --test-threads=1
+            --include-ignored --nocapture --test-threads=1
           git diff --stat
           python3 - <<'PY'
           import subprocess
           allowed = {
+              'crates/metal2vulkan-validation/fixtures/public/engine/native_sample_positions.air.ll',
               'crates/metal2vulkan/tests/air_input/native_sample_positions.txt',
               'crates/metal2vulkan/tests/golden_hashes.tsv',
               'crates/metal2vulkan/tests/public_fixture_expectations_engine.tsv',
@@ -57,6 +59,7 @@ jobs:
           name: runtime-fixture-tables
           retention-days: 7
           path: |
+            crates/metal2vulkan-validation/fixtures/public/engine/native_sample_positions.air.ll
             crates/metal2vulkan/tests/air_input/native_sample_positions.txt
             crates/metal2vulkan/tests/golden_hashes.tsv
             crates/metal2vulkan/tests/public_fixture_expectations_engine.tsv
