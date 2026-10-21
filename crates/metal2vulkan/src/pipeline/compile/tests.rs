@@ -2548,10 +2548,11 @@ fn the_interface_states_whether_the_function_writes_textures() {
 }
 
 /// A render pipeline whose fragment function reads `[[sample_id]]` and `[[point_coord]]`
-/// (`stage_io_fragment_point`) links at one sample and is refused at four, where Vulkan's sample
-/// shading may move the point coordinate to the sample while Metal keeps it at the pixel's.
+/// (`stage_io_fragment_point`) links at one sample and is refused at four under exact positions,
+/// where Vulkan's sample shading may move the point coordinate while Metal keeps it at the pixel's.
 #[test]
 fn a_sample_rate_point_coordinate_is_refused_under_multisampling() {
+    use crate::device::MultisamplePositionPolicy;
     use crate::error::Unsupported;
     let Some(bc) = fixture("stage_io") else {
         return;
@@ -2567,7 +2568,11 @@ fn a_sample_rate_point_coordinate_is_refused_under_multisampling() {
         metal::PixelFormat::RGBA16Float,
     ));
     for stem in ["moltenvk-m3", "lavapipe"] {
-        let dev = device(stem);
+        let policy = DevicePolicy {
+            multisample_position: MultisamplePositionPolicy::Exact,
+            ..DevicePolicy::default()
+        };
+        let dev = Device::new(description(stem), policy).expect("device");
         d.raster_sample_count = 1;
         dev.compile_render_pipeline(&d, &Budget::standard())
             .unwrap_or_else(|e| panic!("{stem}: {e}"));
