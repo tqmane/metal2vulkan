@@ -1327,11 +1327,11 @@ fn mesh_fields(d: &MeshPipelineDescriptor) -> String {
 }
 
 /// A fragment function of a pipeline that rasterizes more than one sample, which reads at pixel
-/// rate a value Vulkan evaluates at an implementation-defined position within the fragment and
+/// or sample rate a value Vulkan evaluates at an implementation-defined position within the fragment and
 /// Metal at the pixel center, notes `PrecisionNote::MultisamplePosition`: `[[position]]`'s z or w,
 /// a center varying not read at the pixel (`StageIo::varyings_at_pixel`), a centroid varying,
-/// `[[point_coord]]`, or `[[barycentric_coord]]`. Link refused these reads in a function that runs
-/// per sample, so only a pixel-rate one reaches here with them.
+/// `[[point_coord]]`, or `[[barycentric_coord]]`. Per-sample reads without a pixel form reach
+/// here under `MultisamplePositionPolicy::Device`; `Exact` retains their refusal.
 fn note_sample_position(
     d: FragmentPass<'_>,
     stages: &[&FunctionArtifact],

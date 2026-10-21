@@ -36,7 +36,9 @@ use std::path::Path;
 use crate::bind::BindState;
 use crate::budget::Budget;
 use crate::device::requirements::{VkExtension, VkFeature, VkProperty};
-use crate::device::{Device, DeviceDescription, DevicePolicy, DriverWorkaround};
+use crate::device::{
+    Device, DeviceDescription, DevicePolicy, DriverWorkaround, MultisamplePositionPolicy,
+};
 use crate::error::{Capability, Error, Feature, LowerFamily, Needs, Unsupported};
 use crate::library::Library;
 use crate::metal::{PixelFormat, VertexFormat};
@@ -67,6 +69,13 @@ const INTERPOLATE_AT_OFFSET: u32 = 78;
 
 fn fixture() -> Option<Library> {
     library("multisample")
+}
+
+fn exact_positions() -> DevicePolicy {
+    DevicePolicy {
+        multisample_position: MultisamplePositionPolicy::Exact,
+        ..DevicePolicy::default()
+    }
 }
 
 fn library(name: &str) -> Option<Library> {
@@ -255,7 +264,7 @@ fn multisampled_fragments_read_the_pixel_center_or_are_refused() {
     let mut biased = Vec::new();
     let mut by_device_profiles = Vec::new();
     for stem in stems() {
-        let dev = Device::new(description(&stem), DevicePolicy::default()).expect("device");
+        let dev = Device::new(description(&stem), exact_positions()).expect("device");
         let fields = dev.profile().fields();
         let rate = fields.fragment.sample_rate_shading;
         let stores = fields.leaf.fragment_stores_and_atomics;
@@ -400,7 +409,7 @@ fn a_pixel_rate_center_varying_reads_the_pixel_center_where_the_device_has_the_f
     let mut by_device_form = Vec::new();
     let mut refused_split = Vec::new();
     for stem in stems() {
-        let dev = Device::new(description(&stem), DevicePolicy::default()).expect("device");
+        let dev = Device::new(description(&stem), exact_positions()).expect("device");
         for samples in [1, 4] {
             let what = format!("{stem} at {samples}");
             let p = match dev
@@ -494,7 +503,7 @@ fn a_pixel_rate_read_at_an_unstated_position_is_noted() {
             .contains(&PrecisionNote::MultisamplePosition)
     };
     for stem in ["moltenvk-m3", "amd-780m-radv"] {
-        let dev = Device::new(description(stem), DevicePolicy::default()).expect("device");
+        let dev = Device::new(description(stem), exact_positions()).expect("device");
         for samples in [1, 4] {
             let p = dev
                 .compile_render_pipeline(&stage_io_render(&stage_io, samples), &Budget::standard())
@@ -516,6 +525,138 @@ fn a_pixel_rate_read_at_an_unstated_position_is_noted() {
     }
 }
 
+/// The default runs native per-sample pixel inputs, with exactly one visible note;
+/// the opt-in retains the refusal. Every input is from an authored public fixture.
+#[test]
+fn native_per_sample_pixel_positions_are_noted_and_exact_refusals_stay() {
+    let batch = std::time::Instant::now();
+    let mut slowest = std::time::Duration::ZERO;
+    let mut translated = 0;
+    let Some(lib) = fixture() else { return };
+    let Some(builtins) = library("native_sample_positions") else {
+        return;
+    };
+    for stem in ["amd-780m-radv", "nvidia-rtx5080-laptop"] {
+        let desc = description(stem);
+        let native = Device::new(desc.clone(), DevicePolicy::default()).expect("device");
+        let exact =
+            Device::new(desc, DevicePolicy::default().exact_answers()).expect("exact device");
+        assert_eq!(
+            native.profile().fields().multisample_position,
+            MultisamplePositionPolicy::Device
+        );
+        assert_eq!(
+            exact.profile().fields().multisample_position,
+            MultisamplePositionPolicy::Exact
+        );
+        for (source, vertex, fragment) in [
+            (&lib, VERTEX, DEPTH),
+            (&lib, VERTEX, CENTROID),
+            (&builtins, "native_position_vertex", "native_sample_point"),
+            (
+                &builtins,
+                "native_position_vertex",
+                "native_sample_barycentric",
+            ),
+            (&builtins, "native_position_vertex", "native_sample_depth"),
+        ] {
+            let mut descriptor = RenderPipelineDescriptor::new(StageSource::Function(
+                FunctionDescriptor::new(source.function(vertex).expect("vertex")),
+            ));
+            descriptor.fragment = Some(StageSource::Function(FunctionDescriptor::new(
+                source.function(fragment).expect("fragment"),
+            )));
+            descriptor.color_attachments[0] =
+                Some(ColorAttachmentDescriptor::new(PixelFormat::RGBA16Float));
+            for samples in [1, 4] {
+                descriptor.raster_sample_count = samples;
+                let started = std::time::Instant::now();
+                let p = native
+                    .compile_render_pipeline(&descriptor, &Budget::standard())
+                    .expect(fragment);
+                slowest = slowest.max(started.elapsed());
+                translated += 1;
+                validate(&p, &native, fragment);
+                let notes = &p
+                    .stages
+                    .iter()
+                    .find(|stage| stage.stage == crate::vk::ShaderStage::FRAGMENT)
+                    .expect("fragment module")
+                    .precision_notes;
+                assert_eq!(
+                    notes
+                        .iter()
+                        .filter(|note| **note == PrecisionNote::MultisamplePosition)
+                        .count(),
+                    usize::from(samples > 1),
+                    "{stem} {fragment}"
+                );
+                if samples == 4 {
+                    assert_eq!(
+                        exact
+                            .compile_render_pipeline(&descriptor, &Budget::standard())
+                            .unwrap_err(),
+                        not_implemented(),
+                        "{stem} {fragment}"
+                    );
+                } else {
+                    exact
+                        .compile_render_pipeline(&descriptor, &Budget::standard())
+                        .expect("one sample exact");
+                }
+            }
+        }
+    }
+    eprintln!(
+        "native multisample position batch: {translated} pipelines in {:?}; slowest {:?}",
+        batch.elapsed(),
+        slowest
+    );
+}
+
+/// A native center read does not require a pixel-center interpolation capability
+/// the shader does not use, while missing sample-rate shading still refuses.
+#[test]
+fn native_center_positions_are_noted_without_faking_missing_capabilities() {
+    let Some(lib) = fixture() else { return };
+    let feature = VkFeature::ShaderSampleRateInterpolationFunctions;
+    for withheld in [false, true] {
+        let mut desc = unmeasured_moltenvk();
+        if withheld {
+            assert!(desc.features.remove(&feature));
+        }
+        let native = Device::new(desc, DevicePolicy::default()).expect("device");
+        for fragment in [CENTER, SAMPLED, COUNTER] {
+            let p = native
+                .compile_render_pipeline(&render(&lib, fragment, 4), &Budget::standard())
+                .expect(fragment);
+            validate(&p, &native, fragment);
+            let stage = p
+                .stages
+                .iter()
+                .find(|stage| stage.stage == crate::vk::ShaderStage::FRAGMENT)
+                .expect("fragment");
+            assert!(
+                stage
+                    .precision_notes
+                    .contains(&PrecisionNote::MultisamplePosition),
+                "{fragment}"
+            );
+            assert!(!p
+                .requirements
+                .properties
+                .contains(&VkProperty::InterpolateAtOffsetCentered));
+        }
+    }
+    let mut desc = description("nvidia-rtx5080-laptop");
+    assert!(desc.features.remove(&VkFeature::SampleRateShading));
+    let native = Device::new(desc, DevicePolicy::default()).expect("device");
+    let error = native
+        .compile_render_pipeline(&render(&lib, DEPTH, 4), &Budget::standard())
+        .unwrap_err();
+    assert!(matches!(error, Error::Unsupported(u) if u.feature == Feature::SampleRateShading));
+}
+
 /// The interface states what link needs: whether the function was compiled for a multisampled
 /// pipeline, reads a center varying at the pixel, and may read `[[position]]`'s z or w (anything
 /// but an extract or a shuffle of its x and y lanes, from either shuffle operand). A center varying
@@ -527,7 +668,7 @@ fn the_interface_states_the_pixel_reads() {
     let mut multisampled = LoweringInputs::new();
     multisampled.multisampled = true;
     for stem in ["lavapipe", "moltenvk-m3"] {
-        let dev = Device::new(description(stem), DevicePolicy::default()).expect("device");
+        let dev = Device::new(description(stem), exact_positions()).expect("device");
         // (function, reads z or w, reads a center varying)
         for (fragment, depth, center) in [
             (CENTER, false, true),
@@ -574,7 +715,7 @@ fn a_center_varying_at_sample_rate_needs_a_centered_offset_and_the_interpolation
         if withheld {
             assert!(desc.features.remove(&feature));
         }
-        let dev = Device::new(desc, DevicePolicy::default()).expect("device");
+        let dev = Device::new(desc, exact_positions()).expect("device");
         let mut needs = Vec::new();
         if biased {
             needs.push(CENTERED);
@@ -637,7 +778,7 @@ fn a_moltenvk_device_is_biased_by_its_driver() {
         (unmeasured_moltenvk(), false),
     ] {
         assert_eq!(desc.driver_id, Some(crate::vk::DriverId::MOLTENVK));
-        let dev = Device::new(desc, DevicePolicy::default()).expect("device");
+        let dev = Device::new(desc, exact_positions()).expect("device");
         assert!(!dev
             .profile()
             .fields()
@@ -691,7 +832,7 @@ fn a_center_varying_at_sample_rate_reads_as_it_is_where_the_driver_reads_it_at_t
             if withheld {
                 assert!(desc.features.remove(&feature), "{stem}");
             }
-            let dev = Device::new(desc, DevicePolicy::default()).expect("device");
+            let dev = Device::new(desc, exact_positions()).expect("device");
             assert!(reads_center_at_pixel(&dev), "{stem}");
             for fragment in [CENTER, SAMPLED, COUNTER] {
                 let what = format!("{stem} {fragment} withheld={withheld}");
@@ -783,7 +924,7 @@ fn get_num_samples_reads_the_pipeline_sample_count() {
     let lib = Library::from_air(&bc).expect("library");
     let mut checked = 0;
     for stem in ["moltenvk-m3", "lavapipe"] {
-        let dev = Device::new(description(stem), DevicePolicy::default()).expect("device");
+        let dev = Device::new(description(stem), exact_positions()).expect("device");
         let a = compile(&bc, "spc_num_samples", dev.profile()).expect("spc_num_samples");
         assert!(a.facts.contains(&RuntimeFact::SampleCount), "{stem}");
         for samples in [1, 4] {
@@ -827,7 +968,7 @@ fn get_num_samples_reads_the_pipeline_sample_count() {
     let bc = llvm_assemble(&ll);
     let _ = std::fs::remove_dir_all(&dir);
     let bc = bc.expect("assembled");
-    let p = Device::new(description("lavapipe"), DevicePolicy::default()).expect("device");
+    let p = Device::new(description("lavapipe"), exact_positions()).expect("device");
     match compile(&bc, "spc_num_samples", p.profile()) {
         Err(Error::Unsupported(u)) => {
             assert_eq!(u.feature, Feature::Lowering(LowerFamily::Fragment));

@@ -376,6 +376,8 @@ pub struct ProfileFields {
     /// Whether a `half4` output of a module without fast math blends into a 16-bit float
     /// attachment in the device's blend or in Metal's, computed by the function (the policy's).
     pub half_blend: crate::device::policy::HalfBlendPolicy,
+    /// Whether a per-sample pixel read may use the device's interpolation position.
+    pub multisample_position: crate::device::policy::MultisamplePositionPolicy,
     /// Whose `half` rounding a module takes: Metal's (a measured form, or the integer rounding
     /// the policy's `HalfRoundingPolicy::Exact` asks for) or the device's own conversion or
     /// quantize (`lower::arith::narrow::quantize_form`). Derived, so a device measured to round

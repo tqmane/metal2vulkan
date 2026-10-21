@@ -96,14 +96,18 @@
 //!   the reason its interface records (`CoverageLoopRefusal`). On a driver that runs a
 //!   memory-writing function once per covered sample itself (`CoverageLoop::DriverRunsPerSample`,
 //!   MoltenVK on Apple's GPU) the function runs as written, without sample shading, and its other
-//!   reads are checked as below. It refuses one beside another pixel read it has no pixel form for:
+//!   reads are checked as below. `MultisamplePositionPolicy::Exact` refuses one beside another
+//!   pixel read it has no pixel form for:
 //!   `[[position]]`'s z or w, `[[point_coord]]`, `[[barycentric_coord]]`, a centroid varying, or a
 //!   center varying on a device without the varyings' pixel form. That refusal is
 //!   `Unsupported{SampleRateShading, NotImplemented}`, or names what the device lacks:
 //!   `sampleRateShading`, or, for a center varying, `VkProperty::InterpolateAtOffsetCentered` (a
 //!   device whose `InterpolateAtOffset` does not read from the pixel center, as MoltenVK's does
 //!   not, has no such form, and has a pixel form only where it reads the varying at the pixel
-//!   center itself) and `shaderSampleRateInterpolationFunctions`. Such a function whose pixel reads
+//!   center itself) and `shaderSampleRateInterpolationFunctions`. Under the default
+//!   `MultisamplePositionPolicy::Device`, reads without a pixel form use native interpolation and
+//!   record `PrecisionNote::MultisamplePosition`; hardware sample-rate and coverage requirements
+//!   stay unchanged. Such a function whose pixel reads
 //!   all have forms on the device, but which was compiled without `multisampled`, is
 //!   `NeedsInput(Multisampled)`: compiled for the pipeline it links. A function that runs per
 //!   pixel, or a pipeline of one sample, has no sample shading: `FragCoord`'s x and y are the
@@ -149,7 +153,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use crate::device::requirements::{FormatUsage, VkFeature, VkLimit, VkProperty};
-use crate::device::{DeviceProfile, DriverWorkaround};
+use crate::device::{DeviceProfile, DriverWorkaround, MultisamplePositionPolicy};
 use crate::error::{
     Attachment, Capability, DescriptorError, Error, Feature, RuntimeInput, Unsupported,
 };
@@ -695,6 +699,7 @@ fn sample_invocations(
         })
     };
     let rate = p.fields().fragment.sample_rate_shading;
+    let native_positions = p.fields().multisample_position == MultisamplePositionPolicy::Device;
     let refused = || -> Error {
         if rate {
             Unsupported::not_implemented(Feature::SampleRateShading)
@@ -739,18 +744,25 @@ fn sample_invocations(
         }
     }
     let sample_shading = sample_shading && io.coverage_loop != CoverageLoop::DriverRunsPerSample;
-    if sample_shading && !rate {
+    if !rate
+        && (sample_shading
+            || io.builtins.contains(&StageBuiltin::SampleId)
+            || interpolated(Sampling::Sample))
+    {
         return Err(refused());
     }
     // Compiled for a multisampled pipeline, the function reads `[[position]]`'s x and y and
     // (with the pixel form) its center varyings at the pixel; nothing reads `[[position]]`'s z
     // and w, `[[point_coord]]`, `[[barycentric_coord]]`, or a centroid varying where Metal does.
+    // The native policy records these reads in note_sample_position; exact still needs a pixel form.
     let position = io.builtins.contains(&StageBuiltin::FragCoord);
     let pixel_builtin = io
         .builtins
         .iter()
         .any(|b| matches!(b, StageBuiltin::PointCoord | StageBuiltin::BaryCoord { .. }));
-    if (position && io.position_depth) || pixel_builtin || interpolated(Sampling::Centroid) {
+    if !native_positions
+        && ((position && io.position_depth) || pixel_builtin || interpolated(Sampling::Centroid))
+    {
         return Err(refused());
     }
     let center = interpolated(Sampling::Center);
@@ -761,6 +773,13 @@ fn sample_invocations(
         return Err(refused());
     }
     let enabled = &p.fields().enabled;
+    let has_pixel_form = enabled
+        .properties
+        .contains(&VkProperty::MetalCenterVaryings)
+        || (enabled
+            .properties
+            .contains(&VkProperty::InterpolateAtOffsetCentered)
+            && !enabled.portability_withholds(VkFeature::ShaderSampleRateInterpolationFunctions));
     // A device that reads center varyings at the pixel center itself, as Metal does, has their
     // pixel form: their read as it is.
     if center
@@ -785,7 +804,7 @@ fn sample_invocations(
         if enabled.portability_withholds(feature) {
             needs.push(Capability::Feature(feature));
         }
-        if !needs.is_empty() {
+        if !needs.is_empty() && !native_positions {
             return Err(Unsupported::needs_any_of(Feature::SampleRateShading, vec![needs]).into());
         }
     }
@@ -794,7 +813,7 @@ fn sample_invocations(
     if !io.multisampled {
         return Err(Error::NeedsInput(RuntimeInput::Multisampled));
     }
-    if center && !io.varyings_at_pixel {
+    if center && !io.varyings_at_pixel && has_pixel_form {
         // Compiled for another device.
         return Err(refused());
     }
