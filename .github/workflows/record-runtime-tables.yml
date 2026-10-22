@@ -5,7 +5,30 @@ on:
 permissions:
   contents: read
 jobs:
+  compatible-math:
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regenerate existing math ABI with its original compiler generation
+        run: |
+          set -euo pipefail
+          brew install llvm@21
+          export PATH="/opt/homebrew/opt/llvm@21/bin:$PATH"
+          if ! xcrun --sdk macosx --find metal-as; then
+            xcodebuild -downloadComponent MetalToolchain
+          fi
+          bash scripts/regen-air-fixtures/regen-air-fixtures.sh kernel_frexp_ilogb
+          mkdir compatible-math
+          cp crates/metal2vulkan-validation/fixtures/public/engine/kernel_frexp_ilogb.{ll,air.ll} compatible-math/
+          cp crates/metal2vulkan-validation/fixtures/public/engine/TOOLCHAIN compatible-math/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compatible-math
+          path: compatible-math/
+          retention-days: 7
   record:
+    needs: compatible-math
     runs-on: xcode-27
     timeout-minutes: 60
     env:
@@ -47,6 +70,30 @@ jobs:
           done
           test "${#fixtures[@]}" = 14
           bash scripts/regen-air-fixtures/regen-air-fixtures.sh "${fixtures[@]}"
+      - uses: actions/download-artifact@v4
+        with:
+          name: compatible-math
+          path: compatible-math
+      - name: Retain the existing math ABI and its actual compiler provenance
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          engine = pathlib.Path('crates/metal2vulkan-validation/fixtures/public/engine')
+          source = pathlib.Path('compatible-math')
+          for name in ('kernel_frexp_ilogb.ll', 'kernel_frexp_ilogb.air.ll'):
+              (engine/name).write_bytes((source/name).read_bytes())
+          def record(text):
+              prefix = 'fixture kernel_frexp_ilogb: '
+              fields = dict(line.split(': ', 1) for line in text.splitlines() if line.startswith(('metal: ', 'macosx-sdk: ')))
+              return next((line for line in text.splitlines() if line.startswith(prefix)), prefix+'metal: '+fields['metal']+'; macosx-sdk: '+fields['macosx-sdk'])
+          path = engine/'TOOLCHAIN'
+          lines = [line for line in path.read_text().splitlines() if not line.startswith('fixture kernel_frexp_ilogb: ')]
+          lines.append(record((source/'TOOLCHAIN').read_text()))
+          head = [line for line in lines if not line.startswith('fixture ')]
+          tail = sorted(line for line in lines if line.startswith('fixture '))
+          path.write_text('\n'.join(head+tail)+'\n')
+          PY
+          rm -r compatible-math
       - name: Record through existing decoders and compilation checks
         run: |
           set -euo pipefail
