@@ -2,7 +2,7 @@
 ; ModuleID = '<stdin>'
 source_filename = "-"
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32"
-target triple = "air64_v28-apple-macosx26.0.0"
+target triple = "air64_v29-apple-macosx27.0.0"
 
 %struct.mps_buffer_table = type { ptr, i64 }
 
@@ -12,51 +12,45 @@ define void @linked_mps_callbacks(ptr addrspace(1) noundef "air-buffer-no-alias"
   %8 = alloca %struct.mps_buffer_table, align 8
   %9 = zext i32 %5 to i64
   %10 = shl i64 %9, 33
-  %11 = tail call i64 @air.popcount.i64(i64 %10) #3
+  %11 = tail call i64 @air.popcount.i64(i64 %10) #2
   %12 = trunc i64 %11 to i32
-  %13 = bitcast ptr %7 to ptr
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %13) #4
-  %14 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 0
-  store ptr addrspace(1) %0, ptr %14, align 8, !tbaa !27
-  %15 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 1
-  store ptr addrspace(1) %1, ptr %15, align 8, !tbaa !27
-  %16 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 2
-  store ptr addrspace(1) %2, ptr %16, align 8, !tbaa !27
-  %17 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 3
-  store ptr addrspace(1) %3, ptr %17, align 8, !tbaa !27
-  %18 = bitcast ptr %8 to ptr
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %18) #4
-  %19 = getelementptr inbounds %struct.mps_buffer_table, ptr %8, i64 0, i32 0
-  store ptr %14, ptr %19, align 8, !tbaa !31
-  %20 = getelementptr inbounds %struct.mps_buffer_table, ptr %8, i64 0, i32 1
-  store i64 4, ptr %20, align 8, !tbaa !34
-  %21 = and i32 %5, 3
-  %22 = insertelement <4 x i32> undef, i32 %21, i64 0
-  %23 = lshr i32 %5, 2
-  %24 = and i32 %23, 3
-  %25 = insertelement <4 x i32> %22, i32 %24, i64 1
-  %26 = lshr i32 %5, 4
-  %27 = and i32 %26, 3
-  %28 = insertelement <4 x i32> %25, i32 %27, i64 2
-  %29 = lshr i32 %5, 6
-  %30 = insertelement <4 x i32> %28, i32 %29, i64 3
-  %31 = getelementptr inbounds float, ptr addrspace(1) %0, i64 %9
-  %32 = load float, ptr addrspace(1) %31, align 4, !tbaa !35, !alias.scope !37, !noalias !40
-  %33 = call fast float @prefixSecondary_f.MTL_VISIBLE_FN_REF(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr addrspace(2) noundef align 1 dereferenceable(1) %4, <4 x i32> noundef %30, i32 noundef 4) #5
-  %34 = call fast float @prefixTertiary_f.MTL_VISIBLE_FN_REF(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr addrspace(2) noundef align 1 dereferenceable(1) %4, <4 x i32> noundef %30, i32 noundef 4) #5
-  %35 = shl i32 %5, 2
-  %36 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %35, i64 0
-  %37 = insertelement <4 x float> undef, float %32, i64 0
-  %38 = insertelement <4 x float> %37, float %33, i64 1
-  %39 = insertelement <4 x float> %38, float %34, i64 2
-  %40 = fadd fast float %33, %32
-  %41 = fadd fast float %40, %34
-  %42 = call fast float @air.convert.f.f32.u.i32(i32 %12) #3
-  %43 = fadd fast float %41, %42
-  %44 = insertelement <4 x float> %39, float %43, i64 3
-  call void @postfixPrimary_4xf.MTL_VISIBLE_FN_REF(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr addrspace(2) noundef align 1 dereferenceable(1) %4, <4 x i32> noundef %36, i32 noundef 4, <4 x float> noundef %44) #5
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %18) #4
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %13) #4
+  %13 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 0
+  store ptr addrspace(1) %0, ptr %13, align 8, !tbaa !27
+  %14 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 1
+  store ptr addrspace(1) %1, ptr %14, align 8, !tbaa !27
+  %15 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 2
+  store ptr addrspace(1) %2, ptr %15, align 8, !tbaa !27
+  %16 = getelementptr inbounds [4 x ptr addrspace(1)], ptr %7, i64 0, i64 3
+  store ptr addrspace(1) %3, ptr %16, align 8, !tbaa !27
+  %17 = getelementptr inbounds %struct.mps_buffer_table, ptr %8, i64 0, i32 0
+  store ptr %13, ptr %17, align 8, !tbaa !31
+  %18 = getelementptr inbounds %struct.mps_buffer_table, ptr %8, i64 0, i32 1
+  store i64 4, ptr %18, align 8, !tbaa !34
+  %19 = and i32 %5, 3
+  %20 = insertelement <4 x i32> undef, i32 %19, i64 0
+  %21 = lshr i32 %5, 2
+  %22 = and i32 %21, 3
+  %23 = insertelement <4 x i32> %20, i32 %22, i64 1
+  %24 = lshr i32 %5, 4
+  %25 = and i32 %24, 3
+  %26 = insertelement <4 x i32> %23, i32 %25, i64 2
+  %27 = lshr i32 %5, 6
+  %28 = insertelement <4 x i32> %26, i32 %27, i64 3
+  %29 = getelementptr inbounds float, ptr addrspace(1) %0, i64 %9
+  %30 = load float, ptr addrspace(1) %29, align 4, !tbaa !35, !alias.scope !37, !noalias !40
+  %31 = call fast float @prefixSecondary_f.MTL_VISIBLE_FN_REF(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr addrspace(2) noundef align 1 dereferenceable(1) %4, <4 x i32> noundef %28, i32 noundef 4) #3
+  %32 = call fast float @prefixTertiary_f.MTL_VISIBLE_FN_REF(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr addrspace(2) noundef align 1 dereferenceable(1) %4, <4 x i32> noundef %28, i32 noundef 4) #3
+  %33 = shl i32 %5, 2
+  %34 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %33, i64 0
+  %35 = insertelement <4 x float> undef, float %30, i64 0
+  %36 = insertelement <4 x float> %35, float %31, i64 1
+  %37 = insertelement <4 x float> %36, float %32, i64 2
+  %38 = fadd fast float %31, %30
+  %39 = fadd fast float %38, %32
+  %40 = call fast float @air.convert.f.f32.u.i32(i32 %12) #2
+  %41 = fadd fast float %39, %40
+  %42 = insertelement <4 x float> %37, float %41, i64 3
+  call void @postfixPrimary_4xf.MTL_VISIBLE_FN_REF(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr addrspace(2) noundef align 1 dereferenceable(1) %4, <4 x i32> noundef %34, i32 noundef 4, <4 x float> noundef %42) #3
   ret void
 }
 
@@ -72,18 +66,10 @@ declare float @air.convert.f.f32.u.i32(i32) local_unnamed_addr #1
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none)
 declare i64 @air.popcount.i64(i64) local_unnamed_addr #1
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr captures(none)) #2
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr captures(none)) #2
-
 attributes #0 = { mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="128" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #1 = { mustprogress nofree nosync nounwind willreturn memory(none) }
-attributes #2 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #3 = { nounwind willreturn memory(none) }
-attributes #4 = { nounwind }
-attributes #5 = { nobuiltin nounwind "no-builtins" }
+attributes #2 = { nounwind willreturn memory(none) }
+attributes #3 = { nobuiltin nounwind "no-builtins" }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9}
@@ -118,7 +104,7 @@ attributes #5 = { nobuiltin nounwind "no-builtins" }
 !22 = !{!"air.visible_function_reference", ptr @prefixTertiary_f.MTL_VISIBLE_FN_REF, !"prefixTertiary_f"}
 !23 = !{!"air.visible_function_reference", ptr @postfixPrimary_4xf.MTL_VISIBLE_FN_REF, !"postfixPrimary_4xf"}
 !24 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
-!25 = !{i32 2, i32 8, i32 0}
+!25 = !{i32 2, i32 9, i32 0}
 !26 = !{!"Metal", i32 4, i32 0, i32 0}
 !27 = !{!28, !28, i64 0}
 !28 = !{!"any pointer", !29, i64 0}

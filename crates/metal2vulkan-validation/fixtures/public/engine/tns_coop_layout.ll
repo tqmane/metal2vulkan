@@ -120,34 +120,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %84 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %83
   store i32 %82, ptr addrspace(1) %84, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %85 = icmp eq i16 %81, 0
-  br i1 %85, label %86, label %94
+  br i1 %85, label %94, label %86
 
-86:                                               ; preds = %94, %78
-  %87 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %76, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %88 = bitcast ptr %87 to ptr
-  %89 = mul i32 %82, %2
-  br i1 %85, label %139, label %90
+86:                                               ; preds = %86, %78
+  %87 = phi i32 [ %88, %86 ], [ 0, %78 ]
+  %88 = add nuw nsw i32 %87, 1
+  %89 = call fast float @air.convert.f.f32.u.i32(i32 %88) #7
+  %90 = trunc i32 %87 to i16
+  %91 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %76, i16 noundef zeroext %90, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %92 = bitcast ptr %91 to ptr
+  store float %89, ptr %92, align 4, !tbaa !32
+  %93 = icmp eq i32 %88, %82
+  br i1 %93, label %94, label %86, !llvm.loop !34
 
-90:                                               ; preds = %86
-  %91 = bitcast ptr %75 to ptr
-  %92 = getelementptr inbounds [2 x i32], ptr %75, i64 0, i64 0
-  %93 = getelementptr inbounds [2 x i32], ptr %75, i64 0, i64 1
+94:                                               ; preds = %86, %78
+  %95 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %76, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %96 = bitcast ptr %95 to ptr
+  %97 = mul i32 %82, %2
+  br i1 %85, label %139, label %98
+
+98:                                               ; preds = %94
+  %99 = bitcast ptr %75 to ptr
+  %100 = getelementptr inbounds [2 x i32], ptr %75, i64 0, i64 0
+  %101 = getelementptr inbounds [2 x i32], ptr %75, i64 0, i64 1
   br label %102
 
-94:                                               ; preds = %94, %78
-  %95 = phi i32 [ %96, %94 ], [ 0, %78 ]
-  %96 = add nuw nsw i32 %95, 1
-  %97 = call fast float @air.convert.f.f32.u.i32(i32 %96) #7
-  %98 = trunc i32 %95 to i16
-  %99 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %76, i16 noundef zeroext %98, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %100 = bitcast ptr %99 to ptr
-  store float %97, ptr %100, align 4, !tbaa !32
-  %101 = icmp eq i32 %96, %82
-  br i1 %101, label %86, label %94, !llvm.loop !34
-
-102:                                              ; preds = %133, %90
-  %103 = phi i32 [ 0, %90 ], [ %107, %133 ]
-  %104 = add nuw i32 %103, %89
+102:                                              ; preds = %133, %98
+  %103 = phi i32 [ 0, %98 ], [ %107, %133 ]
+  %104 = add nuw i32 %103, %97
   %105 = icmp ult i32 %104, %79
   br i1 %105, label %106, label %139
 
@@ -159,7 +159,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 109:                                              ; preds = %117, %106
   %110 = phi i32 [ 0, %106 ], [ %118, %117 ]
   %111 = zext i32 %110 to i64
-  %112 = getelementptr inbounds float, ptr %88, i64 %111
+  %112 = getelementptr inbounds float, ptr %96, i64 %111
   %113 = load float, ptr %112, align 4, !tbaa !32
   %114 = fcmp fast oeq float %113, %108
   br i1 %114, label %115, label %117
@@ -180,11 +180,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %123, label %124, label %133
 
 124:                                              ; preds = %120
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %91) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %76, i16 noundef zeroext %122, ptr noundef nonnull %91, i32 noundef 536870944, i32 noundef %80, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %125 = load i32, ptr %92, align 4, !tbaa !23
-  %126 = load i32, ptr %93, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %91) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %99) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %76, i16 noundef zeroext %122, ptr noundef nonnull %99, i32 noundef 536870944, i32 noundef %80, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %125 = load i32, ptr %100, align 4, !tbaa !23
+  %126 = load i32, ptr %101, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %99) #6
   %127 = shl i32 %126, 8
   %128 = and i32 %127, 65280
   %129 = and i32 %125, 255
@@ -202,7 +202,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %138 = icmp eq i32 %107, %82
   br i1 %138, label %139, label %102, !llvm.loop !37
 
-139:                                              ; preds = %133, %102, %86
+139:                                              ; preds = %133, %102, %94
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %76) #6
   br label %1567
 
@@ -217,34 +217,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %146 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %145
   store i32 %144, ptr addrspace(1) %146, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %147 = icmp eq i16 %143, 0
-  br i1 %147, label %148, label %156
+  br i1 %147, label %156, label %148
 
-148:                                              ; preds = %156, %140
-  %149 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %73, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %150 = bitcast ptr %149 to ptr
-  %151 = mul i32 %144, %2
-  br i1 %147, label %201, label %152
+148:                                              ; preds = %148, %140
+  %149 = phi i32 [ %150, %148 ], [ 0, %140 ]
+  %150 = add nuw nsw i32 %149, 1
+  %151 = call fast float @air.convert.f.f32.u.i32(i32 %150) #7
+  %152 = trunc i32 %149 to i16
+  %153 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %73, i16 noundef zeroext %152, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %154 = bitcast ptr %153 to ptr
+  store float %151, ptr %154, align 4, !tbaa !32
+  %155 = icmp eq i32 %150, %144
+  br i1 %155, label %156, label %148, !llvm.loop !38
 
-152:                                              ; preds = %148
-  %153 = bitcast ptr %72 to ptr
-  %154 = getelementptr inbounds [2 x i32], ptr %72, i64 0, i64 0
-  %155 = getelementptr inbounds [2 x i32], ptr %72, i64 0, i64 1
+156:                                              ; preds = %148, %140
+  %157 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %73, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %158 = bitcast ptr %157 to ptr
+  %159 = mul i32 %144, %2
+  br i1 %147, label %201, label %160
+
+160:                                              ; preds = %156
+  %161 = bitcast ptr %72 to ptr
+  %162 = getelementptr inbounds [2 x i32], ptr %72, i64 0, i64 0
+  %163 = getelementptr inbounds [2 x i32], ptr %72, i64 0, i64 1
   br label %164
 
-156:                                              ; preds = %156, %140
-  %157 = phi i32 [ %158, %156 ], [ 0, %140 ]
-  %158 = add nuw nsw i32 %157, 1
-  %159 = call fast float @air.convert.f.f32.u.i32(i32 %158) #7
-  %160 = trunc i32 %157 to i16
-  %161 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %73, i16 noundef zeroext %160, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %162 = bitcast ptr %161 to ptr
-  store float %159, ptr %162, align 4, !tbaa !32
-  %163 = icmp eq i32 %158, %144
-  br i1 %163, label %148, label %156, !llvm.loop !38
-
-164:                                              ; preds = %195, %152
-  %165 = phi i32 [ 0, %152 ], [ %169, %195 ]
-  %166 = add nuw i32 %165, %151
+164:                                              ; preds = %195, %160
+  %165 = phi i32 [ 0, %160 ], [ %169, %195 ]
+  %166 = add nuw i32 %165, %159
   %167 = icmp ult i32 %166, %141
   br i1 %167, label %168, label %201
 
@@ -256,7 +256,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 171:                                              ; preds = %179, %168
   %172 = phi i32 [ 0, %168 ], [ %180, %179 ]
   %173 = zext i32 %172 to i64
-  %174 = getelementptr inbounds float, ptr %150, i64 %173
+  %174 = getelementptr inbounds float, ptr %158, i64 %173
   %175 = load float, ptr %174, align 4, !tbaa !32
   %176 = fcmp fast oeq float %175, %170
   br i1 %176, label %177, label %179
@@ -277,11 +277,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %185, label %186, label %195
 
 186:                                              ; preds = %182
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %153) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %73, i16 noundef zeroext %184, ptr noundef nonnull %153, i32 noundef 536870944, i32 noundef %142, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %187 = load i32, ptr %154, align 4, !tbaa !23
-  %188 = load i32, ptr %155, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %153) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %161) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %73, i16 noundef zeroext %184, ptr noundef nonnull %161, i32 noundef 536870944, i32 noundef %142, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %187 = load i32, ptr %162, align 4, !tbaa !23
+  %188 = load i32, ptr %163, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %161) #6
   %189 = shl i32 %188, 8
   %190 = and i32 %189, 65280
   %191 = and i32 %187, 255
@@ -299,7 +299,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %200 = icmp eq i32 %169, %144
   br i1 %200, label %201, label %164, !llvm.loop !40
 
-201:                                              ; preds = %195, %164, %148
+201:                                              ; preds = %195, %164, %156
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %73) #6
   br label %1567
 
@@ -314,34 +314,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %208 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %207
   store i32 %206, ptr addrspace(1) %208, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %209 = icmp eq i16 %205, 0
-  br i1 %209, label %210, label %218
+  br i1 %209, label %218, label %210
 
-210:                                              ; preds = %218, %202
-  %211 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %70, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %212 = bitcast ptr %211 to ptr
-  %213 = mul i32 %206, %2
-  br i1 %209, label %263, label %214
+210:                                              ; preds = %210, %202
+  %211 = phi i32 [ %212, %210 ], [ 0, %202 ]
+  %212 = add nuw nsw i32 %211, 1
+  %213 = call fast float @air.convert.f.f32.u.i32(i32 %212) #7
+  %214 = trunc i32 %211 to i16
+  %215 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %70, i16 noundef zeroext %214, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %216 = bitcast ptr %215 to ptr
+  store float %213, ptr %216, align 4, !tbaa !32
+  %217 = icmp eq i32 %212, %206
+  br i1 %217, label %218, label %210, !llvm.loop !41
 
-214:                                              ; preds = %210
-  %215 = bitcast ptr %69 to ptr
-  %216 = getelementptr inbounds [2 x i32], ptr %69, i64 0, i64 0
-  %217 = getelementptr inbounds [2 x i32], ptr %69, i64 0, i64 1
+218:                                              ; preds = %210, %202
+  %219 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %70, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %220 = bitcast ptr %219 to ptr
+  %221 = mul i32 %206, %2
+  br i1 %209, label %263, label %222
+
+222:                                              ; preds = %218
+  %223 = bitcast ptr %69 to ptr
+  %224 = getelementptr inbounds [2 x i32], ptr %69, i64 0, i64 0
+  %225 = getelementptr inbounds [2 x i32], ptr %69, i64 0, i64 1
   br label %226
 
-218:                                              ; preds = %218, %202
-  %219 = phi i32 [ %220, %218 ], [ 0, %202 ]
-  %220 = add nuw nsw i32 %219, 1
-  %221 = call fast float @air.convert.f.f32.u.i32(i32 %220) #7
-  %222 = trunc i32 %219 to i16
-  %223 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %70, i16 noundef zeroext %222, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %224 = bitcast ptr %223 to ptr
-  store float %221, ptr %224, align 4, !tbaa !32
-  %225 = icmp eq i32 %220, %206
-  br i1 %225, label %210, label %218, !llvm.loop !41
-
-226:                                              ; preds = %257, %214
-  %227 = phi i32 [ 0, %214 ], [ %231, %257 ]
-  %228 = add nuw i32 %227, %213
+226:                                              ; preds = %257, %222
+  %227 = phi i32 [ 0, %222 ], [ %231, %257 ]
+  %228 = add nuw i32 %227, %221
   %229 = icmp ult i32 %228, %203
   br i1 %229, label %230, label %263
 
@@ -353,7 +353,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 233:                                              ; preds = %241, %230
   %234 = phi i32 [ 0, %230 ], [ %242, %241 ]
   %235 = zext i32 %234 to i64
-  %236 = getelementptr inbounds float, ptr %212, i64 %235
+  %236 = getelementptr inbounds float, ptr %220, i64 %235
   %237 = load float, ptr %236, align 4, !tbaa !32
   %238 = fcmp fast oeq float %237, %232
   br i1 %238, label %239, label %241
@@ -374,11 +374,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %247, label %248, label %257
 
 248:                                              ; preds = %244
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %215) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %70, i16 noundef zeroext %246, ptr noundef nonnull %215, i32 noundef 536870944, i32 noundef %204, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %249 = load i32, ptr %216, align 4, !tbaa !23
-  %250 = load i32, ptr %217, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %215) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %223) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %70, i16 noundef zeroext %246, ptr noundef nonnull %223, i32 noundef 536870944, i32 noundef %204, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %249 = load i32, ptr %224, align 4, !tbaa !23
+  %250 = load i32, ptr %225, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %223) #6
   %251 = shl i32 %250, 8
   %252 = and i32 %251, 65280
   %253 = and i32 %249, 255
@@ -396,7 +396,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %262 = icmp eq i32 %231, %206
   br i1 %262, label %263, label %226, !llvm.loop !43
 
-263:                                              ; preds = %257, %226, %210
+263:                                              ; preds = %257, %226, %218
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %70) #6
   br label %1567
 
@@ -411,34 +411,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %270 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %269
   store i32 %268, ptr addrspace(1) %270, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %271 = icmp eq i16 %267, 0
-  br i1 %271, label %272, label %280
+  br i1 %271, label %280, label %272
 
-272:                                              ; preds = %280, %264
-  %273 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %67, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %274 = bitcast ptr %273 to ptr
-  %275 = mul i32 %268, %2
-  br i1 %271, label %325, label %276
+272:                                              ; preds = %272, %264
+  %273 = phi i32 [ %274, %272 ], [ 0, %264 ]
+  %274 = add nuw nsw i32 %273, 1
+  %275 = call fast float @air.convert.f.f32.u.i32(i32 %274) #7
+  %276 = trunc i32 %273 to i16
+  %277 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %67, i16 noundef zeroext %276, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %278 = bitcast ptr %277 to ptr
+  store float %275, ptr %278, align 4, !tbaa !32
+  %279 = icmp eq i32 %274, %268
+  br i1 %279, label %280, label %272, !llvm.loop !44
 
-276:                                              ; preds = %272
-  %277 = bitcast ptr %66 to ptr
-  %278 = getelementptr inbounds [2 x i32], ptr %66, i64 0, i64 0
-  %279 = getelementptr inbounds [2 x i32], ptr %66, i64 0, i64 1
+280:                                              ; preds = %272, %264
+  %281 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %67, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %282 = bitcast ptr %281 to ptr
+  %283 = mul i32 %268, %2
+  br i1 %271, label %325, label %284
+
+284:                                              ; preds = %280
+  %285 = bitcast ptr %66 to ptr
+  %286 = getelementptr inbounds [2 x i32], ptr %66, i64 0, i64 0
+  %287 = getelementptr inbounds [2 x i32], ptr %66, i64 0, i64 1
   br label %288
 
-280:                                              ; preds = %280, %264
-  %281 = phi i32 [ %282, %280 ], [ 0, %264 ]
-  %282 = add nuw nsw i32 %281, 1
-  %283 = call fast float @air.convert.f.f32.u.i32(i32 %282) #7
-  %284 = trunc i32 %281 to i16
-  %285 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %67, i16 noundef zeroext %284, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %286 = bitcast ptr %285 to ptr
-  store float %283, ptr %286, align 4, !tbaa !32
-  %287 = icmp eq i32 %282, %268
-  br i1 %287, label %272, label %280, !llvm.loop !44
-
-288:                                              ; preds = %319, %276
-  %289 = phi i32 [ 0, %276 ], [ %293, %319 ]
-  %290 = add nuw i32 %289, %275
+288:                                              ; preds = %319, %284
+  %289 = phi i32 [ 0, %284 ], [ %293, %319 ]
+  %290 = add nuw i32 %289, %283
   %291 = icmp ult i32 %290, %265
   br i1 %291, label %292, label %325
 
@@ -450,7 +450,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 295:                                              ; preds = %303, %292
   %296 = phi i32 [ 0, %292 ], [ %304, %303 ]
   %297 = zext i32 %296 to i64
-  %298 = getelementptr inbounds float, ptr %274, i64 %297
+  %298 = getelementptr inbounds float, ptr %282, i64 %297
   %299 = load float, ptr %298, align 4, !tbaa !32
   %300 = fcmp fast oeq float %299, %294
   br i1 %300, label %301, label %303
@@ -471,11 +471,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %309, label %310, label %319
 
 310:                                              ; preds = %306
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %277) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %67, i16 noundef zeroext %308, ptr noundef nonnull %277, i32 noundef 536870944, i32 noundef %266, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %311 = load i32, ptr %278, align 4, !tbaa !23
-  %312 = load i32, ptr %279, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %277) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %285) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %67, i16 noundef zeroext %308, ptr noundef nonnull %285, i32 noundef 536870944, i32 noundef %266, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %311 = load i32, ptr %286, align 4, !tbaa !23
+  %312 = load i32, ptr %287, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %285) #6
   %313 = shl i32 %312, 8
   %314 = and i32 %313, 65280
   %315 = and i32 %311, 255
@@ -493,7 +493,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %324 = icmp eq i32 %293, %268
   br i1 %324, label %325, label %288, !llvm.loop !46
 
-325:                                              ; preds = %319, %288, %272
+325:                                              ; preds = %319, %288, %280
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %67) #6
   br label %1567
 
@@ -508,34 +508,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %332 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %331
   store i32 %330, ptr addrspace(1) %332, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %333 = icmp eq i16 %329, 0
-  br i1 %333, label %334, label %342
+  br i1 %333, label %342, label %334
 
-334:                                              ; preds = %342, %326
-  %335 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %64, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %336 = bitcast ptr %335 to ptr
-  %337 = mul i32 %330, %2
-  br i1 %333, label %387, label %338
+334:                                              ; preds = %334, %326
+  %335 = phi i32 [ %336, %334 ], [ 0, %326 ]
+  %336 = add nuw nsw i32 %335, 1
+  %337 = call fast float @air.convert.f.f32.u.i32(i32 %336) #7
+  %338 = trunc i32 %335 to i16
+  %339 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %64, i16 noundef zeroext %338, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %340 = bitcast ptr %339 to ptr
+  store float %337, ptr %340, align 4, !tbaa !32
+  %341 = icmp eq i32 %336, %330
+  br i1 %341, label %342, label %334, !llvm.loop !47
 
-338:                                              ; preds = %334
-  %339 = bitcast ptr %63 to ptr
-  %340 = getelementptr inbounds [2 x i32], ptr %63, i64 0, i64 0
-  %341 = getelementptr inbounds [2 x i32], ptr %63, i64 0, i64 1
+342:                                              ; preds = %334, %326
+  %343 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %64, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %344 = bitcast ptr %343 to ptr
+  %345 = mul i32 %330, %2
+  br i1 %333, label %387, label %346
+
+346:                                              ; preds = %342
+  %347 = bitcast ptr %63 to ptr
+  %348 = getelementptr inbounds [2 x i32], ptr %63, i64 0, i64 0
+  %349 = getelementptr inbounds [2 x i32], ptr %63, i64 0, i64 1
   br label %350
 
-342:                                              ; preds = %342, %326
-  %343 = phi i32 [ %344, %342 ], [ 0, %326 ]
-  %344 = add nuw nsw i32 %343, 1
-  %345 = call fast float @air.convert.f.f32.u.i32(i32 %344) #7
-  %346 = trunc i32 %343 to i16
-  %347 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %64, i16 noundef zeroext %346, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %348 = bitcast ptr %347 to ptr
-  store float %345, ptr %348, align 4, !tbaa !32
-  %349 = icmp eq i32 %344, %330
-  br i1 %349, label %334, label %342, !llvm.loop !47
-
-350:                                              ; preds = %381, %338
-  %351 = phi i32 [ 0, %338 ], [ %355, %381 ]
-  %352 = add nuw i32 %351, %337
+350:                                              ; preds = %381, %346
+  %351 = phi i32 [ 0, %346 ], [ %355, %381 ]
+  %352 = add nuw i32 %351, %345
   %353 = icmp ult i32 %352, %327
   br i1 %353, label %354, label %387
 
@@ -547,7 +547,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 357:                                              ; preds = %365, %354
   %358 = phi i32 [ 0, %354 ], [ %366, %365 ]
   %359 = zext i32 %358 to i64
-  %360 = getelementptr inbounds float, ptr %336, i64 %359
+  %360 = getelementptr inbounds float, ptr %344, i64 %359
   %361 = load float, ptr %360, align 4, !tbaa !32
   %362 = fcmp fast oeq float %361, %356
   br i1 %362, label %363, label %365
@@ -568,11 +568,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %371, label %372, label %381
 
 372:                                              ; preds = %368
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %339) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %64, i16 noundef zeroext %370, ptr noundef nonnull %339, i32 noundef 536870944, i32 noundef %328, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %373 = load i32, ptr %340, align 4, !tbaa !23
-  %374 = load i32, ptr %341, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %339) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %347) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %64, i16 noundef zeroext %370, ptr noundef nonnull %347, i32 noundef 536870944, i32 noundef %328, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %373 = load i32, ptr %348, align 4, !tbaa !23
+  %374 = load i32, ptr %349, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %347) #6
   %375 = shl i32 %374, 8
   %376 = and i32 %375, 65280
   %377 = and i32 %373, 255
@@ -590,7 +590,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %386 = icmp eq i32 %355, %330
   br i1 %386, label %387, label %350, !llvm.loop !49
 
-387:                                              ; preds = %381, %350, %334
+387:                                              ; preds = %381, %350, %342
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %64) #6
   br label %1567
 
@@ -605,34 +605,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %394 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %393
   store i32 %392, ptr addrspace(1) %394, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %395 = icmp eq i16 %391, 0
-  br i1 %395, label %396, label %404
+  br i1 %395, label %404, label %396
 
-396:                                              ; preds = %404, %388
-  %397 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %61, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %398 = bitcast ptr %397 to ptr
-  %399 = mul i32 %392, %2
-  br i1 %395, label %449, label %400
+396:                                              ; preds = %396, %388
+  %397 = phi i32 [ %398, %396 ], [ 0, %388 ]
+  %398 = add nuw nsw i32 %397, 1
+  %399 = call fast float @air.convert.f.f32.u.i32(i32 %398) #7
+  %400 = trunc i32 %397 to i16
+  %401 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %61, i16 noundef zeroext %400, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %402 = bitcast ptr %401 to ptr
+  store float %399, ptr %402, align 4, !tbaa !32
+  %403 = icmp eq i32 %398, %392
+  br i1 %403, label %404, label %396, !llvm.loop !50
 
-400:                                              ; preds = %396
-  %401 = bitcast ptr %60 to ptr
-  %402 = getelementptr inbounds [2 x i32], ptr %60, i64 0, i64 0
-  %403 = getelementptr inbounds [2 x i32], ptr %60, i64 0, i64 1
+404:                                              ; preds = %396, %388
+  %405 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %61, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %406 = bitcast ptr %405 to ptr
+  %407 = mul i32 %392, %2
+  br i1 %395, label %449, label %408
+
+408:                                              ; preds = %404
+  %409 = bitcast ptr %60 to ptr
+  %410 = getelementptr inbounds [2 x i32], ptr %60, i64 0, i64 0
+  %411 = getelementptr inbounds [2 x i32], ptr %60, i64 0, i64 1
   br label %412
 
-404:                                              ; preds = %404, %388
-  %405 = phi i32 [ %406, %404 ], [ 0, %388 ]
-  %406 = add nuw nsw i32 %405, 1
-  %407 = call fast float @air.convert.f.f32.u.i32(i32 %406) #7
-  %408 = trunc i32 %405 to i16
-  %409 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %61, i16 noundef zeroext %408, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %410 = bitcast ptr %409 to ptr
-  store float %407, ptr %410, align 4, !tbaa !32
-  %411 = icmp eq i32 %406, %392
-  br i1 %411, label %396, label %404, !llvm.loop !50
-
-412:                                              ; preds = %443, %400
-  %413 = phi i32 [ 0, %400 ], [ %417, %443 ]
-  %414 = add nuw i32 %413, %399
+412:                                              ; preds = %443, %408
+  %413 = phi i32 [ 0, %408 ], [ %417, %443 ]
+  %414 = add nuw i32 %413, %407
   %415 = icmp ult i32 %414, %389
   br i1 %415, label %416, label %449
 
@@ -644,7 +644,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 419:                                              ; preds = %427, %416
   %420 = phi i32 [ 0, %416 ], [ %428, %427 ]
   %421 = zext i32 %420 to i64
-  %422 = getelementptr inbounds float, ptr %398, i64 %421
+  %422 = getelementptr inbounds float, ptr %406, i64 %421
   %423 = load float, ptr %422, align 4, !tbaa !32
   %424 = fcmp fast oeq float %423, %418
   br i1 %424, label %425, label %427
@@ -665,11 +665,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %433, label %434, label %443
 
 434:                                              ; preds = %430
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %401) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %61, i16 noundef zeroext %432, ptr noundef nonnull %401, i32 noundef 536870944, i32 noundef %390, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %435 = load i32, ptr %402, align 4, !tbaa !23
-  %436 = load i32, ptr %403, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %401) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %409) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %61, i16 noundef zeroext %432, ptr noundef nonnull %409, i32 noundef 536870944, i32 noundef %390, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %435 = load i32, ptr %410, align 4, !tbaa !23
+  %436 = load i32, ptr %411, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %409) #6
   %437 = shl i32 %436, 8
   %438 = and i32 %437, 65280
   %439 = and i32 %435, 255
@@ -687,7 +687,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %448 = icmp eq i32 %417, %392
   br i1 %448, label %449, label %412, !llvm.loop !52
 
-449:                                              ; preds = %443, %412, %396
+449:                                              ; preds = %443, %412, %404
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %61) #6
   br label %1567
 
@@ -702,34 +702,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %456 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %455
   store i32 %454, ptr addrspace(1) %456, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %457 = icmp eq i16 %453, 0
-  br i1 %457, label %458, label %466
+  br i1 %457, label %466, label %458
 
-458:                                              ; preds = %466, %450
-  %459 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %58, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %460 = bitcast ptr %459 to ptr
-  %461 = mul i32 %454, %2
-  br i1 %457, label %511, label %462
+458:                                              ; preds = %458, %450
+  %459 = phi i32 [ %460, %458 ], [ 0, %450 ]
+  %460 = add nuw nsw i32 %459, 1
+  %461 = call fast half @air.convert.f.f16.u.i32(i32 %460) #7
+  %462 = trunc i32 %459 to i16
+  %463 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %58, i16 noundef zeroext %462, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %464 = bitcast ptr %463 to ptr
+  store half %461, ptr %464, align 2, !tbaa !53
+  %465 = icmp eq i32 %460, %454
+  br i1 %465, label %466, label %458, !llvm.loop !55
 
-462:                                              ; preds = %458
-  %463 = bitcast ptr %57 to ptr
-  %464 = getelementptr inbounds [2 x i32], ptr %57, i64 0, i64 0
-  %465 = getelementptr inbounds [2 x i32], ptr %57, i64 0, i64 1
+466:                                              ; preds = %458, %450
+  %467 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %58, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %468 = bitcast ptr %467 to ptr
+  %469 = mul i32 %454, %2
+  br i1 %457, label %511, label %470
+
+470:                                              ; preds = %466
+  %471 = bitcast ptr %57 to ptr
+  %472 = getelementptr inbounds [2 x i32], ptr %57, i64 0, i64 0
+  %473 = getelementptr inbounds [2 x i32], ptr %57, i64 0, i64 1
   br label %474
 
-466:                                              ; preds = %466, %450
-  %467 = phi i32 [ %468, %466 ], [ 0, %450 ]
-  %468 = add nuw nsw i32 %467, 1
-  %469 = call fast half @air.convert.f.f16.u.i32(i32 %468) #7
-  %470 = trunc i32 %467 to i16
-  %471 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %58, i16 noundef zeroext %470, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %472 = bitcast ptr %471 to ptr
-  store half %469, ptr %472, align 2, !tbaa !53
-  %473 = icmp eq i32 %468, %454
-  br i1 %473, label %458, label %466, !llvm.loop !55
-
-474:                                              ; preds = %505, %462
-  %475 = phi i32 [ 0, %462 ], [ %479, %505 ]
-  %476 = add nuw i32 %475, %461
+474:                                              ; preds = %505, %470
+  %475 = phi i32 [ 0, %470 ], [ %479, %505 ]
+  %476 = add nuw i32 %475, %469
   %477 = icmp ult i32 %476, %451
   br i1 %477, label %478, label %511
 
@@ -741,7 +741,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 481:                                              ; preds = %489, %478
   %482 = phi i32 [ 0, %478 ], [ %490, %489 ]
   %483 = zext i32 %482 to i64
-  %484 = getelementptr inbounds half, ptr %460, i64 %483
+  %484 = getelementptr inbounds half, ptr %468, i64 %483
   %485 = load half, ptr %484, align 2, !tbaa !53
   %486 = fcmp fast oeq half %485, %480
   br i1 %486, label %487, label %489
@@ -762,11 +762,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %495, label %496, label %505
 
 496:                                              ; preds = %492
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %463) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %58, i16 noundef zeroext %494, ptr noundef nonnull %463, i32 noundef 536870944, i32 noundef %452, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %497 = load i32, ptr %464, align 4, !tbaa !23
-  %498 = load i32, ptr %465, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %463) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %471) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %58, i16 noundef zeroext %494, ptr noundef nonnull %471, i32 noundef 536870944, i32 noundef %452, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %497 = load i32, ptr %472, align 4, !tbaa !23
+  %498 = load i32, ptr %473, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %471) #6
   %499 = shl i32 %498, 8
   %500 = and i32 %499, 65280
   %501 = and i32 %497, 255
@@ -784,7 +784,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %510 = icmp eq i32 %479, %454
   br i1 %510, label %511, label %474, !llvm.loop !57
 
-511:                                              ; preds = %505, %474, %458
+511:                                              ; preds = %505, %474, %466
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %58) #6
   br label %1567
 
@@ -799,34 +799,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %518 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %517
   store i32 %516, ptr addrspace(1) %518, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %519 = icmp eq i16 %515, 0
-  br i1 %519, label %520, label %528
+  br i1 %519, label %528, label %520
 
-520:                                              ; preds = %528, %512
-  %521 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %55, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %522 = bitcast ptr %521 to ptr
-  %523 = mul i32 %516, %2
-  br i1 %519, label %573, label %524
+520:                                              ; preds = %520, %512
+  %521 = phi i32 [ %522, %520 ], [ 0, %512 ]
+  %522 = add nuw nsw i32 %521, 1
+  %523 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %522) #7
+  %524 = trunc i32 %521 to i16
+  %525 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %55, i16 noundef zeroext %524, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %526 = bitcast ptr %525 to ptr
+  store bfloat %523, ptr %526, align 2, !tbaa !58
+  %527 = icmp eq i32 %522, %516
+  br i1 %527, label %528, label %520, !llvm.loop !60
 
-524:                                              ; preds = %520
-  %525 = bitcast ptr %54 to ptr
-  %526 = getelementptr inbounds [2 x i32], ptr %54, i64 0, i64 0
-  %527 = getelementptr inbounds [2 x i32], ptr %54, i64 0, i64 1
+528:                                              ; preds = %520, %512
+  %529 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %55, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %530 = bitcast ptr %529 to ptr
+  %531 = mul i32 %516, %2
+  br i1 %519, label %573, label %532
+
+532:                                              ; preds = %528
+  %533 = bitcast ptr %54 to ptr
+  %534 = getelementptr inbounds [2 x i32], ptr %54, i64 0, i64 0
+  %535 = getelementptr inbounds [2 x i32], ptr %54, i64 0, i64 1
   br label %536
 
-528:                                              ; preds = %528, %512
-  %529 = phi i32 [ %530, %528 ], [ 0, %512 ]
-  %530 = add nuw nsw i32 %529, 1
-  %531 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %530) #7
-  %532 = trunc i32 %529 to i16
-  %533 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %55, i16 noundef zeroext %532, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %534 = bitcast ptr %533 to ptr
-  store bfloat %531, ptr %534, align 2, !tbaa !58
-  %535 = icmp eq i32 %530, %516
-  br i1 %535, label %520, label %528, !llvm.loop !60
-
-536:                                              ; preds = %567, %524
-  %537 = phi i32 [ 0, %524 ], [ %541, %567 ]
-  %538 = add nuw i32 %537, %523
+536:                                              ; preds = %567, %532
+  %537 = phi i32 [ 0, %532 ], [ %541, %567 ]
+  %538 = add nuw i32 %537, %531
   %539 = icmp ult i32 %538, %513
   br i1 %539, label %540, label %573
 
@@ -838,7 +838,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 543:                                              ; preds = %551, %540
   %544 = phi i32 [ 0, %540 ], [ %552, %551 ]
   %545 = zext i32 %544 to i64
-  %546 = getelementptr inbounds bfloat, ptr %522, i64 %545
+  %546 = getelementptr inbounds bfloat, ptr %530, i64 %545
   %547 = load bfloat, ptr %546, align 2, !tbaa !58
   %548 = fcmp fast oeq bfloat %547, %542
   br i1 %548, label %549, label %551
@@ -859,11 +859,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %557, label %558, label %567
 
 558:                                              ; preds = %554
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %525) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %55, i16 noundef zeroext %556, ptr noundef nonnull %525, i32 noundef 536870944, i32 noundef %514, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %559 = load i32, ptr %526, align 4, !tbaa !23
-  %560 = load i32, ptr %527, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %525) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %533) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %55, i16 noundef zeroext %556, ptr noundef nonnull %533, i32 noundef 536870944, i32 noundef %514, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %559 = load i32, ptr %534, align 4, !tbaa !23
+  %560 = load i32, ptr %535, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %533) #6
   %561 = shl i32 %560, 8
   %562 = and i32 %561, 65280
   %563 = and i32 %559, 255
@@ -881,7 +881,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %572 = icmp eq i32 %541, %516
   br i1 %572, label %573, label %536, !llvm.loop !62
 
-573:                                              ; preds = %567, %536, %520
+573:                                              ; preds = %567, %536, %528
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %55) #6
   br label %1567
 
@@ -896,34 +896,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %580 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %579
   store i32 %578, ptr addrspace(1) %580, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %581 = icmp eq i16 %577, 0
-  br i1 %581, label %582, label %590
+  br i1 %581, label %590, label %582
 
-582:                                              ; preds = %590, %574
-  %583 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %52, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %584 = bitcast ptr %583 to ptr
-  %585 = mul i32 %578, %2
-  br i1 %581, label %635, label %586
+582:                                              ; preds = %582, %574
+  %583 = phi i32 [ %584, %582 ], [ 0, %574 ]
+  %584 = add nuw nsw i32 %583, 1
+  %585 = call fast float @air.convert.f.f32.u.i32(i32 %584) #7
+  %586 = trunc i32 %583 to i16
+  %587 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %52, i16 noundef zeroext %586, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %588 = bitcast ptr %587 to ptr
+  store float %585, ptr %588, align 4, !tbaa !32
+  %589 = icmp eq i32 %584, %578
+  br i1 %589, label %590, label %582, !llvm.loop !63
 
-586:                                              ; preds = %582
-  %587 = bitcast ptr %51 to ptr
-  %588 = getelementptr inbounds [2 x i32], ptr %51, i64 0, i64 0
-  %589 = getelementptr inbounds [2 x i32], ptr %51, i64 0, i64 1
+590:                                              ; preds = %582, %574
+  %591 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %52, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %592 = bitcast ptr %591 to ptr
+  %593 = mul i32 %578, %2
+  br i1 %581, label %635, label %594
+
+594:                                              ; preds = %590
+  %595 = bitcast ptr %51 to ptr
+  %596 = getelementptr inbounds [2 x i32], ptr %51, i64 0, i64 0
+  %597 = getelementptr inbounds [2 x i32], ptr %51, i64 0, i64 1
   br label %598
 
-590:                                              ; preds = %590, %574
-  %591 = phi i32 [ %592, %590 ], [ 0, %574 ]
-  %592 = add nuw nsw i32 %591, 1
-  %593 = call fast float @air.convert.f.f32.u.i32(i32 %592) #7
-  %594 = trunc i32 %591 to i16
-  %595 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %52, i16 noundef zeroext %594, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %596 = bitcast ptr %595 to ptr
-  store float %593, ptr %596, align 4, !tbaa !32
-  %597 = icmp eq i32 %592, %578
-  br i1 %597, label %582, label %590, !llvm.loop !63
-
-598:                                              ; preds = %629, %586
-  %599 = phi i32 [ 0, %586 ], [ %603, %629 ]
-  %600 = add nuw i32 %599, %585
+598:                                              ; preds = %629, %594
+  %599 = phi i32 [ 0, %594 ], [ %603, %629 ]
+  %600 = add nuw i32 %599, %593
   %601 = icmp ult i32 %600, %575
   br i1 %601, label %602, label %635
 
@@ -935,7 +935,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 605:                                              ; preds = %613, %602
   %606 = phi i32 [ 0, %602 ], [ %614, %613 ]
   %607 = zext i32 %606 to i64
-  %608 = getelementptr inbounds float, ptr %584, i64 %607
+  %608 = getelementptr inbounds float, ptr %592, i64 %607
   %609 = load float, ptr %608, align 4, !tbaa !32
   %610 = fcmp fast oeq float %609, %604
   br i1 %610, label %611, label %613
@@ -956,11 +956,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %619, label %620, label %629
 
 620:                                              ; preds = %616
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %587) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %52, i16 noundef zeroext %618, ptr noundef nonnull %587, i32 noundef 536870944, i32 noundef %576, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %621 = load i32, ptr %588, align 4, !tbaa !23
-  %622 = load i32, ptr %589, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %587) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %595) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %52, i16 noundef zeroext %618, ptr noundef nonnull %595, i32 noundef 536870944, i32 noundef %576, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %621 = load i32, ptr %596, align 4, !tbaa !23
+  %622 = load i32, ptr %597, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %595) #6
   %623 = shl i32 %622, 8
   %624 = and i32 %623, 65280
   %625 = and i32 %621, 255
@@ -978,7 +978,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %634 = icmp eq i32 %603, %578
   br i1 %634, label %635, label %598, !llvm.loop !65
 
-635:                                              ; preds = %629, %598, %582
+635:                                              ; preds = %629, %598, %590
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %52) #6
   br label %1567
 
@@ -993,34 +993,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %642 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %641
   store i32 %640, ptr addrspace(1) %642, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %643 = icmp eq i16 %639, 0
-  br i1 %643, label %644, label %652
+  br i1 %643, label %652, label %644
 
-644:                                              ; preds = %652, %636
-  %645 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %49, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %646 = bitcast ptr %645 to ptr
-  %647 = mul i32 %640, %2
-  br i1 %643, label %697, label %648
+644:                                              ; preds = %644, %636
+  %645 = phi i32 [ %646, %644 ], [ 0, %636 ]
+  %646 = add nuw nsw i32 %645, 1
+  %647 = call fast half @air.convert.f.f16.u.i32(i32 %646) #7
+  %648 = trunc i32 %645 to i16
+  %649 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %49, i16 noundef zeroext %648, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %650 = bitcast ptr %649 to ptr
+  store half %647, ptr %650, align 2, !tbaa !53
+  %651 = icmp eq i32 %646, %640
+  br i1 %651, label %652, label %644, !llvm.loop !66
 
-648:                                              ; preds = %644
-  %649 = bitcast ptr %48 to ptr
-  %650 = getelementptr inbounds [2 x i32], ptr %48, i64 0, i64 0
-  %651 = getelementptr inbounds [2 x i32], ptr %48, i64 0, i64 1
+652:                                              ; preds = %644, %636
+  %653 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %49, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %654 = bitcast ptr %653 to ptr
+  %655 = mul i32 %640, %2
+  br i1 %643, label %697, label %656
+
+656:                                              ; preds = %652
+  %657 = bitcast ptr %48 to ptr
+  %658 = getelementptr inbounds [2 x i32], ptr %48, i64 0, i64 0
+  %659 = getelementptr inbounds [2 x i32], ptr %48, i64 0, i64 1
   br label %660
 
-652:                                              ; preds = %652, %636
-  %653 = phi i32 [ %654, %652 ], [ 0, %636 ]
-  %654 = add nuw nsw i32 %653, 1
-  %655 = call fast half @air.convert.f.f16.u.i32(i32 %654) #7
-  %656 = trunc i32 %653 to i16
-  %657 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %49, i16 noundef zeroext %656, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %658 = bitcast ptr %657 to ptr
-  store half %655, ptr %658, align 2, !tbaa !53
-  %659 = icmp eq i32 %654, %640
-  br i1 %659, label %644, label %652, !llvm.loop !66
-
-660:                                              ; preds = %691, %648
-  %661 = phi i32 [ 0, %648 ], [ %665, %691 ]
-  %662 = add nuw i32 %661, %647
+660:                                              ; preds = %691, %656
+  %661 = phi i32 [ 0, %656 ], [ %665, %691 ]
+  %662 = add nuw i32 %661, %655
   %663 = icmp ult i32 %662, %637
   br i1 %663, label %664, label %697
 
@@ -1032,7 +1032,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 667:                                              ; preds = %675, %664
   %668 = phi i32 [ 0, %664 ], [ %676, %675 ]
   %669 = zext i32 %668 to i64
-  %670 = getelementptr inbounds half, ptr %646, i64 %669
+  %670 = getelementptr inbounds half, ptr %654, i64 %669
   %671 = load half, ptr %670, align 2, !tbaa !53
   %672 = fcmp fast oeq half %671, %666
   br i1 %672, label %673, label %675
@@ -1053,11 +1053,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %681, label %682, label %691
 
 682:                                              ; preds = %678
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %649) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %49, i16 noundef zeroext %680, ptr noundef nonnull %649, i32 noundef 536870944, i32 noundef %638, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %683 = load i32, ptr %650, align 4, !tbaa !23
-  %684 = load i32, ptr %651, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %649) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %657) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %49, i16 noundef zeroext %680, ptr noundef nonnull %657, i32 noundef 536870944, i32 noundef %638, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %683 = load i32, ptr %658, align 4, !tbaa !23
+  %684 = load i32, ptr %659, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %657) #6
   %685 = shl i32 %684, 8
   %686 = and i32 %685, 65280
   %687 = and i32 %683, 255
@@ -1075,7 +1075,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %696 = icmp eq i32 %665, %640
   br i1 %696, label %697, label %660, !llvm.loop !68
 
-697:                                              ; preds = %691, %660, %644
+697:                                              ; preds = %691, %660, %652
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %49) #6
   br label %1567
 
@@ -1090,34 +1090,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %704 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %703
   store i32 %702, ptr addrspace(1) %704, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %705 = icmp eq i16 %701, 0
-  br i1 %705, label %706, label %714
+  br i1 %705, label %714, label %706
 
-706:                                              ; preds = %714, %698
-  %707 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %46, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %708 = bitcast ptr %707 to ptr
-  %709 = mul i32 %702, %2
-  br i1 %705, label %759, label %710
+706:                                              ; preds = %706, %698
+  %707 = phi i32 [ %708, %706 ], [ 0, %698 ]
+  %708 = add nuw nsw i32 %707, 1
+  %709 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %708) #7
+  %710 = trunc i32 %707 to i16
+  %711 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %46, i16 noundef zeroext %710, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %712 = bitcast ptr %711 to ptr
+  store bfloat %709, ptr %712, align 2, !tbaa !58
+  %713 = icmp eq i32 %708, %702
+  br i1 %713, label %714, label %706, !llvm.loop !69
 
-710:                                              ; preds = %706
-  %711 = bitcast ptr %45 to ptr
-  %712 = getelementptr inbounds [2 x i32], ptr %45, i64 0, i64 0
-  %713 = getelementptr inbounds [2 x i32], ptr %45, i64 0, i64 1
+714:                                              ; preds = %706, %698
+  %715 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %46, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %716 = bitcast ptr %715 to ptr
+  %717 = mul i32 %702, %2
+  br i1 %705, label %759, label %718
+
+718:                                              ; preds = %714
+  %719 = bitcast ptr %45 to ptr
+  %720 = getelementptr inbounds [2 x i32], ptr %45, i64 0, i64 0
+  %721 = getelementptr inbounds [2 x i32], ptr %45, i64 0, i64 1
   br label %722
 
-714:                                              ; preds = %714, %698
-  %715 = phi i32 [ %716, %714 ], [ 0, %698 ]
-  %716 = add nuw nsw i32 %715, 1
-  %717 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %716) #7
-  %718 = trunc i32 %715 to i16
-  %719 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %46, i16 noundef zeroext %718, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %720 = bitcast ptr %719 to ptr
-  store bfloat %717, ptr %720, align 2, !tbaa !58
-  %721 = icmp eq i32 %716, %702
-  br i1 %721, label %706, label %714, !llvm.loop !69
-
-722:                                              ; preds = %753, %710
-  %723 = phi i32 [ 0, %710 ], [ %727, %753 ]
-  %724 = add nuw i32 %723, %709
+722:                                              ; preds = %753, %718
+  %723 = phi i32 [ 0, %718 ], [ %727, %753 ]
+  %724 = add nuw i32 %723, %717
   %725 = icmp ult i32 %724, %699
   br i1 %725, label %726, label %759
 
@@ -1129,7 +1129,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 729:                                              ; preds = %737, %726
   %730 = phi i32 [ 0, %726 ], [ %738, %737 ]
   %731 = zext i32 %730 to i64
-  %732 = getelementptr inbounds bfloat, ptr %708, i64 %731
+  %732 = getelementptr inbounds bfloat, ptr %716, i64 %731
   %733 = load bfloat, ptr %732, align 2, !tbaa !58
   %734 = fcmp fast oeq bfloat %733, %728
   br i1 %734, label %735, label %737
@@ -1150,11 +1150,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %743, label %744, label %753
 
 744:                                              ; preds = %740
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %711) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %46, i16 noundef zeroext %742, ptr noundef nonnull %711, i32 noundef 536870944, i32 noundef %700, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %745 = load i32, ptr %712, align 4, !tbaa !23
-  %746 = load i32, ptr %713, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %711) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %719) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %46, i16 noundef zeroext %742, ptr noundef nonnull %719, i32 noundef 536870944, i32 noundef %700, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %745 = load i32, ptr %720, align 4, !tbaa !23
+  %746 = load i32, ptr %721, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %719) #6
   %747 = shl i32 %746, 8
   %748 = and i32 %747, 65280
   %749 = and i32 %745, 255
@@ -1172,7 +1172,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %758 = icmp eq i32 %727, %702
   br i1 %758, label %759, label %722, !llvm.loop !71
 
-759:                                              ; preds = %753, %722, %706
+759:                                              ; preds = %753, %722, %714
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %46) #6
   br label %1567
 
@@ -1187,34 +1187,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %766 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %765
   store i32 %764, ptr addrspace(1) %766, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %767 = icmp eq i16 %763, 0
-  br i1 %767, label %768, label %776
+  br i1 %767, label %776, label %768
 
-768:                                              ; preds = %776, %760
-  %769 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %43, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %770 = bitcast ptr %769 to ptr
-  %771 = mul i32 %764, %2
-  br i1 %767, label %821, label %772
+768:                                              ; preds = %768, %760
+  %769 = phi i32 [ %770, %768 ], [ 0, %760 ]
+  %770 = add nuw nsw i32 %769, 1
+  %771 = call fast float @air.convert.f.f32.u.i32(i32 %770) #7
+  %772 = trunc i32 %769 to i16
+  %773 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %43, i16 noundef zeroext %772, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %774 = bitcast ptr %773 to ptr
+  store float %771, ptr %774, align 4, !tbaa !32
+  %775 = icmp eq i32 %770, %764
+  br i1 %775, label %776, label %768, !llvm.loop !72
 
-772:                                              ; preds = %768
-  %773 = bitcast ptr %42 to ptr
-  %774 = getelementptr inbounds [2 x i32], ptr %42, i64 0, i64 0
-  %775 = getelementptr inbounds [2 x i32], ptr %42, i64 0, i64 1
+776:                                              ; preds = %768, %760
+  %777 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %43, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %778 = bitcast ptr %777 to ptr
+  %779 = mul i32 %764, %2
+  br i1 %767, label %821, label %780
+
+780:                                              ; preds = %776
+  %781 = bitcast ptr %42 to ptr
+  %782 = getelementptr inbounds [2 x i32], ptr %42, i64 0, i64 0
+  %783 = getelementptr inbounds [2 x i32], ptr %42, i64 0, i64 1
   br label %784
 
-776:                                              ; preds = %776, %760
-  %777 = phi i32 [ %778, %776 ], [ 0, %760 ]
-  %778 = add nuw nsw i32 %777, 1
-  %779 = call fast float @air.convert.f.f32.u.i32(i32 %778) #7
-  %780 = trunc i32 %777 to i16
-  %781 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %43, i16 noundef zeroext %780, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %782 = bitcast ptr %781 to ptr
-  store float %779, ptr %782, align 4, !tbaa !32
-  %783 = icmp eq i32 %778, %764
-  br i1 %783, label %768, label %776, !llvm.loop !72
-
-784:                                              ; preds = %815, %772
-  %785 = phi i32 [ 0, %772 ], [ %789, %815 ]
-  %786 = add nuw i32 %785, %771
+784:                                              ; preds = %815, %780
+  %785 = phi i32 [ 0, %780 ], [ %789, %815 ]
+  %786 = add nuw i32 %785, %779
   %787 = icmp ult i32 %786, %761
   br i1 %787, label %788, label %821
 
@@ -1226,7 +1226,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 791:                                              ; preds = %799, %788
   %792 = phi i32 [ 0, %788 ], [ %800, %799 ]
   %793 = zext i32 %792 to i64
-  %794 = getelementptr inbounds float, ptr %770, i64 %793
+  %794 = getelementptr inbounds float, ptr %778, i64 %793
   %795 = load float, ptr %794, align 4, !tbaa !32
   %796 = fcmp fast oeq float %795, %790
   br i1 %796, label %797, label %799
@@ -1247,11 +1247,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %805, label %806, label %815
 
 806:                                              ; preds = %802
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %773) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %43, i16 noundef zeroext %804, ptr noundef nonnull %773, i32 noundef 536870944, i32 noundef %762, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %807 = load i32, ptr %774, align 4, !tbaa !23
-  %808 = load i32, ptr %775, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %773) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %781) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %43, i16 noundef zeroext %804, ptr noundef nonnull %781, i32 noundef 536870944, i32 noundef %762, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %807 = load i32, ptr %782, align 4, !tbaa !23
+  %808 = load i32, ptr %783, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %781) #6
   %809 = shl i32 %808, 8
   %810 = and i32 %809, 65280
   %811 = and i32 %807, 255
@@ -1269,7 +1269,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %820 = icmp eq i32 %789, %764
   br i1 %820, label %821, label %784, !llvm.loop !74
 
-821:                                              ; preds = %815, %784, %768
+821:                                              ; preds = %815, %784, %776
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %43) #6
   br label %1567
 
@@ -1284,34 +1284,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %828 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %827
   store i32 %826, ptr addrspace(1) %828, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %829 = icmp eq i16 %825, 0
-  br i1 %829, label %830, label %838
+  br i1 %829, label %838, label %830
 
-830:                                              ; preds = %838, %822
-  %831 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %40, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %832 = bitcast ptr %831 to ptr
-  %833 = mul i32 %826, %2
-  br i1 %829, label %883, label %834
+830:                                              ; preds = %830, %822
+  %831 = phi i32 [ %832, %830 ], [ 0, %822 ]
+  %832 = add nuw nsw i32 %831, 1
+  %833 = call fast half @air.convert.f.f16.u.i32(i32 %832) #7
+  %834 = trunc i32 %831 to i16
+  %835 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %40, i16 noundef zeroext %834, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %836 = bitcast ptr %835 to ptr
+  store half %833, ptr %836, align 2, !tbaa !53
+  %837 = icmp eq i32 %832, %826
+  br i1 %837, label %838, label %830, !llvm.loop !75
 
-834:                                              ; preds = %830
-  %835 = bitcast ptr %39 to ptr
-  %836 = getelementptr inbounds [2 x i32], ptr %39, i64 0, i64 0
-  %837 = getelementptr inbounds [2 x i32], ptr %39, i64 0, i64 1
+838:                                              ; preds = %830, %822
+  %839 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %40, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %840 = bitcast ptr %839 to ptr
+  %841 = mul i32 %826, %2
+  br i1 %829, label %883, label %842
+
+842:                                              ; preds = %838
+  %843 = bitcast ptr %39 to ptr
+  %844 = getelementptr inbounds [2 x i32], ptr %39, i64 0, i64 0
+  %845 = getelementptr inbounds [2 x i32], ptr %39, i64 0, i64 1
   br label %846
 
-838:                                              ; preds = %838, %822
-  %839 = phi i32 [ %840, %838 ], [ 0, %822 ]
-  %840 = add nuw nsw i32 %839, 1
-  %841 = call fast half @air.convert.f.f16.u.i32(i32 %840) #7
-  %842 = trunc i32 %839 to i16
-  %843 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %40, i16 noundef zeroext %842, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %844 = bitcast ptr %843 to ptr
-  store half %841, ptr %844, align 2, !tbaa !53
-  %845 = icmp eq i32 %840, %826
-  br i1 %845, label %830, label %838, !llvm.loop !75
-
-846:                                              ; preds = %877, %834
-  %847 = phi i32 [ 0, %834 ], [ %851, %877 ]
-  %848 = add nuw i32 %847, %833
+846:                                              ; preds = %877, %842
+  %847 = phi i32 [ 0, %842 ], [ %851, %877 ]
+  %848 = add nuw i32 %847, %841
   %849 = icmp ult i32 %848, %823
   br i1 %849, label %850, label %883
 
@@ -1323,7 +1323,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 853:                                              ; preds = %861, %850
   %854 = phi i32 [ 0, %850 ], [ %862, %861 ]
   %855 = zext i32 %854 to i64
-  %856 = getelementptr inbounds half, ptr %832, i64 %855
+  %856 = getelementptr inbounds half, ptr %840, i64 %855
   %857 = load half, ptr %856, align 2, !tbaa !53
   %858 = fcmp fast oeq half %857, %852
   br i1 %858, label %859, label %861
@@ -1344,11 +1344,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %867, label %868, label %877
 
 868:                                              ; preds = %864
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %835) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %40, i16 noundef zeroext %866, ptr noundef nonnull %835, i32 noundef 536870944, i32 noundef %824, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %869 = load i32, ptr %836, align 4, !tbaa !23
-  %870 = load i32, ptr %837, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %835) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %843) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %40, i16 noundef zeroext %866, ptr noundef nonnull %843, i32 noundef 536870944, i32 noundef %824, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %869 = load i32, ptr %844, align 4, !tbaa !23
+  %870 = load i32, ptr %845, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %843) #6
   %871 = shl i32 %870, 8
   %872 = and i32 %871, 65280
   %873 = and i32 %869, 255
@@ -1366,7 +1366,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %882 = icmp eq i32 %851, %826
   br i1 %882, label %883, label %846, !llvm.loop !77
 
-883:                                              ; preds = %877, %846, %830
+883:                                              ; preds = %877, %846, %838
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %40) #6
   br label %1567
 
@@ -1381,34 +1381,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %890 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %889
   store i32 %888, ptr addrspace(1) %890, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %891 = icmp eq i16 %887, 0
-  br i1 %891, label %892, label %900
+  br i1 %891, label %900, label %892
 
-892:                                              ; preds = %900, %884
-  %893 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %37, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %894 = bitcast ptr %893 to ptr
-  %895 = mul i32 %888, %2
-  br i1 %891, label %945, label %896
+892:                                              ; preds = %892, %884
+  %893 = phi i32 [ %894, %892 ], [ 0, %884 ]
+  %894 = add nuw nsw i32 %893, 1
+  %895 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %894) #7
+  %896 = trunc i32 %893 to i16
+  %897 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %37, i16 noundef zeroext %896, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %898 = bitcast ptr %897 to ptr
+  store bfloat %895, ptr %898, align 2, !tbaa !58
+  %899 = icmp eq i32 %894, %888
+  br i1 %899, label %900, label %892, !llvm.loop !78
 
-896:                                              ; preds = %892
-  %897 = bitcast ptr %36 to ptr
-  %898 = getelementptr inbounds [2 x i32], ptr %36, i64 0, i64 0
-  %899 = getelementptr inbounds [2 x i32], ptr %36, i64 0, i64 1
+900:                                              ; preds = %892, %884
+  %901 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %37, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %902 = bitcast ptr %901 to ptr
+  %903 = mul i32 %888, %2
+  br i1 %891, label %945, label %904
+
+904:                                              ; preds = %900
+  %905 = bitcast ptr %36 to ptr
+  %906 = getelementptr inbounds [2 x i32], ptr %36, i64 0, i64 0
+  %907 = getelementptr inbounds [2 x i32], ptr %36, i64 0, i64 1
   br label %908
 
-900:                                              ; preds = %900, %884
-  %901 = phi i32 [ %902, %900 ], [ 0, %884 ]
-  %902 = add nuw nsw i32 %901, 1
-  %903 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %902) #7
-  %904 = trunc i32 %901 to i16
-  %905 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %37, i16 noundef zeroext %904, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %906 = bitcast ptr %905 to ptr
-  store bfloat %903, ptr %906, align 2, !tbaa !58
-  %907 = icmp eq i32 %902, %888
-  br i1 %907, label %892, label %900, !llvm.loop !78
-
-908:                                              ; preds = %939, %896
-  %909 = phi i32 [ 0, %896 ], [ %913, %939 ]
-  %910 = add nuw i32 %909, %895
+908:                                              ; preds = %939, %904
+  %909 = phi i32 [ 0, %904 ], [ %913, %939 ]
+  %910 = add nuw i32 %909, %903
   %911 = icmp ult i32 %910, %885
   br i1 %911, label %912, label %945
 
@@ -1420,7 +1420,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 915:                                              ; preds = %923, %912
   %916 = phi i32 [ 0, %912 ], [ %924, %923 ]
   %917 = zext i32 %916 to i64
-  %918 = getelementptr inbounds bfloat, ptr %894, i64 %917
+  %918 = getelementptr inbounds bfloat, ptr %902, i64 %917
   %919 = load bfloat, ptr %918, align 2, !tbaa !58
   %920 = fcmp fast oeq bfloat %919, %914
   br i1 %920, label %921, label %923
@@ -1441,11 +1441,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %929, label %930, label %939
 
 930:                                              ; preds = %926
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %897) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %37, i16 noundef zeroext %928, ptr noundef nonnull %897, i32 noundef 536870944, i32 noundef %886, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %931 = load i32, ptr %898, align 4, !tbaa !23
-  %932 = load i32, ptr %899, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %897) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %905) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %37, i16 noundef zeroext %928, ptr noundef nonnull %905, i32 noundef 536870944, i32 noundef %886, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %931 = load i32, ptr %906, align 4, !tbaa !23
+  %932 = load i32, ptr %907, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %905) #6
   %933 = shl i32 %932, 8
   %934 = and i32 %933, 65280
   %935 = and i32 %931, 255
@@ -1463,7 +1463,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %944 = icmp eq i32 %913, %888
   br i1 %944, label %945, label %908, !llvm.loop !80
 
-945:                                              ; preds = %939, %908, %892
+945:                                              ; preds = %939, %908, %900
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %37) #6
   br label %1567
 
@@ -1478,34 +1478,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %952 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %951
   store i32 %950, ptr addrspace(1) %952, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %953 = icmp eq i16 %949, 0
-  br i1 %953, label %954, label %962
+  br i1 %953, label %962, label %954
 
-954:                                              ; preds = %962, %946
-  %955 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %34, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %956 = bitcast ptr %955 to ptr
-  %957 = mul i32 %950, %2
-  br i1 %953, label %1007, label %958
+954:                                              ; preds = %954, %946
+  %955 = phi i32 [ %956, %954 ], [ 0, %946 ]
+  %956 = add nuw nsw i32 %955, 1
+  %957 = call fast float @air.convert.f.f32.u.i32(i32 %956) #7
+  %958 = trunc i32 %955 to i16
+  %959 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %34, i16 noundef zeroext %958, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %960 = bitcast ptr %959 to ptr
+  store float %957, ptr %960, align 4, !tbaa !32
+  %961 = icmp eq i32 %956, %950
+  br i1 %961, label %962, label %954, !llvm.loop !81
 
-958:                                              ; preds = %954
-  %959 = bitcast ptr %33 to ptr
-  %960 = getelementptr inbounds [2 x i32], ptr %33, i64 0, i64 0
-  %961 = getelementptr inbounds [2 x i32], ptr %33, i64 0, i64 1
+962:                                              ; preds = %954, %946
+  %963 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %34, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %964 = bitcast ptr %963 to ptr
+  %965 = mul i32 %950, %2
+  br i1 %953, label %1007, label %966
+
+966:                                              ; preds = %962
+  %967 = bitcast ptr %33 to ptr
+  %968 = getelementptr inbounds [2 x i32], ptr %33, i64 0, i64 0
+  %969 = getelementptr inbounds [2 x i32], ptr %33, i64 0, i64 1
   br label %970
 
-962:                                              ; preds = %962, %946
-  %963 = phi i32 [ %964, %962 ], [ 0, %946 ]
-  %964 = add nuw nsw i32 %963, 1
-  %965 = call fast float @air.convert.f.f32.u.i32(i32 %964) #7
-  %966 = trunc i32 %963 to i16
-  %967 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %34, i16 noundef zeroext %966, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %968 = bitcast ptr %967 to ptr
-  store float %965, ptr %968, align 4, !tbaa !32
-  %969 = icmp eq i32 %964, %950
-  br i1 %969, label %954, label %962, !llvm.loop !81
-
-970:                                              ; preds = %1001, %958
-  %971 = phi i32 [ 0, %958 ], [ %975, %1001 ]
-  %972 = add nuw i32 %971, %957
+970:                                              ; preds = %1001, %966
+  %971 = phi i32 [ 0, %966 ], [ %975, %1001 ]
+  %972 = add nuw i32 %971, %965
   %973 = icmp ult i32 %972, %947
   br i1 %973, label %974, label %1007
 
@@ -1517,7 +1517,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 977:                                              ; preds = %985, %974
   %978 = phi i32 [ 0, %974 ], [ %986, %985 ]
   %979 = zext i32 %978 to i64
-  %980 = getelementptr inbounds float, ptr %956, i64 %979
+  %980 = getelementptr inbounds float, ptr %964, i64 %979
   %981 = load float, ptr %980, align 4, !tbaa !32
   %982 = fcmp fast oeq float %981, %976
   br i1 %982, label %983, label %985
@@ -1538,11 +1538,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %991, label %992, label %1001
 
 992:                                              ; preds = %988
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %959) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %34, i16 noundef zeroext %990, ptr noundef nonnull %959, i32 noundef 536870944, i32 noundef %948, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %993 = load i32, ptr %960, align 4, !tbaa !23
-  %994 = load i32, ptr %961, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %959) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %967) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %34, i16 noundef zeroext %990, ptr noundef nonnull %967, i32 noundef 536870944, i32 noundef %948, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %993 = load i32, ptr %968, align 4, !tbaa !23
+  %994 = load i32, ptr %969, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %967) #6
   %995 = shl i32 %994, 8
   %996 = and i32 %995, 65280
   %997 = and i32 %993, 255
@@ -1560,7 +1560,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1006 = icmp eq i32 %975, %950
   br i1 %1006, label %1007, label %970, !llvm.loop !83
 
-1007:                                             ; preds = %1001, %970, %954
+1007:                                             ; preds = %1001, %970, %962
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %34) #6
   br label %1567
 
@@ -1575,34 +1575,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1014 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1013
   store i32 %1012, ptr addrspace(1) %1014, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1015 = icmp eq i16 %1011, 0
-  br i1 %1015, label %1016, label %1024
+  br i1 %1015, label %1024, label %1016
 
-1016:                                             ; preds = %1024, %1008
-  %1017 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %31, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1018 = bitcast ptr %1017 to ptr
-  %1019 = mul i32 %1012, %2
-  br i1 %1015, label %1069, label %1020
+1016:                                             ; preds = %1016, %1008
+  %1017 = phi i32 [ %1018, %1016 ], [ 0, %1008 ]
+  %1018 = add nuw nsw i32 %1017, 1
+  %1019 = call fast half @air.convert.f.f16.u.i32(i32 %1018) #7
+  %1020 = trunc i32 %1017 to i16
+  %1021 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %31, i16 noundef zeroext %1020, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1022 = bitcast ptr %1021 to ptr
+  store half %1019, ptr %1022, align 2, !tbaa !53
+  %1023 = icmp eq i32 %1018, %1012
+  br i1 %1023, label %1024, label %1016, !llvm.loop !84
 
-1020:                                             ; preds = %1016
-  %1021 = bitcast ptr %30 to ptr
-  %1022 = getelementptr inbounds [2 x i32], ptr %30, i64 0, i64 0
-  %1023 = getelementptr inbounds [2 x i32], ptr %30, i64 0, i64 1
+1024:                                             ; preds = %1016, %1008
+  %1025 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %31, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1026 = bitcast ptr %1025 to ptr
+  %1027 = mul i32 %1012, %2
+  br i1 %1015, label %1069, label %1028
+
+1028:                                             ; preds = %1024
+  %1029 = bitcast ptr %30 to ptr
+  %1030 = getelementptr inbounds [2 x i32], ptr %30, i64 0, i64 0
+  %1031 = getelementptr inbounds [2 x i32], ptr %30, i64 0, i64 1
   br label %1032
 
-1024:                                             ; preds = %1024, %1008
-  %1025 = phi i32 [ %1026, %1024 ], [ 0, %1008 ]
-  %1026 = add nuw nsw i32 %1025, 1
-  %1027 = call fast half @air.convert.f.f16.u.i32(i32 %1026) #7
-  %1028 = trunc i32 %1025 to i16
-  %1029 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %31, i16 noundef zeroext %1028, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1030 = bitcast ptr %1029 to ptr
-  store half %1027, ptr %1030, align 2, !tbaa !53
-  %1031 = icmp eq i32 %1026, %1012
-  br i1 %1031, label %1016, label %1024, !llvm.loop !84
-
-1032:                                             ; preds = %1063, %1020
-  %1033 = phi i32 [ 0, %1020 ], [ %1037, %1063 ]
-  %1034 = add nuw i32 %1033, %1019
+1032:                                             ; preds = %1063, %1028
+  %1033 = phi i32 [ 0, %1028 ], [ %1037, %1063 ]
+  %1034 = add nuw i32 %1033, %1027
   %1035 = icmp ult i32 %1034, %1009
   br i1 %1035, label %1036, label %1069
 
@@ -1614,7 +1614,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1039:                                             ; preds = %1047, %1036
   %1040 = phi i32 [ 0, %1036 ], [ %1048, %1047 ]
   %1041 = zext i32 %1040 to i64
-  %1042 = getelementptr inbounds half, ptr %1018, i64 %1041
+  %1042 = getelementptr inbounds half, ptr %1026, i64 %1041
   %1043 = load half, ptr %1042, align 2, !tbaa !53
   %1044 = fcmp fast oeq half %1043, %1038
   br i1 %1044, label %1045, label %1047
@@ -1635,11 +1635,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1053, label %1054, label %1063
 
 1054:                                             ; preds = %1050
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1021) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %31, i16 noundef zeroext %1052, ptr noundef nonnull %1021, i32 noundef 536870944, i32 noundef %1010, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1055 = load i32, ptr %1022, align 4, !tbaa !23
-  %1056 = load i32, ptr %1023, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1021) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1029) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %31, i16 noundef zeroext %1052, ptr noundef nonnull %1029, i32 noundef 536870944, i32 noundef %1010, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1055 = load i32, ptr %1030, align 4, !tbaa !23
+  %1056 = load i32, ptr %1031, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1029) #6
   %1057 = shl i32 %1056, 8
   %1058 = and i32 %1057, 65280
   %1059 = and i32 %1055, 255
@@ -1657,7 +1657,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1068 = icmp eq i32 %1037, %1012
   br i1 %1068, label %1069, label %1032, !llvm.loop !86
 
-1069:                                             ; preds = %1063, %1032, %1016
+1069:                                             ; preds = %1063, %1032, %1024
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %31) #6
   br label %1567
 
@@ -1672,34 +1672,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1076 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1075
   store i32 %1074, ptr addrspace(1) %1076, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1077 = icmp eq i16 %1073, 0
-  br i1 %1077, label %1078, label %1086
+  br i1 %1077, label %1086, label %1078
 
-1078:                                             ; preds = %1086, %1070
-  %1079 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %28, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %1080 = bitcast ptr %1079 to ptr
-  %1081 = mul i32 %1074, %2
-  br i1 %1077, label %1131, label %1082
+1078:                                             ; preds = %1078, %1070
+  %1079 = phi i32 [ %1080, %1078 ], [ 0, %1070 ]
+  %1080 = add nuw nsw i32 %1079, 1
+  %1081 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %1080) #7
+  %1082 = trunc i32 %1079 to i16
+  %1083 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %28, i16 noundef zeroext %1082, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %1084 = bitcast ptr %1083 to ptr
+  store bfloat %1081, ptr %1084, align 2, !tbaa !58
+  %1085 = icmp eq i32 %1080, %1074
+  br i1 %1085, label %1086, label %1078, !llvm.loop !87
 
-1082:                                             ; preds = %1078
-  %1083 = bitcast ptr %27 to ptr
-  %1084 = getelementptr inbounds [2 x i32], ptr %27, i64 0, i64 0
-  %1085 = getelementptr inbounds [2 x i32], ptr %27, i64 0, i64 1
+1086:                                             ; preds = %1078, %1070
+  %1087 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %28, i16 noundef zeroext 0, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %1088 = bitcast ptr %1087 to ptr
+  %1089 = mul i32 %1074, %2
+  br i1 %1077, label %1131, label %1090
+
+1090:                                             ; preds = %1086
+  %1091 = bitcast ptr %27 to ptr
+  %1092 = getelementptr inbounds [2 x i32], ptr %27, i64 0, i64 0
+  %1093 = getelementptr inbounds [2 x i32], ptr %27, i64 0, i64 1
   br label %1094
 
-1086:                                             ; preds = %1086, %1070
-  %1087 = phi i32 [ %1088, %1086 ], [ 0, %1070 ]
-  %1088 = add nuw nsw i32 %1087, 1
-  %1089 = call fast bfloat @air.convert.f.bf16.u.i32(i32 %1088) #7
-  %1090 = trunc i32 %1087 to i16
-  %1091 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %28, i16 noundef zeroext %1090, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %1092 = bitcast ptr %1091 to ptr
-  store bfloat %1089, ptr %1092, align 2, !tbaa !58
-  %1093 = icmp eq i32 %1088, %1074
-  br i1 %1093, label %1078, label %1086, !llvm.loop !87
-
-1094:                                             ; preds = %1125, %1082
-  %1095 = phi i32 [ 0, %1082 ], [ %1099, %1125 ]
-  %1096 = add nuw i32 %1095, %1081
+1094:                                             ; preds = %1125, %1090
+  %1095 = phi i32 [ 0, %1090 ], [ %1099, %1125 ]
+  %1096 = add nuw i32 %1095, %1089
   %1097 = icmp ult i32 %1096, %1071
   br i1 %1097, label %1098, label %1131
 
@@ -1711,7 +1711,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1101:                                             ; preds = %1109, %1098
   %1102 = phi i32 [ 0, %1098 ], [ %1110, %1109 ]
   %1103 = zext i32 %1102 to i64
-  %1104 = getelementptr inbounds bfloat, ptr %1080, i64 %1103
+  %1104 = getelementptr inbounds bfloat, ptr %1088, i64 %1103
   %1105 = load bfloat, ptr %1104, align 2, !tbaa !58
   %1106 = fcmp fast oeq bfloat %1105, %1100
   br i1 %1106, label %1107, label %1109
@@ -1732,11 +1732,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1115, label %1116, label %1125
 
 1116:                                             ; preds = %1112
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1083) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %28, i16 noundef zeroext %1114, ptr noundef nonnull %1083, i32 noundef 536870944, i32 noundef %1072, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
-  %1117 = load i32, ptr %1084, align 4, !tbaa !23
-  %1118 = load i32, ptr %1085, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1083) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1091) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, ptr noundef nonnull %28, i16 noundef zeroext %1114, ptr noundef nonnull %1091, i32 noundef 536870944, i32 noundef %1072, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #8
+  %1117 = load i32, ptr %1092, align 4, !tbaa !23
+  %1118 = load i32, ptr %1093, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1091) #6
   %1119 = shl i32 %1118, 8
   %1120 = and i32 %1119, 65280
   %1121 = and i32 %1117, 255
@@ -1754,7 +1754,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1130 = icmp eq i32 %1099, %1074
   br i1 %1130, label %1131, label %1094, !llvm.loop !89
 
-1131:                                             ; preds = %1125, %1094, %1078
+1131:                                             ; preds = %1125, %1094, %1086
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %28) #6
   br label %1567
 
@@ -1770,34 +1770,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1139 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1138
   store i32 %1137, ptr addrspace(1) %1139, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1140 = icmp eq i16 %1136, 0
-  br i1 %1140, label %1141, label %1149
+  br i1 %1140, label %1149, label %1141
 
-1141:                                             ; preds = %1149, %1132
-  %1142 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %25, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %1143 = bitcast ptr %1142 to ptr
-  %1144 = mul i32 %1137, %2
-  br i1 %1140, label %1194, label %1145
+1141:                                             ; preds = %1141, %1132
+  %1142 = phi i32 [ %1143, %1141 ], [ 0, %1132 ]
+  %1143 = add nuw nsw i32 %1142, 1
+  %1144 = call fast float @air.convert.f.f32.u.i32(i32 %1143) #7
+  %1145 = trunc i32 %1142 to i16
+  %1146 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %25, i16 noundef zeroext %1145, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %1147 = bitcast ptr %1146 to ptr
+  store float %1144, ptr %1147, align 4, !tbaa !32
+  %1148 = icmp eq i32 %1143, %1137
+  br i1 %1148, label %1149, label %1141, !llvm.loop !90
 
-1145:                                             ; preds = %1141
-  %1146 = bitcast ptr %24 to ptr
-  %1147 = getelementptr inbounds [2 x i32], ptr %24, i64 0, i64 0
-  %1148 = getelementptr inbounds [2 x i32], ptr %24, i64 0, i64 1
+1149:                                             ; preds = %1141, %1132
+  %1150 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %25, i16 noundef zeroext 0, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %1151 = bitcast ptr %1150 to ptr
+  %1152 = mul i32 %1137, %2
+  br i1 %1140, label %1194, label %1153
+
+1153:                                             ; preds = %1149
+  %1154 = bitcast ptr %24 to ptr
+  %1155 = getelementptr inbounds [2 x i32], ptr %24, i64 0, i64 0
+  %1156 = getelementptr inbounds [2 x i32], ptr %24, i64 0, i64 1
   br label %1157
 
-1149:                                             ; preds = %1149, %1132
-  %1150 = phi i32 [ %1151, %1149 ], [ 0, %1132 ]
-  %1151 = add nuw nsw i32 %1150, 1
-  %1152 = call fast float @air.convert.f.f32.u.i32(i32 %1151) #7
-  %1153 = trunc i32 %1150 to i16
-  %1154 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %25, i16 noundef zeroext %1153, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %1155 = bitcast ptr %1154 to ptr
-  store float %1152, ptr %1155, align 4, !tbaa !32
-  %1156 = icmp eq i32 %1151, %1137
-  br i1 %1156, label %1141, label %1149, !llvm.loop !90
-
-1157:                                             ; preds = %1188, %1145
-  %1158 = phi i32 [ 0, %1145 ], [ %1162, %1188 ]
-  %1159 = add nuw i32 %1158, %1144
+1157:                                             ; preds = %1188, %1153
+  %1158 = phi i32 [ 0, %1153 ], [ %1162, %1188 ]
+  %1159 = add nuw i32 %1158, %1152
   %1160 = icmp ult i32 %1159, %1133
   br i1 %1160, label %1161, label %1194
 
@@ -1809,7 +1809,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1164:                                             ; preds = %1172, %1161
   %1165 = phi i32 [ 0, %1161 ], [ %1173, %1172 ]
   %1166 = zext i32 %1165 to i64
-  %1167 = getelementptr inbounds float, ptr %1143, i64 %1166
+  %1167 = getelementptr inbounds float, ptr %1151, i64 %1166
   %1168 = load float, ptr %1167, align 4, !tbaa !32
   %1169 = fcmp fast oeq float %1168, %1163
   br i1 %1169, label %1170, label %1172
@@ -1830,11 +1830,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1178, label %1179, label %1188
 
 1179:                                             ; preds = %1175
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1146) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %25, i16 noundef zeroext %1177, ptr noundef nonnull %1146, i32 noundef 536870944, i32 noundef %1135, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
-  %1180 = load i32, ptr %1147, align 4, !tbaa !23
-  %1181 = load i32, ptr %1148, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1146) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1154) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %25, i16 noundef zeroext %1177, ptr noundef nonnull %1154, i32 noundef 536870944, i32 noundef %1135, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #8
+  %1180 = load i32, ptr %1155, align 4, !tbaa !23
+  %1181 = load i32, ptr %1156, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1154) #6
   %1182 = shl i32 %1181, 8
   %1183 = and i32 %1182, 65280
   %1184 = and i32 %1180, 255
@@ -1852,7 +1852,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1193 = icmp eq i32 %1162, %1137
   br i1 %1193, label %1194, label %1157, !llvm.loop !92
 
-1194:                                             ; preds = %1188, %1157, %1141
+1194:                                             ; preds = %1188, %1157, %1149
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %25) #6
   br label %1567
 
@@ -1868,34 +1868,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1202 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1201
   store i32 %1200, ptr addrspace(1) %1202, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1203 = icmp eq i16 %1199, 0
-  br i1 %1203, label %1204, label %1212
+  br i1 %1203, label %1212, label %1204
 
-1204:                                             ; preds = %1212, %1195
-  %1205 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %22, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1206 = bitcast ptr %1205 to ptr
-  %1207 = mul i32 %1200, %2
-  br i1 %1203, label %1257, label %1208
+1204:                                             ; preds = %1204, %1195
+  %1205 = phi i32 [ %1206, %1204 ], [ 0, %1195 ]
+  %1206 = add nuw nsw i32 %1205, 1
+  %1207 = call fast float @air.convert.f.f32.u.i32(i32 %1206) #7
+  %1208 = trunc i32 %1205 to i16
+  %1209 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %22, i16 noundef zeroext %1208, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1210 = bitcast ptr %1209 to ptr
+  store float %1207, ptr %1210, align 4, !tbaa !32
+  %1211 = icmp eq i32 %1206, %1200
+  br i1 %1211, label %1212, label %1204, !llvm.loop !93
 
-1208:                                             ; preds = %1204
-  %1209 = bitcast ptr %21 to ptr
-  %1210 = getelementptr inbounds [2 x i32], ptr %21, i64 0, i64 0
-  %1211 = getelementptr inbounds [2 x i32], ptr %21, i64 0, i64 1
+1212:                                             ; preds = %1204, %1195
+  %1213 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %22, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1214 = bitcast ptr %1213 to ptr
+  %1215 = mul i32 %1200, %2
+  br i1 %1203, label %1257, label %1216
+
+1216:                                             ; preds = %1212
+  %1217 = bitcast ptr %21 to ptr
+  %1218 = getelementptr inbounds [2 x i32], ptr %21, i64 0, i64 0
+  %1219 = getelementptr inbounds [2 x i32], ptr %21, i64 0, i64 1
   br label %1220
 
-1212:                                             ; preds = %1212, %1195
-  %1213 = phi i32 [ %1214, %1212 ], [ 0, %1195 ]
-  %1214 = add nuw nsw i32 %1213, 1
-  %1215 = call fast float @air.convert.f.f32.u.i32(i32 %1214) #7
-  %1216 = trunc i32 %1213 to i16
-  %1217 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %22, i16 noundef zeroext %1216, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1218 = bitcast ptr %1217 to ptr
-  store float %1215, ptr %1218, align 4, !tbaa !32
-  %1219 = icmp eq i32 %1214, %1200
-  br i1 %1219, label %1204, label %1212, !llvm.loop !93
-
-1220:                                             ; preds = %1251, %1208
-  %1221 = phi i32 [ 0, %1208 ], [ %1225, %1251 ]
-  %1222 = add nuw i32 %1221, %1207
+1220:                                             ; preds = %1251, %1216
+  %1221 = phi i32 [ 0, %1216 ], [ %1225, %1251 ]
+  %1222 = add nuw i32 %1221, %1215
   %1223 = icmp ult i32 %1222, %1196
   br i1 %1223, label %1224, label %1257
 
@@ -1907,7 +1907,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1227:                                             ; preds = %1235, %1224
   %1228 = phi i32 [ 0, %1224 ], [ %1236, %1235 ]
   %1229 = zext i32 %1228 to i64
-  %1230 = getelementptr inbounds float, ptr %1206, i64 %1229
+  %1230 = getelementptr inbounds float, ptr %1214, i64 %1229
   %1231 = load float, ptr %1230, align 4, !tbaa !32
   %1232 = fcmp fast oeq float %1231, %1226
   br i1 %1232, label %1233, label %1235
@@ -1928,11 +1928,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1241, label %1242, label %1251
 
 1242:                                             ; preds = %1238
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1209) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %22, i16 noundef zeroext %1240, ptr noundef nonnull %1209, i32 noundef 536870944, i32 noundef %1198, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1243 = load i32, ptr %1210, align 4, !tbaa !23
-  %1244 = load i32, ptr %1211, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1209) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1217) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %22, i16 noundef zeroext %1240, ptr noundef nonnull %1217, i32 noundef 536870944, i32 noundef %1198, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1243 = load i32, ptr %1218, align 4, !tbaa !23
+  %1244 = load i32, ptr %1219, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1217) #6
   %1245 = shl i32 %1244, 8
   %1246 = and i32 %1245, 65280
   %1247 = and i32 %1243, 255
@@ -1950,7 +1950,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1256 = icmp eq i32 %1225, %1200
   br i1 %1256, label %1257, label %1220, !llvm.loop !95
 
-1257:                                             ; preds = %1251, %1220, %1204
+1257:                                             ; preds = %1251, %1220, %1212
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %22) #6
   br label %1567
 
@@ -1966,34 +1966,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1265 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1264
   store i32 %1263, ptr addrspace(1) %1265, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1266 = icmp eq i16 %1262, 0
-  br i1 %1266, label %1267, label %1275
+  br i1 %1266, label %1275, label %1267
 
-1267:                                             ; preds = %1275, %1258
-  %1268 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %19, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1269 = bitcast ptr %1268 to ptr
-  %1270 = mul i32 %1263, %2
-  br i1 %1266, label %1320, label %1271
+1267:                                             ; preds = %1267, %1258
+  %1268 = phi i32 [ %1269, %1267 ], [ 0, %1258 ]
+  %1269 = add nuw nsw i32 %1268, 1
+  %1270 = call fast float @air.convert.f.f32.u.i32(i32 %1269) #7
+  %1271 = trunc i32 %1268 to i16
+  %1272 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %19, i16 noundef zeroext %1271, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1273 = bitcast ptr %1272 to ptr
+  store float %1270, ptr %1273, align 4, !tbaa !32
+  %1274 = icmp eq i32 %1269, %1263
+  br i1 %1274, label %1275, label %1267, !llvm.loop !96
 
-1271:                                             ; preds = %1267
-  %1272 = bitcast ptr %18 to ptr
-  %1273 = getelementptr inbounds [2 x i32], ptr %18, i64 0, i64 0
-  %1274 = getelementptr inbounds [2 x i32], ptr %18, i64 0, i64 1
+1275:                                             ; preds = %1267, %1258
+  %1276 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %19, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1277 = bitcast ptr %1276 to ptr
+  %1278 = mul i32 %1263, %2
+  br i1 %1266, label %1320, label %1279
+
+1279:                                             ; preds = %1275
+  %1280 = bitcast ptr %18 to ptr
+  %1281 = getelementptr inbounds [2 x i32], ptr %18, i64 0, i64 0
+  %1282 = getelementptr inbounds [2 x i32], ptr %18, i64 0, i64 1
   br label %1283
 
-1275:                                             ; preds = %1275, %1258
-  %1276 = phi i32 [ %1277, %1275 ], [ 0, %1258 ]
-  %1277 = add nuw nsw i32 %1276, 1
-  %1278 = call fast float @air.convert.f.f32.u.i32(i32 %1277) #7
-  %1279 = trunc i32 %1276 to i16
-  %1280 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %19, i16 noundef zeroext %1279, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1281 = bitcast ptr %1280 to ptr
-  store float %1278, ptr %1281, align 4, !tbaa !32
-  %1282 = icmp eq i32 %1277, %1263
-  br i1 %1282, label %1267, label %1275, !llvm.loop !96
-
-1283:                                             ; preds = %1314, %1271
-  %1284 = phi i32 [ 0, %1271 ], [ %1288, %1314 ]
-  %1285 = add nuw i32 %1284, %1270
+1283:                                             ; preds = %1314, %1279
+  %1284 = phi i32 [ 0, %1279 ], [ %1288, %1314 ]
+  %1285 = add nuw i32 %1284, %1278
   %1286 = icmp ult i32 %1285, %1259
   br i1 %1286, label %1287, label %1320
 
@@ -2005,7 +2005,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1290:                                             ; preds = %1298, %1287
   %1291 = phi i32 [ 0, %1287 ], [ %1299, %1298 ]
   %1292 = zext i32 %1291 to i64
-  %1293 = getelementptr inbounds float, ptr %1269, i64 %1292
+  %1293 = getelementptr inbounds float, ptr %1277, i64 %1292
   %1294 = load float, ptr %1293, align 4, !tbaa !32
   %1295 = fcmp fast oeq float %1294, %1289
   br i1 %1295, label %1296, label %1298
@@ -2026,11 +2026,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1304, label %1305, label %1314
 
 1305:                                             ; preds = %1301
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1272) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %19, i16 noundef zeroext %1303, ptr noundef nonnull %1272, i32 noundef 536870944, i32 noundef %1261, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1306 = load i32, ptr %1273, align 4, !tbaa !23
-  %1307 = load i32, ptr %1274, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1272) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1280) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %19, i16 noundef zeroext %1303, ptr noundef nonnull %1280, i32 noundef 536870944, i32 noundef %1261, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1306 = load i32, ptr %1281, align 4, !tbaa !23
+  %1307 = load i32, ptr %1282, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1280) #6
   %1308 = shl i32 %1307, 8
   %1309 = and i32 %1308, 65280
   %1310 = and i32 %1306, 255
@@ -2048,7 +2048,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1319 = icmp eq i32 %1288, %1263
   br i1 %1319, label %1320, label %1283, !llvm.loop !98
 
-1320:                                             ; preds = %1314, %1283, %1267
+1320:                                             ; preds = %1314, %1283, %1275
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %19) #6
   br label %1567
 
@@ -2064,34 +2064,34 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1328 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1327
   store i32 %1326, ptr addrspace(1) %1328, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1329 = icmp eq i16 %1325, 0
-  br i1 %1329, label %1330, label %1338
+  br i1 %1329, label %1338, label %1330
 
-1330:                                             ; preds = %1338, %1321
-  %1331 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %16, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1332 = bitcast ptr %1331 to ptr
-  %1333 = mul i32 %1326, %2
-  br i1 %1329, label %1383, label %1334
+1330:                                             ; preds = %1330, %1321
+  %1331 = phi i32 [ %1332, %1330 ], [ 0, %1321 ]
+  %1332 = add nuw nsw i32 %1331, 1
+  %1333 = call fast float @air.convert.f.f32.u.i32(i32 %1332) #7
+  %1334 = trunc i32 %1331 to i16
+  %1335 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %16, i16 noundef zeroext %1334, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1336 = bitcast ptr %1335 to ptr
+  store float %1333, ptr %1336, align 4, !tbaa !32
+  %1337 = icmp eq i32 %1332, %1326
+  br i1 %1337, label %1338, label %1330, !llvm.loop !99
 
-1334:                                             ; preds = %1330
-  %1335 = bitcast ptr %15 to ptr
-  %1336 = getelementptr inbounds [2 x i32], ptr %15, i64 0, i64 0
-  %1337 = getelementptr inbounds [2 x i32], ptr %15, i64 0, i64 1
+1338:                                             ; preds = %1330, %1321
+  %1339 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %16, i16 noundef zeroext 0, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1340 = bitcast ptr %1339 to ptr
+  %1341 = mul i32 %1326, %2
+  br i1 %1329, label %1383, label %1342
+
+1342:                                             ; preds = %1338
+  %1343 = bitcast ptr %15 to ptr
+  %1344 = getelementptr inbounds [2 x i32], ptr %15, i64 0, i64 0
+  %1345 = getelementptr inbounds [2 x i32], ptr %15, i64 0, i64 1
   br label %1346
 
-1338:                                             ; preds = %1338, %1321
-  %1339 = phi i32 [ %1340, %1338 ], [ 0, %1321 ]
-  %1340 = add nuw nsw i32 %1339, 1
-  %1341 = call fast float @air.convert.f.f32.u.i32(i32 %1340) #7
-  %1342 = trunc i32 %1339 to i16
-  %1343 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %16, i16 noundef zeroext %1342, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1344 = bitcast ptr %1343 to ptr
-  store float %1341, ptr %1344, align 4, !tbaa !32
-  %1345 = icmp eq i32 %1340, %1326
-  br i1 %1345, label %1330, label %1338, !llvm.loop !99
-
-1346:                                             ; preds = %1377, %1334
-  %1347 = phi i32 [ 0, %1334 ], [ %1351, %1377 ]
-  %1348 = add nuw i32 %1347, %1333
+1346:                                             ; preds = %1377, %1342
+  %1347 = phi i32 [ 0, %1342 ], [ %1351, %1377 ]
+  %1348 = add nuw i32 %1347, %1341
   %1349 = icmp ult i32 %1348, %1322
   br i1 %1349, label %1350, label %1383
 
@@ -2103,7 +2103,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1353:                                             ; preds = %1361, %1350
   %1354 = phi i32 [ 0, %1350 ], [ %1362, %1361 ]
   %1355 = zext i32 %1354 to i64
-  %1356 = getelementptr inbounds float, ptr %1332, i64 %1355
+  %1356 = getelementptr inbounds float, ptr %1340, i64 %1355
   %1357 = load float, ptr %1356, align 4, !tbaa !32
   %1358 = fcmp fast oeq float %1357, %1352
   br i1 %1358, label %1359, label %1361
@@ -2124,11 +2124,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1367, label %1368, label %1377
 
 1368:                                             ; preds = %1364
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1335) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %16, i16 noundef zeroext %1366, ptr noundef nonnull %1335, i32 noundef 536870944, i32 noundef %1324, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
-  %1369 = load i32, ptr %1336, align 4, !tbaa !23
-  %1370 = load i32, ptr %1337, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1335) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1343) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %16, i16 noundef zeroext %1366, ptr noundef nonnull %1343, i32 noundef 536870944, i32 noundef %1324, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #8
+  %1369 = load i32, ptr %1344, align 4, !tbaa !23
+  %1370 = load i32, ptr %1345, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1343) #6
   %1371 = shl i32 %1370, 8
   %1372 = and i32 %1371, 65280
   %1373 = and i32 %1369, 255
@@ -2146,7 +2146,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1382 = icmp eq i32 %1351, %1326
   br i1 %1382, label %1383, label %1346, !llvm.loop !101
 
-1383:                                             ; preds = %1377, %1346, %1330
+1383:                                             ; preds = %1377, %1346, %1338
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %16) #6
   br label %1567
 
@@ -2161,33 +2161,33 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1390 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1389
   store i32 %1388, ptr addrspace(1) %1390, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1391 = icmp eq i16 %1387, 0
-  br i1 %1391, label %1392, label %1400
+  br i1 %1391, label %1399, label %1392
 
-1392:                                             ; preds = %1400, %1384
-  %1393 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %13, i16 noundef zeroext 0, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1394 = bitcast ptr %1393 to ptr
-  %1395 = mul i32 %1388, %2
-  br i1 %1391, label %1443, label %1396
+1392:                                             ; preds = %1392, %1384
+  %1393 = phi i32 [ %1394, %1392 ], [ 0, %1384 ]
+  %1394 = add nuw nsw i32 %1393, 1
+  %1395 = trunc i32 %1393 to i16
+  %1396 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %13, i16 noundef zeroext %1395, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1397 = bitcast ptr %1396 to ptr
+  store i32 %1394, ptr %1397, align 4, !tbaa !23
+  %1398 = icmp eq i32 %1394, %1388
+  br i1 %1398, label %1399, label %1392, !llvm.loop !102
 
-1396:                                             ; preds = %1392
-  %1397 = bitcast ptr %12 to ptr
-  %1398 = getelementptr inbounds [2 x i32], ptr %12, i64 0, i64 0
-  %1399 = getelementptr inbounds [2 x i32], ptr %12, i64 0, i64 1
+1399:                                             ; preds = %1392, %1384
+  %1400 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %13, i16 noundef zeroext 0, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1401 = bitcast ptr %1400 to ptr
+  %1402 = mul i32 %1388, %2
+  br i1 %1391, label %1443, label %1403
+
+1403:                                             ; preds = %1399
+  %1404 = bitcast ptr %12 to ptr
+  %1405 = getelementptr inbounds [2 x i32], ptr %12, i64 0, i64 0
+  %1406 = getelementptr inbounds [2 x i32], ptr %12, i64 0, i64 1
   br label %1407
 
-1400:                                             ; preds = %1400, %1384
-  %1401 = phi i32 [ %1402, %1400 ], [ 0, %1384 ]
-  %1402 = add nuw nsw i32 %1401, 1
-  %1403 = trunc i32 %1401 to i16
-  %1404 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %13, i16 noundef zeroext %1403, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1405 = bitcast ptr %1404 to ptr
-  store i32 %1402, ptr %1405, align 4, !tbaa !23
-  %1406 = icmp eq i32 %1402, %1388
-  br i1 %1406, label %1392, label %1400, !llvm.loop !102
-
-1407:                                             ; preds = %1437, %1396
-  %1408 = phi i32 [ 0, %1396 ], [ %1412, %1437 ]
-  %1409 = add nuw i32 %1408, %1395
+1407:                                             ; preds = %1437, %1403
+  %1408 = phi i32 [ 0, %1403 ], [ %1412, %1437 ]
+  %1409 = add nuw i32 %1408, %1402
   %1410 = icmp ult i32 %1409, %1385
   br i1 %1410, label %1411, label %1443
 
@@ -2198,7 +2198,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1413:                                             ; preds = %1421, %1411
   %1414 = phi i32 [ 0, %1411 ], [ %1422, %1421 ]
   %1415 = zext i32 %1414 to i64
-  %1416 = getelementptr inbounds i32, ptr %1394, i64 %1415
+  %1416 = getelementptr inbounds i32, ptr %1401, i64 %1415
   %1417 = load i32, ptr %1416, align 4, !tbaa !23
   %1418 = icmp eq i32 %1417, %1412
   br i1 %1418, label %1419, label %1421
@@ -2219,11 +2219,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1427, label %1428, label %1437
 
 1428:                                             ; preds = %1424
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1397) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %13, i16 noundef zeroext %1426, ptr noundef nonnull %1397, i32 noundef 536870944, i32 noundef %1386, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1429 = load i32, ptr %1398, align 4, !tbaa !23
-  %1430 = load i32, ptr %1399, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1397) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1404) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %13, i16 noundef zeroext %1426, ptr noundef nonnull %1404, i32 noundef 536870944, i32 noundef %1386, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1429 = load i32, ptr %1405, align 4, !tbaa !23
+  %1430 = load i32, ptr %1406, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1404) #6
   %1431 = shl i32 %1430, 8
   %1432 = and i32 %1431, 65280
   %1433 = and i32 %1429, 255
@@ -2241,7 +2241,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1442 = icmp eq i32 %1412, %1388
   br i1 %1442, label %1443, label %1407, !llvm.loop !104
 
-1443:                                             ; preds = %1437, %1407, %1392
+1443:                                             ; preds = %1437, %1407, %1399
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %13) #6
   br label %1567
 
@@ -2256,32 +2256,32 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1450 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1449
   store i32 %1448, ptr addrspace(1) %1450, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1451 = icmp eq i16 %1447, 0
-  br i1 %1451, label %1452, label %1459
+  br i1 %1451, label %1459, label %1452
 
-1452:                                             ; preds = %1459, %1444
-  %1453 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %10, i16 noundef zeroext 0, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1454 = mul i32 %1448, %2
-  br i1 %1451, label %1505, label %1455
+1452:                                             ; preds = %1452, %1444
+  %1453 = phi i32 [ %1454, %1452 ], [ 0, %1444 ]
+  %1454 = add nuw nsw i32 %1453, 1
+  %1455 = trunc i32 %1454 to i8
+  %1456 = trunc i32 %1453 to i16
+  %1457 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %10, i16 noundef zeroext %1456, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  store i8 %1455, ptr %1457, align 1, !tbaa !105
+  %1458 = icmp eq i32 %1454, %1448
+  br i1 %1458, label %1459, label %1452, !llvm.loop !106
 
-1455:                                             ; preds = %1452
-  %1456 = bitcast ptr %9 to ptr
-  %1457 = getelementptr inbounds [2 x i32], ptr %9, i64 0, i64 0
-  %1458 = getelementptr inbounds [2 x i32], ptr %9, i64 0, i64 1
+1459:                                             ; preds = %1452, %1444
+  %1460 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %10, i16 noundef zeroext 0, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1461 = mul i32 %1448, %2
+  br i1 %1451, label %1505, label %1462
+
+1462:                                             ; preds = %1459
+  %1463 = bitcast ptr %9 to ptr
+  %1464 = getelementptr inbounds [2 x i32], ptr %9, i64 0, i64 0
+  %1465 = getelementptr inbounds [2 x i32], ptr %9, i64 0, i64 1
   br label %1466
 
-1459:                                             ; preds = %1459, %1444
-  %1460 = phi i32 [ %1461, %1459 ], [ 0, %1444 ]
-  %1461 = add nuw nsw i32 %1460, 1
-  %1462 = trunc i32 %1461 to i8
-  %1463 = trunc i32 %1460 to i16
-  %1464 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %10, i16 noundef zeroext %1463, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  store i8 %1462, ptr %1464, align 1, !tbaa !105
-  %1465 = icmp eq i32 %1461, %1448
-  br i1 %1465, label %1452, label %1459, !llvm.loop !106
-
-1466:                                             ; preds = %1498, %1455
-  %1467 = phi i32 [ 0, %1455 ], [ %1503, %1498 ]
-  %1468 = add nuw i32 %1467, %1454
+1466:                                             ; preds = %1498, %1462
+  %1467 = phi i32 [ 0, %1462 ], [ %1503, %1498 ]
+  %1468 = add nuw i32 %1467, %1461
   %1469 = icmp ult i32 %1468, %1445
   br i1 %1469, label %1470, label %1505
 
@@ -2294,7 +2294,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1474:                                             ; preds = %1481, %1470
   %1475 = phi i32 [ 0, %1470 ], [ %1482, %1481 ]
   %1476 = zext i32 %1475 to i64
-  %1477 = getelementptr inbounds i8, ptr %1453, i64 %1476
+  %1477 = getelementptr inbounds i8, ptr %1460, i64 %1476
   %1478 = load i8, ptr %1477, align 1, !tbaa !105
   %1479 = sext i8 %1478 to i32
   %1480 = icmp eq i32 %1473, %1479
@@ -2313,11 +2313,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1488, label %1489, label %1498
 
 1489:                                             ; preds = %1484
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1456) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %10, i16 noundef zeroext %1487, ptr noundef nonnull %1456, i32 noundef 536870944, i32 noundef %1446, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1490 = load i32, ptr %1457, align 4, !tbaa !23
-  %1491 = load i32, ptr %1458, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1456) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1463) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %10, i16 noundef zeroext %1487, ptr noundef nonnull %1463, i32 noundef 536870944, i32 noundef %1446, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1490 = load i32, ptr %1464, align 4, !tbaa !23
+  %1491 = load i32, ptr %1465, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1463) #6
   %1492 = shl i32 %1491, 8
   %1493 = and i32 %1492, 65280
   %1494 = and i32 %1490, 255
@@ -2336,7 +2336,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1504 = icmp eq i32 %1503, %1448
   br i1 %1504, label %1505, label %1466, !llvm.loop !108
 
-1505:                                             ; preds = %1498, %1466, %1452
+1505:                                             ; preds = %1498, %1466, %1459
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %10) #6
   br label %1567
 
@@ -2352,33 +2352,33 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1513 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %1512
   store i32 %1511, ptr addrspace(1) %1513, align 4, !tbaa !23, !alias.scope !30, !noalias !27
   %1514 = icmp eq i16 %1510, 0
-  br i1 %1514, label %1515, label %1523
+  br i1 %1514, label %1522, label %1515
 
-1515:                                             ; preds = %1523, %1506
-  %1516 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %7, i16 noundef zeroext 0, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1517 = bitcast ptr %1516 to ptr
-  %1518 = mul i32 %1511, %2
-  br i1 %1514, label %1566, label %1519
+1515:                                             ; preds = %1515, %1506
+  %1516 = phi i32 [ %1517, %1515 ], [ 0, %1506 ]
+  %1517 = add nuw nsw i32 %1516, 1
+  %1518 = trunc i32 %1516 to i16
+  %1519 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %7, i16 noundef zeroext %1518, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1520 = bitcast ptr %1519 to ptr
+  store i32 %1517, ptr %1520, align 4, !tbaa !23
+  %1521 = icmp eq i32 %1517, %1511
+  br i1 %1521, label %1522, label %1515, !llvm.loop !109
 
-1519:                                             ; preds = %1515
-  %1520 = bitcast ptr %6 to ptr
-  %1521 = getelementptr inbounds [2 x i32], ptr %6, i64 0, i64 0
-  %1522 = getelementptr inbounds [2 x i32], ptr %6, i64 0, i64 1
+1522:                                             ; preds = %1515, %1506
+  %1523 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %7, i16 noundef zeroext 0, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1524 = bitcast ptr %1523 to ptr
+  %1525 = mul i32 %1511, %2
+  br i1 %1514, label %1566, label %1526
+
+1526:                                             ; preds = %1522
+  %1527 = bitcast ptr %6 to ptr
+  %1528 = getelementptr inbounds [2 x i32], ptr %6, i64 0, i64 0
+  %1529 = getelementptr inbounds [2 x i32], ptr %6, i64 0, i64 1
   br label %1530
 
-1523:                                             ; preds = %1523, %1506
-  %1524 = phi i32 [ %1525, %1523 ], [ 0, %1506 ]
-  %1525 = add nuw nsw i32 %1524, 1
-  %1526 = trunc i32 %1524 to i16
-  %1527 = call ptr @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %7, i16 noundef zeroext %1526, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1528 = bitcast ptr %1527 to ptr
-  store i32 %1525, ptr %1528, align 4, !tbaa !23
-  %1529 = icmp eq i32 %1525, %1511
-  br i1 %1529, label %1515, label %1523, !llvm.loop !109
-
-1530:                                             ; preds = %1560, %1519
-  %1531 = phi i32 [ 0, %1519 ], [ %1535, %1560 ]
-  %1532 = add nuw i32 %1531, %1518
+1530:                                             ; preds = %1560, %1526
+  %1531 = phi i32 [ 0, %1526 ], [ %1535, %1560 ]
+  %1532 = add nuw i32 %1531, %1525
   %1533 = icmp ult i32 %1532, %1507
   br i1 %1533, label %1534, label %1566
 
@@ -2389,7 +2389,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
 1536:                                             ; preds = %1544, %1534
   %1537 = phi i32 [ 0, %1534 ], [ %1545, %1544 ]
   %1538 = zext i32 %1537 to i64
-  %1539 = getelementptr inbounds i32, ptr %1517, i64 %1538
+  %1539 = getelementptr inbounds i32, ptr %1524, i64 %1538
   %1540 = load i32, ptr %1539, align 4, !tbaa !23
   %1541 = icmp eq i32 %1540, %1535
   br i1 %1541, label %1542, label %1544
@@ -2410,11 +2410,11 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   br i1 %1550, label %1551, label %1560
 
 1551:                                             ; preds = %1547
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1520) #6
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %7, i16 noundef zeroext %1549, ptr noundef nonnull %1520, i32 noundef 536870944, i32 noundef %1509, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
-  %1552 = load i32, ptr %1521, align 4, !tbaa !23
-  %1553 = load i32, ptr %1522, align 4, !tbaa !23
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1520) #6
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1527) #6
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, ptr noundef nonnull %7, i16 noundef zeroext %1549, ptr noundef nonnull %1527, i32 noundef 536870944, i32 noundef %1509, i32 noundef 536870920, i32 noundef 536870920, i32 noundef 536870944) #8
+  %1552 = load i32, ptr %1528, align 4, !tbaa !23
+  %1553 = load i32, ptr %1529, align 4, !tbaa !23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1527) #6
   %1554 = shl i32 %1553, 8
   %1555 = and i32 %1554, 65280
   %1556 = and i32 %1552, 255
@@ -2432,7 +2432,7 @@ define void @tns_coop_layout(ptr addrspace(1) noundef writeonly captures(none) "
   %1565 = icmp eq i32 %1535, %1511
   br i1 %1565, label %1566, label %1530, !llvm.loop !111
 
-1566:                                             ; preds = %1560, %1530, %1515
+1566:                                             ; preds = %1560, %1530, %1522
   call void @llvm.lifetime.end.p0(i64 -1, ptr nonnull %7) #6
   br label %1567
 

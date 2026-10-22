@@ -1,3 +1,4 @@
+// metal-lifetime-markers: off
 // metal-std: metal4.1
 // metal-macos-min: 27.0
 // Owned fixture (WP-A27, DESIGN D301): MSL 4.1's memory orders, memory flags, and barrier memory

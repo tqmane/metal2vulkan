@@ -2,7 +2,7 @@
 ; ModuleID = '<stdin>'
 source_filename = "-"
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32"
-target triple = "air64_v28-apple-macosx26.0.0"
+target triple = "air64_v29-apple-macosx27.0.0"
 
 %struct.ZwdShape = type { <4 x float>, <4 x float>, <4 x float>, <4 x float> }
 
@@ -15,7 +15,6 @@ target triple = "air64_v28-apple-macosx26.0.0"
 define <{ <4 x float> }> @zwd_quad(i32 noundef %0, ptr addrspace(2) noundef readonly align 16 captures(none) dereferenceable(64) "air-buffer-no-alias" %1) local_unnamed_addr #0 {
   %3 = alloca [6 x <2 x float>], align 8
   %4 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %4) #17
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %4, i8 0, i64 48, i1 false)
   %5 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %5, align 8
@@ -54,7 +53,6 @@ define <{ <4 x float> }> @zwd_quad(i32 noundef %0, ptr addrspace(2) noundef read
   %33 = insertelement <4 x float> <float poison, float poison, float poison, float 1.000000e+00>, float %27, i64 0
   %34 = insertelement <4 x float> %33, float %32, i64 1
   %35 = shufflevector <4 x float> %34, <4 x float> %23, <4 x i32> <i32 0, i32 1, i32 7, i32 3>
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %4) #17
   %36 = insertvalue <{ <4 x float> }> undef, <4 x float> %35, 0
   ret <{ <4 x float> }> %36
 }
@@ -69,7 +67,7 @@ define <4 x float> @zwd_panel(<4 x float> %0, ptr addrspace(2) noundef readonly 
   %5 = extractelement <4 x float> %4, i64 0
   %6 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
   %7 = urem i32 %6, 7
-  %8 = tail call float @air.convert.f.f32.u.i32(i32 %7) #18
+  %8 = tail call float @air.convert.f.f32.u.i32(i32 %7) #17
   %9 = fadd float %5, %8
   %10 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 0
   %11 = load <4 x float>, ptr addrspace(2) %10, align 16, !alias.scope !108
@@ -81,13 +79,13 @@ define <4 x float> @zwd_panel(<4 x float> %0, ptr addrspace(2) noundef readonly 
   %17 = fmul <2 x float> %16, splat (float 5.000000e-01)
   %18 = shufflevector <4 x float> %0, <4 x float> poison, <2 x i32> <i32 0, i32 1>
   %19 = fsub <2 x float> %18, %15
-  %20 = tail call <2 x float> @air.fabs.v2f32(<2 x float> %19) #18
+  %20 = tail call <2 x float> @air.fabs.v2f32(<2 x float> %19) #17
   %21 = fsub <2 x float> %20, %17
   %22 = insertelement <2 x float> poison, float %9, i64 0
   %23 = shufflevector <2 x float> %22, <2 x float> poison, <2 x i32> zeroinitializer
   %24 = fadd <2 x float> %23, %21
-  %25 = tail call <2 x float> @air.fmax.v2f32(<2 x float> %24, <2 x float> zeroinitializer) #18
-  %26 = tail call float @air.dot.v2f32(<2 x float> %25, <2 x float> %25) #18
+  %25 = tail call <2 x float> @air.fmax.v2f32(<2 x float> %24, <2 x float> zeroinitializer) #17
+  %26 = tail call float @air.dot.v2f32(<2 x float> %25, <2 x float> %25) #17
   %27 = bitcast float %26 to i32
   %28 = and i32 %27, 2147483647
   %29 = icmp eq i32 %28, 2139095040
@@ -95,8 +93,8 @@ define <4 x float> @zwd_panel(<4 x float> %0, ptr addrspace(2) noundef readonly 
 
 30:                                               ; preds = %2
   %31 = fmul <2 x float> %25, splat (float 0x3BD0000000000000)
-  %32 = tail call float @air.dot.v2f32(<2 x float> %31, <2 x float> %31) #18
-  %33 = tail call float @air.sqrt.f32(float %32) #18
+  %32 = tail call float @air.dot.v2f32(<2 x float> %31, <2 x float> %31) #17
+  %33 = tail call float @air.sqrt.f32(float %32) #17
   %34 = fmul float %33, 0x4410000000000000
   br label %44
 
@@ -106,31 +104,31 @@ define <4 x float> @zwd_panel(<4 x float> %0, ptr addrspace(2) noundef readonly 
 
 37:                                               ; preds = %35
   %38 = fmul <2 x float> %25, splat (float 0x43F0000000000000)
-  %39 = tail call float @air.dot.v2f32(<2 x float> %38, <2 x float> %38) #18
-  %40 = tail call float @air.sqrt.f32(float %39) #18
+  %39 = tail call float @air.dot.v2f32(<2 x float> %38, <2 x float> %38) #17
+  %40 = tail call float @air.sqrt.f32(float %39) #17
   %41 = fmul float %40, 0x3BF0000000000000
   br label %44
 
 42:                                               ; preds = %35
-  %43 = tail call float @air.sqrt.f32(float %26) #18
+  %43 = tail call float @air.sqrt.f32(float %26) #17
   br label %44
 
 44:                                               ; preds = %42, %37, %30
   %45 = phi float [ %34, %30 ], [ %41, %37 ], [ %43, %42 ]
   %46 = extractelement <2 x float> %24, i64 0
   %47 = extractelement <2 x float> %24, i64 1
-  %48 = tail call float @air.fmax.f32(float %46, float %47) #18
-  %49 = tail call float @air.fmin.f32(float %48, float 0.000000e+00) #18
+  %48 = tail call float @air.fmax.f32(float %46, float %47) #17
+  %49 = tail call float @air.fmin.f32(float %48, float 0.000000e+00) #17
   %50 = fadd float %45, %49
   %51 = fsub float %50, %9
   %52 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 1
   %53 = load <4 x float>, ptr addrspace(2) %52, align 16, !tbaa !102, !alias.scope !108
   %54 = udiv i32 %6, 7
-  %55 = tail call float @air.convert.f.f32.u.i32(i32 %54) #18
-  %56 = tail call float @llvm.fmuladd.f32(float %55, float 5.000000e-01, float 1.000000e+00) #17
+  %55 = tail call float @air.convert.f.f32.u.i32(i32 %54) #17
+  %56 = tail call float @llvm.fmuladd.f32(float %55, float 5.000000e-01, float 1.000000e+00) #18
   %57 = fdiv float %51, %56
   %58 = fsub float 5.000000e-01, %57
-  %59 = tail call float @air.clamp.f32(float %58, float 0.000000e+00, float 1.000000e+00) #18
+  %59 = tail call float @air.clamp.f32(float %58, float 0.000000e+00, float 1.000000e+00) #17
   %60 = insertelement <4 x float> poison, float %59, i64 0
   %61 = shufflevector <4 x float> %60, <4 x float> poison, <4 x i32> zeroinitializer
   %62 = fmul <4 x float> %53, %61
@@ -147,7 +145,7 @@ define <4 x float> @zwd_disc(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %8 = fmul <2 x float> %7, splat (float 5.000000e-01)
   %9 = shufflevector <4 x float> %0, <4 x float> poison, <2 x i32> <i32 0, i32 1>
   %10 = fsub <2 x float> %9, %8
-  %11 = tail call float @air.dot.v2f32(<2 x float> %10, <2 x float> %10) #18
+  %11 = tail call float @air.dot.v2f32(<2 x float> %10, <2 x float> %10) #17
   %12 = bitcast float %11 to i32
   %13 = and i32 %12, 2147483647
   %14 = icmp eq i32 %13, 2139095040
@@ -155,8 +153,8 @@ define <4 x float> @zwd_disc(<4 x float> %0, ptr addrspace(2) noundef readonly a
 
 15:                                               ; preds = %2
   %16 = fmul <2 x float> %10, splat (float 0x3BD0000000000000)
-  %17 = tail call float @air.dot.v2f32(<2 x float> %16, <2 x float> %16) #18
-  %18 = tail call float @air.sqrt.f32(float %17) #18
+  %17 = tail call float @air.dot.v2f32(<2 x float> %16, <2 x float> %16) #17
+  %18 = tail call float @air.sqrt.f32(float %17) #17
   %19 = fmul float %18, 0x4410000000000000
   br label %29
 
@@ -166,13 +164,13 @@ define <4 x float> @zwd_disc(<4 x float> %0, ptr addrspace(2) noundef readonly a
 
 22:                                               ; preds = %20
   %23 = fmul <2 x float> %10, splat (float 0x43F0000000000000)
-  %24 = tail call float @air.dot.v2f32(<2 x float> %23, <2 x float> %23) #18
-  %25 = tail call float @air.sqrt.f32(float %24) #18
+  %24 = tail call float @air.dot.v2f32(<2 x float> %23, <2 x float> %23) #17
+  %25 = tail call float @air.sqrt.f32(float %24) #17
   %26 = fmul float %25, 0x3BF0000000000000
   br label %29
 
 27:                                               ; preds = %20
-  %28 = tail call float @air.sqrt.f32(float %11) #18
+  %28 = tail call float @air.sqrt.f32(float %11) #17
   br label %29
 
 29:                                               ; preds = %27, %22, %15
@@ -182,17 +180,17 @@ define <4 x float> @zwd_disc(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %33 = extractelement <4 x float> %32, i64 0
   %34 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
   %35 = urem i32 %34, 7
-  %36 = tail call float @air.convert.f.f32.u.i32(i32 %35) #18
+  %36 = tail call float @air.convert.f.f32.u.i32(i32 %35) #17
   %37 = fadd float %33, %36
   %38 = fsub float %30, %37
   %39 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 1
   %40 = load <4 x float>, ptr addrspace(2) %39, align 16, !tbaa !102, !alias.scope !113
   %41 = udiv i32 %34, 7
-  %42 = tail call float @air.convert.f.f32.u.i32(i32 %41) #18
-  %43 = tail call float @llvm.fmuladd.f32(float %42, float 5.000000e-01, float 1.000000e+00) #17
+  %42 = tail call float @air.convert.f.f32.u.i32(i32 %41) #17
+  %43 = tail call float @llvm.fmuladd.f32(float %42, float 5.000000e-01, float 1.000000e+00) #18
   %44 = fdiv float %38, %43
   %45 = fsub float 5.000000e-01, %44
-  %46 = tail call float @air.clamp.f32(float %45, float 0.000000e+00, float 1.000000e+00) #18
+  %46 = tail call float @air.clamp.f32(float %45, float 0.000000e+00, float 1.000000e+00) #17
   %47 = insertelement <4 x float> poison, float %46, i64 0
   %48 = shufflevector <4 x float> %47, <4 x float> poison, <4 x i32> zeroinitializer
   %49 = fmul <4 x float> %40, %48
@@ -209,7 +207,7 @@ define <4 x float> @zwd_ring(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %8 = fmul <2 x float> %7, splat (float 5.000000e-01)
   %9 = shufflevector <4 x float> %0, <4 x float> poison, <2 x i32> <i32 0, i32 1>
   %10 = fsub <2 x float> %9, %8
-  %11 = tail call float @air.dot.v2f32(<2 x float> %10, <2 x float> %10) #18
+  %11 = tail call float @air.dot.v2f32(<2 x float> %10, <2 x float> %10) #17
   %12 = bitcast float %11 to i32
   %13 = and i32 %12, 2147483647
   %14 = icmp eq i32 %13, 2139095040
@@ -217,8 +215,8 @@ define <4 x float> @zwd_ring(<4 x float> %0, ptr addrspace(2) noundef readonly a
 
 15:                                               ; preds = %2
   %16 = fmul <2 x float> %10, splat (float 0x3BD0000000000000)
-  %17 = tail call float @air.dot.v2f32(<2 x float> %16, <2 x float> %16) #18
-  %18 = tail call float @air.sqrt.f32(float %17) #18
+  %17 = tail call float @air.dot.v2f32(<2 x float> %16, <2 x float> %16) #17
+  %18 = tail call float @air.sqrt.f32(float %17) #17
   %19 = fmul float %18, 0x4410000000000000
   br label %29
 
@@ -228,13 +226,13 @@ define <4 x float> @zwd_ring(<4 x float> %0, ptr addrspace(2) noundef readonly a
 
 22:                                               ; preds = %20
   %23 = fmul <2 x float> %10, splat (float 0x43F0000000000000)
-  %24 = tail call float @air.dot.v2f32(<2 x float> %23, <2 x float> %23) #18
-  %25 = tail call float @air.sqrt.f32(float %24) #18
+  %24 = tail call float @air.dot.v2f32(<2 x float> %23, <2 x float> %23) #17
+  %25 = tail call float @air.sqrt.f32(float %24) #17
   %26 = fmul float %25, 0x3BF0000000000000
   br label %29
 
 27:                                               ; preds = %20
-  %28 = tail call float @air.sqrt.f32(float %11) #18
+  %28 = tail call float @air.sqrt.f32(float %11) #17
   br label %29
 
 29:                                               ; preds = %27, %22, %15
@@ -244,19 +242,19 @@ define <4 x float> @zwd_ring(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %33 = extractelement <4 x float> %32, i64 0
   %34 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
   %35 = urem i32 %34, 7
-  %36 = tail call float @air.convert.f.f32.u.i32(i32 %35) #18
+  %36 = tail call float @air.convert.f.f32.u.i32(i32 %35) #17
   %37 = fadd float %33, %36
   %38 = fsub float %30, %37
-  %39 = tail call float @air.fabs.f32(float %38) #18
+  %39 = tail call float @air.fabs.f32(float %38) #17
   %40 = fadd float %39, -7.500000e-01
   %41 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %42 = load <4 x float>, ptr addrspace(2) %41, align 16, !tbaa !102, !alias.scope !116
   %43 = udiv i32 %34, 7
-  %44 = tail call float @air.convert.f.f32.u.i32(i32 %43) #18
-  %45 = tail call float @llvm.fmuladd.f32(float %44, float 5.000000e-01, float 1.000000e+00) #17
+  %44 = tail call float @air.convert.f.f32.u.i32(i32 %43) #17
+  %45 = tail call float @llvm.fmuladd.f32(float %44, float 5.000000e-01, float 1.000000e+00) #18
   %46 = fdiv float %40, %45
   %47 = fsub float 5.000000e-01, %46
-  %48 = tail call float @air.clamp.f32(float %47, float 0.000000e+00, float 1.000000e+00) #18
+  %48 = tail call float @air.clamp.f32(float %47, float 0.000000e+00, float 1.000000e+00) #17
   %49 = insertelement <4 x float> poison, float %48, i64 0
   %50 = shufflevector <4 x float> %49, <4 x float> poison, <4 x i32> zeroinitializer
   %51 = fmul <4 x float> %42, %50
@@ -274,7 +272,7 @@ define <4 x float> @zwd_masked(<4 x float> %0, ptr addrspace(2) noundef readonly
   %11 = fsub <2 x float> %10, %7
   %12 = fdiv <2 x float> %9, %11
   %13 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
-  %14 = tail call float @air.convert.f.f32.u.i32(i32 %13) #18
+  %14 = tail call float @air.convert.f.f32.u.i32(i32 %13) #17
   %15 = fmul float %14, 0x39B4484C00000000
   %16 = insertelement <2 x float> poison, float %15, i64 0
   %17 = shufflevector <2 x float> %16, <2 x float> poison, <2 x i32> zeroinitializer
@@ -285,7 +283,7 @@ define <4 x float> @zwd_masked(<4 x float> %0, ptr addrspace(2) noundef readonly
   %22 = extractvalue { <4 x float>, i8 } %21, 0
   %23 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %24 = load <4 x float>, ptr addrspace(2) %23, align 16, !tbaa !102, !alias.scope !119, !noalias !122
-  %25 = tail call float @air.dot.v4f32(<4 x float> %22, <4 x float> %24) #18
+  %25 = tail call float @air.dot.v4f32(<4 x float> %22, <4 x float> %24) #17
   %26 = insertelement <4 x float> poison, float %25, i64 0
   %27 = shufflevector <4 x float> %26, <4 x float> poison, <4 x i32> zeroinitializer
   %28 = fmul <4 x float> %20, %27
@@ -306,7 +304,7 @@ define <4 x float> @zwd_mask_half(<4 x float> %0, ptr addrspace(2) noundef reado
   %11 = fsub <2 x float> %10, %7
   %12 = fdiv <2 x float> %9, %11
   %13 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
-  %14 = tail call float @air.convert.f.f32.u.i32(i32 %13) #18
+  %14 = tail call float @air.convert.f.f32.u.i32(i32 %13) #17
   %15 = fmul float %14, 0x39B4484C00000000
   %16 = insertelement <2 x float> poison, float %15, i64 0
   %17 = shufflevector <2 x float> %16, <2 x float> poison, <2 x i32> zeroinitializer
@@ -317,8 +315,8 @@ define <4 x float> @zwd_mask_half(<4 x float> %0, ptr addrspace(2) noundef reado
   %22 = load <4 x float>, ptr addrspace(2) %21, align 16, !tbaa !102, !alias.scope !125, !noalias !128
   %23 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %24 = load <4 x float>, ptr addrspace(2) %23, align 16, !tbaa !102, !alias.scope !125, !noalias !128
-  %25 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %24) #18
-  %26 = tail call half @air.dot.v4f16(<4 x half> %20, <4 x half> %25) #18
+  %25 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %24) #17
+  %26 = tail call half @air.dot.v4f16(<4 x half> %20, <4 x half> %25) #17
   %27 = fpext half %26 to float
   %28 = insertelement <4 x float> poison, float %27, i64 0
   %29 = shufflevector <4 x float> %28, <4 x float> poison, <4 x i32> zeroinitializer
@@ -340,7 +338,7 @@ define <4 x float> @zwd_mask_gather(<4 x float> %0, ptr addrspace(2) noundef rea
   %11 = fsub <2 x float> %10, %7
   %12 = fdiv <2 x float> %9, %11
   %13 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
-  %14 = tail call float @air.convert.f.f32.u.i32(i32 %13) #18
+  %14 = tail call float @air.convert.f.f32.u.i32(i32 %13) #17
   %15 = fmul float %14, 0x39B4484C00000000
   %16 = insertelement <2 x float> poison, float %15, i64 0
   %17 = shufflevector <2 x float> %16, <2 x float> poison, <2 x i32> zeroinitializer
@@ -351,7 +349,7 @@ define <4 x float> @zwd_mask_gather(<4 x float> %0, ptr addrspace(2) noundef rea
   %22 = extractvalue { <4 x float>, i8 } %21, 0
   %23 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %24 = load <4 x float>, ptr addrspace(2) %23, align 16, !tbaa !102, !alias.scope !131, !noalias !134
-  %25 = tail call float @air.dot.v4f32(<4 x float> %22, <4 x float> %24) #18
+  %25 = tail call float @air.dot.v4f32(<4 x float> %22, <4 x float> %24) #17
   %26 = insertelement <4 x float> poison, float %25, i64 0
   %27 = shufflevector <4 x float> %26, <4 x float> poison, <4 x i32> zeroinitializer
   %28 = fmul <4 x float> %20, %27
@@ -364,7 +362,7 @@ define <4 x float> @zwd_mask_read(<4 x float> %0, ptr addrspace(2) noundef reado
   %5 = load <4 x float>, ptr addrspace(2) %4, align 16, !alias.scope !137, !noalias !140
   %6 = fsub <4 x float> %0, %5
   %7 = shufflevector <4 x float> %6, <4 x float> poison, <2 x i32> <i32 0, i32 1>
-  %8 = tail call <2 x i32> @air.convert.u.v2i32.f.v2f32(<2 x float> %7) #18
+  %8 = tail call <2 x i32> @air.convert.u.v2i32.f.v2f32(<2 x float> %7) #17
   %9 = and <2 x i32> %8, splat (i32 15)
   %10 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
   %11 = udiv i32 %10, 1000
@@ -378,8 +376,8 @@ define <4 x float> @zwd_mask_read(<4 x float> %0, ptr addrspace(2) noundef reado
   %19 = extractvalue { <4 x half>, i8 } %18, 0
   %20 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %21 = load <4 x float>, ptr addrspace(2) %20, align 16, !tbaa !102, !alias.scope !137, !noalias !140
-  %22 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %21) #18
-  %23 = tail call half @air.dot.v4f16(<4 x half> %19, <4 x half> %22) #18
+  %22 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %21) #17
+  %23 = tail call half @air.dot.v4f16(<4 x half> %19, <4 x half> %22) #17
   %24 = fpext half %23 to float
   %25 = insertelement <4 x float> poison, float %24, i64 0
   %26 = shufflevector <4 x float> %25, <4 x float> poison, <4 x i32> zeroinitializer
@@ -401,7 +399,7 @@ define <4 x float> @zwd_mask_nearest(<4 x float> %0, ptr addrspace(2) noundef re
   %10 = fsub <2 x float> %9, %6
   %11 = fdiv <2 x float> %8, %10
   %12 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
-  %13 = tail call float @air.convert.f.f32.u.i32(i32 %12) #18
+  %13 = tail call float @air.convert.f.f32.u.i32(i32 %12) #17
   %14 = fmul float %13, 0x39B4484C00000000
   %15 = insertelement <2 x float> poison, float %14, i64 0
   %16 = shufflevector <2 x float> %15, <2 x float> poison, <2 x i32> zeroinitializer
@@ -412,8 +410,8 @@ define <4 x float> @zwd_mask_nearest(<4 x float> %0, ptr addrspace(2) noundef re
   %21 = extractvalue { <4 x half>, i8 } %20, 0
   %22 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %23 = load <4 x float>, ptr addrspace(2) %22, align 16, !tbaa !102, !alias.scope !142, !noalias !145
-  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #18
-  %25 = tail call half @air.dot.v4f16(<4 x half> %21, <4 x half> %24) #18
+  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #17
+  %25 = tail call half @air.dot.v4f16(<4 x half> %21, <4 x half> %24) #17
   %26 = fpext half %25 to float
   %27 = insertelement <4 x float> poison, float %26, i64 0
   %28 = shufflevector <4 x float> %27, <4 x float> poison, <4 x i32> zeroinitializer
@@ -434,7 +432,7 @@ define void @zwd_clip(<4 x float> %0, ptr addrspace(2) noundef readonly align 16
   %11 = fadd <2 x float> %10, %9
   %12 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 2, i32 3>
   %13 = fsub <2 x float> %12, %10
-  %14 = tail call <2 x float> @air.clamp.v2f32(<2 x float> %6, <2 x float> %11, <2 x float> %13) #18
+  %14 = tail call <2 x float> @air.clamp.v2f32(<2 x float> %6, <2 x float> %11, <2 x float> %13) #17
   %15 = fsub <2 x float> %6, %14
   %16 = extractelement <2 x float> %15, i64 0
   %17 = extractelement <2 x float> %15, i64 1
@@ -475,7 +473,7 @@ define <4 x half> @zwd_layer(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %22 = fsub <2 x float> %21, %18
   %23 = fdiv <2 x float> %20, %22
   %24 = load i32, ptr addrspace(2) @_ZL11zwd_variant, align 4, !tbaa !111
-  %25 = tail call float @air.convert.f.f32.u.i32(i32 %24) #18
+  %25 = tail call float @air.convert.f.f32.u.i32(i32 %24) #17
   %26 = fmul float %25, 0x39B4484C00000000
   %27 = insertelement <2 x float> poison, float %26, i64 0
   %28 = shufflevector <2 x float> %27, <2 x float> poison, <2 x i32> zeroinitializer
@@ -515,9 +513,9 @@ define <4 x half> @zwd_layer(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %62 = fadd <4 x float> %59, %61
   %63 = fmul <4 x float> %62, <float 0x3FC99999A0000000, float 0x3FC99999A0000000, float 0x3FC99999A0000000, float poison>
   %64 = shufflevector <4 x half> %48, <4 x half> poison, <3 x i32> <i32 0, i32 1, i32 2>
-  %65 = tail call <3 x float> @air.convert.f.v3f32.f.v3f16(<3 x half> %64) #18
+  %65 = tail call <3 x float> @air.convert.f.v3f32.f.v3f16(<3 x half> %64) #17
   %66 = shufflevector <4 x float> %63, <4 x float> poison, <3 x i32> <i32 0, i32 1, i32 2>
-  %67 = tail call <3 x float> @air.mix.v3f32(<3 x float> %65, <3 x float> %66, <3 x float> splat (float 5.000000e-01)) #18
+  %67 = tail call <3 x float> @air.mix.v3f32(<3 x float> %65, <3 x float> %66, <3 x float> splat (float 5.000000e-01)) #17
   %68 = tail call { <4 x half>, i8 } @air.sample_texture_3d.v4f16(ptr addrspace(1) readonly captures(none) %12, ptr addrspace(2) readonly captures(none) %14, <3 x float> %67, i1 true, <3 x i32> zeroinitializer, i1 false, float 0.000000e+00, float 0.000000e+00, i32 0) #19, !alias.scope !156, !noalias !153
   %69 = extractvalue { <4 x half>, i8 } %68, 0
   %70 = shufflevector <3 x float> %67, <3 x float> poison, <2 x i32> <i32 2, i32 1>
@@ -529,7 +527,7 @@ define <4 x half> @zwd_layer(<4 x float> %0, ptr addrspace(2) noundef readonly a
   %76 = extractvalue { <4 x half>, i8 } %75, 0
   %77 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 1
   %78 = load <4 x float>, ptr addrspace(2) %77, align 16, !tbaa !102, !alias.scope !153, !noalias !156
-  %79 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %78) #18
+  %79 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %78) #17
   %80 = fadd <4 x half> %69, %76
   %81 = fmul <4 x half> %80, splat (half 0xH3800)
   %82 = fmul <4 x half> %79, %81
@@ -552,8 +550,8 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v0(i32 noundef %0
   %3 = alloca [6 x <2 x float>], align 8
   %4 = alloca [6 x <2 x float>], align 8
   %5 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #18
   %6 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %6, align 8
   %7 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 2, i64 1
@@ -569,10 +567,10 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v0(i32 noundef %0
   %12 = zext i32 %0 to i64
   %13 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 %12
   %14 = load <2 x float>, ptr %13, align 8, !tbaa !102
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5)
   %15 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %15) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %15, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %15)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %15, i8 0, i64 48, i1 false) #18
   %16 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %16, align 8
   %17 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 2, i64 1
@@ -600,20 +598,20 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v0(i32 noundef %0
   %34 = extractelement <2 x float> %31, i64 0
   %35 = extractelement <4 x float> %33, i64 1
   %36 = fdiv float %34, %35
-  %37 = tail call float @llvm.fmuladd.f32(float %36, float 2.000000e+00, float -1.000000e+00) #17
+  %37 = tail call float @llvm.fmuladd.f32(float %36, float 2.000000e+00, float -1.000000e+00) #18
   %38 = extractelement <2 x float> %31, i64 1
   %39 = extractelement <4 x float> %33, i64 2
   %40 = fneg float %38
   %41 = fdiv float %40, %39
-  %42 = tail call float @llvm.fmuladd.f32(float %41, float 2.000000e+00, float 1.000000e+00) #17
+  %42 = tail call float @llvm.fmuladd.f32(float %41, float 2.000000e+00, float 1.000000e+00) #18
   %43 = insertelement <4 x float> <float poison, float poison, float poison, float 1.000000e+00>, float %37, i64 0
   %44 = insertelement <4 x float> %43, float %42, i64 1
   %45 = shufflevector <4 x float> %44, <4 x float> %33, <4 x i32> <i32 0, i32 1, i32 7, i32 3>
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %15) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %15)
   %46 = extractelement <4 x float> %25, i64 1
   %47 = extractelement <4 x float> %25, i64 3
   %48 = extractelement <2 x float> %14, i64 1
-  %49 = tail call float @air.mix.f32(float %46, float %47, float %48) #18
+  %49 = tail call float @air.mix.f32(float %46, float %47, float %48) #17
   %50 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %51 = load <4 x float>, ptr addrspace(2) %50, align 16, !alias.scope !159
   %52 = extractelement <4 x float> %51, i64 0
@@ -623,7 +621,7 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v0(i32 noundef %0
   %56 = extractelement <4 x float> %25, i64 0
   %57 = extractelement <4 x float> %25, i64 2
   %58 = extractelement <4 x float> %51, i64 2
-  %59 = tail call float @air.mix.f32(float %56, float %57, float %58) #18
+  %59 = tail call float @air.mix.f32(float %56, float %57, float %58) #17
   %60 = extractelement <4 x float> %51, i64 3
   %61 = tail call float @llvm.fmuladd.f32(float %60, float %48, float %59)
   %62 = fmul float %54, -2.500000e-01
@@ -641,8 +639,8 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v1(i32 noundef %0
   %3 = alloca [6 x <2 x float>], align 8
   %4 = alloca [6 x <2 x float>], align 8
   %5 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #18
   %6 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %6, align 8
   %7 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 2, i64 1
@@ -658,12 +656,12 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v1(i32 noundef %0
   %12 = zext i32 %0 to i64
   %13 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 %12
   %14 = load <2 x float>, ptr %13, align 8, !tbaa !102
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5)
   %15 = extractelement <2 x float> %14, i64 1
   %16 = fadd float %15, 1.000000e+00
   %17 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %17) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %17, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %17)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %17, i8 0, i64 48, i1 false) #18
   %18 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %18, align 8
   %19 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 2, i64 1
@@ -691,22 +689,22 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v1(i32 noundef %0
   %36 = extractelement <2 x float> %33, i64 0
   %37 = extractelement <4 x float> %35, i64 1
   %38 = fdiv float %36, %37
-  %39 = tail call float @llvm.fmuladd.f32(float %38, float 2.000000e+00, float -1.000000e+00) #17
+  %39 = tail call float @llvm.fmuladd.f32(float %38, float 2.000000e+00, float -1.000000e+00) #18
   %40 = extractelement <2 x float> %33, i64 1
   %41 = extractelement <4 x float> %35, i64 2
   %42 = fneg float %40
   %43 = fdiv float %42, %41
-  %44 = tail call float @llvm.fmuladd.f32(float %43, float 2.000000e+00, float 1.000000e+00) #17
+  %44 = tail call float @llvm.fmuladd.f32(float %43, float 2.000000e+00, float 1.000000e+00) #18
   %45 = insertelement <4 x float> <float poison, float poison, float poison, float 1.000000e+00>, float %39, i64 0
   %46 = insertelement <4 x float> %45, float %44, i64 1
   %47 = shufflevector <4 x float> %46, <4 x float> %35, <4 x i32> <i32 0, i32 1, i32 7, i32 3>
   %48 = insertelement <4 x float> poison, float %16, i64 0
   %49 = shufflevector <4 x float> %48, <4 x float> poison, <4 x i32> zeroinitializer
   %50 = fmul <4 x float> %49, %47
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %17) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %17)
   %51 = extractelement <4 x float> %27, i64 1
   %52 = extractelement <4 x float> %27, i64 3
-  %53 = tail call float @air.mix.f32(float %51, float %52, float %15) #18
+  %53 = tail call float @air.mix.f32(float %51, float %52, float %15) #17
   %54 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %55 = load <4 x float>, ptr addrspace(2) %54, align 16, !alias.scope !162
   %56 = extractelement <4 x float> %55, i64 0
@@ -716,7 +714,7 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v1(i32 noundef %0
   %60 = extractelement <4 x float> %27, i64 0
   %61 = extractelement <4 x float> %27, i64 2
   %62 = extractelement <4 x float> %55, i64 2
-  %63 = tail call float @air.mix.f32(float %60, float %61, float %62) #18
+  %63 = tail call float @air.mix.f32(float %60, float %61, float %62) #17
   %64 = extractelement <4 x float> %55, i64 3
   %65 = tail call float @llvm.fmuladd.f32(float %64, float %15, float %63)
   %66 = fmul float %58, -2.500000e-01
@@ -734,8 +732,8 @@ define <{ <4 x float>, <4 x float>, float, float, float, float }> @zwd_path_v2(i
   %3 = alloca [6 x <2 x float>], align 8
   %4 = alloca [6 x <2 x float>], align 8
   %5 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #18
   %6 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %6, align 8
   %7 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 2, i64 1
@@ -751,12 +749,12 @@ define <{ <4 x float>, <4 x float>, float, float, float, float }> @zwd_path_v2(i
   %12 = zext i32 %0 to i64
   %13 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 %12
   %14 = load <2 x float>, ptr %13, align 8, !tbaa !102
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5)
   %15 = extractelement <2 x float> %14, i64 0
   %16 = fsub float 2.000000e+00, %15
   %17 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %17) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %17, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %17)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %17, i8 0, i64 48, i1 false) #18
   %18 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %18, align 8
   %19 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 2, i64 1
@@ -784,19 +782,19 @@ define <{ <4 x float>, <4 x float>, float, float, float, float }> @zwd_path_v2(i
   %36 = extractelement <2 x float> %33, i64 0
   %37 = extractelement <4 x float> %35, i64 1
   %38 = fdiv float %36, %37
-  %39 = tail call float @llvm.fmuladd.f32(float %38, float 2.000000e+00, float -1.000000e+00) #17
+  %39 = tail call float @llvm.fmuladd.f32(float %38, float 2.000000e+00, float -1.000000e+00) #18
   %40 = extractelement <2 x float> %33, i64 1
   %41 = extractelement <4 x float> %35, i64 2
   %42 = fneg float %40
   %43 = fdiv float %42, %41
-  %44 = tail call float @llvm.fmuladd.f32(float %43, float 2.000000e+00, float 1.000000e+00) #17
+  %44 = tail call float @llvm.fmuladd.f32(float %43, float 2.000000e+00, float 1.000000e+00) #18
   %45 = insertelement <4 x float> <float poison, float poison, float poison, float 1.000000e+00>, float %39, i64 0
   %46 = insertelement <4 x float> %45, float %44, i64 1
   %47 = shufflevector <4 x float> %46, <4 x float> %35, <4 x i32> <i32 0, i32 1, i32 7, i32 3>
   %48 = insertelement <4 x float> poison, float %16, i64 0
   %49 = shufflevector <4 x float> %48, <4 x float> poison, <4 x i32> zeroinitializer
   %50 = fmul <4 x float> %49, %47
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %17) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %17)
   %51 = fsub <2 x float> splat (float 1.000000e+00), %14
   %52 = shufflevector <2 x float> %14, <2 x float> %51, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
   %53 = extractelement <2 x float> %14, i64 1
@@ -806,7 +804,7 @@ define <{ <4 x float>, <4 x float>, float, float, float, float }> @zwd_path_v2(i
   %57 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %58 = load <4 x float>, ptr addrspace(2) %57, align 16, !alias.scope !165
   %59 = extractelement <4 x float> %58, i64 2
-  %60 = tail call float @air.mix.f32(float %55, float %56, float %59) #18
+  %60 = tail call float @air.mix.f32(float %55, float %56, float %59) #17
   %61 = extractelement <4 x float> %58, i64 3
   %62 = fneg float %61
   %63 = tail call float @llvm.fmuladd.f32(float %62, float %15, float %60)
@@ -816,7 +814,7 @@ define <{ <4 x float>, <4 x float>, float, float, float, float }> @zwd_path_v2(i
   %67 = tail call float @llvm.fmuladd.f32(float %66, float %53, float %64)
   %68 = extractelement <4 x float> %27, i64 1
   %69 = extractelement <4 x float> %27, i64 3
-  %70 = tail call float @air.mix.f32(float %68, float %69, float %53) #18
+  %70 = tail call float @air.mix.f32(float %68, float %69, float %53) #17
   %71 = insertvalue <{ <4 x float>, <4 x float>, float, float, float, float }> undef, <4 x float> %50, 0
   %72 = insertvalue <{ <4 x float>, <4 x float>, float, float, float, float }> %71, <4 x float> %52, 1
   %73 = insertvalue <{ <4 x float>, <4 x float>, float, float, float, float }> %72, float %54, 2
@@ -831,8 +829,8 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v3(i32 noundef %0
   %3 = alloca [6 x <2 x float>], align 8
   %4 = alloca [6 x <2 x float>], align 8
   %5 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %5, i8 0, i64 48, i1 false) #18
   %6 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %6, align 8
   %7 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 2, i64 1
@@ -848,10 +846,10 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v3(i32 noundef %0
   %12 = zext i32 %0 to i64
   %13 = getelementptr inbounds [6 x <2 x float>], ptr %4, i64 0, i64 %12
   %14 = load <2 x float>, ptr %13, align 8, !tbaa !102
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %5)
   %15 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %15) #17
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %15, i8 0, i64 48, i1 false) #17
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %15)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %15, i8 0, i64 48, i1 false) #18
   %16 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %16, align 8
   %17 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 2, i64 1
@@ -879,21 +877,21 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v3(i32 noundef %0
   %34 = extractelement <2 x float> %31, i64 0
   %35 = extractelement <4 x float> %33, i64 1
   %36 = fdiv float %34, %35
-  %37 = tail call float @llvm.fmuladd.f32(float %36, float 2.000000e+00, float -1.000000e+00) #17
+  %37 = tail call float @llvm.fmuladd.f32(float %36, float 2.000000e+00, float -1.000000e+00) #18
   %38 = extractelement <2 x float> %31, i64 1
   %39 = extractelement <4 x float> %33, i64 2
   %40 = fneg float %38
   %41 = fdiv float %40, %39
-  %42 = tail call float @llvm.fmuladd.f32(float %41, float 2.000000e+00, float 1.000000e+00) #17
+  %42 = tail call float @llvm.fmuladd.f32(float %41, float 2.000000e+00, float 1.000000e+00) #18
   %43 = insertelement <4 x float> <float poison, float poison, float poison, float 1.000000e+00>, float %37, i64 0
   %44 = insertelement <4 x float> %43, float %42, i64 1
   %45 = shufflevector <4 x float> %44, <4 x float> %33, <4 x i32> <i32 0, i32 1, i32 7, i32 3>
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %15) #17
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %15)
   %46 = extractelement <4 x float> %25, i64 1
   %47 = extractelement <4 x float> %25, i64 3
   %48 = extractelement <2 x float> %14, i64 1
   %49 = fsub float 1.000000e+00, %48
-  %50 = tail call float @air.mix.f32(float %46, float %47, float %49) #18
+  %50 = tail call float @air.mix.f32(float %46, float %47, float %49) #17
   %51 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %1, i64 0, i32 2
   %52 = load <4 x float>, ptr addrspace(2) %51, align 16, !alias.scope !168
   %53 = extractelement <4 x float> %52, i64 0
@@ -902,7 +900,7 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v3(i32 noundef %0
   %56 = extractelement <4 x float> %25, i64 2
   %57 = extractelement <4 x float> %52, i64 2
   %58 = fsub float 1.000000e+00, %57
-  %59 = tail call float @air.mix.f32(float %55, float %56, float %58) #18
+  %59 = tail call float @air.mix.f32(float %55, float %56, float %58) #17
   %60 = extractelement <2 x float> %14, i64 0
   %61 = tail call float @llvm.fmuladd.f32(float %60, float 5.000000e-01, float 5.000000e-01)
   %62 = insertvalue <{ <4 x float>, float, float, float, float }> undef, <4 x float> %45, 0
@@ -917,29 +915,29 @@ define <{ <4 x float>, float, float, float, float }> @zwd_path_v3(i32 noundef %0
 define <{ <4 x half>, <2 x half> }> @zwd_path_exterior(<4 x float> %0, float %1, float %2, float %3, float %4, ptr addrspace(2) noundef readonly align 16 captures(none) dereferenceable(64) "air-buffer-no-alias" %5) local_unnamed_addr #9 {
   %7 = extractelement <4 x float> %0, i64 1
   %8 = fsub float %7, %1
-  %9 = tail call float @llvm.fmuladd.f32(float %2, float %8, float %3) #17
+  %9 = tail call float @llvm.fmuladd.f32(float %2, float %8, float %3) #18
   %10 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 0
   %11 = load <4 x float>, ptr addrspace(2) %10, align 16, !alias.scope !171
   %12 = extractelement <4 x float> %11, i64 1
   %13 = fsub float %1, %12
-  %14 = tail call float @llvm.fmuladd.f32(float %2, float %13, float %9) #17
+  %14 = tail call float @llvm.fmuladd.f32(float %2, float %13, float %9) #18
   %15 = extractelement <4 x float> %0, i64 0
   %16 = fsub float %15, %14
   %17 = fadd float %16, 5.000000e-01
-  %18 = tail call float @air.clamp.f32(float %17, float 0.000000e+00, float 1.000000e+00) #18
+  %18 = tail call float @air.clamp.f32(float %17, float 0.000000e+00, float 1.000000e+00) #17
   %19 = fptrunc float %18 to half
   %20 = fptrunc float %4 to half
   %21 = fmul half %20, %19
   %22 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 1
   %23 = load <4 x float>, ptr addrspace(2) %22, align 16, !tbaa !102, !alias.scope !171
-  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #18
+  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #17
   %25 = insertelement <4 x half> poison, half %21, i64 0
   %26 = shufflevector <4 x half> %25, <4 x half> poison, <4 x i32> zeroinitializer
   %27 = fmul <4 x half> %24, %26
   %28 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 2
   %29 = load <4 x float>, ptr addrspace(2) %28, align 16, !alias.scope !171
   %30 = shufflevector <4 x float> %29, <4 x float> poison, <2 x i32> <i32 0, i32 1>
-  %31 = tail call <2 x half> @air.convert.f.v2f16.f.v2f32(<2 x float> %30) #18
+  %31 = tail call <2 x half> @air.convert.f.v2f16.f.v2f32(<2 x float> %30) #17
   %32 = insertelement <2 x half> poison, half %21, i64 0
   %33 = shufflevector <2 x half> %32, <2 x half> poison, <2 x i32> zeroinitializer
   %34 = fmul <2 x half> %31, %33
@@ -952,29 +950,29 @@ define <{ <4 x half>, <2 x half> }> @zwd_path_exterior(<4 x float> %0, float %1,
 define <{ <4 x half>, <2 x half> }> @zwd_path_exterior_flat(<4 x float> %0, float %1, float %2, float %3, float %4, ptr addrspace(2) noundef readonly align 16 captures(none) dereferenceable(64) "air-buffer-no-alias" %5) local_unnamed_addr #9 {
   %7 = extractelement <4 x float> %0, i64 1
   %8 = fsub float %7, %1
-  %9 = tail call float @llvm.fmuladd.f32(float %2, float %8, float %3) #17
+  %9 = tail call float @llvm.fmuladd.f32(float %2, float %8, float %3) #18
   %10 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 0
   %11 = load <4 x float>, ptr addrspace(2) %10, align 16, !alias.scope !174
   %12 = extractelement <4 x float> %11, i64 1
   %13 = fsub float %1, %12
-  %14 = tail call float @llvm.fmuladd.f32(float %2, float %13, float %9) #17
+  %14 = tail call float @llvm.fmuladd.f32(float %2, float %13, float %9) #18
   %15 = extractelement <4 x float> %0, i64 0
   %16 = fsub float %15, %14
   %17 = fadd float %16, 5.000000e-01
-  %18 = tail call float @air.clamp.f32(float %17, float 0.000000e+00, float 1.000000e+00) #18
+  %18 = tail call float @air.clamp.f32(float %17, float 0.000000e+00, float 1.000000e+00) #17
   %19 = fptrunc float %18 to half
   %20 = fptrunc float %4 to half
   %21 = fmul half %20, %19
   %22 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 1
   %23 = load <4 x float>, ptr addrspace(2) %22, align 16, !tbaa !102, !alias.scope !174
-  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #18
+  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #17
   %25 = insertelement <4 x half> poison, half %21, i64 0
   %26 = shufflevector <4 x half> %25, <4 x half> poison, <4 x i32> zeroinitializer
   %27 = fmul <4 x half> %24, %26
   %28 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 2
   %29 = load <4 x float>, ptr addrspace(2) %28, align 16, !alias.scope !174
   %30 = shufflevector <4 x float> %29, <4 x float> poison, <2 x i32> <i32 0, i32 1>
-  %31 = tail call <2 x half> @air.convert.f.v2f16.f.v2f32(<2 x float> %30) #18
+  %31 = tail call <2 x half> @air.convert.f.v2f16.f.v2f32(<2 x float> %30) #17
   %32 = insertelement <2 x half> poison, half %21, i64 0
   %33 = shufflevector <2 x half> %32, <2 x half> poison, <2 x i32> zeroinitializer
   %34 = fmul <2 x half> %31, %33
@@ -987,29 +985,29 @@ define <{ <4 x half>, <2 x half> }> @zwd_path_exterior_flat(<4 x float> %0, floa
 define <{ <4 x half>, <2 x half> }> @zwd_path_exterior_linear(<4 x float> %0, float %1, float %2, float %3, float %4, ptr addrspace(2) noundef readonly align 16 captures(none) dereferenceable(64) "air-buffer-no-alias" %5) local_unnamed_addr #9 {
   %7 = extractelement <4 x float> %0, i64 1
   %8 = fsub float %7, %1
-  %9 = tail call float @llvm.fmuladd.f32(float %2, float %8, float %3) #17
+  %9 = tail call float @llvm.fmuladd.f32(float %2, float %8, float %3) #18
   %10 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 0
   %11 = load <4 x float>, ptr addrspace(2) %10, align 16, !alias.scope !177
   %12 = extractelement <4 x float> %11, i64 1
   %13 = fsub float %1, %12
-  %14 = tail call float @llvm.fmuladd.f32(float %2, float %13, float %9) #17
+  %14 = tail call float @llvm.fmuladd.f32(float %2, float %13, float %9) #18
   %15 = extractelement <4 x float> %0, i64 0
   %16 = fsub float %15, %14
   %17 = fadd float %16, 5.000000e-01
-  %18 = tail call float @air.clamp.f32(float %17, float 0.000000e+00, float 1.000000e+00) #18
+  %18 = tail call float @air.clamp.f32(float %17, float 0.000000e+00, float 1.000000e+00) #17
   %19 = fptrunc float %18 to half
   %20 = fptrunc float %4 to half
   %21 = fmul half %20, %19
   %22 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 1
   %23 = load <4 x float>, ptr addrspace(2) %22, align 16, !tbaa !102, !alias.scope !177
-  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #18
+  %24 = tail call <4 x half> @air.convert.f.v4f16.f.v4f32(<4 x float> %23) #17
   %25 = insertelement <4 x half> poison, half %21, i64 0
   %26 = shufflevector <4 x half> %25, <4 x half> poison, <4 x i32> zeroinitializer
   %27 = fmul <4 x half> %24, %26
   %28 = getelementptr inbounds %struct.ZwdShape, ptr addrspace(2) %5, i64 0, i32 2
   %29 = load <4 x float>, ptr addrspace(2) %28, align 16, !alias.scope !177
   %30 = shufflevector <4 x float> %29, <4 x float> poison, <2 x i32> <i32 0, i32 1>
-  %31 = tail call <2 x half> @air.convert.f.v2f16.f.v2f32(<2 x float> %30) #18
+  %31 = tail call <2 x half> @air.convert.f.v2f16.f.v2f32(<2 x float> %30) #17
   %32 = insertelement <2 x half> poison, half %21, i64 0
   %33 = shufflevector <2 x half> %32, <2 x half> poison, <2 x i32> zeroinitializer
   %34 = fmul <2 x half> %31, %33
@@ -1088,14 +1086,14 @@ define internal void @_GLOBAL__sub_I__() #14 section "air.static_init" {
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr captures(none)) #15
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr writeonly captures(none), i8, i64, i1 immarg) #16
+declare void @llvm.memset.p0.i64(ptr writeonly captures(none), i8, i64, i1 immarg) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr captures(none)) #15
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr captures(none)) #16
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.end.p0(i64 immarg, ptr captures(none)) #16
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: read) "frame-pointer"="all" "min-legal-vector-width"="64" "no-builtins" "no-trapping-math"="true" "stack-protector-buffer-size"="8" }
 attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
@@ -1112,10 +1110,10 @@ attributes #11 = { convergent mustprogress nofree nounwind willreturn memory(arg
 attributes #12 = { mustprogress nofree nounwind willreturn memory(argmem: read) }
 attributes #13 = { mustprogress nofree nounwind willreturn memory(inaccessiblemem: read) }
 attributes #14 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write) "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-trapping-math"="true" "stack-protector-buffer-size"="8" }
-attributes #15 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #17 = { nounwind }
-attributes #18 = { nounwind willreturn memory(none) }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
+attributes #17 = { nounwind willreturn memory(none) }
+attributes #18 = { nounwind }
 attributes #19 = { convergent nounwind willreturn memory(argmem: read) }
 attributes #20 = { nounwind willreturn memory(argmem: read) }
 attributes #21 = { nounwind willreturn memory(inaccessiblemem: read) }
@@ -1231,7 +1229,7 @@ attributes #22 = { nounwind willreturn }
 !97 = !{ptr addrspace(2) @_Z11zwd_variant.MTL_FC_INIT_0_j, !"uint", !"zwd_variant", i32 0}
 !98 = !{!"air.sampler_state", ptr addrspace(2) @__air_sampler_state}
 !99 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
-!100 = !{i32 2, i32 8, i32 0}
+!100 = !{i32 2, i32 9, i32 0}
 !101 = !{!"Metal", i32 4, i32 0, i32 0}
 !102 = !{!103, !103, i64 0}
 !103 = !{!"omnipotent char", !104, i64 0}

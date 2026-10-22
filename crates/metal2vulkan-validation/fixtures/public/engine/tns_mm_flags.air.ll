@@ -36,10 +36,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %7 = tail call i64 @_ZN5metal6tensorIU9MTLdevicefNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() #9
   %8 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %9 = alloca [2 x i32], align 4
-  %10 = alloca [2 x i32], align 4
-  %11 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %10 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %11 = alloca %"struct.metal::array", align 4
   %12 = alloca %"struct.metal::array", align 4
-  %13 = alloca %"struct.metal::array", align 4
+  %13 = alloca [2 x i32], align 4
   %14 = alloca %"struct.metal::array", align 4
   %15 = alloca %"struct.metal::array", align 4
   %16 = alloca i8, i64 %7, align 8
@@ -47,10 +47,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %18 = alloca i8, i64 %7, align 8
   %19 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %20 = alloca [2 x i32], align 4
-  %21 = alloca [2 x i32], align 4
-  %22 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %21 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %22 = alloca %"struct.metal::array", align 4
   %23 = alloca %"struct.metal::array", align 4
-  %24 = alloca %"struct.metal::array", align 4
+  %24 = alloca [2 x i32], align 4
   %25 = alloca %"struct.metal::array", align 4
   %26 = alloca %"struct.metal::array", align 4
   %27 = alloca i8, i64 %7, align 8
@@ -59,10 +59,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %30 = tail call i64 @_ZN5metal6tensorIU9MTLdeviceDF16bNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() #9
   %31 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() #9
   %32 = alloca [2 x i32], align 4
-  %33 = alloca [2 x i32], align 4
-  %34 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %33 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %34 = alloca %"struct.metal::array", align 4
   %35 = alloca %"struct.metal::array", align 4
-  %36 = alloca %"struct.metal::array", align 4
+  %36 = alloca [2 x i32], align 4
   %37 = alloca %"struct.metal::array", align 4
   %38 = alloca %"struct.metal::array", align 4
   %39 = alloca i8, i64 %30, align 8
@@ -71,10 +71,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %42 = tail call i64 @_ZN5metal6tensorIU9MTLdeviceDhNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() #9
   %43 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() #9
   %44 = alloca [2 x i32], align 4
-  %45 = alloca [2 x i32], align 4
-  %46 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %45 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %46 = alloca %"struct.metal::array", align 4
   %47 = alloca %"struct.metal::array", align 4
-  %48 = alloca %"struct.metal::array", align 4
+  %48 = alloca [2 x i32], align 4
   %49 = alloca %"struct.metal::array", align 4
   %50 = alloca %"struct.metal::array", align 4
   %51 = alloca i8, i64 %42, align 8
@@ -82,10 +82,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %53 = alloca i8, i64 %42, align 8
   %54 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %55 = alloca [2 x i32], align 4
-  %56 = alloca [2 x i32], align 4
-  %57 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %56 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %57 = alloca %"struct.metal::array", align 4
   %58 = alloca %"struct.metal::array", align 4
-  %59 = alloca %"struct.metal::array", align 4
+  %59 = alloca [2 x i32], align 4
   %60 = alloca %"struct.metal::array", align 4
   %61 = alloca %"struct.metal::array", align 4
   %62 = alloca i8, i64 %7, align 8
@@ -93,10 +93,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %64 = alloca i8, i64 %7, align 8
   %65 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %66 = alloca [2 x i32], align 4
-  %67 = alloca [2 x i32], align 4
-  %68 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %67 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %68 = alloca %"struct.metal::array", align 4
   %69 = alloca %"struct.metal::array", align 4
-  %70 = alloca %"struct.metal::array", align 4
+  %70 = alloca [2 x i32], align 4
   %71 = alloca %"struct.metal::array", align 4
   %72 = alloca %"struct.metal::array", align 4
   %73 = alloca i8, i64 %7, align 8
@@ -104,10 +104,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %75 = alloca i8, i64 %7, align 8
   %76 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() #9
   %77 = alloca [2 x i32], align 4
-  %78 = alloca [2 x i32], align 4
-  %79 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %78 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %79 = alloca %"struct.metal::array", align 4
   %80 = alloca %"struct.metal::array", align 4
-  %81 = alloca %"struct.metal::array", align 4
+  %81 = alloca [2 x i32], align 4
   %82 = alloca %"struct.metal::array", align 4
   %83 = alloca %"struct.metal::array", align 4
   %84 = alloca i8, i64 %42, align 8
@@ -115,10 +115,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %86 = alloca i8, i64 %42, align 8
   %87 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() #9
   %88 = alloca [2 x i32], align 4
-  %89 = alloca [2 x i32], align 4
-  %90 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %89 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %90 = alloca %"struct.metal::array", align 4
   %91 = alloca %"struct.metal::array", align 4
-  %92 = alloca %"struct.metal::array", align 4
+  %92 = alloca [2 x i32], align 4
   %93 = alloca %"struct.metal::array", align 4
   %94 = alloca %"struct.metal::array", align 4
   %95 = alloca i8, i64 %30, align 8
@@ -126,10 +126,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %97 = alloca i8, i64 %30, align 8
   %98 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %99 = alloca [2 x i32], align 4
-  %100 = alloca [2 x i32], align 4
-  %101 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %100 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %101 = alloca %"struct.metal::array", align 4
   %102 = alloca %"struct.metal::array", align 4
-  %103 = alloca %"struct.metal::array", align 4
+  %103 = alloca [2 x i32], align 4
   %104 = alloca %"struct.metal::array", align 4
   %105 = alloca %"struct.metal::array", align 4
   %106 = alloca i8, i64 %7, align 8
@@ -137,10 +137,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %108 = alloca i8, i64 %7, align 8
   %109 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() #9
   %110 = alloca [2 x i32], align 4
-  %111 = alloca [2 x i32], align 4
-  %112 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %111 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %112 = alloca %"struct.metal::array", align 4
   %113 = alloca %"struct.metal::array", align 4
-  %114 = alloca %"struct.metal::array", align 4
+  %114 = alloca [2 x i32], align 4
   %115 = alloca %"struct.metal::array", align 4
   %116 = alloca %"struct.metal::array", align 4
   %117 = alloca i8, i64 %42, align 8
@@ -148,10 +148,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %119 = alloca i8, i64 %42, align 8
   %120 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEfffiJEEEEE.MTL_SIZEAS() #9
   %121 = alloca [2 x i32], align 4
-  %122 = alloca [2 x i32], align 4
-  %123 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %122 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %123 = alloca %"struct.metal::array", align 4
   %124 = alloca %"struct.metal::array", align 4
-  %125 = alloca %"struct.metal::array", align 4
+  %125 = alloca [2 x i32], align 4
   %126 = alloca %"struct.metal::array", align 4
   %127 = alloca %"struct.metal::array", align 4
   %128 = alloca i8, i64 %7, align 8
@@ -160,8 +160,8 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %131 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() #9
   %132 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() #9
   %133 = alloca [2 x i32], align 4
-  %134 = alloca [2 x i32], align 4
-  %135 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %134 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %135 = alloca [2 x i32], align 4
   %136 = alloca [2 x i32], align 4
   %137 = alloca %"struct.metal::array", align 4
   %138 = alloca %"struct.metal::array", align 4
@@ -170,10 +170,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %141 = alloca i8, i64 %132, align 4
   %142 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() #9
   %143 = alloca [2 x i32], align 4
-  %144 = alloca [2 x i32], align 4
-  %145 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %144 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %145 = alloca %"struct.metal::array", align 4
   %146 = alloca %"struct.metal::array", align 4
-  %147 = alloca %"struct.metal::array", align 4
+  %147 = alloca [2 x i32], align 4
   %148 = alloca %"struct.metal::array", align 4
   %149 = alloca %"struct.metal::array", align 4
   %150 = alloca i8, i64 %7, align 8
@@ -181,10 +181,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %152 = alloca i8, i64 %7, align 8
   %153 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %154 = alloca [2 x i32], align 4
-  %155 = alloca [2 x i32], align 4
-  %156 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %155 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %156 = alloca %"struct.metal::array", align 4
   %157 = alloca %"struct.metal::array", align 4
-  %158 = alloca %"struct.metal::array", align 4
+  %158 = alloca [2 x i32], align 4
   %159 = alloca %"struct.metal::array", align 4
   %160 = alloca %"struct.metal::array", align 4
   %161 = alloca i8, i64 %7, align 8
@@ -192,10 +192,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %163 = alloca i8, i64 %7, align 8
   %164 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %165 = alloca [2 x i32], align 4
-  %166 = alloca [2 x i32], align 4
-  %167 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %166 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %167 = alloca %"struct.metal::array", align 4
   %168 = alloca %"struct.metal::array", align 4
-  %169 = alloca %"struct.metal::array", align 4
+  %169 = alloca [2 x i32], align 4
   %170 = alloca %"struct.metal::array", align 4
   %171 = alloca %"struct.metal::array", align 4
   %172 = alloca i8, i64 %7, align 8
@@ -203,10 +203,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %174 = alloca i8, i64 %7, align 8
   %175 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() #9
   %176 = alloca [2 x i32], align 4
-  %177 = alloca [2 x i32], align 4
-  %178 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %177 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %178 = alloca %"struct.metal::array", align 4
   %179 = alloca %"struct.metal::array", align 4
-  %180 = alloca %"struct.metal::array", align 4
+  %180 = alloca [2 x i32], align 4
   %181 = alloca %"struct.metal::array", align 4
   %182 = alloca %"struct.metal::array", align 4
   %183 = alloca i8, i64 %42, align 8
@@ -214,10 +214,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %185 = alloca i8, i64 %42, align 8
   %186 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() #9
   %187 = alloca [2 x i32], align 4
-  %188 = alloca [2 x i32], align 4
-  %189 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %188 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %189 = alloca %"struct.metal::array", align 4
   %190 = alloca %"struct.metal::array", align 4
-  %191 = alloca %"struct.metal::array", align 4
+  %191 = alloca [2 x i32], align 4
   %192 = alloca %"struct.metal::array", align 4
   %193 = alloca %"struct.metal::array", align 4
   %194 = alloca i8, i64 %30, align 8
@@ -225,10 +225,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %196 = alloca i8, i64 %30, align 8
   %197 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() #9
   %198 = alloca [2 x i32], align 4
-  %199 = alloca [2 x i32], align 4
-  %200 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %199 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %200 = alloca %"struct.metal::array", align 4
   %201 = alloca %"struct.metal::array", align 4
-  %202 = alloca %"struct.metal::array", align 4
+  %202 = alloca [2 x i32], align 4
   %203 = alloca %"struct.metal::array", align 4
   %204 = alloca %"struct.metal::array", align 4
   %205 = alloca i8, i64 %7, align 8
@@ -236,10 +236,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %207 = alloca i8, i64 %7, align 8
   %208 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() #9
   %209 = alloca [2 x i32], align 4
-  %210 = alloca [2 x i32], align 4
-  %211 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %210 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %211 = alloca %"struct.metal::array", align 4
   %212 = alloca %"struct.metal::array", align 4
-  %213 = alloca %"struct.metal::array", align 4
+  %213 = alloca [2 x i32], align 4
   %214 = alloca %"struct.metal::array", align 4
   %215 = alloca %"struct.metal::array", align 4
   %216 = alloca i8, i64 %42, align 8
@@ -247,10 +247,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %218 = alloca i8, i64 %42, align 8
   %219 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEfffiJEEEEE.MTL_SIZEAS() #9
   %220 = alloca [2 x i32], align 4
-  %221 = alloca [2 x i32], align 4
-  %222 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %221 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %222 = alloca %"struct.metal::array", align 4
   %223 = alloca %"struct.metal::array", align 4
-  %224 = alloca %"struct.metal::array", align 4
+  %224 = alloca [2 x i32], align 4
   %225 = alloca %"struct.metal::array", align 4
   %226 = alloca %"struct.metal::array", align 4
   %227 = alloca i8, i64 %7, align 8
@@ -259,8 +259,8 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %230 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() #9
   %231 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() #9
   %232 = alloca [2 x i32], align 4
-  %233 = alloca [2 x i32], align 4
-  %234 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %233 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %234 = alloca [2 x i32], align 4
   %235 = alloca [2 x i32], align 4
   %236 = alloca %"struct.metal::array", align 4
   %237 = alloca %"struct.metal::array", align 4
@@ -269,10 +269,10 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %240 = alloca i8, i64 %231, align 4
   %241 = tail call i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() #9
   %242 = alloca [2 x i32], align 4
-  %243 = alloca [2 x i32], align 4
-  %244 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %243 = alloca %"struct.mpp::tensor_ops::matmul2d_descriptor", align 4
+  %244 = alloca %"struct.metal::array", align 4
   %245 = alloca %"struct.metal::array", align 4
-  %246 = alloca %"struct.metal::array", align 4
+  %246 = alloca [2 x i32], align 4
   %247 = alloca %"struct.metal::array", align 4
   %248 = alloca %"struct.metal::array", align 4
   %249 = alloca i8, i64 %7, align 8
@@ -325,102 +325,102 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %272 = zext i32 %271 to i64
   %273 = getelementptr inbounds float, float addrspace(1)* %2, i64 %272
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %249) #9
-  %274 = bitcast i8* %249 to %struct._tensor_t*
-  %275 = bitcast float addrspace(1)* %262 to i8 addrspace(1)*
-  %276 = bitcast %"struct.metal::array"* %247 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %276) #9
-  %277 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %247, i64 0, i32 0, i64 0
-  store i32 %256, i32* %277, align 4, !tbaa !26
-  %278 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %247, i64 0, i32 0, i64 1
-  store i32 %258, i32* %278, align 4, !tbaa !26
-  %279 = bitcast %"struct.metal::array"* %248 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %279) #9
+  %274 = bitcast %"struct.metal::array"* %247 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %274) #9
+  %275 = bitcast %"struct.metal::array"* %248 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %275) #9
+  %276 = bitcast i8* %249 to %struct._tensor_t*
+  %277 = bitcast float addrspace(1)* %262 to i8 addrspace(1)*
+  %278 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %247, i64 0, i32 0, i64 0
+  store i32 %256, i32* %278, align 4, !tbaa !26
+  %279 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %247, i64 0, i32 0, i64 1
+  store i32 %258, i32* %279, align 4, !tbaa !26
   %280 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %248, i64 0, i32 0, i64 0
   store i32 1, i32* %280, align 4, !tbaa !26
   %281 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %248, i64 0, i32 0, i64 1
   store i32 %256, i32* %281, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %274, i16 2, i8 addrspace(1)* readnone %275, i8* nocapture nonnull readonly %276, i8* nocapture nonnull readonly %279, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %279) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %276) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %276, i16 2, i8 addrspace(1)* readnone %277, i8* nocapture nonnull readonly %274, i8* nocapture nonnull readonly %275, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %274) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %275) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %250) #9
   %282 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %282) #12
-  %283 = bitcast [2 x i32]* %243 to i8*
-  %284 = getelementptr inbounds [2 x i32], [2 x i32]* %243, i64 0, i64 0
-  %285 = getelementptr inbounds [2 x i32], [2 x i32]* %243, i64 0, i64 1
+  %283 = bitcast [2 x i32]* %246 to i8*
+  %284 = getelementptr inbounds [2 x i32], [2 x i32]* %246, i64 0, i64 0
+  %285 = getelementptr inbounds [2 x i32], [2 x i32]* %246, i64 0, i64 1
   %286 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %287
 
-287:                                              ; preds = %324, %253
-  %288 = phi i16 [ 0, %253 ], [ %325, %324 ]
+287:                                              ; preds = %304, %253
+  %288 = phi i16 [ 0, %253 ], [ %305, %304 ]
   %289 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %282) #12
   %290 = icmp ult i16 %288, %289
-  br i1 %290, label %311, label %291
+  br i1 %290, label %291, label %306
 
 291:                                              ; preds = %287
-  %292 = zext i32 %268 to i64
-  %293 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %294 = getelementptr inbounds float, float addrspace(1)* %293, i64 %292
-  %295 = getelementptr inbounds float, float addrspace(1)* %3, i64 %272
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %251) #9
-  %296 = load i32, i32 addrspace(2)* %263, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %297 = load i32, i32 addrspace(2)* %265, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %298 = bitcast i8* %251 to %struct._tensor_t*
-  %299 = bitcast float addrspace(1)* %294 to i8 addrspace(1)*
-  %300 = bitcast %"struct.metal::array"* %245 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %300) #9
-  %301 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %245, i64 0, i32 0, i64 0
-  store i32 %296, i32* %301, align 4, !tbaa !26
-  %302 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %245, i64 0, i32 0, i64 1
-  store i32 %297, i32* %302, align 4, !tbaa !26
-  %303 = bitcast %"struct.metal::array"* %246 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %303) #9
-  %304 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %246, i64 0, i32 0, i64 0
-  store i32 1, i32* %304, align 4, !tbaa !26
-  %305 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %246, i64 0, i32 0, i64 1
-  store i32 %296, i32* %305, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %298, i16 2, i8 addrspace(1)* readnone %299, i8* nocapture nonnull readonly %300, i8* nocapture nonnull readonly %303, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %303) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %300) #9
-  %306 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %244 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %306) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %306, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %307 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %244, i8* noundef nonnull %249, i32 noundef 2, i8* noundef nonnull %251, i32 noundef 2, i8* noundef %307, i32 noundef %282) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %306) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %251) #9
-  %308 = bitcast [2 x i32]* %242 to i8*
-  %309 = getelementptr inbounds [2 x i32], [2 x i32]* %242, i64 0, i64 0
-  %310 = getelementptr inbounds [2 x i32], [2 x i32]* %242, i64 0, i64 1
-  br label %326
+  %292 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %288, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %282) #12
+  br i1 %292, label %293, label %304
 
-311:                                              ; preds = %287
-  %312 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %288, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %282) #12
-  br i1 %312, label %313, label %324
-
-313:                                              ; preds = %311
+293:                                              ; preds = %291
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %283) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %288, i8* noundef nonnull %283, i32 noundef 536870944, i32 noundef %282, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %314 = load i32, i32* %284, align 4, !tbaa !26
-  %315 = load i32, i32* %285, align 4, !tbaa !26
+  %294 = load i32, i32* %284, align 4, !tbaa !26
+  %295 = load i32, i32* %285, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %283) #9
-  %316 = load i32, i32 addrspace(2)* %286, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %317 = mul i32 %316, %315
-  %318 = add i32 %317, %314
-  %319 = zext i32 %318 to i64
-  %320 = getelementptr inbounds float, float addrspace(1)* %273, i64 %319
-  %321 = load float, float addrspace(1)* %320, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %322 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %288, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %323 = bitcast i8* %322 to float*
-  store float %321, float* %323, align 4, !tbaa !50
-  br label %324
+  %296 = load i32, i32 addrspace(2)* %286, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %297 = mul i32 %296, %295
+  %298 = add i32 %297, %294
+  %299 = zext i32 %298 to i64
+  %300 = getelementptr inbounds float, float addrspace(1)* %273, i64 %299
+  %301 = load float, float addrspace(1)* %300, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %302 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %288, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %303 = bitcast i8* %302 to float*
+  store float %301, float* %303, align 4, !tbaa !45
+  br label %304
 
-324:                                              ; preds = %313, %311
-  %325 = add nuw i16 %288, 1
-  br label %287, !llvm.loop !54
+304:                                              ; preds = %293, %291
+  %305 = add nuw i16 %288, 1
+  br label %287, !llvm.loop !49
 
-326:                                              ; preds = %343, %291
-  %327 = phi i16 [ 0, %291 ], [ %344, %343 ]
+306:                                              ; preds = %287
+  %307 = zext i32 %268 to i64
+  %308 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %309 = getelementptr inbounds float, float addrspace(1)* %308, i64 %307
+  %310 = getelementptr inbounds float, float addrspace(1)* %3, i64 %272
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %251) #9
+  %311 = load i32, i32 addrspace(2)* %263, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %312 = load i32, i32 addrspace(2)* %265, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %313 = bitcast %"struct.metal::array"* %244 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %313) #9
+  %314 = bitcast %"struct.metal::array"* %245 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %314) #9
+  %315 = bitcast i8* %251 to %struct._tensor_t*
+  %316 = bitcast float addrspace(1)* %309 to i8 addrspace(1)*
+  %317 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %244, i64 0, i32 0, i64 0
+  store i32 %311, i32* %317, align 4, !tbaa !26
+  %318 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %244, i64 0, i32 0, i64 1
+  store i32 %312, i32* %318, align 4, !tbaa !26
+  %319 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %245, i64 0, i32 0, i64 0
+  store i32 1, i32* %319, align 4, !tbaa !26
+  %320 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %245, i64 0, i32 0, i64 1
+  store i32 %311, i32* %320, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %315, i16 2, i8 addrspace(1)* readnone %316, i8* nocapture nonnull readonly %313, i8* nocapture nonnull readonly %314, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %313) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %314) #9
+  %321 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %243 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %321) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %321, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %322 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %243, i8* noundef nonnull %249, i32 noundef 2, i8* noundef nonnull %251, i32 noundef 2, i8* noundef %322, i32 noundef %282) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %321) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %251) #9
+  %323 = bitcast [2 x i32]* %242 to i8*
+  %324 = getelementptr inbounds [2 x i32], [2 x i32]* %242, i64 0, i64 0
+  %325 = getelementptr inbounds [2 x i32], [2 x i32]* %242, i64 0, i64 1
+  br label %326
+
+326:                                              ; preds = %343, %306
+  %327 = phi i16 [ 0, %306 ], [ %344, %343 ]
   %328 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %282) #12
   %329 = icmp ult i16 %327, %328
   br i1 %329, label %330, label %345
@@ -430,20 +430,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %331, label %332, label %343
 
 332:                                              ; preds = %330
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %308) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %327, i8* noundef nonnull %308, i32 noundef 536870944, i32 noundef %282, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %333 = load i32, i32* %309, align 4, !tbaa !26
-  %334 = load i32, i32* %310, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %308) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %323) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %327, i8* noundef nonnull %323, i32 noundef 536870944, i32 noundef %282, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %333 = load i32, i32* %324, align 4, !tbaa !26
+  %334 = load i32, i32* %325, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %323) #9
   %335 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %250, i16 noundef zeroext %327, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %336 = bitcast i8* %335 to float*
-  %337 = load float, float* %336, align 4, !tbaa !50
-  %338 = load i32, i32 addrspace(2)* %286, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %337 = load float, float* %336, align 4, !tbaa !45
+  %338 = load i32, i32 addrspace(2)* %286, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %339 = mul i32 %338, %334
   %340 = add i32 %339, %333
   %341 = zext i32 %340 to i64
-  %342 = getelementptr inbounds float, float addrspace(1)* %295, i64 %341
-  store float %337, float addrspace(1)* %342, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %342 = getelementptr inbounds float, float addrspace(1)* %310, i64 %341
+  store float %337, float addrspace(1)* %342, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %343
 
 343:                                              ; preds = %332, %330
@@ -477,23 +477,23 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %365 = zext i32 %364 to i64
   %366 = getelementptr inbounds float, float addrspace(1)* %2, i64 %365
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %238) #9
-  %367 = bitcast i8* %238 to %struct._tensor_t*
-  %368 = bitcast float addrspace(1)* %355 to i8 addrspace(1)*
-  %369 = bitcast %"struct.metal::array"* %236 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %369) #9
-  %370 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %236, i64 0, i32 0, i64 0
-  store i32 %349, i32* %370, align 4, !tbaa !26
-  %371 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %236, i64 0, i32 0, i64 1
-  store i32 %351, i32* %371, align 4, !tbaa !26
-  %372 = bitcast %"struct.metal::array"* %237 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %372) #9
+  %367 = bitcast %"struct.metal::array"* %236 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %367) #9
+  %368 = bitcast %"struct.metal::array"* %237 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %368) #9
+  %369 = bitcast i8* %238 to %struct._tensor_t*
+  %370 = bitcast float addrspace(1)* %355 to i8 addrspace(1)*
+  %371 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %236, i64 0, i32 0, i64 0
+  store i32 %349, i32* %371, align 4, !tbaa !26
+  %372 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %236, i64 0, i32 0, i64 1
+  store i32 %351, i32* %372, align 4, !tbaa !26
   %373 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %237, i64 0, i32 0, i64 0
   store i32 1, i32* %373, align 4, !tbaa !26
   %374 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %237, i64 0, i32 0, i64 1
   store i32 %349, i32* %374, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %367, i16 2, i8 addrspace(1)* readnone %368, i8* nocapture nonnull readonly %369, i8* nocapture nonnull readonly %372, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %372) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %369) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %369, i16 2, i8 addrspace(1)* readnone %370, i8* nocapture nonnull readonly %367, i8* nocapture nonnull readonly %368, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %367) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %368) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %239) #9
   %375 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
@@ -503,107 +503,107 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %379 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %380
 
-380:                                              ; preds = %404, %346
-  %381 = phi i16 [ 0, %346 ], [ %405, %404 ]
+380:                                              ; preds = %397, %346
+  %381 = phi i16 [ 0, %346 ], [ %398, %397 ]
   %382 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
   %383 = icmp ult i16 %381, %382
-  br i1 %383, label %391, label %384
+  br i1 %383, label %384, label %399
 
 384:                                              ; preds = %380
-  %385 = zext i32 %361 to i64
-  %386 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %387 = getelementptr inbounds float, float addrspace(1)* %386, i64 %385
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %240) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
-  %388 = bitcast [2 x i32]* %233 to i8*
-  %389 = getelementptr inbounds [2 x i32], [2 x i32]* %233, i64 0, i64 0
-  %390 = getelementptr inbounds [2 x i32], [2 x i32]* %233, i64 0, i64 1
-  br label %406
+  %385 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %381, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
+  br i1 %385, label %386, label %397
 
-391:                                              ; preds = %380
-  %392 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %381, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
-  br i1 %392, label %393, label %404
-
-393:                                              ; preds = %391
+386:                                              ; preds = %384
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %376) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %381, i8* noundef nonnull %376, i32 noundef 536870944, i32 noundef %375, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %394 = load i32, i32* %377, align 4, !tbaa !26
-  %395 = load i32, i32* %378, align 4, !tbaa !26
+  %387 = load i32, i32* %377, align 4, !tbaa !26
+  %388 = load i32, i32* %378, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %376) #9
-  %396 = load i32, i32 addrspace(2)* %379, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %397 = mul i32 %396, %395
-  %398 = add i32 %397, %394
-  %399 = zext i32 %398 to i64
-  %400 = getelementptr inbounds float, float addrspace(1)* %366, i64 %399
-  %401 = load float, float addrspace(1)* %400, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %402 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %381, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %403 = bitcast i8* %402 to float*
-  store float %401, float* %403, align 4, !tbaa !50
-  br label %404
+  %389 = load i32, i32 addrspace(2)* %379, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %390 = mul i32 %389, %388
+  %391 = add i32 %390, %387
+  %392 = zext i32 %391 to i64
+  %393 = getelementptr inbounds float, float addrspace(1)* %366, i64 %392
+  %394 = load float, float addrspace(1)* %393, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %395 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %381, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %396 = bitcast i8* %395 to float*
+  store float %394, float* %396, align 4, !tbaa !45
+  br label %397
 
-404:                                              ; preds = %393, %391
-  %405 = add nuw i16 %381, 1
+397:                                              ; preds = %386, %384
+  %398 = add nuw i16 %381, 1
   br label %380, !llvm.loop !59
 
-406:                                              ; preds = %438, %384
-  %407 = phi i16 [ 0, %384 ], [ %439, %438 ]
+399:                                              ; preds = %380
+  %400 = zext i32 %361 to i64
+  %401 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %402 = getelementptr inbounds float, float addrspace(1)* %401, i64 %400
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %240) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
+  %403 = bitcast [2 x i32]* %234 to i8*
+  %404 = getelementptr inbounds [2 x i32], [2 x i32]* %234, i64 0, i64 0
+  %405 = getelementptr inbounds [2 x i32], [2 x i32]* %234, i64 0, i64 1
+  br label %406
+
+406:                                              ; preds = %430, %399
+  %407 = phi i16 [ 0, %399 ], [ %431, %430 ]
   %408 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
   %409 = icmp ult i16 %407, %408
-  br i1 %409, label %418, label %410
+  br i1 %409, label %410, label %432
 
 410:                                              ; preds = %406
-  %411 = getelementptr inbounds float, float addrspace(1)* %3, i64 %365
-  %412 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %234 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %412) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %412, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %413 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %414 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %234, i8* noundef nonnull %238, i32 noundef 2, i8* noundef %413, i8* noundef %414, i32 noundef %375) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %412) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %240) #9
-  %415 = bitcast [2 x i32]* %232 to i8*
-  %416 = getelementptr inbounds [2 x i32], [2 x i32]* %232, i64 0, i64 0
-  %417 = getelementptr inbounds [2 x i32], [2 x i32]* %232, i64 0, i64 1
-  br label %440
+  %411 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext %407, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
+  br i1 %411, label %412, label %430
 
-418:                                              ; preds = %406
-  %419 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext %407, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
-  br i1 %419, label %420, label %438
+412:                                              ; preds = %410
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %403) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext %407, i8* noundef nonnull %403, i32 noundef 536870944, i32 noundef %375, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %413 = load i32, i32* %404, align 4, !tbaa !26
+  %414 = load i32, i32* %405, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %403) #9
+  %415 = load i32, i32 addrspace(2)* %356, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %416 = icmp slt i32 %413, %415
+  %417 = load i32, i32 addrspace(2)* %358, align 4, !alias.scope !32, !noalias !35
+  %418 = icmp slt i32 %414, %417
+  %419 = select i1 %416, i1 %418, i1 false
+  br i1 %419, label %420, label %426
 
-420:                                              ; preds = %418
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %388) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext %407, i8* noundef nonnull %388, i32 noundef 536870944, i32 noundef %375, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %421 = load i32, i32* %389, align 4, !tbaa !26
-  %422 = load i32, i32* %390, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %388) #9
-  %423 = load i32, i32 addrspace(2)* %356, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %424 = icmp slt i32 %421, %423
-  %425 = load i32, i32 addrspace(2)* %358, align 4, !alias.scope !32, !noalias !35
-  %426 = icmp slt i32 %422, %425
-  %427 = select i1 %424, i1 %426, i1 false
-  br i1 %427, label %428, label %434
+420:                                              ; preds = %412
+  %421 = mul nsw i32 %415, %414
+  %422 = add nsw i32 %421, %413
+  %423 = sext i32 %422 to i64
+  %424 = getelementptr inbounds float, float addrspace(1)* %402, i64 %423
+  %425 = load float, float addrspace(1)* %424, align 4, !tbaa !45, !alias.scope !60, !noalias !61
+  br label %426
 
-428:                                              ; preds = %420
-  %429 = mul nsw i32 %423, %422
-  %430 = add nsw i32 %429, %421
-  %431 = sext i32 %430 to i64
-  %432 = getelementptr inbounds float, float addrspace(1)* %387, i64 %431
-  %433 = load float, float addrspace(1)* %432, align 4, !tbaa !50, !alias.scope !60, !noalias !61
-  br label %434
+426:                                              ; preds = %420, %412
+  %427 = phi fast float [ %425, %420 ], [ 0.000000e+00, %412 ]
+  %428 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext %407, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %429 = bitcast i8* %428 to float*
+  store float %427, float* %429, align 4, !tbaa !45
+  br label %430
 
-434:                                              ; preds = %428, %420
-  %435 = phi fast float [ %433, %428 ], [ 0.000000e+00, %420 ]
-  %436 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext %407, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %437 = bitcast i8* %436 to float*
-  store float %435, float* %437, align 4, !tbaa !50
-  br label %438
-
-438:                                              ; preds = %434, %418
-  %439 = add nuw i16 %407, 1
+430:                                              ; preds = %426, %410
+  %431 = add nuw i16 %407, 1
   br label %406, !llvm.loop !62
 
-440:                                              ; preds = %457, %410
-  %441 = phi i16 [ 0, %410 ], [ %458, %457 ]
+432:                                              ; preds = %406
+  %433 = getelementptr inbounds float, float addrspace(1)* %3, i64 %365
+  %434 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %233 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %434) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %434, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %435 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %240, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %436 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %233, i8* noundef nonnull %238, i32 noundef 2, i8* noundef %435, i8* noundef %436, i32 noundef %375) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %434) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %240) #9
+  %437 = bitcast [2 x i32]* %232 to i8*
+  %438 = getelementptr inbounds [2 x i32], [2 x i32]* %232, i64 0, i64 0
+  %439 = getelementptr inbounds [2 x i32], [2 x i32]* %232, i64 0, i64 1
+  br label %440
+
+440:                                              ; preds = %457, %432
+  %441 = phi i16 [ 0, %432 ], [ %458, %457 ]
   %442 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %375) #12
   %443 = icmp ult i16 %441, %442
   br i1 %443, label %444, label %459
@@ -613,20 +613,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %445, label %446, label %457
 
 446:                                              ; preds = %444
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %415) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %441, i8* noundef nonnull %415, i32 noundef 536870944, i32 noundef %375, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %447 = load i32, i32* %416, align 4, !tbaa !26
-  %448 = load i32, i32* %417, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %415) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %437) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %441, i8* noundef nonnull %437, i32 noundef 536870944, i32 noundef %375, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %447 = load i32, i32* %438, align 4, !tbaa !26
+  %448 = load i32, i32* %439, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %437) #9
   %449 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %239, i16 noundef zeroext %441, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %450 = bitcast i8* %449 to float*
-  %451 = load float, float* %450, align 4, !tbaa !50
-  %452 = load i32, i32 addrspace(2)* %379, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %451 = load float, float* %450, align 4, !tbaa !45
+  %452 = load i32, i32 addrspace(2)* %379, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %453 = mul i32 %452, %448
   %454 = add i32 %453, %447
   %455 = zext i32 %454 to i64
-  %456 = getelementptr inbounds float, float addrspace(1)* %411, i64 %455
-  store float %451, float addrspace(1)* %456, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %456 = getelementptr inbounds float, float addrspace(1)* %433, i64 %455
+  store float %451, float addrspace(1)* %456, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %457
 
 457:                                              ; preds = %446, %444
@@ -660,103 +660,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %479 = zext i32 %478 to i64
   %480 = getelementptr inbounds float, float addrspace(1)* %2, i64 %479
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %227) #9
-  %481 = bitcast i8* %227 to %struct._tensor_t*
-  %482 = bitcast float addrspace(1)* %469 to i8 addrspace(1)*
-  %483 = bitcast %"struct.metal::array"* %225 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %483) #9
-  %484 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %225, i64 0, i32 0, i64 0
-  store i32 %463, i32* %484, align 4, !tbaa !26
-  %485 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %225, i64 0, i32 0, i64 1
-  store i32 %465, i32* %485, align 4, !tbaa !26
-  %486 = bitcast %"struct.metal::array"* %226 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %486) #9
+  %481 = bitcast %"struct.metal::array"* %225 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %481) #9
+  %482 = bitcast %"struct.metal::array"* %226 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %482) #9
+  %483 = bitcast i8* %227 to %struct._tensor_t*
+  %484 = bitcast float addrspace(1)* %469 to i8 addrspace(1)*
+  %485 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %225, i64 0, i32 0, i64 0
+  store i32 %463, i32* %485, align 4, !tbaa !26
+  %486 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %225, i64 0, i32 0, i64 1
+  store i32 %465, i32* %486, align 4, !tbaa !26
   %487 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %226, i64 0, i32 0, i64 0
   store i32 1, i32* %487, align 4, !tbaa !26
   %488 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %226, i64 0, i32 0, i64 1
   store i32 %463, i32* %488, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %481, i16 2, i8 addrspace(1)* readnone %482, i8* nocapture nonnull readonly %483, i8* nocapture nonnull readonly %486, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %486) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %483) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %483, i16 2, i8 addrspace(1)* readnone %484, i8* nocapture nonnull readonly %481, i8* nocapture nonnull readonly %482, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %481) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %482) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %228) #9
   %489 = tail call i32 @air.get_simdgroup_size.i32() #11
   %490 = shl i32 %489, 1
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %490) #12
-  %491 = bitcast [2 x i32]* %221 to i8*
-  %492 = getelementptr inbounds [2 x i32], [2 x i32]* %221, i64 0, i64 0
-  %493 = getelementptr inbounds [2 x i32], [2 x i32]* %221, i64 0, i64 1
+  %491 = bitcast [2 x i32]* %224 to i8*
+  %492 = getelementptr inbounds [2 x i32], [2 x i32]* %224, i64 0, i64 0
+  %493 = getelementptr inbounds [2 x i32], [2 x i32]* %224, i64 0, i64 1
   %494 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %495
 
-495:                                              ; preds = %532, %460
-  %496 = phi i16 [ 0, %460 ], [ %533, %532 ]
+495:                                              ; preds = %512, %460
+  %496 = phi i16 [ 0, %460 ], [ %513, %512 ]
   %497 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %490) #12
   %498 = icmp ult i16 %496, %497
-  br i1 %498, label %519, label %499
+  br i1 %498, label %499, label %514
 
 499:                                              ; preds = %495
-  %500 = zext i32 %475 to i64
-  %501 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %502 = getelementptr inbounds float, float addrspace(1)* %501, i64 %500
-  %503 = getelementptr inbounds float, float addrspace(1)* %3, i64 %479
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %229) #9
-  %504 = load i32, i32 addrspace(2)* %470, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %505 = load i32, i32 addrspace(2)* %472, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %506 = bitcast i8* %229 to %struct._tensor_t*
-  %507 = bitcast float addrspace(1)* %502 to i8 addrspace(1)*
-  %508 = bitcast %"struct.metal::array"* %223 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %508) #9
-  %509 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %223, i64 0, i32 0, i64 0
-  store i32 %504, i32* %509, align 4, !tbaa !26
-  %510 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %223, i64 0, i32 0, i64 1
-  store i32 %505, i32* %510, align 4, !tbaa !26
-  %511 = bitcast %"struct.metal::array"* %224 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %511) #9
-  %512 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %224, i64 0, i32 0, i64 0
-  store i32 1, i32* %512, align 4, !tbaa !26
-  %513 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %224, i64 0, i32 0, i64 1
-  store i32 %504, i32* %513, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %506, i16 2, i8 addrspace(1)* readnone %507, i8* nocapture nonnull readonly %508, i8* nocapture nonnull readonly %511, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %511) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %508) #9
-  %514 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %222 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %514) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %514, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %515 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %222, i8* noundef nonnull %227, i32 noundef 2, i8* noundef nonnull %229, i32 noundef 2, i8* noundef %515, i32 noundef %490) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %514) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %229) #9
-  %516 = bitcast [2 x i32]* %220 to i8*
-  %517 = getelementptr inbounds [2 x i32], [2 x i32]* %220, i64 0, i64 0
-  %518 = getelementptr inbounds [2 x i32], [2 x i32]* %220, i64 0, i64 1
-  br label %534
+  %500 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %496, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %490) #12
+  br i1 %500, label %501, label %512
 
-519:                                              ; preds = %495
-  %520 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %496, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %490) #12
-  br i1 %520, label %521, label %532
-
-521:                                              ; preds = %519
+501:                                              ; preds = %499
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %491) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %496, i8* noundef nonnull %491, i32 noundef 536870944, i32 noundef %490, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %522 = load i32, i32* %492, align 4, !tbaa !26
-  %523 = load i32, i32* %493, align 4, !tbaa !26
+  %502 = load i32, i32* %492, align 4, !tbaa !26
+  %503 = load i32, i32* %493, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %491) #9
-  %524 = load i32, i32 addrspace(2)* %494, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %525 = mul i32 %524, %523
-  %526 = add i32 %525, %522
-  %527 = zext i32 %526 to i64
-  %528 = getelementptr inbounds float, float addrspace(1)* %480, i64 %527
-  %529 = load float, float addrspace(1)* %528, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %530 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %496, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %531 = bitcast i8* %530 to float*
-  store float %529, float* %531, align 4, !tbaa !50
-  br label %532
+  %504 = load i32, i32 addrspace(2)* %494, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %505 = mul i32 %504, %503
+  %506 = add i32 %505, %502
+  %507 = zext i32 %506 to i64
+  %508 = getelementptr inbounds float, float addrspace(1)* %480, i64 %507
+  %509 = load float, float addrspace(1)* %508, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %510 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %496, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %511 = bitcast i8* %510 to float*
+  store float %509, float* %511, align 4, !tbaa !45
+  br label %512
 
-532:                                              ; preds = %521, %519
-  %533 = add nuw i16 %496, 1
+512:                                              ; preds = %501, %499
+  %513 = add nuw i16 %496, 1
   br label %495, !llvm.loop !64
 
-534:                                              ; preds = %551, %499
-  %535 = phi i16 [ 0, %499 ], [ %552, %551 ]
+514:                                              ; preds = %495
+  %515 = zext i32 %475 to i64
+  %516 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %517 = getelementptr inbounds float, float addrspace(1)* %516, i64 %515
+  %518 = getelementptr inbounds float, float addrspace(1)* %3, i64 %479
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %229) #9
+  %519 = load i32, i32 addrspace(2)* %470, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %520 = load i32, i32 addrspace(2)* %472, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %521 = bitcast %"struct.metal::array"* %222 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %521) #9
+  %522 = bitcast %"struct.metal::array"* %223 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %522) #9
+  %523 = bitcast i8* %229 to %struct._tensor_t*
+  %524 = bitcast float addrspace(1)* %517 to i8 addrspace(1)*
+  %525 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %222, i64 0, i32 0, i64 0
+  store i32 %519, i32* %525, align 4, !tbaa !26
+  %526 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %222, i64 0, i32 0, i64 1
+  store i32 %520, i32* %526, align 4, !tbaa !26
+  %527 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %223, i64 0, i32 0, i64 0
+  store i32 1, i32* %527, align 4, !tbaa !26
+  %528 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %223, i64 0, i32 0, i64 1
+  store i32 %519, i32* %528, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %523, i16 2, i8 addrspace(1)* readnone %524, i8* nocapture nonnull readonly %521, i8* nocapture nonnull readonly %522, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %521) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %522) #9
+  %529 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %221 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %529) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %529, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %530 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %221, i8* noundef nonnull %227, i32 noundef 2, i8* noundef nonnull %229, i32 noundef 2, i8* noundef %530, i32 noundef %490) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %529) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %229) #9
+  %531 = bitcast [2 x i32]* %220 to i8*
+  %532 = getelementptr inbounds [2 x i32], [2 x i32]* %220, i64 0, i64 0
+  %533 = getelementptr inbounds [2 x i32], [2 x i32]* %220, i64 0, i64 1
+  br label %534
+
+534:                                              ; preds = %551, %514
+  %535 = phi i16 [ 0, %514 ], [ %552, %551 ]
   %536 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %490) #12
   %537 = icmp ult i16 %535, %536
   br i1 %537, label %538, label %553
@@ -766,20 +766,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %539, label %540, label %551
 
 540:                                              ; preds = %538
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %516) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %535, i8* noundef nonnull %516, i32 noundef 536870944, i32 noundef %490, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %541 = load i32, i32* %517, align 4, !tbaa !26
-  %542 = load i32, i32* %518, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %516) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %531) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %535, i8* noundef nonnull %531, i32 noundef 536870944, i32 noundef %490, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %541 = load i32, i32* %532, align 4, !tbaa !26
+  %542 = load i32, i32* %533, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %531) #9
   %543 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %228, i16 noundef zeroext %535, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %544 = bitcast i8* %543 to float*
-  %545 = load float, float* %544, align 4, !tbaa !50
-  %546 = load i32, i32 addrspace(2)* %494, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %545 = load float, float* %544, align 4, !tbaa !45
+  %546 = load i32, i32 addrspace(2)* %494, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %547 = mul i32 %546, %542
   %548 = add i32 %547, %541
   %549 = zext i32 %548 to i64
-  %550 = getelementptr inbounds float, float addrspace(1)* %503, i64 %549
-  store float %545, float addrspace(1)* %550, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %550 = getelementptr inbounds float, float addrspace(1)* %518, i64 %549
+  store float %545, float addrspace(1)* %550, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %551
 
 551:                                              ; preds = %540, %538
@@ -813,103 +813,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %573 = zext i32 %572 to i64
   %574 = getelementptr inbounds float, float addrspace(1)* %2, i64 %573
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %216) #9
-  %575 = bitcast i8* %216 to %struct._tensor_t*
-  %576 = bitcast half addrspace(1)* %563 to i8 addrspace(1)*
-  %577 = bitcast %"struct.metal::array"* %214 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %577) #9
-  %578 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %214, i64 0, i32 0, i64 0
-  store i32 %557, i32* %578, align 4, !tbaa !26
-  %579 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %214, i64 0, i32 0, i64 1
-  store i32 %559, i32* %579, align 4, !tbaa !26
-  %580 = bitcast %"struct.metal::array"* %215 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %580) #9
+  %575 = bitcast %"struct.metal::array"* %214 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %575) #9
+  %576 = bitcast %"struct.metal::array"* %215 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %576) #9
+  %577 = bitcast i8* %216 to %struct._tensor_t*
+  %578 = bitcast half addrspace(1)* %563 to i8 addrspace(1)*
+  %579 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %214, i64 0, i32 0, i64 0
+  store i32 %557, i32* %579, align 4, !tbaa !26
+  %580 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %214, i64 0, i32 0, i64 1
+  store i32 %559, i32* %580, align 4, !tbaa !26
   %581 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %215, i64 0, i32 0, i64 0
   store i32 1, i32* %581, align 4, !tbaa !26
   %582 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %215, i64 0, i32 0, i64 1
   store i32 %557, i32* %582, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %575, i16 2, i8 addrspace(1)* readnone %576, i8* nocapture nonnull readonly %577, i8* nocapture nonnull readonly %580, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %580) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %577) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %577, i16 2, i8 addrspace(1)* readnone %578, i8* nocapture nonnull readonly %575, i8* nocapture nonnull readonly %576, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %575) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %576) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %217) #9
   %583 = tail call i32 @air.get_simdgroup_size.i32() #11
   %584 = shl i32 %583, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %584) #12
-  %585 = bitcast [2 x i32]* %210 to i8*
-  %586 = getelementptr inbounds [2 x i32], [2 x i32]* %210, i64 0, i64 0
-  %587 = getelementptr inbounds [2 x i32], [2 x i32]* %210, i64 0, i64 1
+  %585 = bitcast [2 x i32]* %213 to i8*
+  %586 = getelementptr inbounds [2 x i32], [2 x i32]* %213, i64 0, i64 0
+  %587 = getelementptr inbounds [2 x i32], [2 x i32]* %213, i64 0, i64 1
   %588 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %589
 
-589:                                              ; preds = %626, %554
-  %590 = phi i16 [ 0, %554 ], [ %627, %626 ]
+589:                                              ; preds = %606, %554
+  %590 = phi i16 [ 0, %554 ], [ %607, %606 ]
   %591 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %584) #12
   %592 = icmp ult i16 %590, %591
-  br i1 %592, label %613, label %593
+  br i1 %592, label %593, label %608
 
 593:                                              ; preds = %589
-  %594 = zext i32 %569 to i64
-  %595 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
-  %596 = getelementptr inbounds half, half addrspace(1)* %595, i64 %594
-  %597 = getelementptr inbounds float, float addrspace(1)* %3, i64 %573
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %218) #9
-  %598 = load i32, i32 addrspace(2)* %564, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %599 = load i32, i32 addrspace(2)* %566, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %600 = bitcast i8* %218 to %struct._tensor_t*
-  %601 = bitcast half addrspace(1)* %596 to i8 addrspace(1)*
-  %602 = bitcast %"struct.metal::array"* %212 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %602) #9
-  %603 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %212, i64 0, i32 0, i64 0
-  store i32 %598, i32* %603, align 4, !tbaa !26
-  %604 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %212, i64 0, i32 0, i64 1
-  store i32 %599, i32* %604, align 4, !tbaa !26
-  %605 = bitcast %"struct.metal::array"* %213 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %605) #9
-  %606 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %213, i64 0, i32 0, i64 0
-  store i32 1, i32* %606, align 4, !tbaa !26
-  %607 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %213, i64 0, i32 0, i64 1
-  store i32 %598, i32* %607, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %600, i16 2, i8 addrspace(1)* readnone %601, i8* nocapture nonnull readonly %602, i8* nocapture nonnull readonly %605, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %605) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %602) #9
-  %608 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %211 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %608) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %608, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %609 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %211, i8* noundef nonnull %216, i32 noundef 2, i8* noundef nonnull %218, i32 noundef 2, i8* noundef %609, i32 noundef %584) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %608) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %218) #9
-  %610 = bitcast [2 x i32]* %209 to i8*
-  %611 = getelementptr inbounds [2 x i32], [2 x i32]* %209, i64 0, i64 0
-  %612 = getelementptr inbounds [2 x i32], [2 x i32]* %209, i64 0, i64 1
-  br label %628
+  %594 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %590, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %584) #12
+  br i1 %594, label %595, label %606
 
-613:                                              ; preds = %589
-  %614 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %590, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %584) #12
-  br i1 %614, label %615, label %626
-
-615:                                              ; preds = %613
+595:                                              ; preds = %593
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %585) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %590, i8* noundef nonnull %585, i32 noundef 536870944, i32 noundef %584, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %616 = load i32, i32* %586, align 4, !tbaa !26
-  %617 = load i32, i32* %587, align 4, !tbaa !26
+  %596 = load i32, i32* %586, align 4, !tbaa !26
+  %597 = load i32, i32* %587, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %585) #9
-  %618 = load i32, i32 addrspace(2)* %588, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %619 = mul i32 %618, %617
-  %620 = add i32 %619, %616
-  %621 = zext i32 %620 to i64
-  %622 = getelementptr inbounds float, float addrspace(1)* %574, i64 %621
-  %623 = load float, float addrspace(1)* %622, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %624 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %590, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %625 = bitcast i8* %624 to float*
-  store float %623, float* %625, align 4, !tbaa !50
-  br label %626
+  %598 = load i32, i32 addrspace(2)* %588, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %599 = mul i32 %598, %597
+  %600 = add i32 %599, %596
+  %601 = zext i32 %600 to i64
+  %602 = getelementptr inbounds float, float addrspace(1)* %574, i64 %601
+  %603 = load float, float addrspace(1)* %602, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %604 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %590, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %605 = bitcast i8* %604 to float*
+  store float %603, float* %605, align 4, !tbaa !45
+  br label %606
 
-626:                                              ; preds = %615, %613
-  %627 = add nuw i16 %590, 1
+606:                                              ; preds = %595, %593
+  %607 = add nuw i16 %590, 1
   br label %589, !llvm.loop !66
 
-628:                                              ; preds = %645, %593
-  %629 = phi i16 [ 0, %593 ], [ %646, %645 ]
+608:                                              ; preds = %589
+  %609 = zext i32 %569 to i64
+  %610 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
+  %611 = getelementptr inbounds half, half addrspace(1)* %610, i64 %609
+  %612 = getelementptr inbounds float, float addrspace(1)* %3, i64 %573
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %218) #9
+  %613 = load i32, i32 addrspace(2)* %564, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %614 = load i32, i32 addrspace(2)* %566, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %615 = bitcast %"struct.metal::array"* %211 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %615) #9
+  %616 = bitcast %"struct.metal::array"* %212 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %616) #9
+  %617 = bitcast i8* %218 to %struct._tensor_t*
+  %618 = bitcast half addrspace(1)* %611 to i8 addrspace(1)*
+  %619 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %211, i64 0, i32 0, i64 0
+  store i32 %613, i32* %619, align 4, !tbaa !26
+  %620 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %211, i64 0, i32 0, i64 1
+  store i32 %614, i32* %620, align 4, !tbaa !26
+  %621 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %212, i64 0, i32 0, i64 0
+  store i32 1, i32* %621, align 4, !tbaa !26
+  %622 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %212, i64 0, i32 0, i64 1
+  store i32 %613, i32* %622, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %617, i16 2, i8 addrspace(1)* readnone %618, i8* nocapture nonnull readonly %615, i8* nocapture nonnull readonly %616, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %615) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %616) #9
+  %623 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %210 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %623) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %623, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %624 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %210, i8* noundef nonnull %216, i32 noundef 2, i8* noundef nonnull %218, i32 noundef 2, i8* noundef %624, i32 noundef %584) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %623) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %218) #9
+  %625 = bitcast [2 x i32]* %209 to i8*
+  %626 = getelementptr inbounds [2 x i32], [2 x i32]* %209, i64 0, i64 0
+  %627 = getelementptr inbounds [2 x i32], [2 x i32]* %209, i64 0, i64 1
+  br label %628
+
+628:                                              ; preds = %645, %608
+  %629 = phi i16 [ 0, %608 ], [ %646, %645 ]
   %630 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %584) #12
   %631 = icmp ult i16 %629, %630
   br i1 %631, label %632, label %647
@@ -919,20 +919,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %633, label %634, label %645
 
 634:                                              ; preds = %632
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %610) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %629, i8* noundef nonnull %610, i32 noundef 536870944, i32 noundef %584, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %635 = load i32, i32* %611, align 4, !tbaa !26
-  %636 = load i32, i32* %612, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %610) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %625) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %629, i8* noundef nonnull %625, i32 noundef 536870944, i32 noundef %584, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %635 = load i32, i32* %626, align 4, !tbaa !26
+  %636 = load i32, i32* %627, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %625) #9
   %637 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %217, i16 noundef zeroext %629, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
   %638 = bitcast i8* %637 to float*
-  %639 = load float, float* %638, align 4, !tbaa !50
-  %640 = load i32, i32 addrspace(2)* %588, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %639 = load float, float* %638, align 4, !tbaa !45
+  %640 = load i32, i32 addrspace(2)* %588, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %641 = mul i32 %640, %636
   %642 = add i32 %641, %635
   %643 = zext i32 %642 to i64
-  %644 = getelementptr inbounds float, float addrspace(1)* %597, i64 %643
-  store float %639, float addrspace(1)* %644, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %644 = getelementptr inbounds float, float addrspace(1)* %612, i64 %643
+  store float %639, float addrspace(1)* %644, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %645
 
 645:                                              ; preds = %634, %632
@@ -966,103 +966,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %667 = zext i32 %666 to i64
   %668 = getelementptr inbounds float, float addrspace(1)* %2, i64 %667
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %205) #9
-  %669 = bitcast i8* %205 to %struct._tensor_t*
-  %670 = bitcast float addrspace(1)* %657 to i8 addrspace(1)*
-  %671 = bitcast %"struct.metal::array"* %203 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %671) #9
-  %672 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %203, i64 0, i32 0, i64 0
-  store i32 %651, i32* %672, align 4, !tbaa !26
-  %673 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %203, i64 0, i32 0, i64 1
-  store i32 %653, i32* %673, align 4, !tbaa !26
-  %674 = bitcast %"struct.metal::array"* %204 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %674) #9
+  %669 = bitcast %"struct.metal::array"* %203 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %669) #9
+  %670 = bitcast %"struct.metal::array"* %204 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %670) #9
+  %671 = bitcast i8* %205 to %struct._tensor_t*
+  %672 = bitcast float addrspace(1)* %657 to i8 addrspace(1)*
+  %673 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %203, i64 0, i32 0, i64 0
+  store i32 %651, i32* %673, align 4, !tbaa !26
+  %674 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %203, i64 0, i32 0, i64 1
+  store i32 %653, i32* %674, align 4, !tbaa !26
   %675 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %204, i64 0, i32 0, i64 0
   store i32 1, i32* %675, align 4, !tbaa !26
   %676 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %204, i64 0, i32 0, i64 1
   store i32 %651, i32* %676, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %669, i16 2, i8 addrspace(1)* readnone %670, i8* nocapture nonnull readonly %671, i8* nocapture nonnull readonly %674, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %674) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %671) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %671, i16 2, i8 addrspace(1)* readnone %672, i8* nocapture nonnull readonly %669, i8* nocapture nonnull readonly %670, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %669) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %670) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %206) #9
   %677 = tail call i32 @air.get_simdgroup_size.i32() #11
   %678 = shl i32 %677, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %678) #12
-  %679 = bitcast [2 x i32]* %199 to i8*
-  %680 = getelementptr inbounds [2 x i32], [2 x i32]* %199, i64 0, i64 0
-  %681 = getelementptr inbounds [2 x i32], [2 x i32]* %199, i64 0, i64 1
+  %679 = bitcast [2 x i32]* %202 to i8*
+  %680 = getelementptr inbounds [2 x i32], [2 x i32]* %202, i64 0, i64 0
+  %681 = getelementptr inbounds [2 x i32], [2 x i32]* %202, i64 0, i64 1
   %682 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %683
 
-683:                                              ; preds = %720, %648
-  %684 = phi i16 [ 0, %648 ], [ %721, %720 ]
+683:                                              ; preds = %700, %648
+  %684 = phi i16 [ 0, %648 ], [ %701, %700 ]
   %685 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %678) #12
   %686 = icmp ult i16 %684, %685
-  br i1 %686, label %707, label %687
+  br i1 %686, label %687, label %702
 
 687:                                              ; preds = %683
-  %688 = zext i32 %663 to i64
-  %689 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %690 = getelementptr inbounds float, float addrspace(1)* %689, i64 %688
-  %691 = getelementptr inbounds float, float addrspace(1)* %3, i64 %667
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %207) #9
-  %692 = load i32, i32 addrspace(2)* %658, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %693 = load i32, i32 addrspace(2)* %660, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %694 = bitcast i8* %207 to %struct._tensor_t*
-  %695 = bitcast float addrspace(1)* %690 to i8 addrspace(1)*
-  %696 = bitcast %"struct.metal::array"* %201 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %696) #9
-  %697 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %201, i64 0, i32 0, i64 0
-  store i32 %692, i32* %697, align 4, !tbaa !26
-  %698 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %201, i64 0, i32 0, i64 1
-  store i32 %693, i32* %698, align 4, !tbaa !26
-  %699 = bitcast %"struct.metal::array"* %202 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %699) #9
-  %700 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %202, i64 0, i32 0, i64 0
-  store i32 1, i32* %700, align 4, !tbaa !26
-  %701 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %202, i64 0, i32 0, i64 1
-  store i32 %692, i32* %701, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %694, i16 2, i8 addrspace(1)* readnone %695, i8* nocapture nonnull readonly %696, i8* nocapture nonnull readonly %699, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %699) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %696) #9
-  %702 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %200 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %702) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %702, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %703 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %200, i8* noundef nonnull %205, i32 noundef 2, i8* noundef nonnull %207, i32 noundef 2, i8* noundef %703, i32 noundef %678) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %702) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %207) #9
-  %704 = bitcast [2 x i32]* %198 to i8*
-  %705 = getelementptr inbounds [2 x i32], [2 x i32]* %198, i64 0, i64 0
-  %706 = getelementptr inbounds [2 x i32], [2 x i32]* %198, i64 0, i64 1
-  br label %722
+  %688 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %684, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %678) #12
+  br i1 %688, label %689, label %700
 
-707:                                              ; preds = %683
-  %708 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %684, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %678) #12
-  br i1 %708, label %709, label %720
-
-709:                                              ; preds = %707
+689:                                              ; preds = %687
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %679) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %684, i8* noundef nonnull %679, i32 noundef 536870944, i32 noundef %678, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %710 = load i32, i32* %680, align 4, !tbaa !26
-  %711 = load i32, i32* %681, align 4, !tbaa !26
+  %690 = load i32, i32* %680, align 4, !tbaa !26
+  %691 = load i32, i32* %681, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %679) #9
-  %712 = load i32, i32 addrspace(2)* %682, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %713 = mul i32 %712, %711
-  %714 = add i32 %713, %710
-  %715 = zext i32 %714 to i64
-  %716 = getelementptr inbounds float, float addrspace(1)* %668, i64 %715
-  %717 = load float, float addrspace(1)* %716, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %718 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %684, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %719 = bitcast i8* %718 to float*
-  store float %717, float* %719, align 4, !tbaa !50
-  br label %720
+  %692 = load i32, i32 addrspace(2)* %682, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %693 = mul i32 %692, %691
+  %694 = add i32 %693, %690
+  %695 = zext i32 %694 to i64
+  %696 = getelementptr inbounds float, float addrspace(1)* %668, i64 %695
+  %697 = load float, float addrspace(1)* %696, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %698 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %684, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %699 = bitcast i8* %698 to float*
+  store float %697, float* %699, align 4, !tbaa !45
+  br label %700
 
-720:                                              ; preds = %709, %707
-  %721 = add nuw i16 %684, 1
+700:                                              ; preds = %689, %687
+  %701 = add nuw i16 %684, 1
   br label %683, !llvm.loop !68
 
-722:                                              ; preds = %739, %687
-  %723 = phi i16 [ 0, %687 ], [ %740, %739 ]
+702:                                              ; preds = %683
+  %703 = zext i32 %663 to i64
+  %704 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %705 = getelementptr inbounds float, float addrspace(1)* %704, i64 %703
+  %706 = getelementptr inbounds float, float addrspace(1)* %3, i64 %667
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %207) #9
+  %707 = load i32, i32 addrspace(2)* %658, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %708 = load i32, i32 addrspace(2)* %660, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %709 = bitcast %"struct.metal::array"* %200 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %709) #9
+  %710 = bitcast %"struct.metal::array"* %201 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %710) #9
+  %711 = bitcast i8* %207 to %struct._tensor_t*
+  %712 = bitcast float addrspace(1)* %705 to i8 addrspace(1)*
+  %713 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %200, i64 0, i32 0, i64 0
+  store i32 %707, i32* %713, align 4, !tbaa !26
+  %714 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %200, i64 0, i32 0, i64 1
+  store i32 %708, i32* %714, align 4, !tbaa !26
+  %715 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %201, i64 0, i32 0, i64 0
+  store i32 1, i32* %715, align 4, !tbaa !26
+  %716 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %201, i64 0, i32 0, i64 1
+  store i32 %707, i32* %716, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %711, i16 2, i8 addrspace(1)* readnone %712, i8* nocapture nonnull readonly %709, i8* nocapture nonnull readonly %710, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %709) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %710) #9
+  %717 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %199 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %717) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %717, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %718 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %199, i8* noundef nonnull %205, i32 noundef 2, i8* noundef nonnull %207, i32 noundef 2, i8* noundef %718, i32 noundef %678) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %717) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %207) #9
+  %719 = bitcast [2 x i32]* %198 to i8*
+  %720 = getelementptr inbounds [2 x i32], [2 x i32]* %198, i64 0, i64 0
+  %721 = getelementptr inbounds [2 x i32], [2 x i32]* %198, i64 0, i64 1
+  br label %722
+
+722:                                              ; preds = %739, %702
+  %723 = phi i16 [ 0, %702 ], [ %740, %739 ]
   %724 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %678) #12
   %725 = icmp ult i16 %723, %724
   br i1 %725, label %726, label %741
@@ -1072,20 +1072,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %727, label %728, label %739
 
 728:                                              ; preds = %726
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %704) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %723, i8* noundef nonnull %704, i32 noundef 536870944, i32 noundef %678, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %729 = load i32, i32* %705, align 4, !tbaa !26
-  %730 = load i32, i32* %706, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %704) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %719) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %723, i8* noundef nonnull %719, i32 noundef 536870944, i32 noundef %678, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %729 = load i32, i32* %720, align 4, !tbaa !26
+  %730 = load i32, i32* %721, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %719) #9
   %731 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %206, i16 noundef zeroext %723, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %732 = bitcast i8* %731 to float*
-  %733 = load float, float* %732, align 4, !tbaa !50
-  %734 = load i32, i32 addrspace(2)* %682, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %733 = load float, float* %732, align 4, !tbaa !45
+  %734 = load i32, i32 addrspace(2)* %682, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %735 = mul i32 %734, %730
   %736 = add i32 %735, %729
   %737 = zext i32 %736 to i64
-  %738 = getelementptr inbounds float, float addrspace(1)* %691, i64 %737
-  store float %733, float addrspace(1)* %738, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %738 = getelementptr inbounds float, float addrspace(1)* %706, i64 %737
+  store float %733, float addrspace(1)* %738, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %739
 
 739:                                              ; preds = %728, %726
@@ -1119,102 +1119,102 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %761 = zext i32 %760 to i64
   %762 = getelementptr inbounds float, float addrspace(1)* %2, i64 %761
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %194) #9
-  %763 = bitcast i8* %194 to %struct._tensor_t*
-  %764 = bitcast bfloat addrspace(1)* %751 to i8 addrspace(1)*
-  %765 = bitcast %"struct.metal::array"* %192 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %765) #9
-  %766 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %192, i64 0, i32 0, i64 0
-  store i32 %745, i32* %766, align 4, !tbaa !26
-  %767 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %192, i64 0, i32 0, i64 1
-  store i32 %747, i32* %767, align 4, !tbaa !26
-  %768 = bitcast %"struct.metal::array"* %193 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %768) #9
+  %763 = bitcast %"struct.metal::array"* %192 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %763) #9
+  %764 = bitcast %"struct.metal::array"* %193 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %764) #9
+  %765 = bitcast i8* %194 to %struct._tensor_t*
+  %766 = bitcast bfloat addrspace(1)* %751 to i8 addrspace(1)*
+  %767 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %192, i64 0, i32 0, i64 0
+  store i32 %745, i32* %767, align 4, !tbaa !26
+  %768 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %192, i64 0, i32 0, i64 1
+  store i32 %747, i32* %768, align 4, !tbaa !26
   %769 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %193, i64 0, i32 0, i64 0
   store i32 1, i32* %769, align 4, !tbaa !26
   %770 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %193, i64 0, i32 0, i64 1
   store i32 %745, i32* %770, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %763, i16 2, i8 addrspace(1)* readnone %764, i8* nocapture nonnull readonly %765, i8* nocapture nonnull readonly %768, i8 2) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %768) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %765) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %765, i16 2, i8 addrspace(1)* readnone %766, i8* nocapture nonnull readonly %763, i8* nocapture nonnull readonly %764, i8 2) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %763) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %764) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %195) #9
   %771 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %771) #12
-  %772 = bitcast [2 x i32]* %188 to i8*
-  %773 = getelementptr inbounds [2 x i32], [2 x i32]* %188, i64 0, i64 0
-  %774 = getelementptr inbounds [2 x i32], [2 x i32]* %188, i64 0, i64 1
+  %772 = bitcast [2 x i32]* %191 to i8*
+  %773 = getelementptr inbounds [2 x i32], [2 x i32]* %191, i64 0, i64 0
+  %774 = getelementptr inbounds [2 x i32], [2 x i32]* %191, i64 0, i64 1
   %775 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %776
 
-776:                                              ; preds = %813, %742
-  %777 = phi i16 [ 0, %742 ], [ %814, %813 ]
+776:                                              ; preds = %793, %742
+  %777 = phi i16 [ 0, %742 ], [ %794, %793 ]
   %778 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef %771) #12
   %779 = icmp ult i16 %777, %778
-  br i1 %779, label %800, label %780
+  br i1 %779, label %780, label %795
 
 780:                                              ; preds = %776
-  %781 = zext i32 %757 to i64
-  %782 = bitcast i8 addrspace(1)* %1 to bfloat addrspace(1)*
-  %783 = getelementptr inbounds bfloat, bfloat addrspace(1)* %782, i64 %781
-  %784 = getelementptr inbounds float, float addrspace(1)* %3, i64 %761
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %196) #9
-  %785 = load i32, i32 addrspace(2)* %752, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %786 = load i32, i32 addrspace(2)* %754, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %787 = bitcast i8* %196 to %struct._tensor_t*
-  %788 = bitcast bfloat addrspace(1)* %783 to i8 addrspace(1)*
-  %789 = bitcast %"struct.metal::array"* %190 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %789) #9
-  %790 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %190, i64 0, i32 0, i64 0
-  store i32 %785, i32* %790, align 4, !tbaa !26
-  %791 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %190, i64 0, i32 0, i64 1
-  store i32 %786, i32* %791, align 4, !tbaa !26
-  %792 = bitcast %"struct.metal::array"* %191 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %792) #9
-  %793 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %191, i64 0, i32 0, i64 0
-  store i32 1, i32* %793, align 4, !tbaa !26
-  %794 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %191, i64 0, i32 0, i64 1
-  store i32 %785, i32* %794, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %787, i16 2, i8 addrspace(1)* readnone %788, i8* nocapture nonnull readonly %789, i8* nocapture nonnull readonly %792, i8 2) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %792) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %789) #9
-  %795 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %189 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %795) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %795, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %796 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext -1, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %189, i8* noundef nonnull %194, i32 noundef 2, i8* noundef nonnull %196, i32 noundef 2, i8* noundef %796, i32 noundef %771) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %795) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %196) #9
-  %797 = bitcast [2 x i32]* %187 to i8*
-  %798 = getelementptr inbounds [2 x i32], [2 x i32]* %187, i64 0, i64 0
-  %799 = getelementptr inbounds [2 x i32], [2 x i32]* %187, i64 0, i64 1
-  br label %815
+  %781 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %777, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %771) #12
+  br i1 %781, label %782, label %793
 
-800:                                              ; preds = %776
-  %801 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %777, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %771) #12
-  br i1 %801, label %802, label %813
-
-802:                                              ; preds = %800
+782:                                              ; preds = %780
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %772) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %777, i8* noundef nonnull %772, i32 noundef 536870944, i32 noundef %771, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %803 = load i32, i32* %773, align 4, !tbaa !26
-  %804 = load i32, i32* %774, align 4, !tbaa !26
+  %783 = load i32, i32* %773, align 4, !tbaa !26
+  %784 = load i32, i32* %774, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %772) #9
-  %805 = load i32, i32 addrspace(2)* %775, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %806 = mul i32 %805, %804
-  %807 = add i32 %806, %803
-  %808 = zext i32 %807 to i64
-  %809 = getelementptr inbounds float, float addrspace(1)* %762, i64 %808
-  %810 = load float, float addrspace(1)* %809, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %811 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %777, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %812 = bitcast i8* %811 to float*
-  store float %810, float* %812, align 4, !tbaa !50
-  br label %813
+  %785 = load i32, i32 addrspace(2)* %775, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %786 = mul i32 %785, %784
+  %787 = add i32 %786, %783
+  %788 = zext i32 %787 to i64
+  %789 = getelementptr inbounds float, float addrspace(1)* %762, i64 %788
+  %790 = load float, float addrspace(1)* %789, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %791 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %777, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  %792 = bitcast i8* %791 to float*
+  store float %790, float* %792, align 4, !tbaa !45
+  br label %793
 
-813:                                              ; preds = %802, %800
-  %814 = add nuw i16 %777, 1
+793:                                              ; preds = %782, %780
+  %794 = add nuw i16 %777, 1
   br label %776, !llvm.loop !70
 
-815:                                              ; preds = %832, %780
-  %816 = phi i16 [ 0, %780 ], [ %833, %832 ]
+795:                                              ; preds = %776
+  %796 = zext i32 %757 to i64
+  %797 = bitcast i8 addrspace(1)* %1 to bfloat addrspace(1)*
+  %798 = getelementptr inbounds bfloat, bfloat addrspace(1)* %797, i64 %796
+  %799 = getelementptr inbounds float, float addrspace(1)* %3, i64 %761
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %196) #9
+  %800 = load i32, i32 addrspace(2)* %752, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %801 = load i32, i32 addrspace(2)* %754, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %802 = bitcast %"struct.metal::array"* %189 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %802) #9
+  %803 = bitcast %"struct.metal::array"* %190 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %803) #9
+  %804 = bitcast i8* %196 to %struct._tensor_t*
+  %805 = bitcast bfloat addrspace(1)* %798 to i8 addrspace(1)*
+  %806 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %189, i64 0, i32 0, i64 0
+  store i32 %800, i32* %806, align 4, !tbaa !26
+  %807 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %189, i64 0, i32 0, i64 1
+  store i32 %801, i32* %807, align 4, !tbaa !26
+  %808 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %190, i64 0, i32 0, i64 0
+  store i32 1, i32* %808, align 4, !tbaa !26
+  %809 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %190, i64 0, i32 0, i64 1
+  store i32 %800, i32* %809, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %804, i16 2, i8 addrspace(1)* readnone %805, i8* nocapture nonnull readonly %802, i8* nocapture nonnull readonly %803, i8 2) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %802) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %803) #9
+  %810 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %188 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %810) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %810, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %811 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext -1, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %188, i8* noundef nonnull %194, i32 noundef 2, i8* noundef nonnull %196, i32 noundef 2, i8* noundef %811, i32 noundef %771) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %810) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %196) #9
+  %812 = bitcast [2 x i32]* %187 to i8*
+  %813 = getelementptr inbounds [2 x i32], [2 x i32]* %187, i64 0, i64 0
+  %814 = getelementptr inbounds [2 x i32], [2 x i32]* %187, i64 0, i64 1
+  br label %815
+
+815:                                              ; preds = %832, %795
+  %816 = phi i16 [ 0, %795 ], [ %833, %832 ]
   %817 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef %771) #12
   %818 = icmp ult i16 %816, %817
   br i1 %818, label %819, label %834
@@ -1224,20 +1224,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %820, label %821, label %832
 
 821:                                              ; preds = %819
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %797) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %816, i8* noundef nonnull %797, i32 noundef 536870944, i32 noundef %771, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %822 = load i32, i32* %798, align 4, !tbaa !26
-  %823 = load i32, i32* %799, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %797) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %812) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %816, i8* noundef nonnull %812, i32 noundef 536870944, i32 noundef %771, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  %822 = load i32, i32* %813, align 4, !tbaa !26
+  %823 = load i32, i32* %814, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %812) #9
   %824 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %195, i16 noundef zeroext %816, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
   %825 = bitcast i8* %824 to float*
-  %826 = load float, float* %825, align 4, !tbaa !50
-  %827 = load i32, i32 addrspace(2)* %775, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %826 = load float, float* %825, align 4, !tbaa !45
+  %827 = load i32, i32 addrspace(2)* %775, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %828 = mul i32 %827, %823
   %829 = add i32 %828, %822
   %830 = zext i32 %829 to i64
-  %831 = getelementptr inbounds float, float addrspace(1)* %784, i64 %830
-  store float %826, float addrspace(1)* %831, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %831 = getelementptr inbounds float, float addrspace(1)* %799, i64 %830
+  store float %826, float addrspace(1)* %831, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %832
 
 832:                                              ; preds = %821, %819
@@ -1271,103 +1271,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %854 = zext i32 %853 to i64
   %855 = getelementptr inbounds float, float addrspace(1)* %2, i64 %854
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %183) #9
-  %856 = bitcast i8* %183 to %struct._tensor_t*
-  %857 = bitcast half addrspace(1)* %844 to i8 addrspace(1)*
-  %858 = bitcast %"struct.metal::array"* %181 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %858) #9
-  %859 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %181, i64 0, i32 0, i64 0
-  store i32 %838, i32* %859, align 4, !tbaa !26
-  %860 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %181, i64 0, i32 0, i64 1
-  store i32 %840, i32* %860, align 4, !tbaa !26
-  %861 = bitcast %"struct.metal::array"* %182 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %861) #9
+  %856 = bitcast %"struct.metal::array"* %181 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %856) #9
+  %857 = bitcast %"struct.metal::array"* %182 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %857) #9
+  %858 = bitcast i8* %183 to %struct._tensor_t*
+  %859 = bitcast half addrspace(1)* %844 to i8 addrspace(1)*
+  %860 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %181, i64 0, i32 0, i64 0
+  store i32 %838, i32* %860, align 4, !tbaa !26
+  %861 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %181, i64 0, i32 0, i64 1
+  store i32 %840, i32* %861, align 4, !tbaa !26
   %862 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %182, i64 0, i32 0, i64 0
   store i32 1, i32* %862, align 4, !tbaa !26
   %863 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %182, i64 0, i32 0, i64 1
   store i32 %838, i32* %863, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %856, i16 2, i8 addrspace(1)* readnone %857, i8* nocapture nonnull readonly %858, i8* nocapture nonnull readonly %861, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %861) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %858) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %858, i16 2, i8 addrspace(1)* readnone %859, i8* nocapture nonnull readonly %856, i8* nocapture nonnull readonly %857, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %856) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %857) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %184) #9
   %864 = tail call i32 @air.get_simdgroup_size.i32() #11
   %865 = shl i32 %864, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %865) #12
-  %866 = bitcast [2 x i32]* %177 to i8*
-  %867 = getelementptr inbounds [2 x i32], [2 x i32]* %177, i64 0, i64 0
-  %868 = getelementptr inbounds [2 x i32], [2 x i32]* %177, i64 0, i64 1
+  %866 = bitcast [2 x i32]* %180 to i8*
+  %867 = getelementptr inbounds [2 x i32], [2 x i32]* %180, i64 0, i64 0
+  %868 = getelementptr inbounds [2 x i32], [2 x i32]* %180, i64 0, i64 1
   %869 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %870
 
-870:                                              ; preds = %907, %835
-  %871 = phi i16 [ 0, %835 ], [ %908, %907 ]
+870:                                              ; preds = %887, %835
+  %871 = phi i16 [ 0, %835 ], [ %888, %887 ]
   %872 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %865) #12
   %873 = icmp ult i16 %871, %872
-  br i1 %873, label %894, label %874
+  br i1 %873, label %874, label %889
 
 874:                                              ; preds = %870
-  %875 = zext i32 %850 to i64
-  %876 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
-  %877 = getelementptr inbounds half, half addrspace(1)* %876, i64 %875
-  %878 = getelementptr inbounds float, float addrspace(1)* %3, i64 %854
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %185) #9
-  %879 = load i32, i32 addrspace(2)* %845, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %880 = load i32, i32 addrspace(2)* %847, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %881 = bitcast i8* %185 to %struct._tensor_t*
-  %882 = bitcast half addrspace(1)* %877 to i8 addrspace(1)*
-  %883 = bitcast %"struct.metal::array"* %179 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %883) #9
-  %884 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %179, i64 0, i32 0, i64 0
-  store i32 %879, i32* %884, align 4, !tbaa !26
-  %885 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %179, i64 0, i32 0, i64 1
-  store i32 %880, i32* %885, align 4, !tbaa !26
-  %886 = bitcast %"struct.metal::array"* %180 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %886) #9
-  %887 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %180, i64 0, i32 0, i64 0
-  store i32 1, i32* %887, align 4, !tbaa !26
-  %888 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %180, i64 0, i32 0, i64 1
-  store i32 %879, i32* %888, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %881, i16 2, i8 addrspace(1)* readnone %882, i8* nocapture nonnull readonly %883, i8* nocapture nonnull readonly %886, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %886) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %883) #9
-  %889 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %178 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %889) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %889, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %890 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %178, i8* noundef nonnull %183, i32 noundef 2, i8* noundef nonnull %185, i32 noundef 2, i8* noundef %890, i32 noundef %865) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %889) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %185) #9
-  %891 = bitcast [2 x i32]* %176 to i8*
-  %892 = getelementptr inbounds [2 x i32], [2 x i32]* %176, i64 0, i64 0
-  %893 = getelementptr inbounds [2 x i32], [2 x i32]* %176, i64 0, i64 1
-  br label %909
+  %875 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %871, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %865) #12
+  br i1 %875, label %876, label %887
 
-894:                                              ; preds = %870
-  %895 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %871, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %865) #12
-  br i1 %895, label %896, label %907
-
-896:                                              ; preds = %894
+876:                                              ; preds = %874
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %866) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %871, i8* noundef nonnull %866, i32 noundef 536870944, i32 noundef %865, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %897 = load i32, i32* %867, align 4, !tbaa !26
-  %898 = load i32, i32* %868, align 4, !tbaa !26
+  %877 = load i32, i32* %867, align 4, !tbaa !26
+  %878 = load i32, i32* %868, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %866) #9
-  %899 = load i32, i32 addrspace(2)* %869, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %900 = mul i32 %899, %898
-  %901 = add i32 %900, %897
-  %902 = zext i32 %901 to i64
-  %903 = getelementptr inbounds float, float addrspace(1)* %855, i64 %902
-  %904 = load float, float addrspace(1)* %903, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %905 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %871, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %906 = bitcast i8* %905 to float*
-  store float %904, float* %906, align 4, !tbaa !50
-  br label %907
+  %879 = load i32, i32 addrspace(2)* %869, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %880 = mul i32 %879, %878
+  %881 = add i32 %880, %877
+  %882 = zext i32 %881 to i64
+  %883 = getelementptr inbounds float, float addrspace(1)* %855, i64 %882
+  %884 = load float, float addrspace(1)* %883, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %885 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %871, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %886 = bitcast i8* %885 to float*
+  store float %884, float* %886, align 4, !tbaa !45
+  br label %887
 
-907:                                              ; preds = %896, %894
-  %908 = add nuw i16 %871, 1
+887:                                              ; preds = %876, %874
+  %888 = add nuw i16 %871, 1
   br label %870, !llvm.loop !72
 
-909:                                              ; preds = %926, %874
-  %910 = phi i16 [ 0, %874 ], [ %927, %926 ]
+889:                                              ; preds = %870
+  %890 = zext i32 %850 to i64
+  %891 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
+  %892 = getelementptr inbounds half, half addrspace(1)* %891, i64 %890
+  %893 = getelementptr inbounds float, float addrspace(1)* %3, i64 %854
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %185) #9
+  %894 = load i32, i32 addrspace(2)* %845, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %895 = load i32, i32 addrspace(2)* %847, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %896 = bitcast %"struct.metal::array"* %178 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %896) #9
+  %897 = bitcast %"struct.metal::array"* %179 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %897) #9
+  %898 = bitcast i8* %185 to %struct._tensor_t*
+  %899 = bitcast half addrspace(1)* %892 to i8 addrspace(1)*
+  %900 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %178, i64 0, i32 0, i64 0
+  store i32 %894, i32* %900, align 4, !tbaa !26
+  %901 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %178, i64 0, i32 0, i64 1
+  store i32 %895, i32* %901, align 4, !tbaa !26
+  %902 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %179, i64 0, i32 0, i64 0
+  store i32 1, i32* %902, align 4, !tbaa !26
+  %903 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %179, i64 0, i32 0, i64 1
+  store i32 %894, i32* %903, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %898, i16 2, i8 addrspace(1)* readnone %899, i8* nocapture nonnull readonly %896, i8* nocapture nonnull readonly %897, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %896) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %897) #9
+  %904 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %177 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %904) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %904, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %905 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %177, i8* noundef nonnull %183, i32 noundef 2, i8* noundef nonnull %185, i32 noundef 2, i8* noundef %905, i32 noundef %865) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %904) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %185) #9
+  %906 = bitcast [2 x i32]* %176 to i8*
+  %907 = getelementptr inbounds [2 x i32], [2 x i32]* %176, i64 0, i64 0
+  %908 = getelementptr inbounds [2 x i32], [2 x i32]* %176, i64 0, i64 1
+  br label %909
+
+909:                                              ; preds = %926, %889
+  %910 = phi i16 [ 0, %889 ], [ %927, %926 ]
   %911 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %865) #12
   %912 = icmp ult i16 %910, %911
   br i1 %912, label %913, label %928
@@ -1377,20 +1377,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %914, label %915, label %926
 
 915:                                              ; preds = %913
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %891) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %910, i8* noundef nonnull %891, i32 noundef 536870944, i32 noundef %865, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %916 = load i32, i32* %892, align 4, !tbaa !26
-  %917 = load i32, i32* %893, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %891) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %906) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %910, i8* noundef nonnull %906, i32 noundef 536870944, i32 noundef %865, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %916 = load i32, i32* %907, align 4, !tbaa !26
+  %917 = load i32, i32* %908, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %906) #9
   %918 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 1, i32 1, i8* noundef nonnull %184, i16 noundef zeroext %910, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
   %919 = bitcast i8* %918 to float*
-  %920 = load float, float* %919, align 4, !tbaa !50
-  %921 = load i32, i32 addrspace(2)* %869, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %920 = load float, float* %919, align 4, !tbaa !45
+  %921 = load i32, i32 addrspace(2)* %869, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %922 = mul i32 %921, %917
   %923 = add i32 %922, %916
   %924 = zext i32 %923 to i64
-  %925 = getelementptr inbounds float, float addrspace(1)* %878, i64 %924
-  store float %920, float addrspace(1)* %925, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %925 = getelementptr inbounds float, float addrspace(1)* %893, i64 %924
+  store float %920, float addrspace(1)* %925, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %926
 
 926:                                              ; preds = %915, %913
@@ -1424,103 +1424,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %948 = zext i32 %947 to i64
   %949 = getelementptr inbounds float, float addrspace(1)* %2, i64 %948
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %172) #9
-  %950 = bitcast i8* %172 to %struct._tensor_t*
-  %951 = bitcast float addrspace(1)* %938 to i8 addrspace(1)*
-  %952 = bitcast %"struct.metal::array"* %170 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %952) #9
-  %953 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %170, i64 0, i32 0, i64 0
-  store i32 %932, i32* %953, align 4, !tbaa !26
-  %954 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %170, i64 0, i32 0, i64 1
-  store i32 %934, i32* %954, align 4, !tbaa !26
-  %955 = bitcast %"struct.metal::array"* %171 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %955) #9
+  %950 = bitcast %"struct.metal::array"* %170 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %950) #9
+  %951 = bitcast %"struct.metal::array"* %171 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %951) #9
+  %952 = bitcast i8* %172 to %struct._tensor_t*
+  %953 = bitcast float addrspace(1)* %938 to i8 addrspace(1)*
+  %954 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %170, i64 0, i32 0, i64 0
+  store i32 %932, i32* %954, align 4, !tbaa !26
+  %955 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %170, i64 0, i32 0, i64 1
+  store i32 %934, i32* %955, align 4, !tbaa !26
   %956 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %171, i64 0, i32 0, i64 0
   store i32 1, i32* %956, align 4, !tbaa !26
   %957 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %171, i64 0, i32 0, i64 1
   store i32 %932, i32* %957, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %950, i16 2, i8 addrspace(1)* readnone %951, i8* nocapture nonnull readonly %952, i8* nocapture nonnull readonly %955, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %955) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %952) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %952, i16 2, i8 addrspace(1)* readnone %953, i8* nocapture nonnull readonly %950, i8* nocapture nonnull readonly %951, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %950) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %951) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %173) #9
   %958 = tail call i32 @air.get_simdgroup_size.i32() #11
   %959 = shl i32 %958, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %959) #12
-  %960 = bitcast [2 x i32]* %166 to i8*
-  %961 = getelementptr inbounds [2 x i32], [2 x i32]* %166, i64 0, i64 0
-  %962 = getelementptr inbounds [2 x i32], [2 x i32]* %166, i64 0, i64 1
+  %960 = bitcast [2 x i32]* %169 to i8*
+  %961 = getelementptr inbounds [2 x i32], [2 x i32]* %169, i64 0, i64 0
+  %962 = getelementptr inbounds [2 x i32], [2 x i32]* %169, i64 0, i64 1
   %963 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %964
 
-964:                                              ; preds = %1001, %929
-  %965 = phi i16 [ 0, %929 ], [ %1002, %1001 ]
+964:                                              ; preds = %981, %929
+  %965 = phi i16 [ 0, %929 ], [ %982, %981 ]
   %966 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %959) #12
   %967 = icmp ult i16 %965, %966
-  br i1 %967, label %988, label %968
+  br i1 %967, label %968, label %983
 
 968:                                              ; preds = %964
-  %969 = zext i32 %944 to i64
-  %970 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %971 = getelementptr inbounds float, float addrspace(1)* %970, i64 %969
-  %972 = getelementptr inbounds float, float addrspace(1)* %3, i64 %948
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %174) #9
-  %973 = load i32, i32 addrspace(2)* %939, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %974 = load i32, i32 addrspace(2)* %941, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %975 = bitcast i8* %174 to %struct._tensor_t*
-  %976 = bitcast float addrspace(1)* %971 to i8 addrspace(1)*
-  %977 = bitcast %"struct.metal::array"* %168 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %977) #9
-  %978 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %168, i64 0, i32 0, i64 0
-  store i32 %973, i32* %978, align 4, !tbaa !26
-  %979 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %168, i64 0, i32 0, i64 1
-  store i32 %974, i32* %979, align 4, !tbaa !26
-  %980 = bitcast %"struct.metal::array"* %169 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %980) #9
-  %981 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %169, i64 0, i32 0, i64 0
-  store i32 1, i32* %981, align 4, !tbaa !26
-  %982 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %169, i64 0, i32 0, i64 1
-  store i32 %973, i32* %982, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %975, i16 2, i8 addrspace(1)* readnone %976, i8* nocapture nonnull readonly %977, i8* nocapture nonnull readonly %980, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %980) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %977) #9
-  %983 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %167 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %983) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %983, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %984 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %167, i8* noundef nonnull %172, i32 noundef 2, i8* noundef nonnull %174, i32 noundef 2, i8* noundef %984, i32 noundef %959) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %983) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %174) #9
-  %985 = bitcast [2 x i32]* %165 to i8*
-  %986 = getelementptr inbounds [2 x i32], [2 x i32]* %165, i64 0, i64 0
-  %987 = getelementptr inbounds [2 x i32], [2 x i32]* %165, i64 0, i64 1
-  br label %1003
+  %969 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %965, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %959) #12
+  br i1 %969, label %970, label %981
 
-988:                                              ; preds = %964
-  %989 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %965, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %959) #12
-  br i1 %989, label %990, label %1001
-
-990:                                              ; preds = %988
+970:                                              ; preds = %968
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %960) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %965, i8* noundef nonnull %960, i32 noundef 536870944, i32 noundef %959, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %991 = load i32, i32* %961, align 4, !tbaa !26
-  %992 = load i32, i32* %962, align 4, !tbaa !26
+  %971 = load i32, i32* %961, align 4, !tbaa !26
+  %972 = load i32, i32* %962, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %960) #9
-  %993 = load i32, i32 addrspace(2)* %963, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %994 = mul i32 %993, %992
-  %995 = add i32 %994, %991
-  %996 = zext i32 %995 to i64
-  %997 = getelementptr inbounds float, float addrspace(1)* %949, i64 %996
-  %998 = load float, float addrspace(1)* %997, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %999 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %965, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1000 = bitcast i8* %999 to float*
-  store float %998, float* %1000, align 4, !tbaa !50
-  br label %1001
+  %973 = load i32, i32 addrspace(2)* %963, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %974 = mul i32 %973, %972
+  %975 = add i32 %974, %971
+  %976 = zext i32 %975 to i64
+  %977 = getelementptr inbounds float, float addrspace(1)* %949, i64 %976
+  %978 = load float, float addrspace(1)* %977, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %979 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %965, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %980 = bitcast i8* %979 to float*
+  store float %978, float* %980, align 4, !tbaa !45
+  br label %981
 
-1001:                                             ; preds = %990, %988
-  %1002 = add nuw i16 %965, 1
+981:                                              ; preds = %970, %968
+  %982 = add nuw i16 %965, 1
   br label %964, !llvm.loop !74
 
-1003:                                             ; preds = %1020, %968
-  %1004 = phi i16 [ 0, %968 ], [ %1021, %1020 ]
+983:                                              ; preds = %964
+  %984 = zext i32 %944 to i64
+  %985 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %986 = getelementptr inbounds float, float addrspace(1)* %985, i64 %984
+  %987 = getelementptr inbounds float, float addrspace(1)* %3, i64 %948
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %174) #9
+  %988 = load i32, i32 addrspace(2)* %939, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %989 = load i32, i32 addrspace(2)* %941, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %990 = bitcast %"struct.metal::array"* %167 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %990) #9
+  %991 = bitcast %"struct.metal::array"* %168 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %991) #9
+  %992 = bitcast i8* %174 to %struct._tensor_t*
+  %993 = bitcast float addrspace(1)* %986 to i8 addrspace(1)*
+  %994 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %167, i64 0, i32 0, i64 0
+  store i32 %988, i32* %994, align 4, !tbaa !26
+  %995 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %167, i64 0, i32 0, i64 1
+  store i32 %989, i32* %995, align 4, !tbaa !26
+  %996 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %168, i64 0, i32 0, i64 0
+  store i32 1, i32* %996, align 4, !tbaa !26
+  %997 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %168, i64 0, i32 0, i64 1
+  store i32 %988, i32* %997, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %992, i16 2, i8 addrspace(1)* readnone %993, i8* nocapture nonnull readonly %990, i8* nocapture nonnull readonly %991, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %990) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %991) #9
+  %998 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %166 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %998) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %998, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %999 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %166, i8* noundef nonnull %172, i32 noundef 2, i8* noundef nonnull %174, i32 noundef 2, i8* noundef %999, i32 noundef %959) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %998) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %174) #9
+  %1000 = bitcast [2 x i32]* %165 to i8*
+  %1001 = getelementptr inbounds [2 x i32], [2 x i32]* %165, i64 0, i64 0
+  %1002 = getelementptr inbounds [2 x i32], [2 x i32]* %165, i64 0, i64 1
+  br label %1003
+
+1003:                                             ; preds = %1020, %983
+  %1004 = phi i16 [ 0, %983 ], [ %1021, %1020 ]
   %1005 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %959) #12
   %1006 = icmp ult i16 %1004, %1005
   br i1 %1006, label %1007, label %1022
@@ -1530,20 +1530,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1008, label %1009, label %1020
 
 1009:                                             ; preds = %1007
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %985) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %1004, i8* noundef nonnull %985, i32 noundef 536870944, i32 noundef %959, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1010 = load i32, i32* %986, align 4, !tbaa !26
-  %1011 = load i32, i32* %987, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %985) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1000) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %1004, i8* noundef nonnull %1000, i32 noundef 536870944, i32 noundef %959, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1010 = load i32, i32* %1001, align 4, !tbaa !26
+  %1011 = load i32, i32* %1002, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1000) #9
   %1012 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %173, i16 noundef zeroext %1004, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1013 = bitcast i8* %1012 to float*
-  %1014 = load float, float* %1013, align 4, !tbaa !50
-  %1015 = load i32, i32 addrspace(2)* %963, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1014 = load float, float* %1013, align 4, !tbaa !45
+  %1015 = load i32, i32 addrspace(2)* %963, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1016 = mul i32 %1015, %1011
   %1017 = add i32 %1016, %1010
   %1018 = zext i32 %1017 to i64
-  %1019 = getelementptr inbounds float, float addrspace(1)* %972, i64 %1018
-  store float %1014, float addrspace(1)* %1019, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1019 = getelementptr inbounds float, float addrspace(1)* %987, i64 %1018
+  store float %1014, float addrspace(1)* %1019, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1020
 
 1020:                                             ; preds = %1009, %1007
@@ -1577,103 +1577,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1042 = zext i32 %1041 to i64
   %1043 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1042
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %161) #9
-  %1044 = bitcast i8* %161 to %struct._tensor_t*
-  %1045 = bitcast float addrspace(1)* %1032 to i8 addrspace(1)*
-  %1046 = bitcast %"struct.metal::array"* %159 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1046) #9
-  %1047 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %159, i64 0, i32 0, i64 0
-  store i32 %1026, i32* %1047, align 4, !tbaa !26
-  %1048 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %159, i64 0, i32 0, i64 1
-  store i32 %1028, i32* %1048, align 4, !tbaa !26
-  %1049 = bitcast %"struct.metal::array"* %160 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1049) #9
+  %1044 = bitcast %"struct.metal::array"* %159 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1044) #9
+  %1045 = bitcast %"struct.metal::array"* %160 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1045) #9
+  %1046 = bitcast i8* %161 to %struct._tensor_t*
+  %1047 = bitcast float addrspace(1)* %1032 to i8 addrspace(1)*
+  %1048 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %159, i64 0, i32 0, i64 0
+  store i32 %1026, i32* %1048, align 4, !tbaa !26
+  %1049 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %159, i64 0, i32 0, i64 1
+  store i32 %1028, i32* %1049, align 4, !tbaa !26
   %1050 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %160, i64 0, i32 0, i64 0
   store i32 1, i32* %1050, align 4, !tbaa !26
   %1051 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %160, i64 0, i32 0, i64 1
   store i32 %1026, i32* %1051, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1044, i16 2, i8 addrspace(1)* readnone %1045, i8* nocapture nonnull readonly %1046, i8* nocapture nonnull readonly %1049, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1049) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1046) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1046, i16 2, i8 addrspace(1)* readnone %1047, i8* nocapture nonnull readonly %1044, i8* nocapture nonnull readonly %1045, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1044) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1045) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %162) #9
   %1052 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1053 = shl i32 %1052, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1053) #12
-  %1054 = bitcast [2 x i32]* %155 to i8*
-  %1055 = getelementptr inbounds [2 x i32], [2 x i32]* %155, i64 0, i64 0
-  %1056 = getelementptr inbounds [2 x i32], [2 x i32]* %155, i64 0, i64 1
+  %1054 = bitcast [2 x i32]* %158 to i8*
+  %1055 = getelementptr inbounds [2 x i32], [2 x i32]* %158, i64 0, i64 0
+  %1056 = getelementptr inbounds [2 x i32], [2 x i32]* %158, i64 0, i64 1
   %1057 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1058
 
-1058:                                             ; preds = %1095, %1023
-  %1059 = phi i16 [ 0, %1023 ], [ %1096, %1095 ]
+1058:                                             ; preds = %1075, %1023
+  %1059 = phi i16 [ 0, %1023 ], [ %1076, %1075 ]
   %1060 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1053) #12
   %1061 = icmp ult i16 %1059, %1060
-  br i1 %1061, label %1082, label %1062
+  br i1 %1061, label %1062, label %1077
 
 1062:                                             ; preds = %1058
-  %1063 = zext i32 %1038 to i64
-  %1064 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1065 = getelementptr inbounds float, float addrspace(1)* %1064, i64 %1063
-  %1066 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1042
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %163) #9
-  %1067 = load i32, i32 addrspace(2)* %1033, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1068 = load i32, i32 addrspace(2)* %1035, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1069 = bitcast i8* %163 to %struct._tensor_t*
-  %1070 = bitcast float addrspace(1)* %1065 to i8 addrspace(1)*
-  %1071 = bitcast %"struct.metal::array"* %157 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1071) #9
-  %1072 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %157, i64 0, i32 0, i64 0
-  store i32 %1067, i32* %1072, align 4, !tbaa !26
-  %1073 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %157, i64 0, i32 0, i64 1
-  store i32 %1068, i32* %1073, align 4, !tbaa !26
-  %1074 = bitcast %"struct.metal::array"* %158 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1074) #9
-  %1075 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %158, i64 0, i32 0, i64 0
-  store i32 1, i32* %1075, align 4, !tbaa !26
-  %1076 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %158, i64 0, i32 0, i64 1
-  store i32 %1067, i32* %1076, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1069, i16 2, i8 addrspace(1)* readnone %1070, i8* nocapture nonnull readonly %1071, i8* nocapture nonnull readonly %1074, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1074) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1071) #9
-  %1077 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %156 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1077) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1077, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1078 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %156, i8* noundef nonnull %161, i32 noundef 2, i8* noundef nonnull %163, i32 noundef 2, i8* noundef %1078, i32 noundef %1053) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1077) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %163) #9
-  %1079 = bitcast [2 x i32]* %154 to i8*
-  %1080 = getelementptr inbounds [2 x i32], [2 x i32]* %154, i64 0, i64 0
-  %1081 = getelementptr inbounds [2 x i32], [2 x i32]* %154, i64 0, i64 1
-  br label %1097
+  %1063 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1059, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1053) #12
+  br i1 %1063, label %1064, label %1075
 
-1082:                                             ; preds = %1058
-  %1083 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1059, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1053) #12
-  br i1 %1083, label %1084, label %1095
-
-1084:                                             ; preds = %1082
+1064:                                             ; preds = %1062
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1054) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1059, i8* noundef nonnull %1054, i32 noundef 536870944, i32 noundef %1053, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1085 = load i32, i32* %1055, align 4, !tbaa !26
-  %1086 = load i32, i32* %1056, align 4, !tbaa !26
+  %1065 = load i32, i32* %1055, align 4, !tbaa !26
+  %1066 = load i32, i32* %1056, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1054) #9
-  %1087 = load i32, i32 addrspace(2)* %1057, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1088 = mul i32 %1087, %1086
-  %1089 = add i32 %1088, %1085
-  %1090 = zext i32 %1089 to i64
-  %1091 = getelementptr inbounds float, float addrspace(1)* %1043, i64 %1090
-  %1092 = load float, float addrspace(1)* %1091, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1093 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1059, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1094 = bitcast i8* %1093 to float*
-  store float %1092, float* %1094, align 4, !tbaa !50
-  br label %1095
+  %1067 = load i32, i32 addrspace(2)* %1057, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1068 = mul i32 %1067, %1066
+  %1069 = add i32 %1068, %1065
+  %1070 = zext i32 %1069 to i64
+  %1071 = getelementptr inbounds float, float addrspace(1)* %1043, i64 %1070
+  %1072 = load float, float addrspace(1)* %1071, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1073 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1059, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1074 = bitcast i8* %1073 to float*
+  store float %1072, float* %1074, align 4, !tbaa !45
+  br label %1075
 
-1095:                                             ; preds = %1084, %1082
-  %1096 = add nuw i16 %1059, 1
+1075:                                             ; preds = %1064, %1062
+  %1076 = add nuw i16 %1059, 1
   br label %1058, !llvm.loop !76
 
-1097:                                             ; preds = %1114, %1062
-  %1098 = phi i16 [ 0, %1062 ], [ %1115, %1114 ]
+1077:                                             ; preds = %1058
+  %1078 = zext i32 %1038 to i64
+  %1079 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1080 = getelementptr inbounds float, float addrspace(1)* %1079, i64 %1078
+  %1081 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1042
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %163) #9
+  %1082 = load i32, i32 addrspace(2)* %1033, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1083 = load i32, i32 addrspace(2)* %1035, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1084 = bitcast %"struct.metal::array"* %156 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1084) #9
+  %1085 = bitcast %"struct.metal::array"* %157 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1085) #9
+  %1086 = bitcast i8* %163 to %struct._tensor_t*
+  %1087 = bitcast float addrspace(1)* %1080 to i8 addrspace(1)*
+  %1088 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %156, i64 0, i32 0, i64 0
+  store i32 %1082, i32* %1088, align 4, !tbaa !26
+  %1089 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %156, i64 0, i32 0, i64 1
+  store i32 %1083, i32* %1089, align 4, !tbaa !26
+  %1090 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %157, i64 0, i32 0, i64 0
+  store i32 1, i32* %1090, align 4, !tbaa !26
+  %1091 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %157, i64 0, i32 0, i64 1
+  store i32 %1082, i32* %1091, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1086, i16 2, i8 addrspace(1)* readnone %1087, i8* nocapture nonnull readonly %1084, i8* nocapture nonnull readonly %1085, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1084) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1085) #9
+  %1092 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %155 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1092) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1092, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb1ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1093 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %155, i8* noundef nonnull %161, i32 noundef 2, i8* noundef nonnull %163, i32 noundef 2, i8* noundef %1093, i32 noundef %1053) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1092) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %163) #9
+  %1094 = bitcast [2 x i32]* %154 to i8*
+  %1095 = getelementptr inbounds [2 x i32], [2 x i32]* %154, i64 0, i64 0
+  %1096 = getelementptr inbounds [2 x i32], [2 x i32]* %154, i64 0, i64 1
+  br label %1097
+
+1097:                                             ; preds = %1114, %1077
+  %1098 = phi i16 [ 0, %1077 ], [ %1115, %1114 ]
   %1099 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1053) #12
   %1100 = icmp ult i16 %1098, %1099
   br i1 %1100, label %1101, label %1116
@@ -1683,20 +1683,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1102, label %1103, label %1114
 
 1103:                                             ; preds = %1101
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1079) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1098, i8* noundef nonnull %1079, i32 noundef 536870944, i32 noundef %1053, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1104 = load i32, i32* %1080, align 4, !tbaa !26
-  %1105 = load i32, i32* %1081, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1079) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1094) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1098, i8* noundef nonnull %1094, i32 noundef 536870944, i32 noundef %1053, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1104 = load i32, i32* %1095, align 4, !tbaa !26
+  %1105 = load i32, i32* %1096, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1094) #9
   %1106 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 1, i32 1, i8* noundef nonnull %162, i16 noundef zeroext %1098, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1107 = bitcast i8* %1106 to float*
-  %1108 = load float, float* %1107, align 4, !tbaa !50
-  %1109 = load i32, i32 addrspace(2)* %1057, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1108 = load float, float* %1107, align 4, !tbaa !45
+  %1109 = load i32, i32 addrspace(2)* %1057, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1110 = mul i32 %1109, %1105
   %1111 = add i32 %1110, %1104
   %1112 = zext i32 %1111 to i64
-  %1113 = getelementptr inbounds float, float addrspace(1)* %1066, i64 %1112
-  store float %1108, float addrspace(1)* %1113, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1113 = getelementptr inbounds float, float addrspace(1)* %1081, i64 %1112
+  store float %1108, float addrspace(1)* %1113, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1114
 
 1114:                                             ; preds = %1103, %1101
@@ -1730,102 +1730,102 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1136 = zext i32 %1135 to i64
   %1137 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1136
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %150) #9
-  %1138 = bitcast i8* %150 to %struct._tensor_t*
-  %1139 = bitcast float addrspace(1)* %1126 to i8 addrspace(1)*
-  %1140 = bitcast %"struct.metal::array"* %148 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1140) #9
-  %1141 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %148, i64 0, i32 0, i64 0
-  store i32 %1120, i32* %1141, align 4, !tbaa !26
-  %1142 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %148, i64 0, i32 0, i64 1
-  store i32 %1122, i32* %1142, align 4, !tbaa !26
-  %1143 = bitcast %"struct.metal::array"* %149 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1143) #9
+  %1138 = bitcast %"struct.metal::array"* %148 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1138) #9
+  %1139 = bitcast %"struct.metal::array"* %149 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1139) #9
+  %1140 = bitcast i8* %150 to %struct._tensor_t*
+  %1141 = bitcast float addrspace(1)* %1126 to i8 addrspace(1)*
+  %1142 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %148, i64 0, i32 0, i64 0
+  store i32 %1120, i32* %1142, align 4, !tbaa !26
+  %1143 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %148, i64 0, i32 0, i64 1
+  store i32 %1122, i32* %1143, align 4, !tbaa !26
   %1144 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %149, i64 0, i32 0, i64 0
   store i32 1, i32* %1144, align 4, !tbaa !26
   %1145 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %149, i64 0, i32 0, i64 1
   store i32 %1120, i32* %1145, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1138, i16 2, i8 addrspace(1)* readnone %1139, i8* nocapture nonnull readonly %1140, i8* nocapture nonnull readonly %1143, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1143) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1140) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1140, i16 2, i8 addrspace(1)* readnone %1141, i8* nocapture nonnull readonly %1138, i8* nocapture nonnull readonly %1139, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1138) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1139) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %151) #9
   %1146 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1146) #12
-  %1147 = bitcast [2 x i32]* %144 to i8*
-  %1148 = getelementptr inbounds [2 x i32], [2 x i32]* %144, i64 0, i64 0
-  %1149 = getelementptr inbounds [2 x i32], [2 x i32]* %144, i64 0, i64 1
+  %1147 = bitcast [2 x i32]* %147 to i8*
+  %1148 = getelementptr inbounds [2 x i32], [2 x i32]* %147, i64 0, i64 0
+  %1149 = getelementptr inbounds [2 x i32], [2 x i32]* %147, i64 0, i64 1
   %1150 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1151
 
-1151:                                             ; preds = %1188, %1117
-  %1152 = phi i16 [ 0, %1117 ], [ %1189, %1188 ]
+1151:                                             ; preds = %1168, %1117
+  %1152 = phi i16 [ 0, %1117 ], [ %1169, %1168 ]
   %1153 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1146) #12
   %1154 = icmp ult i16 %1152, %1153
-  br i1 %1154, label %1175, label %1155
+  br i1 %1154, label %1155, label %1170
 
 1155:                                             ; preds = %1151
-  %1156 = zext i32 %1132 to i64
-  %1157 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1158 = getelementptr inbounds float, float addrspace(1)* %1157, i64 %1156
-  %1159 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1136
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %152) #9
-  %1160 = load i32, i32 addrspace(2)* %1127, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1161 = load i32, i32 addrspace(2)* %1129, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1162 = bitcast i8* %152 to %struct._tensor_t*
-  %1163 = bitcast float addrspace(1)* %1158 to i8 addrspace(1)*
-  %1164 = bitcast %"struct.metal::array"* %146 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1164) #9
-  %1165 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %146, i64 0, i32 0, i64 0
-  store i32 %1160, i32* %1165, align 4, !tbaa !26
-  %1166 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %146, i64 0, i32 0, i64 1
-  store i32 %1161, i32* %1166, align 4, !tbaa !26
-  %1167 = bitcast %"struct.metal::array"* %147 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1167) #9
-  %1168 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %147, i64 0, i32 0, i64 0
-  store i32 1, i32* %1168, align 4, !tbaa !26
-  %1169 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %147, i64 0, i32 0, i64 1
-  store i32 %1160, i32* %1169, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1162, i16 2, i8 addrspace(1)* readnone %1163, i8* nocapture nonnull readonly %1164, i8* nocapture nonnull readonly %1167, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1167) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1164) #9
-  %1170 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %145 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1170) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1170, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1171 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %145, i8* noundef nonnull %150, i32 noundef 2, i8* noundef nonnull %152, i32 noundef 2, i8* noundef %1171, i32 noundef %1146) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1170) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %152) #9
-  %1172 = bitcast [2 x i32]* %143 to i8*
-  %1173 = getelementptr inbounds [2 x i32], [2 x i32]* %143, i64 0, i64 0
-  %1174 = getelementptr inbounds [2 x i32], [2 x i32]* %143, i64 0, i64 1
-  br label %1190
+  %1156 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1152, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1146) #12
+  br i1 %1156, label %1157, label %1168
 
-1175:                                             ; preds = %1151
-  %1176 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1152, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1146) #12
-  br i1 %1176, label %1177, label %1188
-
-1177:                                             ; preds = %1175
+1157:                                             ; preds = %1155
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1147) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1152, i8* noundef nonnull %1147, i32 noundef 536870944, i32 noundef %1146, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1178 = load i32, i32* %1148, align 4, !tbaa !26
-  %1179 = load i32, i32* %1149, align 4, !tbaa !26
+  %1158 = load i32, i32* %1148, align 4, !tbaa !26
+  %1159 = load i32, i32* %1149, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1147) #9
-  %1180 = load i32, i32 addrspace(2)* %1150, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1181 = mul i32 %1180, %1179
-  %1182 = add i32 %1181, %1178
-  %1183 = zext i32 %1182 to i64
-  %1184 = getelementptr inbounds float, float addrspace(1)* %1137, i64 %1183
-  %1185 = load float, float addrspace(1)* %1184, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1186 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1152, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1187 = bitcast i8* %1186 to float*
-  store float %1185, float* %1187, align 4, !tbaa !50
-  br label %1188
+  %1160 = load i32, i32 addrspace(2)* %1150, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1161 = mul i32 %1160, %1159
+  %1162 = add i32 %1161, %1158
+  %1163 = zext i32 %1162 to i64
+  %1164 = getelementptr inbounds float, float addrspace(1)* %1137, i64 %1163
+  %1165 = load float, float addrspace(1)* %1164, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1166 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1152, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1167 = bitcast i8* %1166 to float*
+  store float %1165, float* %1167, align 4, !tbaa !45
+  br label %1168
 
-1188:                                             ; preds = %1177, %1175
-  %1189 = add nuw i16 %1152, 1
+1168:                                             ; preds = %1157, %1155
+  %1169 = add nuw i16 %1152, 1
   br label %1151, !llvm.loop !78
 
-1190:                                             ; preds = %1207, %1155
-  %1191 = phi i16 [ 0, %1155 ], [ %1208, %1207 ]
+1170:                                             ; preds = %1151
+  %1171 = zext i32 %1132 to i64
+  %1172 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1173 = getelementptr inbounds float, float addrspace(1)* %1172, i64 %1171
+  %1174 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1136
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %152) #9
+  %1175 = load i32, i32 addrspace(2)* %1127, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1176 = load i32, i32 addrspace(2)* %1129, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1177 = bitcast %"struct.metal::array"* %145 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1177) #9
+  %1178 = bitcast %"struct.metal::array"* %146 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1178) #9
+  %1179 = bitcast i8* %152 to %struct._tensor_t*
+  %1180 = bitcast float addrspace(1)* %1173 to i8 addrspace(1)*
+  %1181 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %145, i64 0, i32 0, i64 0
+  store i32 %1175, i32* %1181, align 4, !tbaa !26
+  %1182 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %145, i64 0, i32 0, i64 1
+  store i32 %1176, i32* %1182, align 4, !tbaa !26
+  %1183 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %146, i64 0, i32 0, i64 0
+  store i32 1, i32* %1183, align 4, !tbaa !26
+  %1184 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %146, i64 0, i32 0, i64 1
+  store i32 %1175, i32* %1184, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1179, i16 2, i8 addrspace(1)* readnone %1180, i8* nocapture nonnull readonly %1177, i8* nocapture nonnull readonly %1178, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1177) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1178) #9
+  %1185 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %144 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1185) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1185, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1186 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %144, i8* noundef nonnull %150, i32 noundef 2, i8* noundef nonnull %152, i32 noundef 2, i8* noundef %1186, i32 noundef %1146) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1185) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %152) #9
+  %1187 = bitcast [2 x i32]* %143 to i8*
+  %1188 = getelementptr inbounds [2 x i32], [2 x i32]* %143, i64 0, i64 0
+  %1189 = getelementptr inbounds [2 x i32], [2 x i32]* %143, i64 0, i64 1
+  br label %1190
+
+1190:                                             ; preds = %1207, %1170
+  %1191 = phi i16 [ 0, %1170 ], [ %1208, %1207 ]
   %1192 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1146) #12
   %1193 = icmp ult i16 %1191, %1192
   br i1 %1193, label %1194, label %1209
@@ -1835,20 +1835,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1195, label %1196, label %1207
 
 1196:                                             ; preds = %1194
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1172) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1191, i8* noundef nonnull %1172, i32 noundef 536870944, i32 noundef %1146, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1197 = load i32, i32* %1173, align 4, !tbaa !26
-  %1198 = load i32, i32* %1174, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1172) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1187) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1191, i8* noundef nonnull %1187, i32 noundef 536870944, i32 noundef %1146, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1197 = load i32, i32* %1188, align 4, !tbaa !26
+  %1198 = load i32, i32* %1189, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1187) #9
   %1199 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %151, i16 noundef zeroext %1191, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1200 = bitcast i8* %1199 to float*
-  %1201 = load float, float* %1200, align 4, !tbaa !50
-  %1202 = load i32, i32 addrspace(2)* %1150, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1201 = load float, float* %1200, align 4, !tbaa !45
+  %1202 = load i32, i32 addrspace(2)* %1150, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1203 = mul i32 %1202, %1198
   %1204 = add i32 %1203, %1197
   %1205 = zext i32 %1204 to i64
-  %1206 = getelementptr inbounds float, float addrspace(1)* %1159, i64 %1205
-  store float %1201, float addrspace(1)* %1206, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1206 = getelementptr inbounds float, float addrspace(1)* %1174, i64 %1205
+  store float %1201, float addrspace(1)* %1206, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1207
 
 1207:                                             ; preds = %1196, %1194
@@ -1882,23 +1882,23 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1229 = zext i32 %1228 to i64
   %1230 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1229
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %139) #9
-  %1231 = bitcast i8* %139 to %struct._tensor_t*
-  %1232 = bitcast float addrspace(1)* %1219 to i8 addrspace(1)*
-  %1233 = bitcast %"struct.metal::array"* %137 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1233) #9
-  %1234 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %137, i64 0, i32 0, i64 0
-  store i32 %1213, i32* %1234, align 4, !tbaa !26
-  %1235 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %137, i64 0, i32 0, i64 1
-  store i32 %1215, i32* %1235, align 4, !tbaa !26
-  %1236 = bitcast %"struct.metal::array"* %138 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1236) #9
+  %1231 = bitcast %"struct.metal::array"* %137 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1231) #9
+  %1232 = bitcast %"struct.metal::array"* %138 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1232) #9
+  %1233 = bitcast i8* %139 to %struct._tensor_t*
+  %1234 = bitcast float addrspace(1)* %1219 to i8 addrspace(1)*
+  %1235 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %137, i64 0, i32 0, i64 0
+  store i32 %1213, i32* %1235, align 4, !tbaa !26
+  %1236 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %137, i64 0, i32 0, i64 1
+  store i32 %1215, i32* %1236, align 4, !tbaa !26
   %1237 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %138, i64 0, i32 0, i64 0
   store i32 1, i32* %1237, align 4, !tbaa !26
   %1238 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %138, i64 0, i32 0, i64 1
   store i32 %1213, i32* %1238, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1231, i16 2, i8 addrspace(1)* readnone %1232, i8* nocapture nonnull readonly %1233, i8* nocapture nonnull readonly %1236, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1236) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1233) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1233, i16 2, i8 addrspace(1)* readnone %1234, i8* nocapture nonnull readonly %1231, i8* nocapture nonnull readonly %1232, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1231) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1232) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %140) #9
   %1239 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
@@ -1908,107 +1908,107 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1243 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1244
 
-1244:                                             ; preds = %1268, %1210
-  %1245 = phi i16 [ 0, %1210 ], [ %1269, %1268 ]
+1244:                                             ; preds = %1261, %1210
+  %1245 = phi i16 [ 0, %1210 ], [ %1262, %1261 ]
   %1246 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
   %1247 = icmp ult i16 %1245, %1246
-  br i1 %1247, label %1255, label %1248
+  br i1 %1247, label %1248, label %1263
 
 1248:                                             ; preds = %1244
-  %1249 = zext i32 %1225 to i64
-  %1250 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1251 = getelementptr inbounds float, float addrspace(1)* %1250, i64 %1249
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %141) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
-  %1252 = bitcast [2 x i32]* %134 to i8*
-  %1253 = getelementptr inbounds [2 x i32], [2 x i32]* %134, i64 0, i64 0
-  %1254 = getelementptr inbounds [2 x i32], [2 x i32]* %134, i64 0, i64 1
-  br label %1270
+  %1249 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1245, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
+  br i1 %1249, label %1250, label %1261
 
-1255:                                             ; preds = %1244
-  %1256 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1245, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
-  br i1 %1256, label %1257, label %1268
-
-1257:                                             ; preds = %1255
+1250:                                             ; preds = %1248
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1240) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1245, i8* noundef nonnull %1240, i32 noundef 536870944, i32 noundef %1239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1258 = load i32, i32* %1241, align 4, !tbaa !26
-  %1259 = load i32, i32* %1242, align 4, !tbaa !26
+  %1251 = load i32, i32* %1241, align 4, !tbaa !26
+  %1252 = load i32, i32* %1242, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1240) #9
-  %1260 = load i32, i32 addrspace(2)* %1243, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1261 = mul i32 %1260, %1259
-  %1262 = add i32 %1261, %1258
-  %1263 = zext i32 %1262 to i64
-  %1264 = getelementptr inbounds float, float addrspace(1)* %1230, i64 %1263
-  %1265 = load float, float addrspace(1)* %1264, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1266 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1245, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1267 = bitcast i8* %1266 to float*
-  store float %1265, float* %1267, align 4, !tbaa !50
-  br label %1268
+  %1253 = load i32, i32 addrspace(2)* %1243, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1254 = mul i32 %1253, %1252
+  %1255 = add i32 %1254, %1251
+  %1256 = zext i32 %1255 to i64
+  %1257 = getelementptr inbounds float, float addrspace(1)* %1230, i64 %1256
+  %1258 = load float, float addrspace(1)* %1257, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1259 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1245, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1260 = bitcast i8* %1259 to float*
+  store float %1258, float* %1260, align 4, !tbaa !45
+  br label %1261
 
-1268:                                             ; preds = %1257, %1255
-  %1269 = add nuw i16 %1245, 1
+1261:                                             ; preds = %1250, %1248
+  %1262 = add nuw i16 %1245, 1
   br label %1244, !llvm.loop !80
 
-1270:                                             ; preds = %1302, %1248
-  %1271 = phi i16 [ 0, %1248 ], [ %1303, %1302 ]
+1263:                                             ; preds = %1244
+  %1264 = zext i32 %1225 to i64
+  %1265 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1266 = getelementptr inbounds float, float addrspace(1)* %1265, i64 %1264
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %141) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
+  %1267 = bitcast [2 x i32]* %135 to i8*
+  %1268 = getelementptr inbounds [2 x i32], [2 x i32]* %135, i64 0, i64 0
+  %1269 = getelementptr inbounds [2 x i32], [2 x i32]* %135, i64 0, i64 1
+  br label %1270
+
+1270:                                             ; preds = %1294, %1263
+  %1271 = phi i16 [ 0, %1263 ], [ %1295, %1294 ]
   %1272 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
   %1273 = icmp ult i16 %1271, %1272
-  br i1 %1273, label %1282, label %1274
+  br i1 %1273, label %1274, label %1296
 
 1274:                                             ; preds = %1270
-  %1275 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1229
-  %1276 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %135 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1276) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1276, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1277 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1278 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %135, i8* noundef nonnull %139, i32 noundef 2, i8* noundef %1277, i8* noundef %1278, i32 noundef %1239) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1276) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %141) #9
-  %1279 = bitcast [2 x i32]* %133 to i8*
-  %1280 = getelementptr inbounds [2 x i32], [2 x i32]* %133, i64 0, i64 0
-  %1281 = getelementptr inbounds [2 x i32], [2 x i32]* %133, i64 0, i64 1
-  br label %1304
+  %1275 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext %1271, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
+  br i1 %1275, label %1276, label %1294
 
-1282:                                             ; preds = %1270
-  %1283 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext %1271, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
-  br i1 %1283, label %1284, label %1302
+1276:                                             ; preds = %1274
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1267) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext %1271, i8* noundef nonnull %1267, i32 noundef 536870944, i32 noundef %1239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1277 = load i32, i32* %1268, align 4, !tbaa !26
+  %1278 = load i32, i32* %1269, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1267) #9
+  %1279 = load i32, i32 addrspace(2)* %1220, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1280 = icmp slt i32 %1277, %1279
+  %1281 = load i32, i32 addrspace(2)* %1222, align 4, !alias.scope !32, !noalias !35
+  %1282 = icmp slt i32 %1278, %1281
+  %1283 = select i1 %1280, i1 %1282, i1 false
+  br i1 %1283, label %1284, label %1290
 
-1284:                                             ; preds = %1282
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1252) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext %1271, i8* noundef nonnull %1252, i32 noundef 536870944, i32 noundef %1239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1285 = load i32, i32* %1253, align 4, !tbaa !26
-  %1286 = load i32, i32* %1254, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1252) #9
-  %1287 = load i32, i32 addrspace(2)* %1220, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1288 = icmp slt i32 %1285, %1287
-  %1289 = load i32, i32 addrspace(2)* %1222, align 4, !alias.scope !32, !noalias !35
-  %1290 = icmp slt i32 %1286, %1289
-  %1291 = select i1 %1288, i1 %1290, i1 false
-  br i1 %1291, label %1292, label %1298
+1284:                                             ; preds = %1276
+  %1285 = mul nsw i32 %1279, %1278
+  %1286 = add nsw i32 %1285, %1277
+  %1287 = sext i32 %1286 to i64
+  %1288 = getelementptr inbounds float, float addrspace(1)* %1266, i64 %1287
+  %1289 = load float, float addrspace(1)* %1288, align 4, !tbaa !45, !alias.scope !60, !noalias !61
+  br label %1290
 
-1292:                                             ; preds = %1284
-  %1293 = mul nsw i32 %1287, %1286
-  %1294 = add nsw i32 %1293, %1285
-  %1295 = sext i32 %1294 to i64
-  %1296 = getelementptr inbounds float, float addrspace(1)* %1251, i64 %1295
-  %1297 = load float, float addrspace(1)* %1296, align 4, !tbaa !50, !alias.scope !60, !noalias !61
-  br label %1298
+1290:                                             ; preds = %1284, %1276
+  %1291 = phi fast float [ %1289, %1284 ], [ 0.000000e+00, %1276 ]
+  %1292 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext %1271, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1293 = bitcast i8* %1292 to float*
+  store float %1291, float* %1293, align 4, !tbaa !45
+  br label %1294
 
-1298:                                             ; preds = %1292, %1284
-  %1299 = phi fast float [ %1297, %1292 ], [ 0.000000e+00, %1284 ]
-  %1300 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext %1271, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1301 = bitcast i8* %1300 to float*
-  store float %1299, float* %1301, align 4, !tbaa !50
-  br label %1302
-
-1302:                                             ; preds = %1298, %1282
-  %1303 = add nuw i16 %1271, 1
+1294:                                             ; preds = %1290, %1274
+  %1295 = add nuw i16 %1271, 1
   br label %1270, !llvm.loop !81
 
-1304:                                             ; preds = %1321, %1274
-  %1305 = phi i16 [ 0, %1274 ], [ %1322, %1321 ]
+1296:                                             ; preds = %1270
+  %1297 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1229
+  %1298 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %134 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1298) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1298, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1299 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %141, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1300 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %134, i8* noundef nonnull %139, i32 noundef 2, i8* noundef %1299, i8* noundef %1300, i32 noundef %1239) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1298) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %141) #9
+  %1301 = bitcast [2 x i32]* %133 to i8*
+  %1302 = getelementptr inbounds [2 x i32], [2 x i32]* %133, i64 0, i64 0
+  %1303 = getelementptr inbounds [2 x i32], [2 x i32]* %133, i64 0, i64 1
+  br label %1304
+
+1304:                                             ; preds = %1321, %1296
+  %1305 = phi i16 [ 0, %1296 ], [ %1322, %1321 ]
   %1306 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1239) #12
   %1307 = icmp ult i16 %1305, %1306
   br i1 %1307, label %1308, label %1323
@@ -2018,20 +2018,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1309, label %1310, label %1321
 
 1310:                                             ; preds = %1308
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1279) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1305, i8* noundef nonnull %1279, i32 noundef 536870944, i32 noundef %1239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1311 = load i32, i32* %1280, align 4, !tbaa !26
-  %1312 = load i32, i32* %1281, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1279) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1301) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1305, i8* noundef nonnull %1301, i32 noundef 536870944, i32 noundef %1239, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1311 = load i32, i32* %1302, align 4, !tbaa !26
+  %1312 = load i32, i32* %1303, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1301) #9
   %1313 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %140, i16 noundef zeroext %1305, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1314 = bitcast i8* %1313 to float*
-  %1315 = load float, float* %1314, align 4, !tbaa !50
-  %1316 = load i32, i32 addrspace(2)* %1243, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1315 = load float, float* %1314, align 4, !tbaa !45
+  %1316 = load i32, i32 addrspace(2)* %1243, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1317 = mul i32 %1316, %1312
   %1318 = add i32 %1317, %1311
   %1319 = zext i32 %1318 to i64
-  %1320 = getelementptr inbounds float, float addrspace(1)* %1275, i64 %1319
-  store float %1315, float addrspace(1)* %1320, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1320 = getelementptr inbounds float, float addrspace(1)* %1297, i64 %1319
+  store float %1315, float addrspace(1)* %1320, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1321
 
 1321:                                             ; preds = %1310, %1308
@@ -2065,103 +2065,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1343 = zext i32 %1342 to i64
   %1344 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1343
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %128) #9
-  %1345 = bitcast i8* %128 to %struct._tensor_t*
-  %1346 = bitcast float addrspace(1)* %1333 to i8 addrspace(1)*
-  %1347 = bitcast %"struct.metal::array"* %126 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1347) #9
-  %1348 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %126, i64 0, i32 0, i64 0
-  store i32 %1327, i32* %1348, align 4, !tbaa !26
-  %1349 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %126, i64 0, i32 0, i64 1
-  store i32 %1329, i32* %1349, align 4, !tbaa !26
-  %1350 = bitcast %"struct.metal::array"* %127 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1350) #9
+  %1345 = bitcast %"struct.metal::array"* %126 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1345) #9
+  %1346 = bitcast %"struct.metal::array"* %127 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1346) #9
+  %1347 = bitcast i8* %128 to %struct._tensor_t*
+  %1348 = bitcast float addrspace(1)* %1333 to i8 addrspace(1)*
+  %1349 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %126, i64 0, i32 0, i64 0
+  store i32 %1327, i32* %1349, align 4, !tbaa !26
+  %1350 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %126, i64 0, i32 0, i64 1
+  store i32 %1329, i32* %1350, align 4, !tbaa !26
   %1351 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %127, i64 0, i32 0, i64 0
   store i32 1, i32* %1351, align 4, !tbaa !26
   %1352 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %127, i64 0, i32 0, i64 1
   store i32 %1327, i32* %1352, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1345, i16 2, i8 addrspace(1)* readnone %1346, i8* nocapture nonnull readonly %1347, i8* nocapture nonnull readonly %1350, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1350) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1347) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1347, i16 2, i8 addrspace(1)* readnone %1348, i8* nocapture nonnull readonly %1345, i8* nocapture nonnull readonly %1346, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1345) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1346) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %129) #9
   %1353 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1354 = shl i32 %1353, 1
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1354) #12
-  %1355 = bitcast [2 x i32]* %122 to i8*
-  %1356 = getelementptr inbounds [2 x i32], [2 x i32]* %122, i64 0, i64 0
-  %1357 = getelementptr inbounds [2 x i32], [2 x i32]* %122, i64 0, i64 1
+  %1355 = bitcast [2 x i32]* %125 to i8*
+  %1356 = getelementptr inbounds [2 x i32], [2 x i32]* %125, i64 0, i64 0
+  %1357 = getelementptr inbounds [2 x i32], [2 x i32]* %125, i64 0, i64 1
   %1358 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1359
 
-1359:                                             ; preds = %1396, %1324
-  %1360 = phi i16 [ 0, %1324 ], [ %1397, %1396 ]
+1359:                                             ; preds = %1376, %1324
+  %1360 = phi i16 [ 0, %1324 ], [ %1377, %1376 ]
   %1361 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1354) #12
   %1362 = icmp ult i16 %1360, %1361
-  br i1 %1362, label %1383, label %1363
+  br i1 %1362, label %1363, label %1378
 
 1363:                                             ; preds = %1359
-  %1364 = zext i32 %1339 to i64
-  %1365 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1366 = getelementptr inbounds float, float addrspace(1)* %1365, i64 %1364
-  %1367 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1343
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %130) #9
-  %1368 = load i32, i32 addrspace(2)* %1334, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1369 = load i32, i32 addrspace(2)* %1336, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1370 = bitcast i8* %130 to %struct._tensor_t*
-  %1371 = bitcast float addrspace(1)* %1366 to i8 addrspace(1)*
-  %1372 = bitcast %"struct.metal::array"* %124 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1372) #9
-  %1373 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %124, i64 0, i32 0, i64 0
-  store i32 %1368, i32* %1373, align 4, !tbaa !26
-  %1374 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %124, i64 0, i32 0, i64 1
-  store i32 %1369, i32* %1374, align 4, !tbaa !26
-  %1375 = bitcast %"struct.metal::array"* %125 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1375) #9
-  %1376 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %125, i64 0, i32 0, i64 0
-  store i32 1, i32* %1376, align 4, !tbaa !26
-  %1377 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %125, i64 0, i32 0, i64 1
-  store i32 %1368, i32* %1377, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1370, i16 2, i8 addrspace(1)* readnone %1371, i8* nocapture nonnull readonly %1372, i8* nocapture nonnull readonly %1375, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1375) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1372) #9
-  %1378 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %123 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1378) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1378, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi64ELi16EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1379 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %123, i8* noundef nonnull %128, i32 noundef 2, i8* noundef nonnull %130, i32 noundef 2, i8* noundef %1379, i32 noundef %1354) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1378) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %130) #9
-  %1380 = bitcast [2 x i32]* %121 to i8*
-  %1381 = getelementptr inbounds [2 x i32], [2 x i32]* %121, i64 0, i64 0
-  %1382 = getelementptr inbounds [2 x i32], [2 x i32]* %121, i64 0, i64 1
-  br label %1398
+  %1364 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1360, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1354) #12
+  br i1 %1364, label %1365, label %1376
 
-1383:                                             ; preds = %1359
-  %1384 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1360, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1354) #12
-  br i1 %1384, label %1385, label %1396
-
-1385:                                             ; preds = %1383
+1365:                                             ; preds = %1363
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1355) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1360, i8* noundef nonnull %1355, i32 noundef 536870944, i32 noundef %1354, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1386 = load i32, i32* %1356, align 4, !tbaa !26
-  %1387 = load i32, i32* %1357, align 4, !tbaa !26
+  %1366 = load i32, i32* %1356, align 4, !tbaa !26
+  %1367 = load i32, i32* %1357, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1355) #9
-  %1388 = load i32, i32 addrspace(2)* %1358, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1389 = mul i32 %1388, %1387
-  %1390 = add i32 %1389, %1386
-  %1391 = zext i32 %1390 to i64
-  %1392 = getelementptr inbounds float, float addrspace(1)* %1344, i64 %1391
-  %1393 = load float, float addrspace(1)* %1392, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1394 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1360, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1395 = bitcast i8* %1394 to float*
-  store float %1393, float* %1395, align 4, !tbaa !50
-  br label %1396
+  %1368 = load i32, i32 addrspace(2)* %1358, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1369 = mul i32 %1368, %1367
+  %1370 = add i32 %1369, %1366
+  %1371 = zext i32 %1370 to i64
+  %1372 = getelementptr inbounds float, float addrspace(1)* %1344, i64 %1371
+  %1373 = load float, float addrspace(1)* %1372, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1374 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1360, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1375 = bitcast i8* %1374 to float*
+  store float %1373, float* %1375, align 4, !tbaa !45
+  br label %1376
 
-1396:                                             ; preds = %1385, %1383
-  %1397 = add nuw i16 %1360, 1
+1376:                                             ; preds = %1365, %1363
+  %1377 = add nuw i16 %1360, 1
   br label %1359, !llvm.loop !83
 
-1398:                                             ; preds = %1415, %1363
-  %1399 = phi i16 [ 0, %1363 ], [ %1416, %1415 ]
+1378:                                             ; preds = %1359
+  %1379 = zext i32 %1339 to i64
+  %1380 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1381 = getelementptr inbounds float, float addrspace(1)* %1380, i64 %1379
+  %1382 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1343
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %130) #9
+  %1383 = load i32, i32 addrspace(2)* %1334, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1384 = load i32, i32 addrspace(2)* %1336, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1385 = bitcast %"struct.metal::array"* %123 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1385) #9
+  %1386 = bitcast %"struct.metal::array"* %124 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1386) #9
+  %1387 = bitcast i8* %130 to %struct._tensor_t*
+  %1388 = bitcast float addrspace(1)* %1381 to i8 addrspace(1)*
+  %1389 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %123, i64 0, i32 0, i64 0
+  store i32 %1383, i32* %1389, align 4, !tbaa !26
+  %1390 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %123, i64 0, i32 0, i64 1
+  store i32 %1384, i32* %1390, align 4, !tbaa !26
+  %1391 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %124, i64 0, i32 0, i64 0
+  store i32 1, i32* %1391, align 4, !tbaa !26
+  %1392 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %124, i64 0, i32 0, i64 1
+  store i32 %1383, i32* %1392, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1387, i16 2, i8 addrspace(1)* readnone %1388, i8* nocapture nonnull readonly %1385, i8* nocapture nonnull readonly %1386, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1385) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1386) #9
+  %1393 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %122 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1393) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1393, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi64ELi16EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1394 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %122, i8* noundef nonnull %128, i32 noundef 2, i8* noundef nonnull %130, i32 noundef 2, i8* noundef %1394, i32 noundef %1354) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1393) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %130) #9
+  %1395 = bitcast [2 x i32]* %121 to i8*
+  %1396 = getelementptr inbounds [2 x i32], [2 x i32]* %121, i64 0, i64 0
+  %1397 = getelementptr inbounds [2 x i32], [2 x i32]* %121, i64 0, i64 1
+  br label %1398
+
+1398:                                             ; preds = %1415, %1378
+  %1399 = phi i16 [ 0, %1378 ], [ %1416, %1415 ]
   %1400 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1354) #12
   %1401 = icmp ult i16 %1399, %1400
   br i1 %1401, label %1402, label %1417
@@ -2171,20 +2171,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1403, label %1404, label %1415
 
 1404:                                             ; preds = %1402
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1380) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1399, i8* noundef nonnull %1380, i32 noundef 536870944, i32 noundef %1354, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1405 = load i32, i32* %1381, align 4, !tbaa !26
-  %1406 = load i32, i32* %1382, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1380) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1395) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1399, i8* noundef nonnull %1395, i32 noundef 536870944, i32 noundef %1354, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1405 = load i32, i32* %1396, align 4, !tbaa !26
+  %1406 = load i32, i32* %1397, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1395) #9
   %1407 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %129, i16 noundef zeroext %1399, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1408 = bitcast i8* %1407 to float*
-  %1409 = load float, float* %1408, align 4, !tbaa !50
-  %1410 = load i32, i32 addrspace(2)* %1358, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1409 = load float, float* %1408, align 4, !tbaa !45
+  %1410 = load i32, i32 addrspace(2)* %1358, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1411 = mul i32 %1410, %1406
   %1412 = add i32 %1411, %1405
   %1413 = zext i32 %1412 to i64
-  %1414 = getelementptr inbounds float, float addrspace(1)* %1367, i64 %1413
-  store float %1409, float addrspace(1)* %1414, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1414 = getelementptr inbounds float, float addrspace(1)* %1382, i64 %1413
+  store float %1409, float addrspace(1)* %1414, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1415
 
 1415:                                             ; preds = %1404, %1402
@@ -2218,103 +2218,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1437 = zext i32 %1436 to i64
   %1438 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1437
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %117) #9
-  %1439 = bitcast i8* %117 to %struct._tensor_t*
-  %1440 = bitcast half addrspace(1)* %1427 to i8 addrspace(1)*
-  %1441 = bitcast %"struct.metal::array"* %115 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1441) #9
-  %1442 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %115, i64 0, i32 0, i64 0
-  store i32 %1421, i32* %1442, align 4, !tbaa !26
-  %1443 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %115, i64 0, i32 0, i64 1
-  store i32 %1423, i32* %1443, align 4, !tbaa !26
-  %1444 = bitcast %"struct.metal::array"* %116 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1444) #9
+  %1439 = bitcast %"struct.metal::array"* %115 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1439) #9
+  %1440 = bitcast %"struct.metal::array"* %116 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1440) #9
+  %1441 = bitcast i8* %117 to %struct._tensor_t*
+  %1442 = bitcast half addrspace(1)* %1427 to i8 addrspace(1)*
+  %1443 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %115, i64 0, i32 0, i64 0
+  store i32 %1421, i32* %1443, align 4, !tbaa !26
+  %1444 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %115, i64 0, i32 0, i64 1
+  store i32 %1423, i32* %1444, align 4, !tbaa !26
   %1445 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %116, i64 0, i32 0, i64 0
   store i32 1, i32* %1445, align 4, !tbaa !26
   %1446 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %116, i64 0, i32 0, i64 1
   store i32 %1421, i32* %1446, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1439, i16 2, i8 addrspace(1)* readnone %1440, i8* nocapture nonnull readonly %1441, i8* nocapture nonnull readonly %1444, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1444) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1441) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1441, i16 2, i8 addrspace(1)* readnone %1442, i8* nocapture nonnull readonly %1439, i8* nocapture nonnull readonly %1440, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1439) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1440) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %118) #9
   %1447 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1448 = shl i32 %1447, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %1448) #12
-  %1449 = bitcast [2 x i32]* %111 to i8*
-  %1450 = getelementptr inbounds [2 x i32], [2 x i32]* %111, i64 0, i64 0
-  %1451 = getelementptr inbounds [2 x i32], [2 x i32]* %111, i64 0, i64 1
+  %1449 = bitcast [2 x i32]* %114 to i8*
+  %1450 = getelementptr inbounds [2 x i32], [2 x i32]* %114, i64 0, i64 0
+  %1451 = getelementptr inbounds [2 x i32], [2 x i32]* %114, i64 0, i64 1
   %1452 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1453
 
-1453:                                             ; preds = %1490, %1418
-  %1454 = phi i16 [ 0, %1418 ], [ %1491, %1490 ]
+1453:                                             ; preds = %1470, %1418
+  %1454 = phi i16 [ 0, %1418 ], [ %1471, %1470 ]
   %1455 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %1448) #12
   %1456 = icmp ult i16 %1454, %1455
-  br i1 %1456, label %1477, label %1457
+  br i1 %1456, label %1457, label %1472
 
 1457:                                             ; preds = %1453
-  %1458 = zext i32 %1433 to i64
-  %1459 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
-  %1460 = getelementptr inbounds half, half addrspace(1)* %1459, i64 %1458
-  %1461 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1437
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %119) #9
-  %1462 = load i32, i32 addrspace(2)* %1428, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1463 = load i32, i32 addrspace(2)* %1430, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1464 = bitcast i8* %119 to %struct._tensor_t*
-  %1465 = bitcast half addrspace(1)* %1460 to i8 addrspace(1)*
-  %1466 = bitcast %"struct.metal::array"* %113 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1466) #9
-  %1467 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %113, i64 0, i32 0, i64 0
-  store i32 %1462, i32* %1467, align 4, !tbaa !26
-  %1468 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %113, i64 0, i32 0, i64 1
-  store i32 %1463, i32* %1468, align 4, !tbaa !26
-  %1469 = bitcast %"struct.metal::array"* %114 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1469) #9
-  %1470 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %114, i64 0, i32 0, i64 0
-  store i32 1, i32* %1470, align 4, !tbaa !26
-  %1471 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %114, i64 0, i32 0, i64 1
-  store i32 %1462, i32* %1471, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1464, i16 2, i8 addrspace(1)* readnone %1465, i8* nocapture nonnull readonly %1466, i8* nocapture nonnull readonly %1469, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1469) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1466) #9
-  %1472 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %112 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1472) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1472, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1473 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %112, i8* noundef nonnull %117, i32 noundef 2, i8* noundef nonnull %119, i32 noundef 2, i8* noundef %1473, i32 noundef %1448) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1472) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %119) #9
-  %1474 = bitcast [2 x i32]* %110 to i8*
-  %1475 = getelementptr inbounds [2 x i32], [2 x i32]* %110, i64 0, i64 0
-  %1476 = getelementptr inbounds [2 x i32], [2 x i32]* %110, i64 0, i64 1
-  br label %1492
+  %1458 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1454, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %1448) #12
+  br i1 %1458, label %1459, label %1470
 
-1477:                                             ; preds = %1453
-  %1478 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1454, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %1448) #12
-  br i1 %1478, label %1479, label %1490
-
-1479:                                             ; preds = %1477
+1459:                                             ; preds = %1457
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1449) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1454, i8* noundef nonnull %1449, i32 noundef 536870944, i32 noundef %1448, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %1480 = load i32, i32* %1450, align 4, !tbaa !26
-  %1481 = load i32, i32* %1451, align 4, !tbaa !26
+  %1460 = load i32, i32* %1450, align 4, !tbaa !26
+  %1461 = load i32, i32* %1451, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1449) #9
-  %1482 = load i32, i32 addrspace(2)* %1452, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1483 = mul i32 %1482, %1481
-  %1484 = add i32 %1483, %1480
-  %1485 = zext i32 %1484 to i64
-  %1486 = getelementptr inbounds float, float addrspace(1)* %1438, i64 %1485
-  %1487 = load float, float addrspace(1)* %1486, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1488 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1454, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %1489 = bitcast i8* %1488 to float*
-  store float %1487, float* %1489, align 4, !tbaa !50
-  br label %1490
+  %1462 = load i32, i32 addrspace(2)* %1452, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1463 = mul i32 %1462, %1461
+  %1464 = add i32 %1463, %1460
+  %1465 = zext i32 %1464 to i64
+  %1466 = getelementptr inbounds float, float addrspace(1)* %1438, i64 %1465
+  %1467 = load float, float addrspace(1)* %1466, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1468 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1454, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %1469 = bitcast i8* %1468 to float*
+  store float %1467, float* %1469, align 4, !tbaa !45
+  br label %1470
 
-1490:                                             ; preds = %1479, %1477
-  %1491 = add nuw i16 %1454, 1
+1470:                                             ; preds = %1459, %1457
+  %1471 = add nuw i16 %1454, 1
   br label %1453, !llvm.loop !85
 
-1492:                                             ; preds = %1509, %1457
-  %1493 = phi i16 [ 0, %1457 ], [ %1510, %1509 ]
+1472:                                             ; preds = %1453
+  %1473 = zext i32 %1433 to i64
+  %1474 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
+  %1475 = getelementptr inbounds half, half addrspace(1)* %1474, i64 %1473
+  %1476 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1437
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %119) #9
+  %1477 = load i32, i32 addrspace(2)* %1428, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1478 = load i32, i32 addrspace(2)* %1430, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1479 = bitcast %"struct.metal::array"* %112 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1479) #9
+  %1480 = bitcast %"struct.metal::array"* %113 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1480) #9
+  %1481 = bitcast i8* %119 to %struct._tensor_t*
+  %1482 = bitcast half addrspace(1)* %1475 to i8 addrspace(1)*
+  %1483 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %112, i64 0, i32 0, i64 0
+  store i32 %1477, i32* %1483, align 4, !tbaa !26
+  %1484 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %112, i64 0, i32 0, i64 1
+  store i32 %1478, i32* %1484, align 4, !tbaa !26
+  %1485 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %113, i64 0, i32 0, i64 0
+  store i32 1, i32* %1485, align 4, !tbaa !26
+  %1486 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %113, i64 0, i32 0, i64 1
+  store i32 %1477, i32* %1486, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1481, i16 2, i8 addrspace(1)* readnone %1482, i8* nocapture nonnull readonly %1479, i8* nocapture nonnull readonly %1480, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1479) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1480) #9
+  %1487 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %111 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1487) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1487, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1488 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %111, i8* noundef nonnull %117, i32 noundef 2, i8* noundef nonnull %119, i32 noundef 2, i8* noundef %1488, i32 noundef %1448) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1487) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %119) #9
+  %1489 = bitcast [2 x i32]* %110 to i8*
+  %1490 = getelementptr inbounds [2 x i32], [2 x i32]* %110, i64 0, i64 0
+  %1491 = getelementptr inbounds [2 x i32], [2 x i32]* %110, i64 0, i64 1
+  br label %1492
+
+1492:                                             ; preds = %1509, %1472
+  %1493 = phi i16 [ 0, %1472 ], [ %1510, %1509 ]
   %1494 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %1448) #12
   %1495 = icmp ult i16 %1493, %1494
   br i1 %1495, label %1496, label %1511
@@ -2324,20 +2324,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1497, label %1498, label %1509
 
 1498:                                             ; preds = %1496
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1474) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1493, i8* noundef nonnull %1474, i32 noundef 536870944, i32 noundef %1448, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %1499 = load i32, i32* %1475, align 4, !tbaa !26
-  %1500 = load i32, i32* %1476, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1474) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1489) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1493, i8* noundef nonnull %1489, i32 noundef 536870944, i32 noundef %1448, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %1499 = load i32, i32* %1490, align 4, !tbaa !26
+  %1500 = load i32, i32* %1491, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1489) #9
   %1501 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %118, i16 noundef zeroext %1493, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
   %1502 = bitcast i8* %1501 to float*
-  %1503 = load float, float* %1502, align 4, !tbaa !50
-  %1504 = load i32, i32 addrspace(2)* %1452, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1503 = load float, float* %1502, align 4, !tbaa !45
+  %1504 = load i32, i32 addrspace(2)* %1452, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1505 = mul i32 %1504, %1500
   %1506 = add i32 %1505, %1499
   %1507 = zext i32 %1506 to i64
-  %1508 = getelementptr inbounds float, float addrspace(1)* %1461, i64 %1507
-  store float %1503, float addrspace(1)* %1508, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1508 = getelementptr inbounds float, float addrspace(1)* %1476, i64 %1507
+  store float %1503, float addrspace(1)* %1508, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1509
 
 1509:                                             ; preds = %1498, %1496
@@ -2371,103 +2371,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1531 = zext i32 %1530 to i64
   %1532 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1531
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %106) #9
-  %1533 = bitcast i8* %106 to %struct._tensor_t*
-  %1534 = bitcast float addrspace(1)* %1521 to i8 addrspace(1)*
-  %1535 = bitcast %"struct.metal::array"* %104 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1535) #9
-  %1536 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %104, i64 0, i32 0, i64 0
-  store i32 %1515, i32* %1536, align 4, !tbaa !26
-  %1537 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %104, i64 0, i32 0, i64 1
-  store i32 %1517, i32* %1537, align 4, !tbaa !26
-  %1538 = bitcast %"struct.metal::array"* %105 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1538) #9
+  %1533 = bitcast %"struct.metal::array"* %104 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1533) #9
+  %1534 = bitcast %"struct.metal::array"* %105 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1534) #9
+  %1535 = bitcast i8* %106 to %struct._tensor_t*
+  %1536 = bitcast float addrspace(1)* %1521 to i8 addrspace(1)*
+  %1537 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %104, i64 0, i32 0, i64 0
+  store i32 %1515, i32* %1537, align 4, !tbaa !26
+  %1538 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %104, i64 0, i32 0, i64 1
+  store i32 %1517, i32* %1538, align 4, !tbaa !26
   %1539 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %105, i64 0, i32 0, i64 0
   store i32 1, i32* %1539, align 4, !tbaa !26
   %1540 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %105, i64 0, i32 0, i64 1
   store i32 %1515, i32* %1540, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1533, i16 2, i8 addrspace(1)* readnone %1534, i8* nocapture nonnull readonly %1535, i8* nocapture nonnull readonly %1538, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1538) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1535) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1535, i16 2, i8 addrspace(1)* readnone %1536, i8* nocapture nonnull readonly %1533, i8* nocapture nonnull readonly %1534, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1533) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1534) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %107) #9
   %1541 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1542 = shl i32 %1541, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1542) #12
-  %1543 = bitcast [2 x i32]* %100 to i8*
-  %1544 = getelementptr inbounds [2 x i32], [2 x i32]* %100, i64 0, i64 0
-  %1545 = getelementptr inbounds [2 x i32], [2 x i32]* %100, i64 0, i64 1
+  %1543 = bitcast [2 x i32]* %103 to i8*
+  %1544 = getelementptr inbounds [2 x i32], [2 x i32]* %103, i64 0, i64 0
+  %1545 = getelementptr inbounds [2 x i32], [2 x i32]* %103, i64 0, i64 1
   %1546 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1547
 
-1547:                                             ; preds = %1584, %1512
-  %1548 = phi i16 [ 0, %1512 ], [ %1585, %1584 ]
+1547:                                             ; preds = %1564, %1512
+  %1548 = phi i16 [ 0, %1512 ], [ %1565, %1564 ]
   %1549 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1542) #12
   %1550 = icmp ult i16 %1548, %1549
-  br i1 %1550, label %1571, label %1551
+  br i1 %1550, label %1551, label %1566
 
 1551:                                             ; preds = %1547
-  %1552 = zext i32 %1527 to i64
-  %1553 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1554 = getelementptr inbounds float, float addrspace(1)* %1553, i64 %1552
-  %1555 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1531
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %108) #9
-  %1556 = load i32, i32 addrspace(2)* %1522, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1557 = load i32, i32 addrspace(2)* %1524, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1558 = bitcast i8* %108 to %struct._tensor_t*
-  %1559 = bitcast float addrspace(1)* %1554 to i8 addrspace(1)*
-  %1560 = bitcast %"struct.metal::array"* %102 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1560) #9
-  %1561 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %102, i64 0, i32 0, i64 0
-  store i32 %1556, i32* %1561, align 4, !tbaa !26
-  %1562 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %102, i64 0, i32 0, i64 1
-  store i32 %1557, i32* %1562, align 4, !tbaa !26
-  %1563 = bitcast %"struct.metal::array"* %103 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1563) #9
-  %1564 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %103, i64 0, i32 0, i64 0
-  store i32 1, i32* %1564, align 4, !tbaa !26
-  %1565 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %103, i64 0, i32 0, i64 1
-  store i32 %1556, i32* %1565, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1558, i16 2, i8 addrspace(1)* readnone %1559, i8* nocapture nonnull readonly %1560, i8* nocapture nonnull readonly %1563, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1563) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1560) #9
-  %1566 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %101 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1566) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1566, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1567 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %101, i8* noundef nonnull %106, i32 noundef 2, i8* noundef nonnull %108, i32 noundef 2, i8* noundef %1567, i32 noundef %1542) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1566) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %108) #9
-  %1568 = bitcast [2 x i32]* %99 to i8*
-  %1569 = getelementptr inbounds [2 x i32], [2 x i32]* %99, i64 0, i64 0
-  %1570 = getelementptr inbounds [2 x i32], [2 x i32]* %99, i64 0, i64 1
-  br label %1586
+  %1552 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1548, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1542) #12
+  br i1 %1552, label %1553, label %1564
 
-1571:                                             ; preds = %1547
-  %1572 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1548, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1542) #12
-  br i1 %1572, label %1573, label %1584
-
-1573:                                             ; preds = %1571
+1553:                                             ; preds = %1551
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1543) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1548, i8* noundef nonnull %1543, i32 noundef 536870944, i32 noundef %1542, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1574 = load i32, i32* %1544, align 4, !tbaa !26
-  %1575 = load i32, i32* %1545, align 4, !tbaa !26
+  %1554 = load i32, i32* %1544, align 4, !tbaa !26
+  %1555 = load i32, i32* %1545, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1543) #9
-  %1576 = load i32, i32 addrspace(2)* %1546, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1577 = mul i32 %1576, %1575
-  %1578 = add i32 %1577, %1574
-  %1579 = zext i32 %1578 to i64
-  %1580 = getelementptr inbounds float, float addrspace(1)* %1532, i64 %1579
-  %1581 = load float, float addrspace(1)* %1580, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1582 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1548, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1583 = bitcast i8* %1582 to float*
-  store float %1581, float* %1583, align 4, !tbaa !50
-  br label %1584
+  %1556 = load i32, i32 addrspace(2)* %1546, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1557 = mul i32 %1556, %1555
+  %1558 = add i32 %1557, %1554
+  %1559 = zext i32 %1558 to i64
+  %1560 = getelementptr inbounds float, float addrspace(1)* %1532, i64 %1559
+  %1561 = load float, float addrspace(1)* %1560, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1562 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1548, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1563 = bitcast i8* %1562 to float*
+  store float %1561, float* %1563, align 4, !tbaa !45
+  br label %1564
 
-1584:                                             ; preds = %1573, %1571
-  %1585 = add nuw i16 %1548, 1
+1564:                                             ; preds = %1553, %1551
+  %1565 = add nuw i16 %1548, 1
   br label %1547, !llvm.loop !87
 
-1586:                                             ; preds = %1603, %1551
-  %1587 = phi i16 [ 0, %1551 ], [ %1604, %1603 ]
+1566:                                             ; preds = %1547
+  %1567 = zext i32 %1527 to i64
+  %1568 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1569 = getelementptr inbounds float, float addrspace(1)* %1568, i64 %1567
+  %1570 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1531
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %108) #9
+  %1571 = load i32, i32 addrspace(2)* %1522, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1572 = load i32, i32 addrspace(2)* %1524, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1573 = bitcast %"struct.metal::array"* %101 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1573) #9
+  %1574 = bitcast %"struct.metal::array"* %102 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1574) #9
+  %1575 = bitcast i8* %108 to %struct._tensor_t*
+  %1576 = bitcast float addrspace(1)* %1569 to i8 addrspace(1)*
+  %1577 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %101, i64 0, i32 0, i64 0
+  store i32 %1571, i32* %1577, align 4, !tbaa !26
+  %1578 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %101, i64 0, i32 0, i64 1
+  store i32 %1572, i32* %1578, align 4, !tbaa !26
+  %1579 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %102, i64 0, i32 0, i64 0
+  store i32 1, i32* %1579, align 4, !tbaa !26
+  %1580 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %102, i64 0, i32 0, i64 1
+  store i32 %1571, i32* %1580, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1575, i16 2, i8 addrspace(1)* readnone %1576, i8* nocapture nonnull readonly %1573, i8* nocapture nonnull readonly %1574, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1573) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1574) #9
+  %1581 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %100 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1581) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1581, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1582 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %100, i8* noundef nonnull %106, i32 noundef 2, i8* noundef nonnull %108, i32 noundef 2, i8* noundef %1582, i32 noundef %1542) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1581) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %108) #9
+  %1583 = bitcast [2 x i32]* %99 to i8*
+  %1584 = getelementptr inbounds [2 x i32], [2 x i32]* %99, i64 0, i64 0
+  %1585 = getelementptr inbounds [2 x i32], [2 x i32]* %99, i64 0, i64 1
+  br label %1586
+
+1586:                                             ; preds = %1603, %1566
+  %1587 = phi i16 [ 0, %1566 ], [ %1604, %1603 ]
   %1588 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1542) #12
   %1589 = icmp ult i16 %1587, %1588
   br i1 %1589, label %1590, label %1605
@@ -2477,20 +2477,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1591, label %1592, label %1603
 
 1592:                                             ; preds = %1590
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1568) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1587, i8* noundef nonnull %1568, i32 noundef 536870944, i32 noundef %1542, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1593 = load i32, i32* %1569, align 4, !tbaa !26
-  %1594 = load i32, i32* %1570, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1568) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1583) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1587, i8* noundef nonnull %1583, i32 noundef 536870944, i32 noundef %1542, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1593 = load i32, i32* %1584, align 4, !tbaa !26
+  %1594 = load i32, i32* %1585, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1583) #9
   %1595 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %107, i16 noundef zeroext %1587, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1596 = bitcast i8* %1595 to float*
-  %1597 = load float, float* %1596, align 4, !tbaa !50
-  %1598 = load i32, i32 addrspace(2)* %1546, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1597 = load float, float* %1596, align 4, !tbaa !45
+  %1598 = load i32, i32 addrspace(2)* %1546, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1599 = mul i32 %1598, %1594
   %1600 = add i32 %1599, %1593
   %1601 = zext i32 %1600 to i64
-  %1602 = getelementptr inbounds float, float addrspace(1)* %1555, i64 %1601
-  store float %1597, float addrspace(1)* %1602, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1602 = getelementptr inbounds float, float addrspace(1)* %1570, i64 %1601
+  store float %1597, float addrspace(1)* %1602, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1603
 
 1603:                                             ; preds = %1592, %1590
@@ -2524,102 +2524,102 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1625 = zext i32 %1624 to i64
   %1626 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1625
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %95) #9
-  %1627 = bitcast i8* %95 to %struct._tensor_t*
-  %1628 = bitcast bfloat addrspace(1)* %1615 to i8 addrspace(1)*
-  %1629 = bitcast %"struct.metal::array"* %93 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1629) #9
-  %1630 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %93, i64 0, i32 0, i64 0
-  store i32 %1609, i32* %1630, align 4, !tbaa !26
-  %1631 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %93, i64 0, i32 0, i64 1
-  store i32 %1611, i32* %1631, align 4, !tbaa !26
-  %1632 = bitcast %"struct.metal::array"* %94 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1632) #9
+  %1627 = bitcast %"struct.metal::array"* %93 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1627) #9
+  %1628 = bitcast %"struct.metal::array"* %94 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1628) #9
+  %1629 = bitcast i8* %95 to %struct._tensor_t*
+  %1630 = bitcast bfloat addrspace(1)* %1615 to i8 addrspace(1)*
+  %1631 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %93, i64 0, i32 0, i64 0
+  store i32 %1609, i32* %1631, align 4, !tbaa !26
+  %1632 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %93, i64 0, i32 0, i64 1
+  store i32 %1611, i32* %1632, align 4, !tbaa !26
   %1633 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %94, i64 0, i32 0, i64 0
   store i32 1, i32* %1633, align 4, !tbaa !26
   %1634 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %94, i64 0, i32 0, i64 1
   store i32 %1609, i32* %1634, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1627, i16 2, i8 addrspace(1)* readnone %1628, i8* nocapture nonnull readonly %1629, i8* nocapture nonnull readonly %1632, i8 2) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1632) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1629) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1629, i16 2, i8 addrspace(1)* readnone %1630, i8* nocapture nonnull readonly %1627, i8* nocapture nonnull readonly %1628, i8 2) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1627) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1628) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %96) #9
   %1635 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %1635) #12
-  %1636 = bitcast [2 x i32]* %89 to i8*
-  %1637 = getelementptr inbounds [2 x i32], [2 x i32]* %89, i64 0, i64 0
-  %1638 = getelementptr inbounds [2 x i32], [2 x i32]* %89, i64 0, i64 1
+  %1636 = bitcast [2 x i32]* %92 to i8*
+  %1637 = getelementptr inbounds [2 x i32], [2 x i32]* %92, i64 0, i64 0
+  %1638 = getelementptr inbounds [2 x i32], [2 x i32]* %92, i64 0, i64 1
   %1639 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1640
 
-1640:                                             ; preds = %1677, %1606
-  %1641 = phi i16 [ 0, %1606 ], [ %1678, %1677 ]
+1640:                                             ; preds = %1657, %1606
+  %1641 = phi i16 [ 0, %1606 ], [ %1658, %1657 ]
   %1642 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef %1635) #12
   %1643 = icmp ult i16 %1641, %1642
-  br i1 %1643, label %1664, label %1644
+  br i1 %1643, label %1644, label %1659
 
 1644:                                             ; preds = %1640
-  %1645 = zext i32 %1621 to i64
-  %1646 = bitcast i8 addrspace(1)* %1 to bfloat addrspace(1)*
-  %1647 = getelementptr inbounds bfloat, bfloat addrspace(1)* %1646, i64 %1645
-  %1648 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1625
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %97) #9
-  %1649 = load i32, i32 addrspace(2)* %1616, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1650 = load i32, i32 addrspace(2)* %1618, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1651 = bitcast i8* %97 to %struct._tensor_t*
-  %1652 = bitcast bfloat addrspace(1)* %1647 to i8 addrspace(1)*
-  %1653 = bitcast %"struct.metal::array"* %91 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1653) #9
-  %1654 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %91, i64 0, i32 0, i64 0
-  store i32 %1649, i32* %1654, align 4, !tbaa !26
-  %1655 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %91, i64 0, i32 0, i64 1
-  store i32 %1650, i32* %1655, align 4, !tbaa !26
-  %1656 = bitcast %"struct.metal::array"* %92 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1656) #9
-  %1657 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %92, i64 0, i32 0, i64 0
-  store i32 1, i32* %1657, align 4, !tbaa !26
-  %1658 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %92, i64 0, i32 0, i64 1
-  store i32 %1649, i32* %1658, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1651, i16 2, i8 addrspace(1)* readnone %1652, i8* nocapture nonnull readonly %1653, i8* nocapture nonnull readonly %1656, i8 2) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1656) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1653) #9
-  %1659 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %90 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1659) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1659, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1660 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext -1, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %90, i8* noundef nonnull %95, i32 noundef 2, i8* noundef nonnull %97, i32 noundef 2, i8* noundef %1660, i32 noundef %1635) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1659) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %97) #9
-  %1661 = bitcast [2 x i32]* %88 to i8*
-  %1662 = getelementptr inbounds [2 x i32], [2 x i32]* %88, i64 0, i64 0
-  %1663 = getelementptr inbounds [2 x i32], [2 x i32]* %88, i64 0, i64 1
-  br label %1679
+  %1645 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1641, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %1635) #12
+  br i1 %1645, label %1646, label %1657
 
-1664:                                             ; preds = %1640
-  %1665 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1641, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %1635) #12
-  br i1 %1665, label %1666, label %1677
-
-1666:                                             ; preds = %1664
+1646:                                             ; preds = %1644
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1636) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1641, i8* noundef nonnull %1636, i32 noundef 536870944, i32 noundef %1635, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %1667 = load i32, i32* %1637, align 4, !tbaa !26
-  %1668 = load i32, i32* %1638, align 4, !tbaa !26
+  %1647 = load i32, i32* %1637, align 4, !tbaa !26
+  %1648 = load i32, i32* %1638, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1636) #9
-  %1669 = load i32, i32 addrspace(2)* %1639, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1670 = mul i32 %1669, %1668
-  %1671 = add i32 %1670, %1667
-  %1672 = zext i32 %1671 to i64
-  %1673 = getelementptr inbounds float, float addrspace(1)* %1626, i64 %1672
-  %1674 = load float, float addrspace(1)* %1673, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1675 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1641, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %1676 = bitcast i8* %1675 to float*
-  store float %1674, float* %1676, align 4, !tbaa !50
-  br label %1677
+  %1649 = load i32, i32 addrspace(2)* %1639, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1650 = mul i32 %1649, %1648
+  %1651 = add i32 %1650, %1647
+  %1652 = zext i32 %1651 to i64
+  %1653 = getelementptr inbounds float, float addrspace(1)* %1626, i64 %1652
+  %1654 = load float, float addrspace(1)* %1653, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1655 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1641, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  %1656 = bitcast i8* %1655 to float*
+  store float %1654, float* %1656, align 4, !tbaa !45
+  br label %1657
 
-1677:                                             ; preds = %1666, %1664
-  %1678 = add nuw i16 %1641, 1
+1657:                                             ; preds = %1646, %1644
+  %1658 = add nuw i16 %1641, 1
   br label %1640, !llvm.loop !89
 
-1679:                                             ; preds = %1696, %1644
-  %1680 = phi i16 [ 0, %1644 ], [ %1697, %1696 ]
+1659:                                             ; preds = %1640
+  %1660 = zext i32 %1621 to i64
+  %1661 = bitcast i8 addrspace(1)* %1 to bfloat addrspace(1)*
+  %1662 = getelementptr inbounds bfloat, bfloat addrspace(1)* %1661, i64 %1660
+  %1663 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1625
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %97) #9
+  %1664 = load i32, i32 addrspace(2)* %1616, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1665 = load i32, i32 addrspace(2)* %1618, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1666 = bitcast %"struct.metal::array"* %90 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1666) #9
+  %1667 = bitcast %"struct.metal::array"* %91 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1667) #9
+  %1668 = bitcast i8* %97 to %struct._tensor_t*
+  %1669 = bitcast bfloat addrspace(1)* %1662 to i8 addrspace(1)*
+  %1670 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %90, i64 0, i32 0, i64 0
+  store i32 %1664, i32* %1670, align 4, !tbaa !26
+  %1671 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %90, i64 0, i32 0, i64 1
+  store i32 %1665, i32* %1671, align 4, !tbaa !26
+  %1672 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %91, i64 0, i32 0, i64 0
+  store i32 1, i32* %1672, align 4, !tbaa !26
+  %1673 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %91, i64 0, i32 0, i64 1
+  store i32 %1664, i32* %1673, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1668, i16 2, i8 addrspace(1)* readnone %1669, i8* nocapture nonnull readonly %1666, i8* nocapture nonnull readonly %1667, i8 2) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1666) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1667) #9
+  %1674 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %89 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1674) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1674, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1675 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext -1, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %89, i8* noundef nonnull %95, i32 noundef 2, i8* noundef nonnull %97, i32 noundef 2, i8* noundef %1675, i32 noundef %1635) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1674) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %97) #9
+  %1676 = bitcast [2 x i32]* %88 to i8*
+  %1677 = getelementptr inbounds [2 x i32], [2 x i32]* %88, i64 0, i64 0
+  %1678 = getelementptr inbounds [2 x i32], [2 x i32]* %88, i64 0, i64 1
+  br label %1679
+
+1679:                                             ; preds = %1696, %1659
+  %1680 = phi i16 [ 0, %1659 ], [ %1697, %1696 ]
   %1681 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef %1635) #12
   %1682 = icmp ult i16 %1680, %1681
   br i1 %1682, label %1683, label %1698
@@ -2629,20 +2629,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1684, label %1685, label %1696
 
 1685:                                             ; preds = %1683
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1661) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1680, i8* noundef nonnull %1661, i32 noundef 536870944, i32 noundef %1635, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %1686 = load i32, i32* %1662, align 4, !tbaa !26
-  %1687 = load i32, i32* %1663, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1661) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1676) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1680, i8* noundef nonnull %1676, i32 noundef 536870944, i32 noundef %1635, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  %1686 = load i32, i32* %1677, align 4, !tbaa !26
+  %1687 = load i32, i32* %1678, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1676) #9
   %1688 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %96, i16 noundef zeroext %1680, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
   %1689 = bitcast i8* %1688 to float*
-  %1690 = load float, float* %1689, align 4, !tbaa !50
-  %1691 = load i32, i32 addrspace(2)* %1639, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1690 = load float, float* %1689, align 4, !tbaa !45
+  %1691 = load i32, i32 addrspace(2)* %1639, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1692 = mul i32 %1691, %1687
   %1693 = add i32 %1692, %1686
   %1694 = zext i32 %1693 to i64
-  %1695 = getelementptr inbounds float, float addrspace(1)* %1648, i64 %1694
-  store float %1690, float addrspace(1)* %1695, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1695 = getelementptr inbounds float, float addrspace(1)* %1663, i64 %1694
+  store float %1690, float addrspace(1)* %1695, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1696
 
 1696:                                             ; preds = %1685, %1683
@@ -2676,103 +2676,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1718 = zext i32 %1717 to i64
   %1719 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1718
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %84) #9
-  %1720 = bitcast i8* %84 to %struct._tensor_t*
-  %1721 = bitcast half addrspace(1)* %1708 to i8 addrspace(1)*
-  %1722 = bitcast %"struct.metal::array"* %82 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1722) #9
-  %1723 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %82, i64 0, i32 0, i64 0
-  store i32 %1702, i32* %1723, align 4, !tbaa !26
-  %1724 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %82, i64 0, i32 0, i64 1
-  store i32 %1704, i32* %1724, align 4, !tbaa !26
-  %1725 = bitcast %"struct.metal::array"* %83 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1725) #9
+  %1720 = bitcast %"struct.metal::array"* %82 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1720) #9
+  %1721 = bitcast %"struct.metal::array"* %83 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1721) #9
+  %1722 = bitcast i8* %84 to %struct._tensor_t*
+  %1723 = bitcast half addrspace(1)* %1708 to i8 addrspace(1)*
+  %1724 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %82, i64 0, i32 0, i64 0
+  store i32 %1702, i32* %1724, align 4, !tbaa !26
+  %1725 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %82, i64 0, i32 0, i64 1
+  store i32 %1704, i32* %1725, align 4, !tbaa !26
   %1726 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %83, i64 0, i32 0, i64 0
   store i32 1, i32* %1726, align 4, !tbaa !26
   %1727 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %83, i64 0, i32 0, i64 1
   store i32 %1702, i32* %1727, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1720, i16 2, i8 addrspace(1)* readnone %1721, i8* nocapture nonnull readonly %1722, i8* nocapture nonnull readonly %1725, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1725) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1722) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1722, i16 2, i8 addrspace(1)* readnone %1723, i8* nocapture nonnull readonly %1720, i8* nocapture nonnull readonly %1721, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1720) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1721) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %85) #9
   %1728 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1729 = shl i32 %1728, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %1729) #12
-  %1730 = bitcast [2 x i32]* %78 to i8*
-  %1731 = getelementptr inbounds [2 x i32], [2 x i32]* %78, i64 0, i64 0
-  %1732 = getelementptr inbounds [2 x i32], [2 x i32]* %78, i64 0, i64 1
+  %1730 = bitcast [2 x i32]* %81 to i8*
+  %1731 = getelementptr inbounds [2 x i32], [2 x i32]* %81, i64 0, i64 0
+  %1732 = getelementptr inbounds [2 x i32], [2 x i32]* %81, i64 0, i64 1
   %1733 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1734
 
-1734:                                             ; preds = %1771, %1699
-  %1735 = phi i16 [ 0, %1699 ], [ %1772, %1771 ]
+1734:                                             ; preds = %1751, %1699
+  %1735 = phi i16 [ 0, %1699 ], [ %1752, %1751 ]
   %1736 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %1729) #12
   %1737 = icmp ult i16 %1735, %1736
-  br i1 %1737, label %1758, label %1738
+  br i1 %1737, label %1738, label %1753
 
 1738:                                             ; preds = %1734
-  %1739 = zext i32 %1714 to i64
-  %1740 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
-  %1741 = getelementptr inbounds half, half addrspace(1)* %1740, i64 %1739
-  %1742 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1718
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %86) #9
-  %1743 = load i32, i32 addrspace(2)* %1709, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1744 = load i32, i32 addrspace(2)* %1711, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1745 = bitcast i8* %86 to %struct._tensor_t*
-  %1746 = bitcast half addrspace(1)* %1741 to i8 addrspace(1)*
-  %1747 = bitcast %"struct.metal::array"* %80 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1747) #9
-  %1748 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %80, i64 0, i32 0, i64 0
-  store i32 %1743, i32* %1748, align 4, !tbaa !26
-  %1749 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %80, i64 0, i32 0, i64 1
-  store i32 %1744, i32* %1749, align 4, !tbaa !26
-  %1750 = bitcast %"struct.metal::array"* %81 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1750) #9
-  %1751 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %81, i64 0, i32 0, i64 0
-  store i32 1, i32* %1751, align 4, !tbaa !26
-  %1752 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %81, i64 0, i32 0, i64 1
-  store i32 %1743, i32* %1752, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1745, i16 2, i8 addrspace(1)* readnone %1746, i8* nocapture nonnull readonly %1747, i8* nocapture nonnull readonly %1750, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1750) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1747) #9
-  %1753 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %79 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1753) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1753, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1754 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %79, i8* noundef nonnull %84, i32 noundef 2, i8* noundef nonnull %86, i32 noundef 2, i8* noundef %1754, i32 noundef %1729) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1753) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %86) #9
-  %1755 = bitcast [2 x i32]* %77 to i8*
-  %1756 = getelementptr inbounds [2 x i32], [2 x i32]* %77, i64 0, i64 0
-  %1757 = getelementptr inbounds [2 x i32], [2 x i32]* %77, i64 0, i64 1
-  br label %1773
+  %1739 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1735, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %1729) #12
+  br i1 %1739, label %1740, label %1751
 
-1758:                                             ; preds = %1734
-  %1759 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1735, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %1729) #12
-  br i1 %1759, label %1760, label %1771
-
-1760:                                             ; preds = %1758
+1740:                                             ; preds = %1738
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1730) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1735, i8* noundef nonnull %1730, i32 noundef 536870944, i32 noundef %1729, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %1761 = load i32, i32* %1731, align 4, !tbaa !26
-  %1762 = load i32, i32* %1732, align 4, !tbaa !26
+  %1741 = load i32, i32* %1731, align 4, !tbaa !26
+  %1742 = load i32, i32* %1732, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1730) #9
-  %1763 = load i32, i32 addrspace(2)* %1733, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1764 = mul i32 %1763, %1762
-  %1765 = add i32 %1764, %1761
-  %1766 = zext i32 %1765 to i64
-  %1767 = getelementptr inbounds float, float addrspace(1)* %1719, i64 %1766
-  %1768 = load float, float addrspace(1)* %1767, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1769 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1735, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %1770 = bitcast i8* %1769 to float*
-  store float %1768, float* %1770, align 4, !tbaa !50
-  br label %1771
+  %1743 = load i32, i32 addrspace(2)* %1733, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1744 = mul i32 %1743, %1742
+  %1745 = add i32 %1744, %1741
+  %1746 = zext i32 %1745 to i64
+  %1747 = getelementptr inbounds float, float addrspace(1)* %1719, i64 %1746
+  %1748 = load float, float addrspace(1)* %1747, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1749 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1735, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %1750 = bitcast i8* %1749 to float*
+  store float %1748, float* %1750, align 4, !tbaa !45
+  br label %1751
 
-1771:                                             ; preds = %1760, %1758
-  %1772 = add nuw i16 %1735, 1
+1751:                                             ; preds = %1740, %1738
+  %1752 = add nuw i16 %1735, 1
   br label %1734, !llvm.loop !91
 
-1773:                                             ; preds = %1790, %1738
-  %1774 = phi i16 [ 0, %1738 ], [ %1791, %1790 ]
+1753:                                             ; preds = %1734
+  %1754 = zext i32 %1714 to i64
+  %1755 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
+  %1756 = getelementptr inbounds half, half addrspace(1)* %1755, i64 %1754
+  %1757 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1718
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %86) #9
+  %1758 = load i32, i32 addrspace(2)* %1709, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1759 = load i32, i32 addrspace(2)* %1711, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1760 = bitcast %"struct.metal::array"* %79 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1760) #9
+  %1761 = bitcast %"struct.metal::array"* %80 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1761) #9
+  %1762 = bitcast i8* %86 to %struct._tensor_t*
+  %1763 = bitcast half addrspace(1)* %1756 to i8 addrspace(1)*
+  %1764 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %79, i64 0, i32 0, i64 0
+  store i32 %1758, i32* %1764, align 4, !tbaa !26
+  %1765 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %79, i64 0, i32 0, i64 1
+  store i32 %1759, i32* %1765, align 4, !tbaa !26
+  %1766 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %80, i64 0, i32 0, i64 0
+  store i32 1, i32* %1766, align 4, !tbaa !26
+  %1767 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %80, i64 0, i32 0, i64 1
+  store i32 %1758, i32* %1767, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1762, i16 2, i8 addrspace(1)* readnone %1763, i8* nocapture nonnull readonly %1760, i8* nocapture nonnull readonly %1761, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1760) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1761) #9
+  %1768 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %78 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1768) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1768, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1769 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %78, i8* noundef nonnull %84, i32 noundef 2, i8* noundef nonnull %86, i32 noundef 2, i8* noundef %1769, i32 noundef %1729) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1768) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %86) #9
+  %1770 = bitcast [2 x i32]* %77 to i8*
+  %1771 = getelementptr inbounds [2 x i32], [2 x i32]* %77, i64 0, i64 0
+  %1772 = getelementptr inbounds [2 x i32], [2 x i32]* %77, i64 0, i64 1
+  br label %1773
+
+1773:                                             ; preds = %1790, %1753
+  %1774 = phi i16 [ 0, %1753 ], [ %1791, %1790 ]
   %1775 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %1729) #12
   %1776 = icmp ult i16 %1774, %1775
   br i1 %1776, label %1777, label %1792
@@ -2782,20 +2782,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1778, label %1779, label %1790
 
 1779:                                             ; preds = %1777
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1755) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1774, i8* noundef nonnull %1755, i32 noundef 536870944, i32 noundef %1729, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %1780 = load i32, i32* %1756, align 4, !tbaa !26
-  %1781 = load i32, i32* %1757, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1755) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1770) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1774, i8* noundef nonnull %1770, i32 noundef 536870944, i32 noundef %1729, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %1780 = load i32, i32* %1771, align 4, !tbaa !26
+  %1781 = load i32, i32* %1772, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1770) #9
   %1782 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 64, i32 64, i32 32, i8 0, i8 1, i8 0, i32 0, i8* noundef nonnull %85, i16 noundef zeroext %1774, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
   %1783 = bitcast i8* %1782 to float*
-  %1784 = load float, float* %1783, align 4, !tbaa !50
-  %1785 = load i32, i32 addrspace(2)* %1733, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1784 = load float, float* %1783, align 4, !tbaa !45
+  %1785 = load i32, i32 addrspace(2)* %1733, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1786 = mul i32 %1785, %1781
   %1787 = add i32 %1786, %1780
   %1788 = zext i32 %1787 to i64
-  %1789 = getelementptr inbounds float, float addrspace(1)* %1742, i64 %1788
-  store float %1784, float addrspace(1)* %1789, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1789 = getelementptr inbounds float, float addrspace(1)* %1757, i64 %1788
+  store float %1784, float addrspace(1)* %1789, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1790
 
 1790:                                             ; preds = %1779, %1777
@@ -2829,103 +2829,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1812 = zext i32 %1811 to i64
   %1813 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1812
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %73) #9
-  %1814 = bitcast i8* %73 to %struct._tensor_t*
-  %1815 = bitcast float addrspace(1)* %1802 to i8 addrspace(1)*
-  %1816 = bitcast %"struct.metal::array"* %71 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1816) #9
-  %1817 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %71, i64 0, i32 0, i64 0
-  store i32 %1796, i32* %1817, align 4, !tbaa !26
-  %1818 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %71, i64 0, i32 0, i64 1
-  store i32 %1798, i32* %1818, align 4, !tbaa !26
-  %1819 = bitcast %"struct.metal::array"* %72 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1819) #9
+  %1814 = bitcast %"struct.metal::array"* %71 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1814) #9
+  %1815 = bitcast %"struct.metal::array"* %72 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1815) #9
+  %1816 = bitcast i8* %73 to %struct._tensor_t*
+  %1817 = bitcast float addrspace(1)* %1802 to i8 addrspace(1)*
+  %1818 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %71, i64 0, i32 0, i64 0
+  store i32 %1796, i32* %1818, align 4, !tbaa !26
+  %1819 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %71, i64 0, i32 0, i64 1
+  store i32 %1798, i32* %1819, align 4, !tbaa !26
   %1820 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %72, i64 0, i32 0, i64 0
   store i32 1, i32* %1820, align 4, !tbaa !26
   %1821 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %72, i64 0, i32 0, i64 1
   store i32 %1796, i32* %1821, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1814, i16 2, i8 addrspace(1)* readnone %1815, i8* nocapture nonnull readonly %1816, i8* nocapture nonnull readonly %1819, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1819) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1816) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1816, i16 2, i8 addrspace(1)* readnone %1817, i8* nocapture nonnull readonly %1814, i8* nocapture nonnull readonly %1815, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1814) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1815) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %74) #9
   %1822 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1823 = shl i32 %1822, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1823) #12
-  %1824 = bitcast [2 x i32]* %67 to i8*
-  %1825 = getelementptr inbounds [2 x i32], [2 x i32]* %67, i64 0, i64 0
-  %1826 = getelementptr inbounds [2 x i32], [2 x i32]* %67, i64 0, i64 1
+  %1824 = bitcast [2 x i32]* %70 to i8*
+  %1825 = getelementptr inbounds [2 x i32], [2 x i32]* %70, i64 0, i64 0
+  %1826 = getelementptr inbounds [2 x i32], [2 x i32]* %70, i64 0, i64 1
   %1827 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1828
 
-1828:                                             ; preds = %1865, %1793
-  %1829 = phi i16 [ 0, %1793 ], [ %1866, %1865 ]
+1828:                                             ; preds = %1845, %1793
+  %1829 = phi i16 [ 0, %1793 ], [ %1846, %1845 ]
   %1830 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1823) #12
   %1831 = icmp ult i16 %1829, %1830
-  br i1 %1831, label %1852, label %1832
+  br i1 %1831, label %1832, label %1847
 
 1832:                                             ; preds = %1828
-  %1833 = zext i32 %1808 to i64
-  %1834 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1835 = getelementptr inbounds float, float addrspace(1)* %1834, i64 %1833
-  %1836 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1812
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %75) #9
-  %1837 = load i32, i32 addrspace(2)* %1803, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1838 = load i32, i32 addrspace(2)* %1805, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1839 = bitcast i8* %75 to %struct._tensor_t*
-  %1840 = bitcast float addrspace(1)* %1835 to i8 addrspace(1)*
-  %1841 = bitcast %"struct.metal::array"* %69 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1841) #9
-  %1842 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %69, i64 0, i32 0, i64 0
-  store i32 %1837, i32* %1842, align 4, !tbaa !26
-  %1843 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %69, i64 0, i32 0, i64 1
-  store i32 %1838, i32* %1843, align 4, !tbaa !26
-  %1844 = bitcast %"struct.metal::array"* %70 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1844) #9
-  %1845 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %70, i64 0, i32 0, i64 0
-  store i32 1, i32* %1845, align 4, !tbaa !26
-  %1846 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %70, i64 0, i32 0, i64 1
-  store i32 %1837, i32* %1846, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1839, i16 2, i8 addrspace(1)* readnone %1840, i8* nocapture nonnull readonly %1841, i8* nocapture nonnull readonly %1844, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1844) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1841) #9
-  %1847 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %68 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1847) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1847, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi128ELi128ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1848 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %68, i8* noundef nonnull %73, i32 noundef 2, i8* noundef nonnull %75, i32 noundef 2, i8* noundef %1848, i32 noundef %1823) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1847) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %75) #9
-  %1849 = bitcast [2 x i32]* %66 to i8*
-  %1850 = getelementptr inbounds [2 x i32], [2 x i32]* %66, i64 0, i64 0
-  %1851 = getelementptr inbounds [2 x i32], [2 x i32]* %66, i64 0, i64 1
-  br label %1867
+  %1833 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1829, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1823) #12
+  br i1 %1833, label %1834, label %1845
 
-1852:                                             ; preds = %1828
-  %1853 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1829, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1823) #12
-  br i1 %1853, label %1854, label %1865
-
-1854:                                             ; preds = %1852
+1834:                                             ; preds = %1832
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1824) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1829, i8* noundef nonnull %1824, i32 noundef 536870944, i32 noundef %1823, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1855 = load i32, i32* %1825, align 4, !tbaa !26
-  %1856 = load i32, i32* %1826, align 4, !tbaa !26
+  %1835 = load i32, i32* %1825, align 4, !tbaa !26
+  %1836 = load i32, i32* %1826, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1824) #9
-  %1857 = load i32, i32 addrspace(2)* %1827, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1858 = mul i32 %1857, %1856
-  %1859 = add i32 %1858, %1855
-  %1860 = zext i32 %1859 to i64
-  %1861 = getelementptr inbounds float, float addrspace(1)* %1813, i64 %1860
-  %1862 = load float, float addrspace(1)* %1861, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1863 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1829, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1864 = bitcast i8* %1863 to float*
-  store float %1862, float* %1864, align 4, !tbaa !50
-  br label %1865
+  %1837 = load i32, i32 addrspace(2)* %1827, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1838 = mul i32 %1837, %1836
+  %1839 = add i32 %1838, %1835
+  %1840 = zext i32 %1839 to i64
+  %1841 = getelementptr inbounds float, float addrspace(1)* %1813, i64 %1840
+  %1842 = load float, float addrspace(1)* %1841, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1843 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1829, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1844 = bitcast i8* %1843 to float*
+  store float %1842, float* %1844, align 4, !tbaa !45
+  br label %1845
 
-1865:                                             ; preds = %1854, %1852
-  %1866 = add nuw i16 %1829, 1
+1845:                                             ; preds = %1834, %1832
+  %1846 = add nuw i16 %1829, 1
   br label %1828, !llvm.loop !93
 
-1867:                                             ; preds = %1884, %1832
-  %1868 = phi i16 [ 0, %1832 ], [ %1885, %1884 ]
+1847:                                             ; preds = %1828
+  %1848 = zext i32 %1808 to i64
+  %1849 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1850 = getelementptr inbounds float, float addrspace(1)* %1849, i64 %1848
+  %1851 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1812
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %75) #9
+  %1852 = load i32, i32 addrspace(2)* %1803, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1853 = load i32, i32 addrspace(2)* %1805, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1854 = bitcast %"struct.metal::array"* %68 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1854) #9
+  %1855 = bitcast %"struct.metal::array"* %69 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1855) #9
+  %1856 = bitcast i8* %75 to %struct._tensor_t*
+  %1857 = bitcast float addrspace(1)* %1850 to i8 addrspace(1)*
+  %1858 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %68, i64 0, i32 0, i64 0
+  store i32 %1852, i32* %1858, align 4, !tbaa !26
+  %1859 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %68, i64 0, i32 0, i64 1
+  store i32 %1853, i32* %1859, align 4, !tbaa !26
+  %1860 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %69, i64 0, i32 0, i64 0
+  store i32 1, i32* %1860, align 4, !tbaa !26
+  %1861 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %69, i64 0, i32 0, i64 1
+  store i32 %1852, i32* %1861, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1856, i16 2, i8 addrspace(1)* readnone %1857, i8* nocapture nonnull readonly %1854, i8* nocapture nonnull readonly %1855, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1854) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1855) #9
+  %1862 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %67 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1862) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1862, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi128ELi128ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1863 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %67, i8* noundef nonnull %73, i32 noundef 2, i8* noundef nonnull %75, i32 noundef 2, i8* noundef %1863, i32 noundef %1823) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1862) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %75) #9
+  %1864 = bitcast [2 x i32]* %66 to i8*
+  %1865 = getelementptr inbounds [2 x i32], [2 x i32]* %66, i64 0, i64 0
+  %1866 = getelementptr inbounds [2 x i32], [2 x i32]* %66, i64 0, i64 1
+  br label %1867
+
+1867:                                             ; preds = %1884, %1847
+  %1868 = phi i16 [ 0, %1847 ], [ %1885, %1884 ]
   %1869 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1823) #12
   %1870 = icmp ult i16 %1868, %1869
   br i1 %1870, label %1871, label %1886
@@ -2935,20 +2935,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1872, label %1873, label %1884
 
 1873:                                             ; preds = %1871
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1849) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1868, i8* noundef nonnull %1849, i32 noundef 536870944, i32 noundef %1823, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1874 = load i32, i32* %1850, align 4, !tbaa !26
-  %1875 = load i32, i32* %1851, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1849) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1864) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1868, i8* noundef nonnull %1864, i32 noundef 536870944, i32 noundef %1823, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1874 = load i32, i32* %1865, align 4, !tbaa !26
+  %1875 = load i32, i32* %1866, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1864) #9
   %1876 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %74, i16 noundef zeroext %1868, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1877 = bitcast i8* %1876 to float*
-  %1878 = load float, float* %1877, align 4, !tbaa !50
-  %1879 = load i32, i32 addrspace(2)* %1827, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1878 = load float, float* %1877, align 4, !tbaa !45
+  %1879 = load i32, i32 addrspace(2)* %1827, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1880 = mul i32 %1879, %1875
   %1881 = add i32 %1880, %1874
   %1882 = zext i32 %1881 to i64
-  %1883 = getelementptr inbounds float, float addrspace(1)* %1836, i64 %1882
-  store float %1878, float addrspace(1)* %1883, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1883 = getelementptr inbounds float, float addrspace(1)* %1851, i64 %1882
+  store float %1878, float addrspace(1)* %1883, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1884
 
 1884:                                             ; preds = %1873, %1871
@@ -2982,103 +2982,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %1906 = zext i32 %1905 to i64
   %1907 = getelementptr inbounds float, float addrspace(1)* %2, i64 %1906
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %62) #9
-  %1908 = bitcast i8* %62 to %struct._tensor_t*
-  %1909 = bitcast float addrspace(1)* %1896 to i8 addrspace(1)*
-  %1910 = bitcast %"struct.metal::array"* %60 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1910) #9
-  %1911 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %60, i64 0, i32 0, i64 0
-  store i32 %1890, i32* %1911, align 4, !tbaa !26
-  %1912 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %60, i64 0, i32 0, i64 1
-  store i32 %1892, i32* %1912, align 4, !tbaa !26
-  %1913 = bitcast %"struct.metal::array"* %61 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1913) #9
+  %1908 = bitcast %"struct.metal::array"* %60 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1908) #9
+  %1909 = bitcast %"struct.metal::array"* %61 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1909) #9
+  %1910 = bitcast i8* %62 to %struct._tensor_t*
+  %1911 = bitcast float addrspace(1)* %1896 to i8 addrspace(1)*
+  %1912 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %60, i64 0, i32 0, i64 0
+  store i32 %1890, i32* %1912, align 4, !tbaa !26
+  %1913 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %60, i64 0, i32 0, i64 1
+  store i32 %1892, i32* %1913, align 4, !tbaa !26
   %1914 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %61, i64 0, i32 0, i64 0
   store i32 1, i32* %1914, align 4, !tbaa !26
   %1915 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %61, i64 0, i32 0, i64 1
   store i32 %1890, i32* %1915, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1908, i16 2, i8 addrspace(1)* readnone %1909, i8* nocapture nonnull readonly %1910, i8* nocapture nonnull readonly %1913, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1913) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1910) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1910, i16 2, i8 addrspace(1)* readnone %1911, i8* nocapture nonnull readonly %1908, i8* nocapture nonnull readonly %1909, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1908) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1909) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %63) #9
   %1916 = tail call i32 @air.get_simdgroup_size.i32() #11
   %1917 = shl i32 %1916, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1917) #12
-  %1918 = bitcast [2 x i32]* %56 to i8*
-  %1919 = getelementptr inbounds [2 x i32], [2 x i32]* %56, i64 0, i64 0
-  %1920 = getelementptr inbounds [2 x i32], [2 x i32]* %56, i64 0, i64 1
+  %1918 = bitcast [2 x i32]* %59 to i8*
+  %1919 = getelementptr inbounds [2 x i32], [2 x i32]* %59, i64 0, i64 0
+  %1920 = getelementptr inbounds [2 x i32], [2 x i32]* %59, i64 0, i64 1
   %1921 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %1922
 
-1922:                                             ; preds = %1959, %1887
-  %1923 = phi i16 [ 0, %1887 ], [ %1960, %1959 ]
+1922:                                             ; preds = %1939, %1887
+  %1923 = phi i16 [ 0, %1887 ], [ %1940, %1939 ]
   %1924 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1917) #12
   %1925 = icmp ult i16 %1923, %1924
-  br i1 %1925, label %1946, label %1926
+  br i1 %1925, label %1926, label %1941
 
 1926:                                             ; preds = %1922
-  %1927 = zext i32 %1902 to i64
-  %1928 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %1929 = getelementptr inbounds float, float addrspace(1)* %1928, i64 %1927
-  %1930 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1906
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %64) #9
-  %1931 = load i32, i32 addrspace(2)* %1897, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %1932 = load i32, i32 addrspace(2)* %1899, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %1933 = bitcast i8* %64 to %struct._tensor_t*
-  %1934 = bitcast float addrspace(1)* %1929 to i8 addrspace(1)*
-  %1935 = bitcast %"struct.metal::array"* %58 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1935) #9
-  %1936 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %58, i64 0, i32 0, i64 0
-  store i32 %1931, i32* %1936, align 4, !tbaa !26
-  %1937 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %58, i64 0, i32 0, i64 1
-  store i32 %1932, i32* %1937, align 4, !tbaa !26
-  %1938 = bitcast %"struct.metal::array"* %59 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1938) #9
-  %1939 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %59, i64 0, i32 0, i64 0
-  store i32 1, i32* %1939, align 4, !tbaa !26
-  %1940 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %59, i64 0, i32 0, i64 1
-  store i32 %1931, i32* %1940, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1933, i16 2, i8 addrspace(1)* readnone %1934, i8* nocapture nonnull readonly %1935, i8* nocapture nonnull readonly %1938, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1938) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1935) #9
-  %1941 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %57 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1941) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1941, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi8ELi128ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %1942 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %57, i8* noundef nonnull %62, i32 noundef 2, i8* noundef nonnull %64, i32 noundef 2, i8* noundef %1942, i32 noundef %1917) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1941) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %64) #9
-  %1943 = bitcast [2 x i32]* %55 to i8*
-  %1944 = getelementptr inbounds [2 x i32], [2 x i32]* %55, i64 0, i64 0
-  %1945 = getelementptr inbounds [2 x i32], [2 x i32]* %55, i64 0, i64 1
-  br label %1961
+  %1927 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1923, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1917) #12
+  br i1 %1927, label %1928, label %1939
 
-1946:                                             ; preds = %1922
-  %1947 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1923, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1917) #12
-  br i1 %1947, label %1948, label %1959
-
-1948:                                             ; preds = %1946
+1928:                                             ; preds = %1926
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1918) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1923, i8* noundef nonnull %1918, i32 noundef 536870944, i32 noundef %1917, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1949 = load i32, i32* %1919, align 4, !tbaa !26
-  %1950 = load i32, i32* %1920, align 4, !tbaa !26
+  %1929 = load i32, i32* %1919, align 4, !tbaa !26
+  %1930 = load i32, i32* %1920, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1918) #9
-  %1951 = load i32, i32 addrspace(2)* %1921, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %1952 = mul i32 %1951, %1950
-  %1953 = add i32 %1952, %1949
-  %1954 = zext i32 %1953 to i64
-  %1955 = getelementptr inbounds float, float addrspace(1)* %1907, i64 %1954
-  %1956 = load float, float addrspace(1)* %1955, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %1957 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1923, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1958 = bitcast i8* %1957 to float*
-  store float %1956, float* %1958, align 4, !tbaa !50
-  br label %1959
+  %1931 = load i32, i32 addrspace(2)* %1921, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %1932 = mul i32 %1931, %1930
+  %1933 = add i32 %1932, %1929
+  %1934 = zext i32 %1933 to i64
+  %1935 = getelementptr inbounds float, float addrspace(1)* %1907, i64 %1934
+  %1936 = load float, float addrspace(1)* %1935, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %1937 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1923, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1938 = bitcast i8* %1937 to float*
+  store float %1936, float* %1938, align 4, !tbaa !45
+  br label %1939
 
-1959:                                             ; preds = %1948, %1946
-  %1960 = add nuw i16 %1923, 1
+1939:                                             ; preds = %1928, %1926
+  %1940 = add nuw i16 %1923, 1
   br label %1922, !llvm.loop !95
 
-1961:                                             ; preds = %1978, %1926
-  %1962 = phi i16 [ 0, %1926 ], [ %1979, %1978 ]
+1941:                                             ; preds = %1922
+  %1942 = zext i32 %1902 to i64
+  %1943 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %1944 = getelementptr inbounds float, float addrspace(1)* %1943, i64 %1942
+  %1945 = getelementptr inbounds float, float addrspace(1)* %3, i64 %1906
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %64) #9
+  %1946 = load i32, i32 addrspace(2)* %1897, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %1947 = load i32, i32 addrspace(2)* %1899, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %1948 = bitcast %"struct.metal::array"* %57 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1948) #9
+  %1949 = bitcast %"struct.metal::array"* %58 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1949) #9
+  %1950 = bitcast i8* %64 to %struct._tensor_t*
+  %1951 = bitcast float addrspace(1)* %1944 to i8 addrspace(1)*
+  %1952 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %57, i64 0, i32 0, i64 0
+  store i32 %1946, i32* %1952, align 4, !tbaa !26
+  %1953 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %57, i64 0, i32 0, i64 1
+  store i32 %1947, i32* %1953, align 4, !tbaa !26
+  %1954 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %58, i64 0, i32 0, i64 0
+  store i32 1, i32* %1954, align 4, !tbaa !26
+  %1955 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %58, i64 0, i32 0, i64 1
+  store i32 %1946, i32* %1955, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %1950, i16 2, i8 addrspace(1)* readnone %1951, i8* nocapture nonnull readonly %1948, i8* nocapture nonnull readonly %1949, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1948) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1949) #9
+  %1956 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %56 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %1956) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %1956, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi8ELi128ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %1957 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %56, i8* noundef nonnull %62, i32 noundef 2, i8* noundef nonnull %64, i32 noundef 2, i8* noundef %1957, i32 noundef %1917) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %1956) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %64) #9
+  %1958 = bitcast [2 x i32]* %55 to i8*
+  %1959 = getelementptr inbounds [2 x i32], [2 x i32]* %55, i64 0, i64 0
+  %1960 = getelementptr inbounds [2 x i32], [2 x i32]* %55, i64 0, i64 1
+  br label %1961
+
+1961:                                             ; preds = %1978, %1941
+  %1962 = phi i16 [ 0, %1941 ], [ %1979, %1978 ]
   %1963 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1917) #12
   %1964 = icmp ult i16 %1962, %1963
   br i1 %1964, label %1965, label %1980
@@ -3088,20 +3088,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %1966, label %1967, label %1978
 
 1967:                                             ; preds = %1965
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1943) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1962, i8* noundef nonnull %1943, i32 noundef 536870944, i32 noundef %1917, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %1968 = load i32, i32* %1944, align 4, !tbaa !26
-  %1969 = load i32, i32* %1945, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1943) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %1958) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1962, i8* noundef nonnull %1958, i32 noundef 536870944, i32 noundef %1917, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %1968 = load i32, i32* %1959, align 4, !tbaa !26
+  %1969 = load i32, i32* %1960, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %1958) #9
   %1970 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %63, i16 noundef zeroext %1962, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %1971 = bitcast i8* %1970 to float*
-  %1972 = load float, float* %1971, align 4, !tbaa !50
-  %1973 = load i32, i32 addrspace(2)* %1921, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %1972 = load float, float* %1971, align 4, !tbaa !45
+  %1973 = load i32, i32 addrspace(2)* %1921, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %1974 = mul i32 %1973, %1969
   %1975 = add i32 %1974, %1968
   %1976 = zext i32 %1975 to i64
-  %1977 = getelementptr inbounds float, float addrspace(1)* %1930, i64 %1976
-  store float %1972, float addrspace(1)* %1977, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %1977 = getelementptr inbounds float, float addrspace(1)* %1945, i64 %1976
+  store float %1972, float addrspace(1)* %1977, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %1978
 
 1978:                                             ; preds = %1967, %1965
@@ -3135,102 +3135,102 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %2000 = zext i32 %1999 to i64
   %2001 = getelementptr inbounds float, float addrspace(1)* %2, i64 %2000
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %51) #9
-  %2002 = bitcast i8* %51 to %struct._tensor_t*
-  %2003 = bitcast half addrspace(1)* %1990 to i8 addrspace(1)*
-  %2004 = bitcast %"struct.metal::array"* %49 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2004) #9
-  %2005 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %49, i64 0, i32 0, i64 0
-  store i32 %1984, i32* %2005, align 4, !tbaa !26
-  %2006 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %49, i64 0, i32 0, i64 1
-  store i32 %1986, i32* %2006, align 4, !tbaa !26
-  %2007 = bitcast %"struct.metal::array"* %50 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2007) #9
+  %2002 = bitcast %"struct.metal::array"* %49 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2002) #9
+  %2003 = bitcast %"struct.metal::array"* %50 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2003) #9
+  %2004 = bitcast i8* %51 to %struct._tensor_t*
+  %2005 = bitcast half addrspace(1)* %1990 to i8 addrspace(1)*
+  %2006 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %49, i64 0, i32 0, i64 0
+  store i32 %1984, i32* %2006, align 4, !tbaa !26
+  %2007 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %49, i64 0, i32 0, i64 1
+  store i32 %1986, i32* %2007, align 4, !tbaa !26
   %2008 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %50, i64 0, i32 0, i64 0
   store i32 1, i32* %2008, align 4, !tbaa !26
   %2009 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %50, i64 0, i32 0, i64 1
   store i32 %1984, i32* %2009, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2002, i16 2, i8 addrspace(1)* readnone %2003, i8* nocapture nonnull readonly %2004, i8* nocapture nonnull readonly %2007, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2007) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2004) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2004, i16 2, i8 addrspace(1)* readnone %2005, i8* nocapture nonnull readonly %2002, i8* nocapture nonnull readonly %2003, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2002) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2003) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %52) #9
   %2010 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %2010) #12
-  %2011 = bitcast [2 x i32]* %45 to i8*
-  %2012 = getelementptr inbounds [2 x i32], [2 x i32]* %45, i64 0, i64 0
-  %2013 = getelementptr inbounds [2 x i32], [2 x i32]* %45, i64 0, i64 1
+  %2011 = bitcast [2 x i32]* %48 to i8*
+  %2012 = getelementptr inbounds [2 x i32], [2 x i32]* %48, i64 0, i64 0
+  %2013 = getelementptr inbounds [2 x i32], [2 x i32]* %48, i64 0, i64 1
   %2014 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %2015
 
-2015:                                             ; preds = %2052, %1981
-  %2016 = phi i16 [ 0, %1981 ], [ %2053, %2052 ]
+2015:                                             ; preds = %2032, %1981
+  %2016 = phi i16 [ 0, %1981 ], [ %2033, %2032 ]
   %2017 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %2010) #12
   %2018 = icmp ult i16 %2016, %2017
-  br i1 %2018, label %2039, label %2019
+  br i1 %2018, label %2019, label %2034
 
 2019:                                             ; preds = %2015
-  %2020 = zext i32 %1996 to i64
-  %2021 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
-  %2022 = getelementptr inbounds half, half addrspace(1)* %2021, i64 %2020
-  %2023 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2000
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %53) #9
-  %2024 = load i32, i32 addrspace(2)* %1991, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %2025 = load i32, i32 addrspace(2)* %1993, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %2026 = bitcast i8* %53 to %struct._tensor_t*
-  %2027 = bitcast half addrspace(1)* %2022 to i8 addrspace(1)*
-  %2028 = bitcast %"struct.metal::array"* %47 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2028) #9
-  %2029 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %47, i64 0, i32 0, i64 0
-  store i32 %2024, i32* %2029, align 4, !tbaa !26
-  %2030 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %47, i64 0, i32 0, i64 1
-  store i32 %2025, i32* %2030, align 4, !tbaa !26
-  %2031 = bitcast %"struct.metal::array"* %48 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2031) #9
-  %2032 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %48, i64 0, i32 0, i64 0
-  store i32 1, i32* %2032, align 4, !tbaa !26
-  %2033 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %48, i64 0, i32 0, i64 1
-  store i32 %2024, i32* %2033, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2026, i16 2, i8 addrspace(1)* readnone %2027, i8* nocapture nonnull readonly %2028, i8* nocapture nonnull readonly %2031, i8 1) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2031) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2028) #9
-  %2034 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %46 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2034) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2034, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %2035 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %46, i8* noundef nonnull %51, i32 noundef 2, i8* noundef nonnull %53, i32 noundef 2, i8* noundef %2035, i32 noundef %2010) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2034) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %53) #9
-  %2036 = bitcast [2 x i32]* %44 to i8*
-  %2037 = getelementptr inbounds [2 x i32], [2 x i32]* %44, i64 0, i64 0
-  %2038 = getelementptr inbounds [2 x i32], [2 x i32]* %44, i64 0, i64 1
-  br label %2054
+  %2020 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2016, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %2010) #12
+  br i1 %2020, label %2021, label %2032
 
-2039:                                             ; preds = %2015
-  %2040 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2016, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488, i32 noundef %2010) #12
-  br i1 %2040, label %2041, label %2052
-
-2041:                                             ; preds = %2039
+2021:                                             ; preds = %2019
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2011) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2016, i8* noundef nonnull %2011, i32 noundef 536870944, i32 noundef %2010, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %2042 = load i32, i32* %2012, align 4, !tbaa !26
-  %2043 = load i32, i32* %2013, align 4, !tbaa !26
+  %2022 = load i32, i32* %2012, align 4, !tbaa !26
+  %2023 = load i32, i32* %2013, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2011) #9
-  %2044 = load i32, i32 addrspace(2)* %2014, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %2045 = mul i32 %2044, %2043
-  %2046 = add i32 %2045, %2042
-  %2047 = zext i32 %2046 to i64
-  %2048 = getelementptr inbounds float, float addrspace(1)* %2001, i64 %2047
-  %2049 = load float, float addrspace(1)* %2048, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %2050 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2016, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %2051 = bitcast i8* %2050 to float*
-  store float %2049, float* %2051, align 4, !tbaa !50
-  br label %2052
+  %2024 = load i32, i32 addrspace(2)* %2014, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %2025 = mul i32 %2024, %2023
+  %2026 = add i32 %2025, %2022
+  %2027 = zext i32 %2026 to i64
+  %2028 = getelementptr inbounds float, float addrspace(1)* %2001, i64 %2027
+  %2029 = load float, float addrspace(1)* %2028, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %2030 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2016, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %2031 = bitcast i8* %2030 to float*
+  store float %2029, float* %2031, align 4, !tbaa !45
+  br label %2032
 
-2052:                                             ; preds = %2041, %2039
-  %2053 = add nuw i16 %2016, 1
+2032:                                             ; preds = %2021, %2019
+  %2033 = add nuw i16 %2016, 1
   br label %2015, !llvm.loop !97
 
-2054:                                             ; preds = %2071, %2019
-  %2055 = phi i16 [ 0, %2019 ], [ %2072, %2071 ]
+2034:                                             ; preds = %2015
+  %2035 = zext i32 %1996 to i64
+  %2036 = bitcast i8 addrspace(1)* %1 to half addrspace(1)*
+  %2037 = getelementptr inbounds half, half addrspace(1)* %2036, i64 %2035
+  %2038 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2000
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %53) #9
+  %2039 = load i32, i32 addrspace(2)* %1991, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %2040 = load i32, i32 addrspace(2)* %1993, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %2041 = bitcast %"struct.metal::array"* %46 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2041) #9
+  %2042 = bitcast %"struct.metal::array"* %47 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2042) #9
+  %2043 = bitcast i8* %53 to %struct._tensor_t*
+  %2044 = bitcast half addrspace(1)* %2037 to i8 addrspace(1)*
+  %2045 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %46, i64 0, i32 0, i64 0
+  store i32 %2039, i32* %2045, align 4, !tbaa !26
+  %2046 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %46, i64 0, i32 0, i64 1
+  store i32 %2040, i32* %2046, align 4, !tbaa !26
+  %2047 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %47, i64 0, i32 0, i64 0
+  store i32 1, i32* %2047, align 4, !tbaa !26
+  %2048 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %47, i64 0, i32 0, i64 1
+  store i32 %2039, i32* %2048, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2043, i16 2, i8 addrspace(1)* readnone %2044, i8* nocapture nonnull readonly %2041, i8* nocapture nonnull readonly %2042, i8 1) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2041) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2042) #9
+  %2049 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %45 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2049) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2049, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %2050 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext -1, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %45, i8* noundef nonnull %51, i32 noundef 2, i8* noundef nonnull %53, i32 noundef 2, i8* noundef %2050, i32 noundef %2010) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2049) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %53) #9
+  %2051 = bitcast [2 x i32]* %44 to i8*
+  %2052 = getelementptr inbounds [2 x i32], [2 x i32]* %44, i64 0, i64 0
+  %2053 = getelementptr inbounds [2 x i32], [2 x i32]* %44, i64 0, i64 1
+  br label %2054
+
+2054:                                             ; preds = %2071, %2034
+  %2055 = phi i16 [ 0, %2034 ], [ %2072, %2071 ]
   %2056 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i32 noundef 268435472, i32 noundef 268435472, i32 noundef %2010) #12
   %2057 = icmp ult i16 %2055, %2056
   br i1 %2057, label %2058, label %2073
@@ -3240,20 +3240,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %2059, label %2060, label %2071
 
 2060:                                             ; preds = %2058
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2036) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2055, i8* noundef nonnull %2036, i32 noundef 536870944, i32 noundef %2010, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
-  %2061 = load i32, i32* %2037, align 4, !tbaa !26
-  %2062 = load i32, i32* %2038, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2036) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2051) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2055, i8* noundef nonnull %2051, i32 noundef 536870944, i32 noundef %2010, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
+  %2061 = load i32, i32* %2052, align 4, !tbaa !26
+  %2062 = load i32, i32* %2053, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2051) #9
   %2063 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %52, i16 noundef zeroext %2055, i32 noundef 268435472, i32 noundef 268435472, i32 noundef 268435488) #12
   %2064 = bitcast i8* %2063 to float*
-  %2065 = load float, float* %2064, align 4, !tbaa !50
-  %2066 = load i32, i32 addrspace(2)* %2014, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %2065 = load float, float* %2064, align 4, !tbaa !45
+  %2066 = load i32, i32 addrspace(2)* %2014, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %2067 = mul i32 %2066, %2062
   %2068 = add i32 %2067, %2061
   %2069 = zext i32 %2068 to i64
-  %2070 = getelementptr inbounds float, float addrspace(1)* %2023, i64 %2069
-  store float %2065, float addrspace(1)* %2070, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %2070 = getelementptr inbounds float, float addrspace(1)* %2038, i64 %2069
+  store float %2065, float addrspace(1)* %2070, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %2071
 
 2071:                                             ; preds = %2060, %2058
@@ -3287,102 +3287,102 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %2093 = zext i32 %2092 to i64
   %2094 = getelementptr inbounds float, float addrspace(1)* %2, i64 %2093
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %39) #9
-  %2095 = bitcast i8* %39 to %struct._tensor_t*
-  %2096 = bitcast bfloat addrspace(1)* %2083 to i8 addrspace(1)*
-  %2097 = bitcast %"struct.metal::array"* %37 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2097) #9
-  %2098 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %37, i64 0, i32 0, i64 0
-  store i32 %2077, i32* %2098, align 4, !tbaa !26
-  %2099 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %37, i64 0, i32 0, i64 1
-  store i32 %2079, i32* %2099, align 4, !tbaa !26
-  %2100 = bitcast %"struct.metal::array"* %38 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2100) #9
+  %2095 = bitcast %"struct.metal::array"* %37 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2095) #9
+  %2096 = bitcast %"struct.metal::array"* %38 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2096) #9
+  %2097 = bitcast i8* %39 to %struct._tensor_t*
+  %2098 = bitcast bfloat addrspace(1)* %2083 to i8 addrspace(1)*
+  %2099 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %37, i64 0, i32 0, i64 0
+  store i32 %2077, i32* %2099, align 4, !tbaa !26
+  %2100 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %37, i64 0, i32 0, i64 1
+  store i32 %2079, i32* %2100, align 4, !tbaa !26
   %2101 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %38, i64 0, i32 0, i64 0
   store i32 1, i32* %2101, align 4, !tbaa !26
   %2102 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %38, i64 0, i32 0, i64 1
   store i32 %2077, i32* %2102, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2095, i16 2, i8 addrspace(1)* readnone %2096, i8* nocapture nonnull readonly %2097, i8* nocapture nonnull readonly %2100, i8 2) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2100) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2097) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2097, i16 2, i8 addrspace(1)* readnone %2098, i8* nocapture nonnull readonly %2095, i8* nocapture nonnull readonly %2096, i8 2) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2095) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2096) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %40) #9
   %2103 = tail call i32 @air.get_simdgroup_size.i32() #11
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %2103) #12
-  %2104 = bitcast [2 x i32]* %33 to i8*
-  %2105 = getelementptr inbounds [2 x i32], [2 x i32]* %33, i64 0, i64 0
-  %2106 = getelementptr inbounds [2 x i32], [2 x i32]* %33, i64 0, i64 1
+  %2104 = bitcast [2 x i32]* %36 to i8*
+  %2105 = getelementptr inbounds [2 x i32], [2 x i32]* %36, i64 0, i64 0
+  %2106 = getelementptr inbounds [2 x i32], [2 x i32]* %36, i64 0, i64 1
   %2107 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %2108
 
-2108:                                             ; preds = %2145, %2074
-  %2109 = phi i16 [ 0, %2074 ], [ %2146, %2145 ]
+2108:                                             ; preds = %2125, %2074
+  %2109 = phi i16 [ 0, %2074 ], [ %2126, %2125 ]
   %2110 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef %2103) #12
   %2111 = icmp ult i16 %2109, %2110
-  br i1 %2111, label %2132, label %2112
+  br i1 %2111, label %2112, label %2127
 
 2112:                                             ; preds = %2108
-  %2113 = zext i32 %2089 to i64
-  %2114 = bitcast i8 addrspace(1)* %1 to bfloat addrspace(1)*
-  %2115 = getelementptr inbounds bfloat, bfloat addrspace(1)* %2114, i64 %2113
-  %2116 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2093
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %41) #9
-  %2117 = load i32, i32 addrspace(2)* %2084, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %2118 = load i32, i32 addrspace(2)* %2086, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %2119 = bitcast i8* %41 to %struct._tensor_t*
-  %2120 = bitcast bfloat addrspace(1)* %2115 to i8 addrspace(1)*
-  %2121 = bitcast %"struct.metal::array"* %35 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2121) #9
-  %2122 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %35, i64 0, i32 0, i64 0
-  store i32 %2117, i32* %2122, align 4, !tbaa !26
-  %2123 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %35, i64 0, i32 0, i64 1
-  store i32 %2118, i32* %2123, align 4, !tbaa !26
-  %2124 = bitcast %"struct.metal::array"* %36 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2124) #9
-  %2125 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %36, i64 0, i32 0, i64 0
-  store i32 1, i32* %2125, align 4, !tbaa !26
-  %2126 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %36, i64 0, i32 0, i64 1
-  store i32 %2117, i32* %2126, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2119, i16 2, i8 addrspace(1)* readnone %2120, i8* nocapture nonnull readonly %2121, i8* nocapture nonnull readonly %2124, i8 2) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2124) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2121) #9
-  %2127 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %34 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2127) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2127, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %2128 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext -1, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %34, i8* noundef nonnull %39, i32 noundef 2, i8* noundef nonnull %41, i32 noundef 2, i8* noundef %2128, i32 noundef %2103) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2127) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %41) #9
-  %2129 = bitcast [2 x i32]* %32 to i8*
-  %2130 = getelementptr inbounds [2 x i32], [2 x i32]* %32, i64 0, i64 0
-  %2131 = getelementptr inbounds [2 x i32], [2 x i32]* %32, i64 0, i64 1
-  br label %2147
+  %2113 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2109, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %2103) #12
+  br i1 %2113, label %2114, label %2125
 
-2132:                                             ; preds = %2108
-  %2133 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2109, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488, i32 noundef %2103) #12
-  br i1 %2133, label %2134, label %2145
-
-2134:                                             ; preds = %2132
+2114:                                             ; preds = %2112
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2104) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2109, i8* noundef nonnull %2104, i32 noundef 536870944, i32 noundef %2103, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %2135 = load i32, i32* %2105, align 4, !tbaa !26
-  %2136 = load i32, i32* %2106, align 4, !tbaa !26
+  %2115 = load i32, i32* %2105, align 4, !tbaa !26
+  %2116 = load i32, i32* %2106, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2104) #9
-  %2137 = load i32, i32 addrspace(2)* %2107, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %2138 = mul i32 %2137, %2136
-  %2139 = add i32 %2138, %2135
-  %2140 = zext i32 %2139 to i64
-  %2141 = getelementptr inbounds float, float addrspace(1)* %2094, i64 %2140
-  %2142 = load float, float addrspace(1)* %2141, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %2143 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2109, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %2144 = bitcast i8* %2143 to float*
-  store float %2142, float* %2144, align 4, !tbaa !50
-  br label %2145
+  %2117 = load i32, i32 addrspace(2)* %2107, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %2118 = mul i32 %2117, %2116
+  %2119 = add i32 %2118, %2115
+  %2120 = zext i32 %2119 to i64
+  %2121 = getelementptr inbounds float, float addrspace(1)* %2094, i64 %2120
+  %2122 = load float, float addrspace(1)* %2121, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %2123 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2109, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  %2124 = bitcast i8* %2123 to float*
+  store float %2122, float* %2124, align 4, !tbaa !45
+  br label %2125
 
-2145:                                             ; preds = %2134, %2132
-  %2146 = add nuw i16 %2109, 1
+2125:                                             ; preds = %2114, %2112
+  %2126 = add nuw i16 %2109, 1
   br label %2108, !llvm.loop !99
 
-2147:                                             ; preds = %2164, %2112
-  %2148 = phi i16 [ 0, %2112 ], [ %2165, %2164 ]
+2127:                                             ; preds = %2108
+  %2128 = zext i32 %2089 to i64
+  %2129 = bitcast i8 addrspace(1)* %1 to bfloat addrspace(1)*
+  %2130 = getelementptr inbounds bfloat, bfloat addrspace(1)* %2129, i64 %2128
+  %2131 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2093
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %41) #9
+  %2132 = load i32, i32 addrspace(2)* %2084, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %2133 = load i32, i32 addrspace(2)* %2086, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %2134 = bitcast %"struct.metal::array"* %34 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2134) #9
+  %2135 = bitcast %"struct.metal::array"* %35 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2135) #9
+  %2136 = bitcast i8* %41 to %struct._tensor_t*
+  %2137 = bitcast bfloat addrspace(1)* %2130 to i8 addrspace(1)*
+  %2138 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %34, i64 0, i32 0, i64 0
+  store i32 %2132, i32* %2138, align 4, !tbaa !26
+  %2139 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %34, i64 0, i32 0, i64 1
+  store i32 %2133, i32* %2139, align 4, !tbaa !26
+  %2140 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %35, i64 0, i32 0, i64 0
+  store i32 1, i32* %2140, align 4, !tbaa !26
+  %2141 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %35, i64 0, i32 0, i64 1
+  store i32 %2132, i32* %2141, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2136, i16 2, i8 addrspace(1)* readnone %2137, i8* nocapture nonnull readonly %2134, i8* nocapture nonnull readonly %2135, i8 2) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2134) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2135) #9
+  %2142 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %33 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2142) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2142, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi16ELi16ELi32EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %2143 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext -1, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %33, i8* noundef nonnull %39, i32 noundef 2, i8* noundef nonnull %41, i32 noundef 2, i8* noundef %2143, i32 noundef %2103) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2142) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %41) #9
+  %2144 = bitcast [2 x i32]* %32 to i8*
+  %2145 = getelementptr inbounds [2 x i32], [2 x i32]* %32, i64 0, i64 0
+  %2146 = getelementptr inbounds [2 x i32], [2 x i32]* %32, i64 0, i64 1
+  br label %2147
+
+2147:                                             ; preds = %2164, %2127
+  %2148 = phi i16 [ 0, %2127 ], [ %2165, %2164 ]
   %2149 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef %2103) #12
   %2150 = icmp ult i16 %2148, %2149
   br i1 %2150, label %2151, label %2166
@@ -3392,20 +3392,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %2152, label %2153, label %2164
 
 2153:                                             ; preds = %2151
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2129) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2148, i8* noundef nonnull %2129, i32 noundef 536870944, i32 noundef %2103, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
-  %2154 = load i32, i32* %2130, align 4, !tbaa !26
-  %2155 = load i32, i32* %2131, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2129) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2144) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2148, i8* noundef nonnull %2144, i32 noundef 536870944, i32 noundef %2103, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
+  %2154 = load i32, i32* %2145, align 4, !tbaa !26
+  %2155 = load i32, i32* %2146, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2144) #9
   %2156 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, i8* noundef nonnull %40, i16 noundef zeroext %2148, i32 noundef -1879048176, i32 noundef -1879048176, i32 noundef 268435488) #12
   %2157 = bitcast i8* %2156 to float*
-  %2158 = load float, float* %2157, align 4, !tbaa !50
-  %2159 = load i32, i32 addrspace(2)* %2107, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %2158 = load float, float* %2157, align 4, !tbaa !45
+  %2159 = load i32, i32 addrspace(2)* %2107, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %2160 = mul i32 %2159, %2155
   %2161 = add i32 %2160, %2154
   %2162 = zext i32 %2161 to i64
-  %2163 = getelementptr inbounds float, float addrspace(1)* %2116, i64 %2162
-  store float %2158, float addrspace(1)* %2163, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %2163 = getelementptr inbounds float, float addrspace(1)* %2131, i64 %2162
+  store float %2158, float addrspace(1)* %2163, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %2164
 
 2164:                                             ; preds = %2153, %2151
@@ -3439,103 +3439,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %2186 = zext i32 %2185 to i64
   %2187 = getelementptr inbounds float, float addrspace(1)* %2, i64 %2186
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %27) #9
-  %2188 = bitcast i8* %27 to %struct._tensor_t*
-  %2189 = bitcast float addrspace(1)* %2176 to i8 addrspace(1)*
-  %2190 = bitcast %"struct.metal::array"* %25 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2190) #9
-  %2191 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %25, i64 0, i32 0, i64 0
-  store i32 %2170, i32* %2191, align 4, !tbaa !26
-  %2192 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %25, i64 0, i32 0, i64 1
-  store i32 %2172, i32* %2192, align 4, !tbaa !26
-  %2193 = bitcast %"struct.metal::array"* %26 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2193) #9
+  %2188 = bitcast %"struct.metal::array"* %25 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2188) #9
+  %2189 = bitcast %"struct.metal::array"* %26 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2189) #9
+  %2190 = bitcast i8* %27 to %struct._tensor_t*
+  %2191 = bitcast float addrspace(1)* %2176 to i8 addrspace(1)*
+  %2192 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %25, i64 0, i32 0, i64 0
+  store i32 %2170, i32* %2192, align 4, !tbaa !26
+  %2193 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %25, i64 0, i32 0, i64 1
+  store i32 %2172, i32* %2193, align 4, !tbaa !26
   %2194 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %26, i64 0, i32 0, i64 0
   store i32 1, i32* %2194, align 4, !tbaa !26
   %2195 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %26, i64 0, i32 0, i64 1
   store i32 %2170, i32* %2195, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2188, i16 2, i8 addrspace(1)* readnone %2189, i8* nocapture nonnull readonly %2190, i8* nocapture nonnull readonly %2193, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2193) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2190) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2190, i16 2, i8 addrspace(1)* readnone %2191, i8* nocapture nonnull readonly %2188, i8* nocapture nonnull readonly %2189, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2188) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2189) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %28) #9
   %2196 = tail call i32 @air.get_simdgroup_size.i32() #11
   %2197 = shl i32 %2196, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2197) #12
-  %2198 = bitcast [2 x i32]* %21 to i8*
-  %2199 = getelementptr inbounds [2 x i32], [2 x i32]* %21, i64 0, i64 0
-  %2200 = getelementptr inbounds [2 x i32], [2 x i32]* %21, i64 0, i64 1
+  %2198 = bitcast [2 x i32]* %24 to i8*
+  %2199 = getelementptr inbounds [2 x i32], [2 x i32]* %24, i64 0, i64 0
+  %2200 = getelementptr inbounds [2 x i32], [2 x i32]* %24, i64 0, i64 1
   %2201 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %2202
 
-2202:                                             ; preds = %2239, %2167
-  %2203 = phi i16 [ 0, %2167 ], [ %2240, %2239 ]
+2202:                                             ; preds = %2219, %2167
+  %2203 = phi i16 [ 0, %2167 ], [ %2220, %2219 ]
   %2204 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2197) #12
   %2205 = icmp ult i16 %2203, %2204
-  br i1 %2205, label %2226, label %2206
+  br i1 %2205, label %2206, label %2221
 
 2206:                                             ; preds = %2202
-  %2207 = zext i32 %2182 to i64
-  %2208 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %2209 = getelementptr inbounds float, float addrspace(1)* %2208, i64 %2207
-  %2210 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2186
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %29) #9
-  %2211 = load i32, i32 addrspace(2)* %2177, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %2212 = load i32, i32 addrspace(2)* %2179, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %2213 = bitcast i8* %29 to %struct._tensor_t*
-  %2214 = bitcast float addrspace(1)* %2209 to i8 addrspace(1)*
-  %2215 = bitcast %"struct.metal::array"* %23 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2215) #9
-  %2216 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %23, i64 0, i32 0, i64 0
-  store i32 %2211, i32* %2216, align 4, !tbaa !26
-  %2217 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %23, i64 0, i32 0, i64 1
-  store i32 %2212, i32* %2217, align 4, !tbaa !26
-  %2218 = bitcast %"struct.metal::array"* %24 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2218) #9
-  %2219 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %24, i64 0, i32 0, i64 0
-  store i32 1, i32* %2219, align 4, !tbaa !26
-  %2220 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %24, i64 0, i32 0, i64 1
-  store i32 %2211, i32* %2220, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2213, i16 2, i8 addrspace(1)* readnone %2214, i8* nocapture nonnull readonly %2215, i8* nocapture nonnull readonly %2218, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2218) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2215) #9
-  %2221 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %22 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2221) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2221, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb0ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %2222 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %22, i8* noundef nonnull %27, i32 noundef 2, i8* noundef nonnull %29, i32 noundef 2, i8* noundef %2222, i32 noundef %2197) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2221) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %29) #9
-  %2223 = bitcast [2 x i32]* %20 to i8*
-  %2224 = getelementptr inbounds [2 x i32], [2 x i32]* %20, i64 0, i64 0
-  %2225 = getelementptr inbounds [2 x i32], [2 x i32]* %20, i64 0, i64 1
-  br label %2241
+  %2207 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2203, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2197) #12
+  br i1 %2207, label %2208, label %2219
 
-2226:                                             ; preds = %2202
-  %2227 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2203, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2197) #12
-  br i1 %2227, label %2228, label %2239
-
-2228:                                             ; preds = %2226
+2208:                                             ; preds = %2206
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2198) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2203, i8* noundef nonnull %2198, i32 noundef 536870944, i32 noundef %2197, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %2229 = load i32, i32* %2199, align 4, !tbaa !26
-  %2230 = load i32, i32* %2200, align 4, !tbaa !26
+  %2209 = load i32, i32* %2199, align 4, !tbaa !26
+  %2210 = load i32, i32* %2200, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2198) #9
-  %2231 = load i32, i32 addrspace(2)* %2201, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %2232 = mul i32 %2231, %2230
-  %2233 = add i32 %2232, %2229
-  %2234 = zext i32 %2233 to i64
-  %2235 = getelementptr inbounds float, float addrspace(1)* %2187, i64 %2234
-  %2236 = load float, float addrspace(1)* %2235, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %2237 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2203, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %2238 = bitcast i8* %2237 to float*
-  store float %2236, float* %2238, align 4, !tbaa !50
-  br label %2239
+  %2211 = load i32, i32 addrspace(2)* %2201, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %2212 = mul i32 %2211, %2210
+  %2213 = add i32 %2212, %2209
+  %2214 = zext i32 %2213 to i64
+  %2215 = getelementptr inbounds float, float addrspace(1)* %2187, i64 %2214
+  %2216 = load float, float addrspace(1)* %2215, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %2217 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2203, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %2218 = bitcast i8* %2217 to float*
+  store float %2216, float* %2218, align 4, !tbaa !45
+  br label %2219
 
-2239:                                             ; preds = %2228, %2226
-  %2240 = add nuw i16 %2203, 1
+2219:                                             ; preds = %2208, %2206
+  %2220 = add nuw i16 %2203, 1
   br label %2202, !llvm.loop !101
 
-2241:                                             ; preds = %2258, %2206
-  %2242 = phi i16 [ 0, %2206 ], [ %2259, %2258 ]
+2221:                                             ; preds = %2202
+  %2222 = zext i32 %2182 to i64
+  %2223 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %2224 = getelementptr inbounds float, float addrspace(1)* %2223, i64 %2222
+  %2225 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2186
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %29) #9
+  %2226 = load i32, i32 addrspace(2)* %2177, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %2227 = load i32, i32 addrspace(2)* %2179, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %2228 = bitcast %"struct.metal::array"* %22 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2228) #9
+  %2229 = bitcast %"struct.metal::array"* %23 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2229) #9
+  %2230 = bitcast i8* %29 to %struct._tensor_t*
+  %2231 = bitcast float addrspace(1)* %2224 to i8 addrspace(1)*
+  %2232 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %22, i64 0, i32 0, i64 0
+  store i32 %2226, i32* %2232, align 4, !tbaa !26
+  %2233 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %22, i64 0, i32 0, i64 1
+  store i32 %2227, i32* %2233, align 4, !tbaa !26
+  %2234 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %23, i64 0, i32 0, i64 0
+  store i32 1, i32* %2234, align 4, !tbaa !26
+  %2235 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %23, i64 0, i32 0, i64 1
+  store i32 %2226, i32* %2235, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2230, i16 2, i8 addrspace(1)* readnone %2231, i8* nocapture nonnull readonly %2228, i8* nocapture nonnull readonly %2229, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2228) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2229) #9
+  %2236 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %21 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2236) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2236, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb0ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %2237 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %21, i8* noundef nonnull %27, i32 noundef 2, i8* noundef nonnull %29, i32 noundef 2, i8* noundef %2237, i32 noundef %2197) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2236) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %29) #9
+  %2238 = bitcast [2 x i32]* %20 to i8*
+  %2239 = getelementptr inbounds [2 x i32], [2 x i32]* %20, i64 0, i64 0
+  %2240 = getelementptr inbounds [2 x i32], [2 x i32]* %20, i64 0, i64 1
+  br label %2241
+
+2241:                                             ; preds = %2258, %2221
+  %2242 = phi i16 [ 0, %2221 ], [ %2259, %2258 ]
   %2243 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2197) #12
   %2244 = icmp ult i16 %2242, %2243
   br i1 %2244, label %2245, label %2260
@@ -3545,20 +3545,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %2246, label %2247, label %2258
 
 2247:                                             ; preds = %2245
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2223) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2242, i8* noundef nonnull %2223, i32 noundef 536870944, i32 noundef %2197, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %2248 = load i32, i32* %2224, align 4, !tbaa !26
-  %2249 = load i32, i32* %2225, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2223) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2238) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2242, i8* noundef nonnull %2238, i32 noundef 536870944, i32 noundef %2197, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %2248 = load i32, i32* %2239, align 4, !tbaa !26
+  %2249 = load i32, i32* %2240, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2238) #9
   %2250 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %28, i16 noundef zeroext %2242, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %2251 = bitcast i8* %2250 to float*
-  %2252 = load float, float* %2251, align 4, !tbaa !50
-  %2253 = load i32, i32 addrspace(2)* %2201, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %2252 = load float, float* %2251, align 4, !tbaa !45
+  %2253 = load i32, i32 addrspace(2)* %2201, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %2254 = mul i32 %2253, %2249
   %2255 = add i32 %2254, %2248
   %2256 = zext i32 %2255 to i64
-  %2257 = getelementptr inbounds float, float addrspace(1)* %2210, i64 %2256
-  store float %2252, float addrspace(1)* %2257, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %2257 = getelementptr inbounds float, float addrspace(1)* %2225, i64 %2256
+  store float %2252, float addrspace(1)* %2257, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %2258
 
 2258:                                             ; preds = %2247, %2245
@@ -3592,103 +3592,103 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   %2280 = zext i32 %2279 to i64
   %2281 = getelementptr inbounds float, float addrspace(1)* %2, i64 %2280
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %16) #9
-  %2282 = bitcast i8* %16 to %struct._tensor_t*
-  %2283 = bitcast float addrspace(1)* %2270 to i8 addrspace(1)*
-  %2284 = bitcast %"struct.metal::array"* %14 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2284) #9
-  %2285 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %14, i64 0, i32 0, i64 0
-  store i32 %2264, i32* %2285, align 4, !tbaa !26
-  %2286 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %14, i64 0, i32 0, i64 1
-  store i32 %2266, i32* %2286, align 4, !tbaa !26
-  %2287 = bitcast %"struct.metal::array"* %15 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2287) #9
+  %2282 = bitcast %"struct.metal::array"* %14 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2282) #9
+  %2283 = bitcast %"struct.metal::array"* %15 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2283) #9
+  %2284 = bitcast i8* %16 to %struct._tensor_t*
+  %2285 = bitcast float addrspace(1)* %2270 to i8 addrspace(1)*
+  %2286 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %14, i64 0, i32 0, i64 0
+  store i32 %2264, i32* %2286, align 4, !tbaa !26
+  %2287 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %14, i64 0, i32 0, i64 1
+  store i32 %2266, i32* %2287, align 4, !tbaa !26
   %2288 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %15, i64 0, i32 0, i64 0
   store i32 1, i32* %2288, align 4, !tbaa !26
   %2289 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %15, i64 0, i32 0, i64 1
   store i32 %2264, i32* %2289, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2282, i16 2, i8 addrspace(1)* readnone %2283, i8* nocapture nonnull readonly %2284, i8* nocapture nonnull readonly %2287, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2287) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2284) #9
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2284, i16 2, i8 addrspace(1)* readnone %2285, i8* nocapture nonnull readonly %2282, i8* nocapture nonnull readonly %2283, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2282) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2283) #9
   call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %17) #9
   %2290 = tail call i32 @air.get_simdgroup_size.i32() #11
   %2291 = shl i32 %2290, 2
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_init(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2291) #12
-  %2292 = bitcast [2 x i32]* %10 to i8*
-  %2293 = getelementptr inbounds [2 x i32], [2 x i32]* %10, i64 0, i64 0
-  %2294 = getelementptr inbounds [2 x i32], [2 x i32]* %10, i64 0, i64 1
+  %2292 = bitcast [2 x i32]* %13 to i8*
+  %2293 = getelementptr inbounds [2 x i32], [2 x i32]* %13, i64 0, i64 0
+  %2294 = getelementptr inbounds [2 x i32], [2 x i32]* %13, i64 0, i64 1
   %2295 = getelementptr inbounds %struct.Shape, %struct.Shape addrspace(2)* %4, i64 0, i32 5
   br label %2296
 
-2296:                                             ; preds = %2333, %2261
-  %2297 = phi i16 [ 0, %2261 ], [ %2334, %2333 ]
+2296:                                             ; preds = %2313, %2261
+  %2297 = phi i16 [ 0, %2261 ], [ %2314, %2313 ]
   %2298 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2291) #12
   %2299 = icmp ult i16 %2297, %2298
-  br i1 %2299, label %2320, label %2300
+  br i1 %2299, label %2300, label %2315
 
 2300:                                             ; preds = %2296
-  %2301 = zext i32 %2276 to i64
-  %2302 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
-  %2303 = getelementptr inbounds float, float addrspace(1)* %2302, i64 %2301
-  %2304 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2280
-  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %18) #9
-  %2305 = load i32, i32 addrspace(2)* %2271, align 4, !tbaa !41, !alias.scope !32, !noalias !35
-  %2306 = load i32, i32 addrspace(2)* %2273, align 4, !tbaa !42, !alias.scope !32, !noalias !35
-  %2307 = bitcast i8* %18 to %struct._tensor_t*
-  %2308 = bitcast float addrspace(1)* %2303 to i8 addrspace(1)*
-  %2309 = bitcast %"struct.metal::array"* %12 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2309) #9
-  %2310 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %12, i64 0, i32 0, i64 0
-  store i32 %2305, i32* %2310, align 4, !tbaa !26
-  %2311 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %12, i64 0, i32 0, i64 1
-  store i32 %2306, i32* %2311, align 4, !tbaa !26
-  %2312 = bitcast %"struct.metal::array"* %13 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2312) #9
-  %2313 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %13, i64 0, i32 0, i64 0
-  store i32 1, i32* %2313, align 4, !tbaa !26
-  %2314 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %13, i64 0, i32 0, i64 1
-  store i32 %2305, i32* %2314, align 4, !tbaa !26
-  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2307, i16 2, i8 addrspace(1)* readnone %2308, i8* nocapture nonnull readonly %2309, i8* nocapture nonnull readonly %2312, i8 0) #10
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2312) #9
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2309) #9
-  %2315 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %11 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2315) #9
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2315, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb0ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !44
-  %2316 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %11, i8* noundef nonnull %16, i32 noundef 2, i8* noundef nonnull %18, i32 noundef 2, i8* noundef %2316, i32 noundef %2291) #12
-  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2315) #9
-  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %18) #9
-  %2317 = bitcast [2 x i32]* %9 to i8*
-  %2318 = getelementptr inbounds [2 x i32], [2 x i32]* %9, i64 0, i64 0
-  %2319 = getelementptr inbounds [2 x i32], [2 x i32]* %9, i64 0, i64 1
-  br label %2335
+  %2301 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2297, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2291) #12
+  br i1 %2301, label %2302, label %2313
 
-2320:                                             ; preds = %2296
-  %2321 = call zeroext i1 @__tensorops_impl_matmul2d_op_cooperative_tensor_is_valid_element(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2297, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2291) #12
-  br i1 %2321, label %2322, label %2333
-
-2322:                                             ; preds = %2320
+2302:                                             ; preds = %2300
   call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2292) #9
   call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2297, i8* noundef nonnull %2292, i32 noundef 536870944, i32 noundef %2291, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %2323 = load i32, i32* %2293, align 4, !tbaa !26
-  %2324 = load i32, i32* %2294, align 4, !tbaa !26
+  %2303 = load i32, i32* %2293, align 4, !tbaa !26
+  %2304 = load i32, i32* %2294, align 4, !tbaa !26
   call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2292) #9
-  %2325 = load i32, i32 addrspace(2)* %2295, align 4, !tbaa !49, !alias.scope !32, !noalias !35
-  %2326 = mul i32 %2325, %2324
-  %2327 = add i32 %2326, %2323
-  %2328 = zext i32 %2327 to i64
-  %2329 = getelementptr inbounds float, float addrspace(1)* %2281, i64 %2328
-  %2330 = load float, float addrspace(1)* %2329, align 4, !tbaa !50, !alias.scope !52, !noalias !53
-  %2331 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2297, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %2332 = bitcast i8* %2331 to float*
-  store float %2330, float* %2332, align 4, !tbaa !50
-  br label %2333
+  %2305 = load i32, i32 addrspace(2)* %2295, align 4, !tbaa !44, !alias.scope !32, !noalias !35
+  %2306 = mul i32 %2305, %2304
+  %2307 = add i32 %2306, %2303
+  %2308 = zext i32 %2307 to i64
+  %2309 = getelementptr inbounds float, float addrspace(1)* %2281, i64 %2308
+  %2310 = load float, float addrspace(1)* %2309, align 4, !tbaa !45, !alias.scope !47, !noalias !48
+  %2311 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2297, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %2312 = bitcast i8* %2311 to float*
+  store float %2310, float* %2312, align 4, !tbaa !45
+  br label %2313
 
-2333:                                             ; preds = %2322, %2320
-  %2334 = add nuw i16 %2297, 1
+2313:                                             ; preds = %2302, %2300
+  %2314 = add nuw i16 %2297, 1
   br label %2296, !llvm.loop !103
 
-2335:                                             ; preds = %2352, %2300
-  %2336 = phi i16 [ 0, %2300 ], [ %2353, %2352 ]
+2315:                                             ; preds = %2296
+  %2316 = zext i32 %2276 to i64
+  %2317 = bitcast i8 addrspace(1)* %1 to float addrspace(1)*
+  %2318 = getelementptr inbounds float, float addrspace(1)* %2317, i64 %2316
+  %2319 = getelementptr inbounds float, float addrspace(1)* %3, i64 %2280
+  call void @llvm.lifetime.start.p0i8(i64 -1, i8* nonnull %18) #9
+  %2320 = load i32, i32 addrspace(2)* %2271, align 4, !tbaa !41, !alias.scope !32, !noalias !35
+  %2321 = load i32, i32 addrspace(2)* %2273, align 4, !tbaa !42, !alias.scope !32, !noalias !35
+  %2322 = bitcast %"struct.metal::array"* %11 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2322) #9
+  %2323 = bitcast %"struct.metal::array"* %12 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2323) #9
+  %2324 = bitcast i8* %18 to %struct._tensor_t*
+  %2325 = bitcast float addrspace(1)* %2318 to i8 addrspace(1)*
+  %2326 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %11, i64 0, i32 0, i64 0
+  store i32 %2320, i32* %2326, align 4, !tbaa !26
+  %2327 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %11, i64 0, i32 0, i64 1
+  store i32 %2321, i32* %2327, align 4, !tbaa !26
+  %2328 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %12, i64 0, i32 0, i64 0
+  store i32 1, i32* %2328, align 4, !tbaa !26
+  %2329 = getelementptr inbounds %"struct.metal::array", %"struct.metal::array"* %12, i64 0, i32 0, i64 1
+  store i32 %2320, i32* %2329, align 4, !tbaa !26
+  call void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture nonnull writeonly %2324, i16 2, i8 addrspace(1)* readnone %2325, i8* nocapture nonnull readonly %2322, i8* nocapture nonnull readonly %2323, i8 0) #10
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2322) #9
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2323) #9
+  %2330 = bitcast %"struct.mpp::tensor_ops::matmul2d_descriptor"* %10 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 20, i8* nonnull %2330) #9
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* noundef nonnull align 4 dereferenceable(20) %2330, i8* noundef nonnull align 4 dereferenceable(20) bitcast (%"struct.mpp::tensor_ops::matmul2d_descriptor"* @_ZTAXtlN3mpp10tensor_ops19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb0ELNS1_4modeE1EEE to i8*), i64 20, i1 false) #9, !tbaa.struct !51
+  %2331 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext -1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  call void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20) %10, i8* noundef nonnull %16, i32 noundef 2, i8* noundef nonnull %18, i32 noundef 2, i8* noundef %2331, i32 noundef %2291) #12
+  call void @llvm.lifetime.end.p0i8(i64 20, i8* nonnull %2330) #9
+  call void @llvm.lifetime.end.p0i8(i64 -1, i8* nonnull %18) #9
+  %2332 = bitcast [2 x i32]* %9 to i8*
+  %2333 = getelementptr inbounds [2 x i32], [2 x i32]* %9, i64 0, i64 0
+  %2334 = getelementptr inbounds [2 x i32], [2 x i32]* %9, i64 0, i64 1
+  br label %2335
+
+2335:                                             ; preds = %2352, %2315
+  %2336 = phi i16 [ 0, %2315 ], [ %2353, %2352 ]
   %2337 = call zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_elements(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %2291) #12
   %2338 = icmp ult i16 %2336, %2337
   br i1 %2338, label %2339, label %2354
@@ -3698,20 +3698,20 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
   br i1 %2340, label %2341, label %2352
 
 2341:                                             ; preds = %2339
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2317) #9
-  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2336, i8* noundef nonnull %2317, i32 noundef 536870944, i32 noundef %2291, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
-  %2342 = load i32, i32* %2318, align 4, !tbaa !26
-  %2343 = load i32, i32* %2319, align 4, !tbaa !26
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2317) #9
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %2332) #9
+  call void @__tensorops_impl_matmul2d_op_cooperative_tensor_get_coordinate(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2336, i8* noundef nonnull %2332, i32 noundef 536870944, i32 noundef %2291, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
+  %2342 = load i32, i32* %2333, align 4, !tbaa !26
+  %2343 = load i32, i32* %2334, align 4, !tbaa !26
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %2332) #9
   %2344 = call i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, i8* noundef nonnull %17, i16 noundef zeroext %2336, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488) #12
   %2345 = bitcast i8* %2344 to float*
-  %2346 = load float, float* %2345, align 4, !tbaa !50
-  %2347 = load i32, i32 addrspace(2)* %2295, align 4, !tbaa !49, !alias.scope !32, !noalias !35
+  %2346 = load float, float* %2345, align 4, !tbaa !45
+  %2347 = load i32, i32 addrspace(2)* %2295, align 4, !tbaa !44, !alias.scope !32, !noalias !35
   %2348 = mul i32 %2347, %2343
   %2349 = add i32 %2348, %2342
   %2350 = zext i32 %2349 to i64
-  %2351 = getelementptr inbounds float, float addrspace(1)* %2304, i64 %2350
-  store float %2346, float addrspace(1)* %2351, align 4, !tbaa !50, !alias.scope !56, !noalias !57
+  %2351 = getelementptr inbounds float, float addrspace(1)* %2319, i64 %2350
+  store float %2346, float addrspace(1)* %2351, align 4, !tbaa !45, !alias.scope !56, !noalias !57
   br label %2352
 
 2352:                                             ; preds = %2341, %2339
@@ -3730,11 +3730,8 @@ define void @tns_mm_flags(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i8 
 ; Function Attrs: mustprogress nofree nosync nounwind readnone willreturn
 declare i1 @air.is_function_constant_defined(i8 addrspace(2)* nocapture) local_unnamed_addr #1
 
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #2
-
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdevicefNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdevicefNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN5metal15__tensor_detail21__tensor_safe_extentsINS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEvE4rankEv() #13
   %2 = trunc i64 %1 to i16
   %3 = tail call i16 @air.get_descriptor_size_tensor(i16 %2, i16 4) #11
@@ -3743,7 +3740,7 @@ define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdevicefNS_7extentsIiJLm184
 }
 
 ; Function Attrs: mustprogress nounwind
-define linkonce_odr i64 @_ZN5metal15__tensor_detail21__tensor_safe_extentsINS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEvE4rankEv() local_unnamed_addr #4 align 2 {
+define linkonce_odr i64 @_ZN5metal15__tensor_detail21__tensor_safe_extentsINS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEvE4rankEv() local_unnamed_addr #3 align 2 {
   ret i64 2
 }
 
@@ -3751,10 +3748,10 @@ define linkonce_odr i64 @_ZN5metal15__tensor_detail21__tensor_safe_extentsINS_7e
 declare i16 @air.get_descriptor_size_tensor(i16, i16) local_unnamed_addr #1
 
 ; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #2
+declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #4
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3765,6 +3762,9 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
   %2 = tail call i64 @__tensorops_impl_matmul2d_op_cooperative_tensor_data_size(i32 noundef 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 1, i32 1, i32 noundef 268435488, i32 noundef 268435488, i32 noundef 268435488, i32 noundef %1) #12
   ret i64 %2
 }
+
+; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #4
 
 ; Function Attrs: argmemonly mustprogress nounwind willreturn
 declare void @air.init_strided_private_tensor.i32.global(%struct._tensor_t* nocapture writeonly, i16, i8 addrspace(1)* readnone, i8* nocapture readonly, i8* nocapture readonly, i8) local_unnamed_addr #5
@@ -3797,7 +3797,7 @@ declare i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer
 declare void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_dv_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20), i8* noundef, i32 noundef, i8* noundef, i32 noundef, i8* noundef, i32 noundef) local_unnamed_addr #6 section "air.externally_defined"
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3810,7 +3810,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE1EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3826,7 +3826,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 declare void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f32_f32_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20), i8* noundef, i32 noundef, i8* noundef, i8* noundef, i32 noundef) local_unnamed_addr #6 section "air.externally_defined"
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm2EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3840,7 +3840,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdeviceDhNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdeviceDhNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN5metal15__tensor_detail21__tensor_safe_extentsINS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEvE4rankEv() #13
   %2 = trunc i64 %1 to i16
   %3 = tail call i16 @air.get_descriptor_size_tensor(i16 %2, i16 4) #11
@@ -3849,7 +3849,7 @@ define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdeviceDhNS_7extentsIiJLm18
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEDhDhfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3866,7 +3866,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 declare void @__tensorops_impl_matmul2d_op_run_cooperative_dv_f16_dv_f16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20), i8* noundef, i32 noundef, i8* noundef, i32 noundef, i8* noundef, i32 noundef) local_unnamed_addr #6 section "air.externally_defined"
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3880,7 +3880,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdeviceDF16bNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdeviceDF16bNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEENS_13tensor_inlineEJEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN5metal15__tensor_detail21__tensor_safe_extentsINS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEvE4rankEv() #13
   %2 = trunc i64 %1 to i16
   %3 = tail call i16 @air.get_descriptor_size_tensor(i16 %2, i16 4) #11
@@ -3889,7 +3889,7 @@ define linkonce_odr hidden i64 @_ZN5metal6tensorIU9MTLdeviceDF16bNS_7extentsIiJL
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEDF16bDF16bfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3905,7 +3905,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 declare void @__tensorops_impl_matmul2d_op_run_cooperative_dv_b16_dv_b16_f32(%"struct.mpp::tensor_ops::matmul2d_descriptor"* noundef nonnull align 4 dereferenceable(20), i8* noundef, i32 noundef, i8* noundef, i32 noundef, i8* noundef, i32 noundef) local_unnamed_addr #6 section "air.externally_defined"
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEDhDhfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3919,7 +3919,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3933,7 +3933,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb1ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb1ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3947,7 +3947,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3960,7 +3960,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3973,7 +3973,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE1EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -3986,7 +3986,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi64ELi16EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm2EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4000,7 +4000,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEDhDhfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4014,7 +4014,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4028,7 +4028,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi32ELi32ELi32ELb0ELb1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEDF16bDF16bfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4041,7 +4041,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEDhDhfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4055,7 +4055,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi128ELi128ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4069,7 +4069,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi8ELi128ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4083,7 +4083,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEDhDhfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4096,7 +4096,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDF16bDF16bfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEDF16bDF16bfiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4109,7 +4109,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi128ELi128ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4123,7 +4123,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi8ELi128ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEfffiJEE19thread_storage_sizeEv() #14
   ret i64 %1
 }
@@ -4147,9 +4147,9 @@ define internal void @_GLOBAL__sub_I__() #8 section "air.static_init" {
 
 attributes #0 = { convergent nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #1 = { mustprogress nofree nosync nounwind readnone willreturn }
-attributes #2 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
-attributes #3 = { mustprogress nofree nosync readnone speculatable willreturn "deferred-static-alloca-size" }
-attributes #4 = { mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
+attributes #2 = { mustprogress nofree nosync readnone speculatable willreturn "deferred-static-alloca-size" }
+attributes #3 = { mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
+attributes #4 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
 attributes #5 = { argmemonly mustprogress nounwind willreturn }
 attributes #6 = { convergent "approx-func-fp-math"="true" "frame-pointer"="all" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #7 = { argmemonly mustprogress nofree nounwind willreturn }
@@ -4213,64 +4213,64 @@ attributes #14 = { convergent nobuiltin "no-builtins" }
 !41 = !{!31, !27, i64 8}
 !42 = !{!31, !27, i64 12}
 !43 = !{!31, !27, i64 16}
-!44 = !{i64 0, i64 4, !26, i64 4, i64 4, !26, i64 8, i64 4, !26, i64 12, i64 1, !45, i64 13, i64 1, !45, i64 14, i64 1, !45, i64 16, i64 4, !47}
+!44 = !{!31, !27, i64 20}
 !45 = !{!46, !46, i64 0}
-!46 = !{!"bool", !28, i64 0}
-!47 = !{!48, !48, i64 0}
-!48 = !{!"_ZTSN3mpp10tensor_ops19matmul2d_descriptor4modeE", !28, i64 0}
-!49 = !{!31, !27, i64 20}
-!50 = !{!51, !51, i64 0}
-!51 = !{!"float", !28, i64 0}
-!52 = !{!38}
-!53 = !{!36, !37, !39, !33}
-!54 = distinct !{!54, !55}
-!55 = !{!"llvm.loop.mustprogress"}
+!46 = !{!"float", !28, i64 0}
+!47 = !{!38}
+!48 = !{!36, !37, !39, !33}
+!49 = distinct !{!49, !50}
+!50 = !{!"llvm.loop.mustprogress"}
+!51 = !{i64 0, i64 4, !26, i64 4, i64 4, !26, i64 8, i64 4, !26, i64 12, i64 1, !52, i64 13, i64 1, !52, i64 14, i64 1, !52, i64 16, i64 4, !54}
+!52 = !{!53, !53, i64 0}
+!53 = !{!"bool", !28, i64 0}
+!54 = !{!55, !55, i64 0}
+!55 = !{!"_ZTSN3mpp10tensor_ops19matmul2d_descriptor4modeE", !28, i64 0}
 !56 = !{!39}
 !57 = !{!36, !37, !38, !33}
-!58 = distinct !{!58, !55}
-!59 = distinct !{!59, !55}
+!58 = distinct !{!58, !50}
+!59 = distinct !{!59, !50}
 !60 = !{!37}
 !61 = !{!36, !38, !39, !33}
-!62 = distinct !{!62, !55}
-!63 = distinct !{!63, !55}
-!64 = distinct !{!64, !55}
-!65 = distinct !{!65, !55}
-!66 = distinct !{!66, !55}
-!67 = distinct !{!67, !55}
-!68 = distinct !{!68, !55}
-!69 = distinct !{!69, !55}
-!70 = distinct !{!70, !55}
-!71 = distinct !{!71, !55}
-!72 = distinct !{!72, !55}
-!73 = distinct !{!73, !55}
-!74 = distinct !{!74, !55}
-!75 = distinct !{!75, !55}
-!76 = distinct !{!76, !55}
-!77 = distinct !{!77, !55}
-!78 = distinct !{!78, !55}
-!79 = distinct !{!79, !55}
-!80 = distinct !{!80, !55}
-!81 = distinct !{!81, !55}
-!82 = distinct !{!82, !55}
-!83 = distinct !{!83, !55}
-!84 = distinct !{!84, !55}
-!85 = distinct !{!85, !55}
-!86 = distinct !{!86, !55}
-!87 = distinct !{!87, !55}
-!88 = distinct !{!88, !55}
-!89 = distinct !{!89, !55}
-!90 = distinct !{!90, !55}
-!91 = distinct !{!91, !55}
-!92 = distinct !{!92, !55}
-!93 = distinct !{!93, !55}
-!94 = distinct !{!94, !55}
-!95 = distinct !{!95, !55}
-!96 = distinct !{!96, !55}
-!97 = distinct !{!97, !55}
-!98 = distinct !{!98, !55}
-!99 = distinct !{!99, !55}
-!100 = distinct !{!100, !55}
-!101 = distinct !{!101, !55}
-!102 = distinct !{!102, !55}
-!103 = distinct !{!103, !55}
-!104 = distinct !{!104, !55}
+!62 = distinct !{!62, !50}
+!63 = distinct !{!63, !50}
+!64 = distinct !{!64, !50}
+!65 = distinct !{!65, !50}
+!66 = distinct !{!66, !50}
+!67 = distinct !{!67, !50}
+!68 = distinct !{!68, !50}
+!69 = distinct !{!69, !50}
+!70 = distinct !{!70, !50}
+!71 = distinct !{!71, !50}
+!72 = distinct !{!72, !50}
+!73 = distinct !{!73, !50}
+!74 = distinct !{!74, !50}
+!75 = distinct !{!75, !50}
+!76 = distinct !{!76, !50}
+!77 = distinct !{!77, !50}
+!78 = distinct !{!78, !50}
+!79 = distinct !{!79, !50}
+!80 = distinct !{!80, !50}
+!81 = distinct !{!81, !50}
+!82 = distinct !{!82, !50}
+!83 = distinct !{!83, !50}
+!84 = distinct !{!84, !50}
+!85 = distinct !{!85, !50}
+!86 = distinct !{!86, !50}
+!87 = distinct !{!87, !50}
+!88 = distinct !{!88, !50}
+!89 = distinct !{!89, !50}
+!90 = distinct !{!90, !50}
+!91 = distinct !{!91, !50}
+!92 = distinct !{!92, !50}
+!93 = distinct !{!93, !50}
+!94 = distinct !{!94, !50}
+!95 = distinct !{!95, !50}
+!96 = distinct !{!96, !50}
+!97 = distinct !{!97, !50}
+!98 = distinct !{!98, !50}
+!99 = distinct !{!99, !50}
+!100 = distinct !{!100, !50}
+!101 = distinct !{!101, !50}
+!102 = distinct !{!102, !50}
+!103 = distinct !{!103, !50}
+!104 = distinct !{!104, !50}

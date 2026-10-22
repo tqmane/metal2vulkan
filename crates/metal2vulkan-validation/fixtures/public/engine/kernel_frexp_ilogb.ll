@@ -12,70 +12,64 @@ define void @frexp_ilogb_float(ptr addrspace(1) noundef readonly captures(none) 
   %7 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %6
   %8 = bitcast ptr addrspace(1) %7 to ptr addrspace(1)
   %9 = load float, ptr addrspace(1) %8, align 4, !tbaa !22, !alias.scope !26, !noalias !29
-  %10 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %10) #4
-  %11 = call fast float @___metal_frexp_float_pthreadint32(float %9, ptr nonnull %4) #5
-  %12 = insertelement <4 x float> <float 2.500000e-01, float poison, float -7.000000e+00, float poison>, float %9, i64 1
-  %13 = insertelement <4 x float> %12, float %9, i64 3
-  %14 = bitcast ptr %5 to ptr
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %14) #4
-  %15 = call fast <4 x float> @___metal_frexp_v4float_pthreadv4int32(<4 x float> %13, ptr nonnull %5) #5
-  %16 = call <4 x i32> @___metal_ilogb_v4float(<4 x float> %13, i32 0) #5
-  %17 = shl i32 %2, 3
-  %18 = zext i32 %17 to i64
-  %19 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %18
-  %20 = bitcast ptr addrspace(1) %19 to ptr addrspace(1)
-  store float %11, ptr addrspace(1) %20, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %21 = load i32, ptr %4, align 4, !tbaa !22
-  %22 = or i32 %17, 1
-  %23 = zext i32 %22 to i64
-  %24 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %23
-  store i32 %21, ptr addrspace(1) %24, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %25 = call i32 @___metal_ilogb_float(float %9, i32 0) #5
-  %26 = or i32 %17, 2
-  %27 = zext i32 %26 to i64
-  %28 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %27
-  store i32 %25, ptr addrspace(1) %28, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %29 = call i32 @___metal_ilogb_float(float %9, i32 3) #5
-  %30 = or i32 %17, 3
-  %31 = zext i32 %30 to i64
-  %32 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %31
-  store i32 %29, ptr addrspace(1) %32, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %33 = bitcast <4 x float> %15 to <4 x i32>
-  %34 = extractelement <4 x i32> %33, i64 1
-  %35 = or i32 %17, 4
-  %36 = zext i32 %35 to i64
-  %37 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %36
-  store i32 %34, ptr addrspace(1) %37, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %38 = load <4 x i32>, ptr %5, align 16
-  %39 = extractelement <4 x i32> %38, i64 3
-  %40 = or i32 %17, 5
-  %41 = zext i32 %40 to i64
-  %42 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %41
-  store i32 %39, ptr addrspace(1) %42, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %43 = extractelement <4 x i32> %16, i64 1
-  %44 = or i32 %17, 6
-  %45 = zext i32 %44 to i64
-  %46 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %45
-  store i32 %43, ptr addrspace(1) %46, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  %47 = extractelement <4 x i32> %33, i64 0
-  %48 = extractelement <4 x i32> %38, i64 2
-  %49 = extractelement <4 x i32> %16, i64 2
-  %50 = load i32, ptr addrspace(1) %7, align 4, !tbaa !22, !alias.scope !26, !noalias !29
-  %51 = zext i32 %50 to i64
-  %52 = mul nuw i64 %51, 4294967297
-  %53 = call i64 @air.popcount.i64(i64 %52) #6
-  %54 = trunc i64 %53 to i32
-  %55 = shl i32 %54, 16
-  %56 = xor i32 %49, %47
-  %57 = xor i32 %56, %48
-  %58 = xor i32 %57, %55
-  %59 = or i32 %17, 7
-  %60 = zext i32 %59 to i64
-  %61 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %60
-  store i32 %58, ptr addrspace(1) %61, align 4, !tbaa !22, !alias.scope !29, !noalias !26
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %14) #4
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %10) #4
+  %10 = call fast float @___metal_frexp_float_pthreadint32(float %9, ptr nonnull %4) #3
+  %11 = insertelement <4 x float> <float 2.500000e-01, float poison, float -7.000000e+00, float poison>, float %9, i64 1
+  %12 = insertelement <4 x float> %11, float %9, i64 3
+  %13 = call fast <4 x float> @___metal_frexp_v4float_pthreadv4int32(<4 x float> %12, ptr nonnull %5) #3
+  %14 = call <4 x i32> @___metal_ilogb_v4float(<4 x float> %12, i32 0) #3
+  %15 = shl i32 %2, 3
+  %16 = zext i32 %15 to i64
+  %17 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %16
+  %18 = bitcast ptr addrspace(1) %17 to ptr addrspace(1)
+  store float %10, ptr addrspace(1) %18, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %19 = load i32, ptr %4, align 4, !tbaa !22
+  %20 = or i32 %15, 1
+  %21 = zext i32 %20 to i64
+  %22 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %21
+  store i32 %19, ptr addrspace(1) %22, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %23 = call i32 @___metal_ilogb_float(float %9, i32 0) #3
+  %24 = or i32 %15, 2
+  %25 = zext i32 %24 to i64
+  %26 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %25
+  store i32 %23, ptr addrspace(1) %26, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %27 = call i32 @___metal_ilogb_float(float %9, i32 3) #3
+  %28 = or i32 %15, 3
+  %29 = zext i32 %28 to i64
+  %30 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %29
+  store i32 %27, ptr addrspace(1) %30, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %31 = bitcast <4 x float> %13 to <4 x i32>
+  %32 = extractelement <4 x i32> %31, i64 1
+  %33 = or i32 %15, 4
+  %34 = zext i32 %33 to i64
+  %35 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %34
+  store i32 %32, ptr addrspace(1) %35, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %36 = load <4 x i32>, ptr %5, align 16
+  %37 = extractelement <4 x i32> %36, i64 3
+  %38 = or i32 %15, 5
+  %39 = zext i32 %38 to i64
+  %40 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %39
+  store i32 %37, ptr addrspace(1) %40, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %41 = extractelement <4 x i32> %14, i64 1
+  %42 = or i32 %15, 6
+  %43 = zext i32 %42 to i64
+  %44 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %43
+  store i32 %41, ptr addrspace(1) %44, align 4, !tbaa !22, !alias.scope !29, !noalias !26
+  %45 = extractelement <4 x i32> %31, i64 0
+  %46 = extractelement <4 x i32> %36, i64 2
+  %47 = extractelement <4 x i32> %14, i64 2
+  %48 = load i32, ptr addrspace(1) %7, align 4, !tbaa !22, !alias.scope !26, !noalias !29
+  %49 = zext i32 %48 to i64
+  %50 = mul nuw i64 %49, 4294967297
+  %51 = call i64 @air.popcount.i64(i64 %50) #4
+  %52 = trunc i64 %51 to i32
+  %53 = shl i32 %52, 16
+  %54 = xor i32 %47, %45
+  %55 = xor i32 %54, %46
+  %56 = xor i32 %55, %53
+  %57 = or i32 %15, 7
+  %58 = zext i32 %57 to i64
+  %59 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %58
+  store i32 %56, ptr addrspace(1) %59, align 4, !tbaa !22, !alias.scope !29, !noalias !26
   ret void
 }
 
@@ -88,74 +82,68 @@ define void @frexp_ilogb_half(ptr addrspace(1) noundef readonly captures(none) "
   %8 = load i32, ptr addrspace(1) %7, align 4, !tbaa !22, !alias.scope !31, !noalias !34
   %9 = trunc i32 %8 to i16
   %10 = bitcast i16 %9 to half
-  %11 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %11) #4
-  %12 = call fast half @___metal_frexp_half_pthreadint32(half %10, ptr nonnull %4) #5
-  %13 = insertelement <4 x half> <half 0xH3400, half poison, half 0xHC700, half poison>, half %10, i64 1
-  %14 = insertelement <4 x half> %13, half %10, i64 3
-  %15 = bitcast ptr %5 to ptr
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %15) #4
-  %16 = call fast <4 x half> @___metal_frexp_v4half_pthreadv4int32(<4 x half> %14, ptr nonnull %5) #5
-  %17 = call <4 x i32> @___metal_ilogb_v4half(<4 x half> %14, i32 0) #5
-  %18 = bitcast half %12 to i16
-  %19 = zext i16 %18 to i32
-  %20 = shl i32 %2, 3
-  %21 = zext i32 %20 to i64
-  %22 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %21
-  store i32 %19, ptr addrspace(1) %22, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %23 = load i32, ptr %4, align 4, !tbaa !22
-  %24 = or i32 %20, 1
-  %25 = zext i32 %24 to i64
-  %26 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %25
-  store i32 %23, ptr addrspace(1) %26, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %27 = call i32 @___metal_ilogb_half(half %10, i32 0) #5
-  %28 = or i32 %20, 2
-  %29 = zext i32 %28 to i64
-  %30 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %29
-  store i32 %27, ptr addrspace(1) %30, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %31 = fpext half %10 to float
-  %32 = call i32 @___metal_ilogb_float(float %31, i32 3) #5
-  %33 = or i32 %20, 3
-  %34 = zext i32 %33 to i64
-  %35 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %34
-  store i32 %32, ptr addrspace(1) %35, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %36 = bitcast <4 x half> %16 to <4 x i16>
-  %37 = extractelement <4 x i16> %36, i64 1
-  %38 = zext i16 %37 to i32
-  %39 = or i32 %20, 4
-  %40 = zext i32 %39 to i64
-  %41 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %40
-  store i32 %38, ptr addrspace(1) %41, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %42 = load <4 x i32>, ptr %5, align 16
-  %43 = extractelement <4 x i32> %42, i64 3
-  %44 = or i32 %20, 5
-  %45 = zext i32 %44 to i64
-  %46 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %45
-  store i32 %43, ptr addrspace(1) %46, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %47 = extractelement <4 x i32> %17, i64 1
-  %48 = or i32 %20, 6
-  %49 = zext i32 %48 to i64
-  %50 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %49
-  store i32 %47, ptr addrspace(1) %50, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  %51 = extractelement <4 x i16> %36, i64 0
-  %52 = zext i16 %51 to i32
-  %53 = extractelement <4 x i32> %42, i64 2
-  %54 = extractelement <4 x i32> %17, i64 2
-  %55 = load i32, ptr addrspace(1) %7, align 4, !tbaa !22, !alias.scope !31, !noalias !34
-  %56 = zext i32 %55 to i64
-  %57 = mul nuw i64 %56, 4294967297
-  %58 = call i64 @air.popcount.i64(i64 %57) #6
-  %59 = trunc i64 %58 to i32
-  %60 = shl i32 %59, 16
-  %61 = xor i32 %54, %52
-  %62 = xor i32 %61, %53
-  %63 = xor i32 %62, %60
-  %64 = or i32 %20, 7
-  %65 = zext i32 %64 to i64
-  %66 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %65
-  store i32 %63, ptr addrspace(1) %66, align 4, !tbaa !22, !alias.scope !34, !noalias !31
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %15) #4
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %11) #4
+  %11 = call fast half @___metal_frexp_half_pthreadint32(half %10, ptr nonnull %4) #3
+  %12 = insertelement <4 x half> <half 0xH3400, half poison, half 0xHC700, half poison>, half %10, i64 1
+  %13 = insertelement <4 x half> %12, half %10, i64 3
+  %14 = call fast <4 x half> @___metal_frexp_v4half_pthreadv4int32(<4 x half> %13, ptr nonnull %5) #3
+  %15 = call <4 x i32> @___metal_ilogb_v4half(<4 x half> %13, i32 0) #3
+  %16 = bitcast half %11 to i16
+  %17 = zext i16 %16 to i32
+  %18 = shl i32 %2, 3
+  %19 = zext i32 %18 to i64
+  %20 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %19
+  store i32 %17, ptr addrspace(1) %20, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %21 = load i32, ptr %4, align 4, !tbaa !22
+  %22 = or i32 %18, 1
+  %23 = zext i32 %22 to i64
+  %24 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %23
+  store i32 %21, ptr addrspace(1) %24, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %25 = call i32 @___metal_ilogb_half(half %10, i32 0) #3
+  %26 = or i32 %18, 2
+  %27 = zext i32 %26 to i64
+  %28 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %27
+  store i32 %25, ptr addrspace(1) %28, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %29 = fpext half %10 to float
+  %30 = call i32 @___metal_ilogb_float(float %29, i32 3) #3
+  %31 = or i32 %18, 3
+  %32 = zext i32 %31 to i64
+  %33 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %32
+  store i32 %30, ptr addrspace(1) %33, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %34 = bitcast <4 x half> %14 to <4 x i16>
+  %35 = extractelement <4 x i16> %34, i64 1
+  %36 = zext i16 %35 to i32
+  %37 = or i32 %18, 4
+  %38 = zext i32 %37 to i64
+  %39 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %38
+  store i32 %36, ptr addrspace(1) %39, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %40 = load <4 x i32>, ptr %5, align 16
+  %41 = extractelement <4 x i32> %40, i64 3
+  %42 = or i32 %18, 5
+  %43 = zext i32 %42 to i64
+  %44 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %43
+  store i32 %41, ptr addrspace(1) %44, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %45 = extractelement <4 x i32> %15, i64 1
+  %46 = or i32 %18, 6
+  %47 = zext i32 %46 to i64
+  %48 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %47
+  store i32 %45, ptr addrspace(1) %48, align 4, !tbaa !22, !alias.scope !34, !noalias !31
+  %49 = extractelement <4 x i16> %34, i64 0
+  %50 = zext i16 %49 to i32
+  %51 = extractelement <4 x i32> %40, i64 2
+  %52 = extractelement <4 x i32> %15, i64 2
+  %53 = load i32, ptr addrspace(1) %7, align 4, !tbaa !22, !alias.scope !31, !noalias !34
+  %54 = zext i32 %53 to i64
+  %55 = mul nuw i64 %54, 4294967297
+  %56 = call i64 @air.popcount.i64(i64 %55) #4
+  %57 = trunc i64 %56 to i32
+  %58 = shl i32 %57, 16
+  %59 = xor i32 %52, %50
+  %60 = xor i32 %59, %51
+  %61 = xor i32 %60, %58
+  %62 = or i32 %18, 7
+  %63 = zext i32 %62 to i64
+  %64 = getelementptr inbounds i32, ptr addrspace(1) %1, i64 %63
+  store i32 %61, ptr addrspace(1) %64, align 4, !tbaa !22, !alias.scope !34, !noalias !31
   ret void
 }
 
@@ -186,19 +174,11 @@ declare <4 x i32> @___metal_ilogb_v4half(<4 x half>, i32) local_unnamed_addr #1
 ; Function Attrs: convergent
 declare i32 @___metal_ilogb_half(half, i32) local_unnamed_addr #1
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr captures(none)) #3
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr captures(none)) #3
-
 attributes #0 = { convergent mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="128" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #1 = { convergent }
 attributes #2 = { mustprogress nofree nosync nounwind willreturn memory(none) }
-attributes #3 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #4 = { nounwind }
-attributes #5 = { convergent nounwind }
-attributes #6 = { nounwind willreturn memory(none) }
+attributes #3 = { convergent nounwind }
+attributes #4 = { nounwind willreturn memory(none) }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9, !15}
@@ -207,7 +187,7 @@ attributes #6 = { nounwind willreturn memory(none) }
 !air.version = !{!20}
 !air.language_version = !{!21}
 
-!0 = !{i32 2, !"SDK Version", [2 x i32] [i32 27, i32 0]}
+!0 = !{i32 2, !"SDK Version", [2 x i32] [i32 26, i32 5]}
 !1 = !{i32 1, !"wchar_size", i32 4}
 !2 = !{i32 7, !"frame-pointer", i32 2}
 !3 = !{i32 7, !"air.max_device_buffers", i32 31}
@@ -226,7 +206,7 @@ attributes #6 = { nounwind willreturn memory(none) }
 !16 = !{!"air.compile.denorms_disable"}
 !17 = !{!"air.compile.fast_math_enable"}
 !18 = !{!"air.compile.framebuffer_fetch_enable"}
-!19 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
+!19 = !{!"Apple metal version 32023.883 (metalfe-32023.883)"}
 !20 = !{i32 2, i32 8, i32 0}
 !21 = !{!"Metal", i32 4, i32 0, i32 0}
 !22 = !{!23, !23, i64 0}

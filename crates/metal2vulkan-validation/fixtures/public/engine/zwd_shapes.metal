@@ -1,3 +1,5 @@
+// metal-std: metal4.0
+// metal-lifetime-markers: off
 // Owned fixture (WP-ZIN2): a compositor's antialiased shapes, as a window server draws an alert
 // panel's rounded corners and a title bar's round buttons by their coverage. `zwd_quad` places two
 // triangles over a shape's box given in pixels, two pixels wider each way for its soft edge, in a

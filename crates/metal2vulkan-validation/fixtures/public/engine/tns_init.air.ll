@@ -676,11 +676,8 @@ define void @tns_init(i32 addrspace(1)* nocapture noundef writeonly "air-buffer-
 ; Function Attrs: mustprogress nofree nosync nounwind readnone willreturn
 declare i1 @air.is_function_constant_defined(i8 addrspace(2)* nocapture) local_unnamed_addr #1
 
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #2
-
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEDhDhfiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -693,7 +690,10 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #2
+declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #3
+
+; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #3
 
 ; Function Attrs: convergent
 declare i64 @__tensorops_impl_matmul2d_op_cooperative_tensor_data_size(i32 noundef, i32, i32, i32, i8, i8, i8, i32, i32 noundef, i32 noundef, i32 noundef, i32 noundef) local_unnamed_addr #4 section "air.externally_defined"
@@ -720,7 +720,7 @@ declare zeroext i16 @__tensorops_impl_matmul2d_op_cooperative_tensor_num_element
 declare i8* @__tensorops_impl_matmul2d_op_cooperative_tensor_get_element_pointer(i32 noundef, i32, i32, i32, i8, i8, i8, i32, i8* noundef, i16 noundef zeroext, i32 noundef, i32 noundef, i32 noundef) local_unnamed_addr #4 section "air.externally_defined"
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -733,7 +733,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIiNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEaaiiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIiNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm1EEEaaiiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm1EEEaaiiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -746,7 +746,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm2EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi64ELi16ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm2EEEDhDhfiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -760,7 +760,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE2ENS_20execution_simdgroupsILm4EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi64ELi64ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE2EN5metal20execution_simdgroupsILm4EEEDhDhfiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -774,7 +774,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIDhNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIDhNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEDhDhfiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE1EN5metal20execution_simdgroupsILm1EEEDhDhfiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -793,7 +793,7 @@ declare half @air.convert.f.f16.u.i32(i32) local_unnamed_addr #1
 declare i32 @air.convert.u.i32.f.f16(half) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIfNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEfffiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE1EN5metal20execution_simdgroupsILm1EEEfffiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -806,7 +806,7 @@ define linkonce_odr i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layou
 }
 
 ; Function Attrs: mustprogress nofree nosync readnone speculatable willreturn
-define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIaNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEaaiiJEEEEE.MTL_SIZEAS() local_unnamed_addr #3 {
+define linkonce_odr hidden i64 @_ZN5metal18cooperative_tensorIaNS_7extentsIiJLm18446744073709551615ELm18446744073709551615EEEEN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS4_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS7_4modeE1EEELNS5_36__matmul2d_cooperative_operand_indexE1ENS_20execution_simdgroupsILm1EEEaaiiJEEEEE.MTL_SIZEAS() local_unnamed_addr #2 {
   %1 = tail call i64 @_ZN3mpp10tensor_ops17__mutmul2d_detail16__operand_layoutIXtlNS0_19matmul2d_descriptorELi16ELi16ELi32ELb0ELb0ELb0ELNS3_4modeE1EEELNS1_36__matmul2d_cooperative_operand_indexE1EN5metal20execution_simdgroupsILm1EEEaaiiJEE19thread_storage_sizeEv() #9
   ret i64 %1
 }
@@ -829,8 +829,8 @@ define internal void @_GLOBAL__sub_I__() #5 section "air.static_init" {
 
 attributes #0 = { convergent nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #1 = { mustprogress nofree nosync nounwind readnone willreturn }
-attributes #2 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
-attributes #3 = { mustprogress nofree nosync readnone speculatable willreturn "deferred-static-alloca-size" }
+attributes #2 = { mustprogress nofree nosync readnone speculatable willreturn "deferred-static-alloca-size" }
+attributes #3 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
 attributes #4 = { convergent "approx-func-fp-math"="true" "frame-pointer"="all" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #6 = { nounwind }

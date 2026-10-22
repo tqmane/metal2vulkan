@@ -2,7 +2,7 @@
 ; ModuleID = '<stdin>'
 source_filename = "-"
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32"
-target triple = "air64_v28-apple-macosx26.0.0"
+target triple = "air64_v29-apple-macosx27.0.0"
 
 %struct.ZwsBox = type { <4 x float>, <4 x float>, <4 x float>, <4 x float> }
 
@@ -10,7 +10,6 @@ target triple = "air64_v28-apple-macosx26.0.0"
 define <{ <4 x float> }> @zws_box(i32 noundef %0, ptr addrspace(2) noundef readonly align 16 captures(none) dereferenceable(64) "air-buffer-no-alias" %1) local_unnamed_addr #0 {
   %3 = alloca [6 x <2 x float>], align 8
   %4 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %4) #7
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %4, i8 0, i64 48, i1 false)
   %5 = getelementptr inbounds [6 x <2 x float>], ptr %3, i64 0, i64 1, i64 0
   store float 1.000000e+00, ptr %5, align 8
@@ -46,7 +45,6 @@ define <{ <4 x float> }> @zws_box(i32 noundef %0, ptr addrspace(2) noundef reado
   %30 = tail call float @llvm.fmuladd.f32(float %29, float 2.000000e+00, float 1.000000e+00)
   %31 = insertelement <4 x float> <float poison, float poison, float 0.000000e+00, float 1.000000e+00>, float %25, i64 0
   %32 = insertelement <4 x float> %31, float %30, i64 1
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %4) #7
   %33 = insertvalue <{ <4 x float> }> undef, <4 x float> %32, 0
   ret <{ <4 x float> }> %33
 }
@@ -67,7 +65,7 @@ define <4 x float> @zws_over(<4 x float> %0, <4 x float> noundef %1, ptr addrspa
   %12 = fadd <2 x float> %11, %10
   %13 = shufflevector <4 x float> %9, <4 x float> poison, <2 x i32> <i32 2, i32 3>
   %14 = fsub <2 x float> %13, %11
-  %15 = tail call <2 x float> @air.clamp.v2f32(<2 x float> %4, <2 x float> %12, <2 x float> %14) #8
+  %15 = tail call <2 x float> @air.clamp.v2f32(<2 x float> %4, <2 x float> %12, <2 x float> %14) #6
   %16 = fsub <2 x float> %4, %15
   %17 = extractelement <2 x float> %16, i64 0
   %18 = extractelement <2 x float> %16, i64 1
@@ -78,7 +76,7 @@ define <4 x float> @zws_over(<4 x float> %0, <4 x float> noundef %1, ptr addrspa
   br i1 %22, label %23, label %24
 
 23:                                               ; preds = %3
-  tail call void @air.discard_fragment() #9
+  tail call void @air.discard_fragment() #8
   br label %24
 
 24:                                               ; preds = %23, %3
@@ -106,7 +104,7 @@ define <4 x float> @zws_plain(<4 x float> %0, ptr addrspace(2) noundef readonly 
   %11 = fadd <2 x float> %10, %9
   %12 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 2, i32 3>
   %13 = fsub <2 x float> %12, %10
-  %14 = tail call <2 x float> @air.clamp.v2f32(<2 x float> %3, <2 x float> %11, <2 x float> %13) #8
+  %14 = tail call <2 x float> @air.clamp.v2f32(<2 x float> %3, <2 x float> %11, <2 x float> %13) #6
   %15 = fsub <2 x float> %3, %14
   %16 = extractelement <2 x float> %15, i64 0
   %17 = extractelement <2 x float> %15, i64 1
@@ -117,7 +115,7 @@ define <4 x float> @zws_plain(<4 x float> %0, ptr addrspace(2) noundef readonly 
   br i1 %21, label %22, label %23
 
 22:                                               ; preds = %2
-  tail call void @air.discard_fragment() #9
+  tail call void @air.discard_fragment() #8
   br label %23
 
 23:                                               ; preds = %22, %2
@@ -132,25 +130,18 @@ declare <2 x float> @air.clamp.v2f32(<2 x float>, <2 x float>, <2 x float>) loca
 ; Function Attrs: mustprogress nounwind willreturn
 declare void @air.discard_fragment() local_unnamed_addr #4
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr captures(none)) #5
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr writeonly captures(none), i8, i64, i1 immarg) #6
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr captures(none)) #5
+declare void @llvm.memset.p0.i64(ptr writeonly captures(none), i8, i64, i1 immarg) #5
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(none) "frame-pointer"="all" "min-legal-vector-width"="64" "no-builtins" "no-trapping-math"="true" "stack-protector-buffer-size"="8" }
 attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #2 = { mustprogress nounwind willreturn "frame-pointer"="all" "min-legal-vector-width"="128" "no-builtins" "no-trapping-math"="true" "stack-protector-buffer-size"="8" }
 attributes #3 = { mustprogress nofree nosync nounwind willreturn memory(none) }
 attributes #4 = { mustprogress nounwind willreturn }
-attributes #5 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nounwind willreturn memory(none) }
 attributes #7 = { nounwind }
-attributes #8 = { nounwind willreturn memory(none) }
-attributes #9 = { nounwind willreturn }
+attributes #8 = { nounwind willreturn }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.vertex = !{!9}
@@ -189,7 +180,7 @@ attributes #9 = { nounwind willreturn }
 !26 = !{!"air.compile.fast_math_disable"}
 !27 = !{!"air.compile.framebuffer_fetch_enable"}
 !28 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
-!29 = !{i32 2, i32 8, i32 0}
+!29 = !{i32 2, i32 9, i32 0}
 !30 = !{!"Metal", i32 4, i32 0, i32 0}
 !31 = !{!32, !32, i64 0}
 !32 = !{!"omnipotent char", !33, i64 0}

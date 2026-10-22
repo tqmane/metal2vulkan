@@ -2,13 +2,13 @@
 ; ModuleID = '-'
 source_filename = "-"
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32"
-target triple = "air64_v28-apple-macosx26.0.0"
+target triple = "air64_v29-apple-macosx27.0.0"
 
 ; Function Attrs: argmemonly mustprogress nofree nosync nounwind willreturn writeonly
 define void @frames_wide(i32 addrspace(1)* nocapture noundef writeonly "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #0 {
   %3 = zext i32 %1 to i64
   %4 = mul nuw i64 %3, 4294967297
-  %5 = tail call i64 @air.popcount.i64(i64 %4) #4
+  %5 = tail call i64 @air.popcount.i64(i64 %4) #3
   %6 = trunc i64 %5 to i32
   %7 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %3
   store i32 %6, i32 addrspace(1)* %7, align 4, !tbaa !84, !alias.scope !88
@@ -47,7 +47,7 @@ define i32 @fr_live8(i32 noundef %0) local_unnamed_addr #1 {
   %27 = lshr i32 %26, 13
   %28 = xor i32 %27, %26
   %29 = add i32 %0, -1
-  %30 = tail call i32 @fr_live8.MTL_VISIBLE_FN_REF(i32 noundef %29) #5
+  %30 = tail call i32 @fr_live8.MTL_VISIBLE_FN_REF(i32 noundef %29) #4
   %31 = mul i32 %10, 198677718
   %32 = mul i32 %13, -1849467071
   %33 = mul i32 %16, 397355436
@@ -70,13 +70,7 @@ define i32 @fr_live8(i32 noundef %0) local_unnamed_addr #1 {
   ret i32 %47
 }
 
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #2
-
 declare i32 @fr_live8.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
-
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #2
 
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_live32(i32 noundef %0) local_unnamed_addr #1 {
@@ -182,7 +176,7 @@ define i32 @fr_live32(i32 noundef %0) local_unnamed_addr #1 {
   %99 = lshr i32 %98, 13
   %100 = xor i32 %99, %98
   %101 = add i32 %0, -1
-  %102 = tail call i32 @fr_live32.MTL_VISIBLE_FN_REF(i32 noundef %101) #5
+  %102 = tail call i32 @fr_live32.MTL_VISIBLE_FN_REF(i32 noundef %101) #4
   %103 = mul i32 %10, 198677718
   %104 = mul i32 %13, -1849467071
   %105 = mul i32 %16, 397355436
@@ -258,67 +252,64 @@ declare i32 @fr_live32.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.e
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_nest44(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [4 x [4 x i32]], align 4
-  %3 = bitcast [4 x [4 x i32]]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 64, i8* nonnull %3) #6
-  %4 = shl i32 %0, 4
-  br label %5
+  %3 = shl i32 %0, 4
+  br label %4
 
-5:                                                ; preds = %1, %12
-  %6 = phi i32 [ 0, %1 ], [ %13, %12 ]
-  %7 = shl i32 %6, 2
-  %8 = add nuw nsw i32 %7, %4
-  %9 = zext i32 %6 to i64
-  br label %15
+4:                                                ; preds = %1, %16
+  %5 = phi i32 [ 0, %1 ], [ %17, %16 ]
+  %6 = shl i32 %5, 2
+  %7 = add nuw nsw i32 %6, %3
+  %8 = zext i32 %5 to i64
+  br label %9
 
-10:                                               ; preds = %12
-  %11 = icmp eq i32 %0, 0
-  br i1 %11, label %25, label %22
+9:                                                ; preds = %4, %9
+  %10 = phi i32 [ 0, %4 ], [ %14, %9 ]
+  %11 = add nuw nsw i32 %7, %10
+  %12 = zext i32 %10 to i64
+  %13 = getelementptr inbounds [4 x [4 x i32]], [4 x [4 x i32]]* %2, i64 0, i64 %8, i64 %12
+  store i32 %11, i32* %13, align 4, !tbaa !84
+  %14 = add nuw nsw i32 %10, 1
+  %15 = icmp eq i32 %14, 4
+  br i1 %15, label %16, label %9, !llvm.loop !91
 
-12:                                               ; preds = %15
-  %13 = add nuw nsw i32 %6, 1
-  %14 = icmp eq i32 %13, 4
-  br i1 %14, label %10, label %5, !llvm.loop !91
+16:                                               ; preds = %9
+  %17 = add nuw nsw i32 %5, 1
+  %18 = icmp eq i32 %17, 4
+  br i1 %18, label %19, label %4, !llvm.loop !93
 
-15:                                               ; preds = %5, %15
-  %16 = phi i32 [ 0, %5 ], [ %20, %15 ]
-  %17 = add nuw nsw i32 %8, %16
-  %18 = zext i32 %16 to i64
-  %19 = getelementptr inbounds [4 x [4 x i32]], [4 x [4 x i32]]* %2, i64 0, i64 %9, i64 %18
-  store i32 %17, i32* %19, align 4, !tbaa !84
-  %20 = add nuw nsw i32 %16, 1
-  %21 = icmp eq i32 %20, 4
-  br i1 %21, label %12, label %15, !llvm.loop !93
+19:                                               ; preds = %16
+  %20 = icmp eq i32 %0, 0
+  br i1 %20, label %24, label %21
 
-22:                                               ; preds = %10
-  %23 = add i32 %0, -1
-  %24 = tail call i32 @fr_nest44.MTL_VISIBLE_FN_REF(i32 noundef %23) #5
-  br label %25
+21:                                               ; preds = %19
+  %22 = add i32 %0, -1
+  %23 = tail call i32 @fr_nest44.MTL_VISIBLE_FN_REF(i32 noundef %22) #4
+  br label %24
 
-25:                                               ; preds = %10, %22
-  %26 = phi i32 [ %24, %22 ], [ 0, %10 ]
-  br label %28
+24:                                               ; preds = %19, %21
+  %25 = phi i32 [ %23, %21 ], [ 0, %19 ]
+  br label %26
 
-27:                                               ; preds = %28
-  call void @llvm.lifetime.end.p0i8(i64 64, i8* nonnull %3) #6
-  ret i32 %42
+26:                                               ; preds = %24, %26
+  %27 = phi i32 [ 0, %24 ], [ %38, %26 ]
+  %28 = phi i32 [ %25, %24 ], [ %40, %26 ]
+  %29 = mul nuw nsw i32 %27, 3
+  %30 = add i32 %29, %0
+  %31 = and i32 %30, 3
+  %32 = zext i32 %31 to i64
+  %33 = add i32 %27, %0
+  %34 = and i32 %33, 3
+  %35 = zext i32 %34 to i64
+  %36 = getelementptr inbounds [4 x [4 x i32]], [4 x [4 x i32]]* %2, i64 0, i64 %32, i64 %35
+  %37 = load i32, i32* %36, align 4, !tbaa !84
+  %38 = add nuw nsw i32 %27, 1
+  %39 = mul i32 %37, %38
+  %40 = add i32 %39, %28
+  %41 = icmp eq i32 %38, 16
+  br i1 %41, label %42, label %26, !llvm.loop !94
 
-28:                                               ; preds = %25, %28
-  %29 = phi i32 [ 0, %25 ], [ %40, %28 ]
-  %30 = phi i32 [ %26, %25 ], [ %42, %28 ]
-  %31 = mul nuw nsw i32 %29, 3
-  %32 = add i32 %31, %0
-  %33 = and i32 %32, 3
-  %34 = zext i32 %33 to i64
-  %35 = add i32 %29, %0
-  %36 = and i32 %35, 3
-  %37 = zext i32 %36 to i64
-  %38 = getelementptr inbounds [4 x [4 x i32]], [4 x [4 x i32]]* %2, i64 0, i64 %34, i64 %37
-  %39 = load i32, i32* %38, align 4, !tbaa !84
-  %40 = add nuw nsw i32 %29, 1
-  %41 = mul i32 %39, %40
-  %42 = add i32 %41, %30
-  %43 = icmp eq i32 %40, 16
-  br i1 %43, label %27, label %28, !llvm.loop !94
+42:                                               ; preds = %26
+  ret i32 %40
 }
 
 declare i32 @fr_nest44.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -326,68 +317,65 @@ declare i32 @fr_nest44.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.e
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_nest88(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [8 x [8 x i32]], align 4
-  %3 = bitcast [8 x [8 x i32]]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 256, i8* nonnull %3) #6
-  %4 = shl i32 %0, 6
-  br label %5
+  %3 = shl i32 %0, 6
+  br label %4
 
-5:                                                ; preds = %1, %12
-  %6 = phi i32 [ 0, %1 ], [ %13, %12 ]
-  %7 = shl i32 %6, 3
-  %8 = add nuw nsw i32 %7, %4
-  %9 = zext i32 %6 to i64
-  br label %15
+4:                                                ; preds = %1, %16
+  %5 = phi i32 [ 0, %1 ], [ %17, %16 ]
+  %6 = shl i32 %5, 3
+  %7 = add nuw nsw i32 %6, %3
+  %8 = zext i32 %5 to i64
+  br label %9
 
-10:                                               ; preds = %12
-  %11 = icmp eq i32 %0, 0
-  br i1 %11, label %25, label %22
+9:                                                ; preds = %4, %9
+  %10 = phi i32 [ 0, %4 ], [ %14, %9 ]
+  %11 = add nuw nsw i32 %7, %10
+  %12 = zext i32 %10 to i64
+  %13 = getelementptr inbounds [8 x [8 x i32]], [8 x [8 x i32]]* %2, i64 0, i64 %8, i64 %12
+  store i32 %11, i32* %13, align 4, !tbaa !84
+  %14 = add nuw nsw i32 %10, 1
+  %15 = icmp eq i32 %14, 8
+  br i1 %15, label %16, label %9, !llvm.loop !95
 
-12:                                               ; preds = %15
-  %13 = add nuw nsw i32 %6, 1
-  %14 = icmp eq i32 %13, 8
-  br i1 %14, label %10, label %5, !llvm.loop !95
+16:                                               ; preds = %9
+  %17 = add nuw nsw i32 %5, 1
+  %18 = icmp eq i32 %17, 8
+  br i1 %18, label %19, label %4, !llvm.loop !96
 
-15:                                               ; preds = %5, %15
-  %16 = phi i32 [ 0, %5 ], [ %20, %15 ]
-  %17 = add nuw nsw i32 %8, %16
-  %18 = zext i32 %16 to i64
-  %19 = getelementptr inbounds [8 x [8 x i32]], [8 x [8 x i32]]* %2, i64 0, i64 %9, i64 %18
-  store i32 %17, i32* %19, align 4, !tbaa !84
-  %20 = add nuw nsw i32 %16, 1
-  %21 = icmp eq i32 %20, 8
-  br i1 %21, label %12, label %15, !llvm.loop !96
+19:                                               ; preds = %16
+  %20 = icmp eq i32 %0, 0
+  br i1 %20, label %24, label %21
 
-22:                                               ; preds = %10
-  %23 = add i32 %0, -1
-  %24 = tail call i32 @fr_nest88.MTL_VISIBLE_FN_REF(i32 noundef %23) #5
-  br label %25
+21:                                               ; preds = %19
+  %22 = add i32 %0, -1
+  %23 = tail call i32 @fr_nest88.MTL_VISIBLE_FN_REF(i32 noundef %22) #4
+  br label %24
 
-25:                                               ; preds = %10, %22
-  %26 = phi i32 [ %24, %22 ], [ 0, %10 ]
-  br label %28
+24:                                               ; preds = %19, %21
+  %25 = phi i32 [ %23, %21 ], [ 0, %19 ]
+  br label %26
 
-27:                                               ; preds = %28
-  call void @llvm.lifetime.end.p0i8(i64 256, i8* nonnull %3) #6
-  ret i32 %43
+26:                                               ; preds = %24, %26
+  %27 = phi i32 [ 0, %24 ], [ %39, %26 ]
+  %28 = phi i32 [ %25, %24 ], [ %41, %26 ]
+  %29 = mul nuw nsw i32 %27, 7
+  %30 = add i32 %29, %0
+  %31 = and i32 %30, 7
+  %32 = zext i32 %31 to i64
+  %33 = mul nuw nsw i32 %27, 5
+  %34 = add i32 %33, %0
+  %35 = and i32 %34, 7
+  %36 = zext i32 %35 to i64
+  %37 = getelementptr inbounds [8 x [8 x i32]], [8 x [8 x i32]]* %2, i64 0, i64 %32, i64 %36
+  %38 = load i32, i32* %37, align 4, !tbaa !84
+  %39 = add nuw nsw i32 %27, 1
+  %40 = mul i32 %38, %39
+  %41 = add i32 %40, %28
+  %42 = icmp eq i32 %39, 64
+  br i1 %42, label %43, label %26, !llvm.loop !97
 
-28:                                               ; preds = %25, %28
-  %29 = phi i32 [ 0, %25 ], [ %41, %28 ]
-  %30 = phi i32 [ %26, %25 ], [ %43, %28 ]
-  %31 = mul nuw nsw i32 %29, 7
-  %32 = add i32 %31, %0
-  %33 = and i32 %32, 7
-  %34 = zext i32 %33 to i64
-  %35 = mul nuw nsw i32 %29, 5
-  %36 = add i32 %35, %0
-  %37 = and i32 %36, 7
-  %38 = zext i32 %37 to i64
-  %39 = getelementptr inbounds [8 x [8 x i32]], [8 x [8 x i32]]* %2, i64 0, i64 %34, i64 %38
-  %40 = load i32, i32* %39, align 4, !tbaa !84
-  %41 = add nuw nsw i32 %29, 1
-  %42 = mul i32 %40, %41
-  %43 = add i32 %42, %30
-  %44 = icmp eq i32 %41, 64
-  br i1 %44, label %27, label %28, !llvm.loop !97
+43:                                               ; preds = %26
+  ret i32 %41
 }
 
 declare i32 @fr_nest88.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -395,67 +383,64 @@ declare i32 @fr_nest88.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.e
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_nestv(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [3 x [2 x <4 x i32>]], align 16
-  %3 = bitcast [3 x [2 x <4 x i32>]]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 96, i8* nonnull %3) #6
-  %4 = mul i32 %0, 24
-  br label %5
+  %3 = mul i32 %0, 24
+  br label %4
 
-5:                                                ; preds = %1, %5
-  %6 = phi i32 [ 0, %1 ], [ %19, %5 ]
-  %7 = shl i32 %6, 3
-  %8 = add i32 %7, %4
-  %9 = zext i32 %6 to i64
-  %10 = insertelement <4 x i32> poison, i32 %8, i64 0
-  %11 = shufflevector <4 x i32> %10, <4 x i32> poison, <4 x i32> zeroinitializer
-  %12 = or <4 x i32> %11, <i32 0, i32 1, i32 2, i32 3>
-  %13 = getelementptr inbounds [3 x [2 x <4 x i32>]], [3 x [2 x <4 x i32>]]* %2, i64 0, i64 %9, i64 0
-  store <4 x i32> %12, <4 x i32>* %13, align 16, !tbaa !98
-  %14 = or i32 %8, 4
-  %15 = insertelement <4 x i32> poison, i32 %14, i64 0
-  %16 = shufflevector <4 x i32> %15, <4 x i32> poison, <4 x i32> zeroinitializer
-  %17 = or <4 x i32> %16, <i32 0, i32 1, i32 2, i32 3>
-  %18 = getelementptr inbounds [3 x [2 x <4 x i32>]], [3 x [2 x <4 x i32>]]* %2, i64 0, i64 %9, i64 1
-  store <4 x i32> %17, <4 x i32>* %18, align 16, !tbaa !98
-  %19 = add nuw nsw i32 %6, 1
-  %20 = icmp eq i32 %19, 3
-  br i1 %20, label %21, label %5, !llvm.loop !99
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %18, %4 ]
+  %6 = shl i32 %5, 3
+  %7 = add i32 %6, %3
+  %8 = zext i32 %5 to i64
+  %9 = insertelement <4 x i32> poison, i32 %7, i64 0
+  %10 = shufflevector <4 x i32> %9, <4 x i32> poison, <4 x i32> zeroinitializer
+  %11 = or <4 x i32> %10, <i32 0, i32 1, i32 2, i32 3>
+  %12 = getelementptr inbounds [3 x [2 x <4 x i32>]], [3 x [2 x <4 x i32>]]* %2, i64 0, i64 %8, i64 0
+  store <4 x i32> %11, <4 x i32>* %12, align 16, !tbaa !98
+  %13 = or i32 %7, 4
+  %14 = insertelement <4 x i32> poison, i32 %13, i64 0
+  %15 = shufflevector <4 x i32> %14, <4 x i32> poison, <4 x i32> zeroinitializer
+  %16 = or <4 x i32> %15, <i32 0, i32 1, i32 2, i32 3>
+  %17 = getelementptr inbounds [3 x [2 x <4 x i32>]], [3 x [2 x <4 x i32>]]* %2, i64 0, i64 %8, i64 1
+  store <4 x i32> %16, <4 x i32>* %17, align 16, !tbaa !98
+  %18 = add nuw nsw i32 %5, 1
+  %19 = icmp eq i32 %18, 3
+  br i1 %19, label %20, label %4, !llvm.loop !99
 
-21:                                               ; preds = %5
-  %22 = icmp eq i32 %0, 0
-  br i1 %22, label %26, label %23
+20:                                               ; preds = %4
+  %21 = icmp eq i32 %0, 0
+  br i1 %21, label %25, label %22
 
-23:                                               ; preds = %21
-  %24 = add i32 %0, -1
-  %25 = tail call i32 @fr_nestv.MTL_VISIBLE_FN_REF(i32 noundef %24) #5
-  br label %26
+22:                                               ; preds = %20
+  %23 = add i32 %0, -1
+  %24 = tail call i32 @fr_nestv.MTL_VISIBLE_FN_REF(i32 noundef %23) #4
+  br label %25
 
-26:                                               ; preds = %21, %23
-  %27 = phi i32 [ %25, %23 ], [ 0, %21 ]
-  br label %29
+25:                                               ; preds = %20, %22
+  %26 = phi i32 [ %24, %22 ], [ 0, %20 ]
+  br label %27
 
-28:                                               ; preds = %29
-  call void @llvm.lifetime.end.p0i8(i64 96, i8* nonnull %3) #6
-  ret i32 %45
-
-29:                                               ; preds = %26, %29
-  %30 = phi i32 [ 0, %26 ], [ %43, %29 ]
-  %31 = phi i32 [ %27, %26 ], [ %45, %29 ]
-  %32 = add i32 %30, %0
-  %33 = urem i32 %32, 3
+27:                                               ; preds = %25, %27
+  %28 = phi i32 [ 0, %25 ], [ %41, %27 ]
+  %29 = phi i32 [ %26, %25 ], [ %43, %27 ]
+  %30 = add i32 %28, %0
+  %31 = urem i32 %30, 3
+  %32 = zext i32 %31 to i64
+  %33 = and i32 %30, 1
   %34 = zext i32 %33 to i64
-  %35 = and i32 %32, 1
-  %36 = zext i32 %35 to i64
-  %37 = getelementptr inbounds [3 x [2 x <4 x i32>]], [3 x [2 x <4 x i32>]]* %2, i64 0, i64 %34, i64 %36
-  %38 = load <4 x i32>, <4 x i32>* %37, align 16, !tbaa !98
-  %39 = mul nuw nsw i32 %30, 3
-  %40 = add i32 %39, %0
-  %41 = and i32 %40, 3
-  %42 = extractelement <4 x i32> %38, i32 %41
-  %43 = add nuw nsw i32 %30, 1
-  %44 = mul i32 %42, %43
-  %45 = add i32 %44, %31
-  %46 = icmp eq i32 %43, 24
-  br i1 %46, label %28, label %29, !llvm.loop !100
+  %35 = getelementptr inbounds [3 x [2 x <4 x i32>]], [3 x [2 x <4 x i32>]]* %2, i64 0, i64 %32, i64 %34
+  %36 = load <4 x i32>, <4 x i32>* %35, align 16, !tbaa !98
+  %37 = mul nuw nsw i32 %28, 3
+  %38 = add i32 %37, %0
+  %39 = and i32 %38, 3
+  %40 = extractelement <4 x i32> %36, i32 %39
+  %41 = add nuw nsw i32 %28, 1
+  %42 = mul i32 %40, %41
+  %43 = add i32 %42, %29
+  %44 = icmp eq i32 %41, 24
+  br i1 %44, label %45, label %27, !llvm.loop !100
+
+45:                                               ; preds = %27
+  ret i32 %43
 }
 
 declare i32 @fr_nestv.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -463,52 +448,49 @@ declare i32 @fr_nestv.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.ex
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_w8(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [8 x i32], align 4
-  %3 = bitcast [8 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 32, i8* nonnull %3) #6
-  %4 = shl i32 %0, 3
-  br label %7
+  %3 = shl i32 %0, 3
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [8 x i32], [8 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 8
+  br i1 %10, label %11, label %4, !llvm.loop !101
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [8 x i32], [8 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 8
-  br i1 %13, label %5, label %7, !llvm.loop !101
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_w8.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_w8.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 32, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 7
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [8 x i32], [8 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 8
+  br i1 %30, label %31, label %18, !llvm.loop !102
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 7
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [8 x i32], [8 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 8
-  br i1 %32, label %19, label %20, !llvm.loop !102
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_w8.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -516,52 +498,49 @@ declare i32 @fr_w8.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exter
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_w16(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [16 x i32], align 4
-  %3 = bitcast [16 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 64, i8* nonnull %3) #6
-  %4 = shl i32 %0, 4
-  br label %7
+  %3 = shl i32 %0, 4
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 16
+  br i1 %10, label %11, label %4, !llvm.loop !103
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 16
-  br i1 %13, label %5, label %7, !llvm.loop !103
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_w16.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_w16.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 64, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 15
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 16
+  br i1 %30, label %31, label %18, !llvm.loop !104
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 15
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 16
-  br i1 %32, label %19, label %20, !llvm.loop !104
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_w16.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -569,52 +548,49 @@ declare i32 @fr_w16.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exte
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_w32(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [32 x i32], align 4
-  %3 = bitcast [32 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 128, i8* nonnull %3) #6
-  %4 = shl i32 %0, 5
-  br label %7
+  %3 = shl i32 %0, 5
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [32 x i32], [32 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 32
+  br i1 %10, label %11, label %4, !llvm.loop !105
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [32 x i32], [32 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 32
-  br i1 %13, label %5, label %7, !llvm.loop !105
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_w32.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_w32.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 128, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 31
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [32 x i32], [32 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 32
+  br i1 %30, label %31, label %18, !llvm.loop !106
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 31
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [32 x i32], [32 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 32
-  br i1 %32, label %19, label %20, !llvm.loop !106
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_w32.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -622,52 +598,49 @@ declare i32 @fr_w32.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exte
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_w64(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [64 x i32], align 4
-  %3 = bitcast [64 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 256, i8* nonnull %3) #6
-  %4 = shl i32 %0, 6
-  br label %7
+  %3 = shl i32 %0, 6
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 64
+  br i1 %10, label %11, label %4, !llvm.loop !107
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 64
-  br i1 %13, label %5, label %7, !llvm.loop !107
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_w64.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_w64.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 256, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 63
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 64
+  br i1 %30, label %31, label %18, !llvm.loop !108
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 63
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 64
-  br i1 %32, label %19, label %20, !llvm.loop !108
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_w64.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -683,11 +656,11 @@ define i32 @fr_pa(i32 noundef %0, i32 noundef %1) local_unnamed_addr #1 {
   br i1 %5, label %7, label %9
 
 7:                                                ; preds = %4
-  %8 = tail call i32 @fr_pa.MTL_VISIBLE_FN_REF(i32 noundef %6, i32 noundef 2) #5
+  %8 = tail call i32 @fr_pa.MTL_VISIBLE_FN_REF(i32 noundef %6, i32 noundef 2) #4
   br label %11
 
 9:                                                ; preds = %4
-  %10 = tail call i32 @fr_pb.MTL_VISIBLE_FN_REF(i32 noundef %6, i32 noundef %1) #5
+  %10 = tail call i32 @fr_pb.MTL_VISIBLE_FN_REF(i32 noundef %6, i32 noundef %1) #4
   br label %11
 
 11:                                               ; preds = %9, %7
@@ -707,111 +680,105 @@ declare i32 @fr_pb.MTL_VISIBLE_FN_REF(i32, i32) local_unnamed_addr section "air.
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_pb(i32 noundef %0, i32 noundef %1) local_unnamed_addr #1 {
   %3 = alloca [16 x i32], align 4
-  %4 = bitcast [16 x i32]* %3 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 64, i8* nonnull %4) #6
-  %5 = shl i32 %0, 4
-  br label %8
+  %4 = shl i32 %0, 4
+  br label %5
 
-6:                                                ; preds = %8
-  %7 = icmp eq i32 %0, 0
-  br i1 %7, label %22, label %15
+5:                                                ; preds = %2, %5
+  %6 = phi i32 [ 0, %2 ], [ %10, %5 ]
+  %7 = add nuw nsw i32 %6, %4
+  %8 = zext i32 %6 to i64
+  %9 = getelementptr inbounds [16 x i32], [16 x i32]* %3, i64 0, i64 %8
+  store i32 %7, i32* %9, align 4, !tbaa !84
+  %10 = add nuw nsw i32 %6, 1
+  %11 = icmp eq i32 %10, 16
+  br i1 %11, label %12, label %5, !llvm.loop !109
 
-8:                                                ; preds = %2, %8
-  %9 = phi i32 [ 0, %2 ], [ %13, %8 ]
-  %10 = add nuw nsw i32 %9, %5
-  %11 = zext i32 %9 to i64
-  %12 = getelementptr inbounds [16 x i32], [16 x i32]* %3, i64 0, i64 %11
-  store i32 %10, i32* %12, align 4, !tbaa !84
-  %13 = add nuw nsw i32 %9, 1
-  %14 = icmp eq i32 %13, 16
-  br i1 %14, label %6, label %8, !llvm.loop !109
+12:                                               ; preds = %5
+  %13 = icmp eq i32 %0, 0
+  br i1 %13, label %21, label %14
 
-15:                                               ; preds = %6
-  %16 = icmp eq i32 %1, 0
-  %17 = add i32 %0, -1
-  br i1 %16, label %18, label %20
+14:                                               ; preds = %12
+  %15 = icmp eq i32 %1, 0
+  %16 = add i32 %0, -1
+  br i1 %15, label %17, label %19
 
-18:                                               ; preds = %15
-  %19 = tail call i32 @fr_pa.MTL_VISIBLE_FN_REF(i32 noundef %17, i32 noundef 0) #5
-  br label %22
+17:                                               ; preds = %14
+  %18 = tail call i32 @fr_pa.MTL_VISIBLE_FN_REF(i32 noundef %16, i32 noundef 0) #4
+  br label %21
 
-20:                                               ; preds = %15
-  %21 = tail call i32 @fr_pb.MTL_VISIBLE_FN_REF(i32 noundef %17, i32 noundef %1) #5
-  br label %22
+19:                                               ; preds = %14
+  %20 = tail call i32 @fr_pb.MTL_VISIBLE_FN_REF(i32 noundef %16, i32 noundef %1) #4
+  br label %21
 
-22:                                               ; preds = %18, %20, %6
-  %23 = phi i32 [ 0, %6 ], [ %19, %18 ], [ %21, %20 ]
-  br label %25
+21:                                               ; preds = %17, %19, %12
+  %22 = phi i32 [ 0, %12 ], [ %18, %17 ], [ %20, %19 ]
+  br label %23
 
-24:                                               ; preds = %25
-  call void @llvm.lifetime.end.p0i8(i64 64, i8* nonnull %4) #6
-  ret i32 %36
+23:                                               ; preds = %21, %23
+  %24 = phi i32 [ 0, %21 ], [ %32, %23 ]
+  %25 = phi i32 [ %22, %21 ], [ %34, %23 ]
+  %26 = mul nuw nsw i32 %24, 7
+  %27 = add i32 %26, %0
+  %28 = and i32 %27, 15
+  %29 = zext i32 %28 to i64
+  %30 = getelementptr inbounds [16 x i32], [16 x i32]* %3, i64 0, i64 %29
+  %31 = load i32, i32* %30, align 4, !tbaa !84
+  %32 = add nuw nsw i32 %24, 1
+  %33 = mul i32 %31, %32
+  %34 = add i32 %33, %25
+  %35 = icmp eq i32 %32, 16
+  br i1 %35, label %36, label %23, !llvm.loop !110
 
-25:                                               ; preds = %22, %25
-  %26 = phi i32 [ 0, %22 ], [ %34, %25 ]
-  %27 = phi i32 [ %23, %22 ], [ %36, %25 ]
-  %28 = mul nuw nsw i32 %26, 7
-  %29 = add i32 %28, %0
-  %30 = and i32 %29, 15
-  %31 = zext i32 %30 to i64
-  %32 = getelementptr inbounds [16 x i32], [16 x i32]* %3, i64 0, i64 %31
-  %33 = load i32, i32* %32, align 4, !tbaa !84
-  %34 = add nuw nsw i32 %26, 1
-  %35 = mul i32 %33, %34
-  %36 = add i32 %35, %27
-  %37 = icmp eq i32 %34, 16
-  br i1 %37, label %24, label %25, !llvm.loop !110
+36:                                               ; preds = %23
+  ret i32 %34
 }
 
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_qa(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [16 x i32], align 4
-  %3 = bitcast [16 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 64, i8* nonnull %3) #6
-  %4 = shl i32 %0, 4
-  br label %7
+  %3 = shl i32 %0, 4
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 16
+  br i1 %10, label %11, label %4, !llvm.loop !111
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 16
-  br i1 %13, label %5, label %7, !llvm.loop !111
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_qb.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_qb.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 64, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 15
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 16
+  br i1 %30, label %31, label %18, !llvm.loop !112
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 15
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [16 x i32], [16 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 16
-  br i1 %32, label %19, label %20, !llvm.loop !112
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_qb.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -819,52 +786,49 @@ declare i32 @fr_qb.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exter
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_qb(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [64 x i32], align 4
-  %3 = bitcast [64 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 256, i8* nonnull %3) #6
-  %4 = shl i32 %0, 6
-  br label %7
+  %3 = shl i32 %0, 6
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 64
+  br i1 %10, label %11, label %4, !llvm.loop !113
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 64
-  br i1 %13, label %5, label %7, !llvm.loop !113
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_qa.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_qa.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 256, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 63
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 64
+  br i1 %30, label %31, label %18, !llvm.loop !114
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 63
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 64
-  br i1 %32, label %19, label %20, !llvm.loop !114
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_qa.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -876,7 +840,7 @@ define i32 @fr_sa(i32 noundef %0) local_unnamed_addr #1 {
 
 3:                                                ; preds = %1
   %4 = add i32 %0, -1
-  %5 = tail call i32 @fr_sb.MTL_VISIBLE_FN_REF(i32 noundef %4) #5
+  %5 = tail call i32 @fr_sb.MTL_VISIBLE_FN_REF(i32 noundef %4) #4
   %6 = add i32 %5, %0
   br label %7
 
@@ -890,52 +854,49 @@ declare i32 @fr_sb.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exter
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_sb(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [64 x i32], align 4
-  %3 = bitcast [64 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 256, i8* nonnull %3) #6
-  %4 = shl i32 %0, 6
-  br label %7
+  %3 = shl i32 %0, 6
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 64
+  br i1 %10, label %11, label %4, !llvm.loop !115
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 64
-  br i1 %13, label %5, label %7, !llvm.loop !115
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_sa.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_sa.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 256, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 63
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 64
+  br i1 %30, label %31, label %18, !llvm.loop !116
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 63
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 64
-  br i1 %32, label %19, label %20, !llvm.loop !116
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_sa.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -947,7 +908,7 @@ define i32 @fr_ta(i32 noundef %0) local_unnamed_addr #1 {
 
 3:                                                ; preds = %1
   %4 = add i32 %0, -1
-  %5 = tail call i32 @fr_tb.MTL_VISIBLE_FN_REF(i32 noundef %4) #5
+  %5 = tail call i32 @fr_tb.MTL_VISIBLE_FN_REF(i32 noundef %4) #4
   %6 = add i32 %5, %0
   br label %7
 
@@ -961,52 +922,49 @@ declare i32 @fr_tb.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exter
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_tb(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [64 x i32], align 4
-  %3 = bitcast [64 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 256, i8* nonnull %3) #6
-  %4 = shl i32 %0, 6
-  br label %7
+  %3 = shl i32 %0, 6
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 64
+  br i1 %10, label %11, label %4, !llvm.loop !117
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 64
-  br i1 %13, label %5, label %7, !llvm.loop !117
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_ta.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_ta.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 256, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 63
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 64
+  br i1 %30, label %31, label %18, !llvm.loop !118
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 63
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 64
-  br i1 %32, label %19, label %20, !llvm.loop !118
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_ta.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -1014,52 +972,49 @@ declare i32 @fr_ta.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.exter
 ; Function Attrs: mustprogress nounwind
 define i32 @fr_ua(i32 noundef %0) local_unnamed_addr #1 {
   %2 = alloca [64 x i32], align 4
-  %3 = bitcast [64 x i32]* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 256, i8* nonnull %3) #6
-  %4 = shl i32 %0, 6
-  br label %7
+  %3 = shl i32 %0, 6
+  br label %4
 
-5:                                                ; preds = %7
-  %6 = icmp eq i32 %0, 0
-  br i1 %6, label %17, label %14
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ 0, %1 ], [ %9, %4 ]
+  %6 = add nuw nsw i32 %5, %3
+  %7 = zext i32 %5 to i64
+  %8 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %7
+  store i32 %6, i32* %8, align 4, !tbaa !84
+  %9 = add nuw nsw i32 %5, 1
+  %10 = icmp eq i32 %9, 64
+  br i1 %10, label %11, label %4, !llvm.loop !119
 
-7:                                                ; preds = %1, %7
-  %8 = phi i32 [ 0, %1 ], [ %12, %7 ]
-  %9 = add nuw nsw i32 %8, %4
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %10
-  store i32 %9, i32* %11, align 4, !tbaa !84
-  %12 = add nuw nsw i32 %8, 1
-  %13 = icmp eq i32 %12, 64
-  br i1 %13, label %5, label %7, !llvm.loop !119
+11:                                               ; preds = %4
+  %12 = icmp eq i32 %0, 0
+  br i1 %12, label %16, label %13
 
-14:                                               ; preds = %5
-  %15 = add i32 %0, -1
-  %16 = tail call i32 @fr_ub.MTL_VISIBLE_FN_REF(i32 noundef %15) #5
-  br label %17
+13:                                               ; preds = %11
+  %14 = add i32 %0, -1
+  %15 = tail call i32 @fr_ub.MTL_VISIBLE_FN_REF(i32 noundef %14) #4
+  br label %16
 
-17:                                               ; preds = %5, %14
-  %18 = phi i32 [ %16, %14 ], [ 0, %5 ]
-  br label %20
+16:                                               ; preds = %11, %13
+  %17 = phi i32 [ %15, %13 ], [ 0, %11 ]
+  br label %18
 
-19:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0i8(i64 256, i8* nonnull %3) #6
-  ret i32 %31
+18:                                               ; preds = %16, %18
+  %19 = phi i32 [ 0, %16 ], [ %27, %18 ]
+  %20 = phi i32 [ %17, %16 ], [ %29, %18 ]
+  %21 = mul nuw nsw i32 %19, 7
+  %22 = add i32 %21, %0
+  %23 = and i32 %22, 63
+  %24 = zext i32 %23 to i64
+  %25 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %24
+  %26 = load i32, i32* %25, align 4, !tbaa !84
+  %27 = add nuw nsw i32 %19, 1
+  %28 = mul i32 %26, %27
+  %29 = add i32 %28, %20
+  %30 = icmp eq i32 %27, 64
+  br i1 %30, label %31, label %18, !llvm.loop !120
 
-20:                                               ; preds = %17, %20
-  %21 = phi i32 [ 0, %17 ], [ %29, %20 ]
-  %22 = phi i32 [ %18, %17 ], [ %31, %20 ]
-  %23 = mul nuw nsw i32 %21, 7
-  %24 = add i32 %23, %0
-  %25 = and i32 %24, 63
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds [64 x i32], [64 x i32]* %2, i64 0, i64 %26
-  %28 = load i32, i32* %27, align 4, !tbaa !84
-  %29 = add nuw nsw i32 %21, 1
-  %30 = mul i32 %28, %29
-  %31 = add i32 %30, %22
-  %32 = icmp eq i32 %29, 64
-  br i1 %32, label %19, label %20, !llvm.loop !120
+31:                                               ; preds = %18
+  ret i32 %29
 }
 
 declare i32 @fr_ub.MTL_VISIBLE_FN_REF(i32) local_unnamed_addr section "air.externally_defined"
@@ -1071,7 +1026,7 @@ define i32 @fr_ub(i32 noundef %0) local_unnamed_addr #1 {
 
 3:                                                ; preds = %1
   %4 = add i32 %0, -1
-  %5 = tail call i32 @fr_ua.MTL_VISIBLE_FN_REF(i32 noundef %4) #5
+  %5 = tail call i32 @fr_ua.MTL_VISIBLE_FN_REF(i32 noundef %4) #4
   %6 = add i32 %5, %0
   br label %7
 
@@ -1087,7 +1042,7 @@ define void @frames_live8(i32 addrspace(1)* nocapture noundef writeonly "air-buf
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !121, !noalias !124
-  %8 = tail call i32 @fr_live8.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_live8.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !124, !noalias !121
   ret void
@@ -1098,7 +1053,7 @@ define void @frames_live32(i32 addrspace(1)* nocapture noundef writeonly "air-bu
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !126, !noalias !129
-  %8 = tail call i32 @fr_live32.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_live32.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !129, !noalias !126
   ret void
@@ -1109,7 +1064,7 @@ define void @frames_nest44(i32 addrspace(1)* nocapture noundef writeonly "air-bu
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !131, !noalias !134
-  %8 = tail call i32 @fr_nest44.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_nest44.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !134, !noalias !131
   ret void
@@ -1120,7 +1075,7 @@ define void @frames_nest88(i32 addrspace(1)* nocapture noundef writeonly "air-bu
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !136, !noalias !139
-  %8 = tail call i32 @fr_nest88.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_nest88.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !139, !noalias !136
   ret void
@@ -1131,7 +1086,7 @@ define void @frames_nestv(i32 addrspace(1)* nocapture noundef writeonly "air-buf
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !141, !noalias !144
-  %8 = tail call i32 @fr_nestv.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_nestv.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !144, !noalias !141
   ret void
@@ -1142,7 +1097,7 @@ define void @frames_w8(i32 addrspace(1)* nocapture noundef writeonly "air-buffer
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !146, !noalias !149
-  %8 = tail call i32 @fr_w8.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_w8.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !149, !noalias !146
   ret void
@@ -1153,7 +1108,7 @@ define void @frames_w16(i32 addrspace(1)* nocapture noundef writeonly "air-buffe
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !151, !noalias !154
-  %8 = tail call i32 @fr_w16.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_w16.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !154, !noalias !151
   ret void
@@ -1164,7 +1119,7 @@ define void @frames_w32(i32 addrspace(1)* nocapture noundef writeonly "air-buffe
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !156, !noalias !159
-  %8 = tail call i32 @fr_w32.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_w32.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !159, !noalias !156
   ret void
@@ -1175,7 +1130,7 @@ define void @frames_w64(i32 addrspace(1)* nocapture noundef writeonly "air-buffe
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !161, !noalias !164
-  %8 = tail call i32 @fr_w64.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_w64.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !164, !noalias !161
   ret void
@@ -1191,11 +1146,11 @@ define void @frames_pair(i32 addrspace(1)* nocapture noundef writeonly "air-buff
   br i1 %6, label %10, label %12
 
 10:                                               ; preds = %4
-  %11 = tail call i32 @fr_pb.MTL_VISIBLE_FN_REF(i32 noundef %9, i32 noundef 1) #5
+  %11 = tail call i32 @fr_pb.MTL_VISIBLE_FN_REF(i32 noundef %9, i32 noundef 1) #4
   br label %14
 
 12:                                               ; preds = %4
-  %13 = tail call i32 @fr_pa.MTL_VISIBLE_FN_REF(i32 noundef %9, i32 noundef %5) #5
+  %13 = tail call i32 @fr_pa.MTL_VISIBLE_FN_REF(i32 noundef %9, i32 noundef %5) #4
   br label %14
 
 14:                                               ; preds = %12, %10
@@ -1210,7 +1165,7 @@ define void @frames_quad(i32 addrspace(1)* nocapture noundef writeonly "air-buff
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !174, !noalias !177
-  %8 = tail call i32 @fr_qa.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_qa.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !177, !noalias !174
   ret void
@@ -1221,7 +1176,7 @@ define void @frames_s(i32 addrspace(1)* nocapture noundef writeonly "air-buffer-
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !179, !noalias !182
-  %8 = tail call i32 @fr_sa.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_sa.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !182, !noalias !179
   ret void
@@ -1237,11 +1192,11 @@ define void @frames_t(i32 addrspace(1)* nocapture noundef writeonly "air-buffer-
   br i1 %6, label %10, label %12
 
 10:                                               ; preds = %4
-  %11 = tail call i32 @fr_tb.MTL_VISIBLE_FN_REF(i32 noundef %9) #5
+  %11 = tail call i32 @fr_tb.MTL_VISIBLE_FN_REF(i32 noundef %9) #4
   br label %14
 
 12:                                               ; preds = %4
-  %13 = tail call i32 @fr_ta.MTL_VISIBLE_FN_REF(i32 noundef %9) #5
+  %13 = tail call i32 @fr_ta.MTL_VISIBLE_FN_REF(i32 noundef %9) #4
   br label %14
 
 14:                                               ; preds = %12, %10
@@ -1256,22 +1211,20 @@ define void @frames_u(i32 addrspace(1)* nocapture noundef writeonly "air-buffer-
   %5 = zext i32 %3 to i64
   %6 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %5
   %7 = load i32, i32 addrspace(1)* %6, align 4, !tbaa !84, !alias.scope !192, !noalias !195
-  %8 = tail call i32 @fr_ua.MTL_VISIBLE_FN_REF(i32 noundef %7) #5
+  %8 = tail call i32 @fr_ua.MTL_VISIBLE_FN_REF(i32 noundef %7) #4
   %9 = getelementptr inbounds i32, i32 addrspace(1)* %0, i64 %5
   store i32 %8, i32 addrspace(1)* %9, align 4, !tbaa !84, !alias.scope !195, !noalias !192
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind readnone willreturn
-declare i64 @air.popcount.i64(i64) local_unnamed_addr #3
+declare i64 @air.popcount.i64(i64) local_unnamed_addr #2
 
 attributes #0 = { argmemonly mustprogress nofree nosync nounwind willreturn writeonly "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #1 = { mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #2 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
-attributes #3 = { mustprogress nofree nosync nounwind readnone willreturn }
-attributes #4 = { nounwind readnone willreturn }
-attributes #5 = { nobuiltin nounwind "no-builtins" }
-attributes #6 = { nounwind }
+attributes #2 = { mustprogress nofree nosync nounwind readnone willreturn }
+attributes #3 = { nounwind readnone willreturn }
+attributes #4 = { nobuiltin nounwind "no-builtins" }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9, !14, !19, !20, !21, !22, !23, !24, !25, !26, !27, !30, !31, !32, !33}
@@ -1364,7 +1317,7 @@ attributes #6 = { nounwind }
 !79 = !{!"air.visible_function_reference", i32 (i32)* @fr_ub.MTL_VISIBLE_FN_REF, !"fr_ub"}
 !80 = !{!"air.visible_function_reference", i32 (i32)* @fr_ua.MTL_VISIBLE_FN_REF, !"fr_ua"}
 !81 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
-!82 = !{i32 2, i32 8, i32 0}
+!82 = !{i32 2, i32 9, i32 0}
 !83 = !{!"Metal", i32 4, i32 0, i32 0}
 !84 = !{!85, !85, i64 0}
 !85 = !{!"int", !86, i64 0}
