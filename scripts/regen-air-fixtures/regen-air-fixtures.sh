@@ -178,6 +178,14 @@ directive_flags() {
     off) flags+=("-fno-fast-math") ;;
     *) echo "$name.metal: metal-fast-math must be off, not $fast_math" >&2; exit 1 ;;
   esac
+  # Lifetime marker signatures and type numbering differ between LLVM majors.
+  local lifetime_markers
+  lifetime_markers="$(sed -n 's|^// metal-lifetime-markers: *\([A-Za-z0-9.-]*\) *$|\1|p' "$source" | head -n 1)"
+  case "$lifetime_markers" in
+    "") ;;
+    off) flags+=("-Xclang" "-disable-lifetime-markers") ;;
+    *) echo "$name.metal: metal-lifetime-markers must be off, not $lifetime_markers" >&2; exit 1 ;;
+  esac
   # An optional `// metal-macos-min: <version>` line sets the deployment target, a dotted
   # version such as 26.2; the compiler's default (the SDK's minimum) applies otherwise.
   macos_min="$(sed -n 's|^// metal-macos-min: *\([A-Za-z0-9.-]*\) *$|\1|p' "$source" | head -n 1)"

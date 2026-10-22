@@ -51,7 +51,7 @@ case "$(basename "$0")" in
         --version) echo "Fake metal version $metal"; exit 0 ;;
         -o) out="$2"; shift ;;
         -S) typed=1 ;;
-        -std=*|-fno-fast-math|-mmacosx-version-min=*) flags="$flags $1" ;;
+        -std=*|-fno-fast-math|-mmacosx-version-min=*|-Xclang|-disable-lifetime-markers) flags="$flags $1" ;;
         -*) ;;
         *) input="$1" ;;
       esac
@@ -173,6 +173,8 @@ class RegenAirFixturesTests(unittest.TestCase):
         self.assertEqual(self.committed(), files)
 
     def test_source_directives_reach_both_compiles(self):
+        (self.fixtures / "no_markers.metal").write_text(
+            "// metal-lifetime-markers: off\nkernel\n")
         (self.fixtures / "precise.metal").write_text("// metal-fast-math: off\nkernel\n")
         (self.fixtures / "both.metal").write_text(
             "// metal-std: macos-metal2.2\n// metal-fast-math: off\nkernel\n")
@@ -183,6 +185,7 @@ class RegenAirFixturesTests(unittest.TestCase):
         files = self.committed()
         for name, flags in (("kernel", None), ("legacy", " -std=macos-metal2.2"),
                             ("precise", " -fno-fast-math"),
+                            ("no_markers", " -Xclang -disable-lifetime-markers"),
                             ("both", " -std=macos-metal2.2 -fno-fast-math"),
                             ("targeted", " -std=metal4.0 -mmacosx-version-min=26.2")):
             for suffix in (".ll", ".air.ll"):
@@ -192,6 +195,13 @@ class RegenAirFixturesTests(unittest.TestCase):
                         self.assertFalse(last.startswith("; flags"), last)
                     else:
                         self.assertEqual(last, "; flags" + flags)
+
+    def test_invalid_lifetime_marker_directive_is_refused_before_writing(self):
+        (self.fixtures / "kernel.metal").write_text("// metal-lifetime-markers: on\nkernel\n")
+        result = self.run_script([self.pinned])
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("metal-lifetime-markers must be off", result.stderr)
+        self.assertFalse((self.fixtures / "kernel.ll").exists())
 
     def test_a_rename_reaches_both_companions_and_the_check(self):
         (self.fixtures / "agx.metal").write_text(

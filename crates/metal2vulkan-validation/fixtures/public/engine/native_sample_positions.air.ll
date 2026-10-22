@@ -1,4 +1,5 @@
 ; Hand-authored typed-pointer companion of native_sample_positions.ll.
+source_filename = "-"
 target datalayout = "e-p:64:64-i64:64-n8:16:32:64"
 target triple = "air64_v28-apple-macosx26.0.0"
 

@@ -1,3 +1,4 @@
+// metal-lifetime-markers: off
 // metal-std: metal4.0
 // metal-macos-min: 26.2
 // Owned fixture (WP-EVG, DESIGN D351 item 4): what constructing a cooperative tensor leaves in its

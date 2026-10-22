@@ -1,3 +1,4 @@
+// metal-lifetime-markers: off
 // Owned MSL for WP-FPC (D316 items 16, 26 and 29, TODO 8.18 "Metal's frame per function"):
 // recursive visible functions whose frames Metal sizes differently, for its byte model. Each
 // kernel `frames_*` calls its function at the depth word `tid` of buffer 2 holds (and the mode

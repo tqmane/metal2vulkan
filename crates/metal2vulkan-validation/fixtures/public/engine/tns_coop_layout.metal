@@ -1,3 +1,4 @@
+// metal-lifetime-markers: off
 // metal-std: metal4.0
 // metal-macos-min: 26.2
 // Owned fixture (WP-TNS, DESIGN D272): where MetalPerformancePrimitives' matmul2d places a

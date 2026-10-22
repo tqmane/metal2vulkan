@@ -1,3 +1,4 @@
+// metal-lifetime-markers: off
 // air-rename: _Z8rfs_copymmPU14MTLthreadgroupvmmDv2_mPU9MTLdeviceKvmmDv2_lS4_i air.simdgroup_async_copy_2d.p3i8.p1i8
 // air-rename: _Z14rfs_null_eventv air.get_null_simdgroup_event
 // air-rename: _Z11rfs_is_nullP9rfs_event air.is_null_simdgroup_event

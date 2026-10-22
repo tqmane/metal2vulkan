@@ -33,6 +33,11 @@ operation carries a fast-math flag, so a lane whose input is a NaN, an infinity,
 asks a defined question (under `nnan` or `ninf` such an operand or result is poison, and under
 `nsz` either zero is correct). No other value is accepted.
 
+`// metal-lifetime-markers: off` passes `-Xclang -disable-lifetime-markers` to both
+compiles. Use it where LLVM's lifetime-marker upgrades would change type or
+constant numbering between the pinned assembler and newer majors. This keeps
+marker-free fixtures comparable without relaxing the strict golden comparison.
+
 A line `// air-rename: <declared> <intrinsic>` (any number of them) names a function the source
 declares and never defines (its mangled name, such as `_Z9rfs_yieldt` for `void rfs_yield(ushort)`)
 and an `llvm.*` or `air.*` intrinsic MSL has no spelling for (such as `llvm.agx3.yield`). The typed

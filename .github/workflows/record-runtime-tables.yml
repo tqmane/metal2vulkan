@@ -1,12 +1,9 @@
 name: Record runtime fixture tables
-
 on:
   push:
     branches: [steelbrain/runtime-fixture-recording]
-
 permissions:
   contents: read
-
 jobs:
   record:
     runs-on: macos-26
@@ -23,14 +20,27 @@ jobs:
       - name: Require native assemblers and validators
         run: |
           set -euo pipefail
-          brew install llvm spirv-tools
-          echo /opt/homebrew/opt/llvm/bin >> "$GITHUB_PATH"
+          brew install llvm@21 llvm spirv-tools
+          echo /opt/homebrew/opt/llvm@21/bin >> "$GITHUB_PATH"
           if ! xcrun --sdk macosx --find metal-as; then
             xcodebuild -downloadComponent MetalToolchain
           fi
           xcrun --sdk macosx --find metal-as
-          /opt/homebrew/opt/llvm/bin/llvm-as --version
+          /opt/homebrew/opt/llvm@21/bin/llvm-as --version
           spirv-val --version
+      - name: Validate marker-free generation and regenerate selected fixtures
+        run: |
+          set -euo pipefail
+          printf '#include <metal_stdlib>\nusing namespace metal;\nkernel void marker_probe(device uint *p [[buffer(0)]]) { *p = 1; }\n' | xcrun --sdk macosx metal -x metal -std=metal4.0 -Xclang -disable-lifetime-markers -S -emit-llvm -o "$RUNNER_TEMP/marker-probe.ll" -
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts/regen-air-fixtures
+          fixtures=()
+          for source in crates/metal2vulkan-validation/fixtures/public/engine/*.metal; do
+            if grep -q '^// metal-lifetime-markers: off$' "$source"; then
+              fixtures+=("$(basename "$source" .metal)")
+            fi
+          done
+          test "${#fixtures[@]}" = 14
+          bash scripts/regen-air-fixtures/regen-air-fixtures.sh "${fixtures[@]}"
       - name: Record through existing decoders and compilation checks
         run: |
           set -euo pipefail
@@ -40,26 +50,49 @@ jobs:
             tests::golden_hashes::bless_golden_hashes \
             tests::public_fixtures_engine::record_engine_inventory \
             --include-ignored --nocapture --test-threads=1
-          git diff --stat
+          test_bin=$(find target/release/deps -maxdepth 1 -type f -name 'metal2vulkan-*' -perm -111)
+          test "$(printf '%s\n' "$test_bin" | wc -l | tr -d ' ')" = 1
+          METAL2VULKAN_TEST_REQUIRE_PINNED_LLVM=1 "$test_bin" tests::air_input::engine_fixtures_match_their_golden_printout --exact --nocapture
+          METAL2VULKAN_TEST_REQUIRE_PINNED_LLVM=1 METAL2VULKAN_LLVM_AS=/opt/homebrew/opt/llvm/bin/llvm-as "$test_bin" tests::air_input::engine_fixtures_match_their_golden_printout --exact --nocapture
           python3 - <<'PY'
-          import subprocess
+          import hashlib, json, pathlib, shutil, subprocess
+          base = '2a848ea6abb7d63ebebb8f34177d2efd3cc54805'
+          root = pathlib.Path('.')
+          engine = 'crates/metal2vulkan-validation/fixtures/public/engine/'
+          goldens = 'crates/metal2vulkan/tests/air_input/'
+          marked = [p.stem for p in pathlib.Path(engine).glob('*.metal')
+                    if '// metal-lifetime-markers: off' in p.read_text()]
+          assert len(marked) == 14
           allowed = {
-              'crates/metal2vulkan-validation/fixtures/public/engine/native_sample_positions.air.ll',
-              'crates/metal2vulkan/tests/air_input/native_sample_positions.txt',
+              engine+'TOOLCHAIN', engine+'native_sample_positions.ll',
+              engine+'native_sample_positions.air.ll', goldens+'native_sample_positions.txt',
               'crates/metal2vulkan/tests/golden_hashes.tsv',
               'crates/metal2vulkan/tests/public_fixture_expectations_engine.tsv',
+              'scripts/regen-air-fixtures/regen-air-fixtures.sh',
+              'scripts/regen-air-fixtures/test_regen_air_fixtures.py',
+              'scripts/regen-air-fixtures/README.md',
           }
-          changed = {row[3:] for row in subprocess.check_output(
-              ['git', 'status', '--porcelain', '--untracked-files=all'], text=True).splitlines()}
+          for stem in marked:
+              allowed.update(engine+stem+ext for ext in ('.metal', '.ll', '.air.ll'))
+              allowed.add(goldens+stem+'.txt')
+          changed = set(subprocess.check_output(['git', 'diff', '--name-only', base], text=True).splitlines())
+          changed.update(subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard'], text=True).splitlines())
+          excluded = {'.github/workflows/record-runtime-tables.yml',
+                      'crates/metal2vulkan/src/tests/public_fixtures_engine.rs'}
+          changed -= excluded
           assert changed <= allowed, sorted(changed - allowed)
-          print('Generated snapshot files:', sorted(changed))
+          out = root/'recorded'
+          files = {}
+          for name in sorted(changed):
+              target = out/name
+              target.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(root/name, target)
+              files[name] = hashlib.sha256(target.read_bytes()).hexdigest()
+          (out/'manifest.json').write_text(json.dumps({'source':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(), 'base':base, 'files':files},indent=2)+'\n')
+          print('Generated final files:', sorted(files))
           PY
       - uses: actions/upload-artifact@v4
         with:
           name: runtime-fixture-tables
           retention-days: 7
-          path: |
-            crates/metal2vulkan-validation/fixtures/public/engine/native_sample_positions.air.ll
-            crates/metal2vulkan/tests/air_input/native_sample_positions.txt
-            crates/metal2vulkan/tests/golden_hashes.tsv
-            crates/metal2vulkan/tests/public_fixture_expectations_engine.tsv
+          path: recorded/
