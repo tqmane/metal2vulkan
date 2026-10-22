@@ -9,14 +9,20 @@ jobs:
     runs-on: xcode-27
     timeout-minutes: 60
     env:
-      CARGO_BUILD_JOBS: "1"
+      CARGO_BUILD_JOBS: "2"
       RUSTFLAGS: -Dwarnings
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require the recording baseline before building
+        run: git cat-file -e '2a848ea6abb7d63ebebb8f34177d2efd3cc54805^{commit}'
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
       - name: Require native assemblers and validators
         run: |
           set -euo pipefail
