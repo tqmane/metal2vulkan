@@ -111,30 +111,30 @@ bb1:
   %i80 = getelementptr inbounds i32, %a0, %i79
   store %i78, %i80, align 4
   %i82 = icmp eq %i77, i16 0
-  br %i82, bb2, bb4
+  br %i82, bb3, bb2
 bb2:
-  %i84 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i85 = bitcast %i84 to ptr addrspace(0)
-  %i86 = mul i32 %i78, %a2
-  br %i82, bb13, bb3
+  %i84 = phi i32 [%i85, bb2], [i32 0, bb1]
+  %i85 = add nuw nsw i32 %i84, i32 1
+  %i86 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i85)
+  %i87 = trunc %i84 to i16
+  %i88 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, %i87, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i89 = bitcast %i88 to ptr addrspace(0)
+  store %i86, %i89, align 4
+  %i91 = icmp eq %i85, %i78
+  br %i91, bb3, bb2, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb3:
-  %i88 = bitcast %i70 to ptr addrspace(0)
-  %i89 = getelementptr inbounds %t29, %i70, i64 0, i64 0
-  %i90 = getelementptr inbounds %t29, %i70, i64 0, i64 1
-  br bb5
+  %i93 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i94 = bitcast %i93 to ptr addrspace(0)
+  %i95 = mul i32 %i78, %a2
+  br %i82, bb13, bb4
 bb4:
-  %i92 = phi i32 [%i93, bb4], [i32 0, bb1]
-  %i93 = add nuw nsw i32 %i92, i32 1
-  %i94 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i93)
-  %i95 = trunc %i92 to i16
-  %i96 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, %i95, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i97 = bitcast %i96 to ptr addrspace(0)
-  store %i94, %i97, align 4
-  %i99 = icmp eq %i93, %i78
-  br %i99, bb2, bb4, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i97 = bitcast %i70 to ptr addrspace(0)
+  %i98 = getelementptr inbounds %t29, %i70, i64 0, i64 0
+  %i99 = getelementptr inbounds %t29, %i70, i64 0, i64 1
+  br bb5
 bb5:
-  %i101 = phi i32 [i32 0, bb3], [%i105, bb12]
-  %i102 = add nuw i32 %i101, %i86
+  %i101 = phi i32 [i32 0, bb4], [%i105, bb12]
+  %i102 = add nuw i32 %i101, %i95
   %i103 = icmp ult %i102, %i74
   br %i103, bb6, bb13
 bb6:
@@ -144,7 +144,7 @@ bb6:
 bb7:
   %i108 = phi i32 [i32 0, bb6], [%i116, bb9]
   %i109 = zext %i108 to i64
-  %i110 = getelementptr inbounds float, %i85, %i109
+  %i110 = getelementptr inbounds float, %i94, %i109
   %i111 = load float, %i110, align 4
   %i112 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i111, %i106
   br %i112, bb8, bb9
@@ -161,9 +161,9 @@ bb10:
   %i121 = call i1 @f10(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, %i120, i32 268435488, i32 268435488, i32 268435488, %i75) convergent "no-builtins"=""
   br %i121, bb11, bb12
 bb11:
-  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, %i120, %i88, i32 536870944, %i75, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i124 = load i32, %i89, align 4
-  %i125 = load i32, %i90, align 4
+  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i71, %i120, %i97, i32 536870944, %i75, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i124 = load i32, %i98, align 4
+  %i125 = load i32, %i99, align 4
   %i126 = shl i32 %i125, i32 8
   %i127 = and i32 %i126, i32 65280
   %i128 = and i32 %i124, i32 255
@@ -191,30 +191,30 @@ bb14:
   %i147 = getelementptr inbounds i32, %a0, %i146
   store %i145, %i147, align 4
   %i149 = icmp eq %i144, i16 0
-  br %i149, bb15, bb17
+  br %i149, bb16, bb15
 bb15:
-  %i151 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i152 = bitcast %i151 to ptr addrspace(0)
-  %i153 = mul i32 %i145, %a2
-  br %i149, bb26, bb16
+  %i151 = phi i32 [%i152, bb15], [i32 0, bb14]
+  %i152 = add nuw nsw i32 %i151, i32 1
+  %i153 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i152)
+  %i154 = trunc %i151 to i16
+  %i155 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, %i154, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i156 = bitcast %i155 to ptr addrspace(0)
+  store %i153, %i156, align 4
+  %i158 = icmp eq %i152, %i145
+  br %i158, bb16, bb15, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb16:
-  %i155 = bitcast %i67 to ptr addrspace(0)
-  %i156 = getelementptr inbounds %t29, %i67, i64 0, i64 0
-  %i157 = getelementptr inbounds %t29, %i67, i64 0, i64 1
-  br bb18
+  %i160 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i161 = bitcast %i160 to ptr addrspace(0)
+  %i162 = mul i32 %i145, %a2
+  br %i149, bb26, bb17
 bb17:
-  %i159 = phi i32 [%i160, bb17], [i32 0, bb14]
-  %i160 = add nuw nsw i32 %i159, i32 1
-  %i161 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i160)
-  %i162 = trunc %i159 to i16
-  %i163 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, %i162, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i164 = bitcast %i163 to ptr addrspace(0)
-  store %i161, %i164, align 4
-  %i166 = icmp eq %i160, %i145
-  br %i166, bb15, bb17, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i164 = bitcast %i67 to ptr addrspace(0)
+  %i165 = getelementptr inbounds %t29, %i67, i64 0, i64 0
+  %i166 = getelementptr inbounds %t29, %i67, i64 0, i64 1
+  br bb18
 bb18:
-  %i168 = phi i32 [i32 0, bb16], [%i172, bb25]
-  %i169 = add nuw i32 %i168, %i153
+  %i168 = phi i32 [i32 0, bb17], [%i172, bb25]
+  %i169 = add nuw i32 %i168, %i162
   %i170 = icmp ult %i169, %i141
   br %i170, bb19, bb26
 bb19:
@@ -224,7 +224,7 @@ bb19:
 bb20:
   %i175 = phi i32 [i32 0, bb19], [%i183, bb22]
   %i176 = zext %i175 to i64
-  %i177 = getelementptr inbounds float, %i152, %i176
+  %i177 = getelementptr inbounds float, %i161, %i176
   %i178 = load float, %i177, align 4
   %i179 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i178, %i173
   br %i179, bb21, bb22
@@ -241,9 +241,9 @@ bb23:
   %i188 = call i1 @f10(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, %i187, i32 268435472, i32 268435472, i32 268435488, %i142) convergent "no-builtins"=""
   br %i188, bb24, bb25
 bb24:
-  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, %i187, %i155, i32 536870944, %i142, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i191 = load i32, %i156, align 4
-  %i192 = load i32, %i157, align 4
+  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i68, %i187, %i164, i32 536870944, %i142, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i191 = load i32, %i165, align 4
+  %i192 = load i32, %i166, align 4
   %i193 = shl i32 %i192, i32 8
   %i194 = and i32 %i193, i32 65280
   %i195 = and i32 %i191, i32 255
@@ -271,30 +271,30 @@ bb27:
   %i214 = getelementptr inbounds i32, %a0, %i213
   store %i212, %i214, align 4
   %i216 = icmp eq %i211, i16 0
-  br %i216, bb28, bb30
+  br %i216, bb29, bb28
 bb28:
-  %i218 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i219 = bitcast %i218 to ptr addrspace(0)
-  %i220 = mul i32 %i212, %a2
-  br %i216, bb39, bb29
+  %i218 = phi i32 [%i219, bb28], [i32 0, bb27]
+  %i219 = add nuw nsw i32 %i218, i32 1
+  %i220 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i219)
+  %i221 = trunc %i218 to i16
+  %i222 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, %i221, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i223 = bitcast %i222 to ptr addrspace(0)
+  store %i220, %i223, align 4
+  %i225 = icmp eq %i219, %i212
+  br %i225, bb29, bb28, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb29:
-  %i222 = bitcast %i64 to ptr addrspace(0)
-  %i223 = getelementptr inbounds %t29, %i64, i64 0, i64 0
-  %i224 = getelementptr inbounds %t29, %i64, i64 0, i64 1
-  br bb31
+  %i227 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i228 = bitcast %i227 to ptr addrspace(0)
+  %i229 = mul i32 %i212, %a2
+  br %i216, bb39, bb30
 bb30:
-  %i226 = phi i32 [%i227, bb30], [i32 0, bb27]
-  %i227 = add nuw nsw i32 %i226, i32 1
-  %i228 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i227)
-  %i229 = trunc %i226 to i16
-  %i230 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, %i229, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i231 = bitcast %i230 to ptr addrspace(0)
-  store %i228, %i231, align 4
-  %i233 = icmp eq %i227, %i212
-  br %i233, bb28, bb30, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i231 = bitcast %i64 to ptr addrspace(0)
+  %i232 = getelementptr inbounds %t29, %i64, i64 0, i64 0
+  %i233 = getelementptr inbounds %t29, %i64, i64 0, i64 1
+  br bb31
 bb31:
-  %i235 = phi i32 [i32 0, bb29], [%i239, bb38]
-  %i236 = add nuw i32 %i235, %i220
+  %i235 = phi i32 [i32 0, bb30], [%i239, bb38]
+  %i236 = add nuw i32 %i235, %i229
   %i237 = icmp ult %i236, %i208
   br %i237, bb32, bb39
 bb32:
@@ -304,7 +304,7 @@ bb32:
 bb33:
   %i242 = phi i32 [i32 0, bb32], [%i250, bb35]
   %i243 = zext %i242 to i64
-  %i244 = getelementptr inbounds float, %i219, %i243
+  %i244 = getelementptr inbounds float, %i228, %i243
   %i245 = load float, %i244, align 4
   %i246 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i245, %i240
   br %i246, bb34, bb35
@@ -321,9 +321,9 @@ bb36:
   %i255 = call i1 @f10(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, %i254, i32 2415919120, i32 2415919120, i32 268435488, %i209) convergent "no-builtins"=""
   br %i255, bb37, bb38
 bb37:
-  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, %i254, %i222, i32 536870944, %i209, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i258 = load i32, %i223, align 4
-  %i259 = load i32, %i224, align 4
+  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i65, %i254, %i231, i32 536870944, %i209, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i258 = load i32, %i232, align 4
+  %i259 = load i32, %i233, align 4
   %i260 = shl i32 %i259, i32 8
   %i261 = and i32 %i260, i32 65280
   %i262 = and i32 %i258, i32 255
@@ -351,30 +351,30 @@ bb40:
   %i281 = getelementptr inbounds i32, %a0, %i280
   store %i279, %i281, align 4
   %i283 = icmp eq %i278, i16 0
-  br %i283, bb41, bb43
+  br %i283, bb42, bb41
 bb41:
-  %i285 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i286 = bitcast %i285 to ptr addrspace(0)
-  %i287 = mul i32 %i279, %a2
-  br %i283, bb52, bb42
+  %i285 = phi i32 [%i286, bb41], [i32 0, bb40]
+  %i286 = add nuw nsw i32 %i285, i32 1
+  %i287 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i286)
+  %i288 = trunc %i285 to i16
+  %i289 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, %i288, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i290 = bitcast %i289 to ptr addrspace(0)
+  store %i287, %i290, align 4
+  %i292 = icmp eq %i286, %i279
+  br %i292, bb42, bb41, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb42:
-  %i289 = bitcast %i61 to ptr addrspace(0)
-  %i290 = getelementptr inbounds %t29, %i61, i64 0, i64 0
-  %i291 = getelementptr inbounds %t29, %i61, i64 0, i64 1
-  br bb44
+  %i294 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i295 = bitcast %i294 to ptr addrspace(0)
+  %i296 = mul i32 %i279, %a2
+  br %i283, bb52, bb43
 bb43:
-  %i293 = phi i32 [%i294, bb43], [i32 0, bb40]
-  %i294 = add nuw nsw i32 %i293, i32 1
-  %i295 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i294)
-  %i296 = trunc %i293 to i16
-  %i297 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, %i296, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i298 = bitcast %i297 to ptr addrspace(0)
-  store %i295, %i298, align 4
-  %i300 = icmp eq %i294, %i279
-  br %i300, bb41, bb43, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i298 = bitcast %i61 to ptr addrspace(0)
+  %i299 = getelementptr inbounds %t29, %i61, i64 0, i64 0
+  %i300 = getelementptr inbounds %t29, %i61, i64 0, i64 1
+  br bb44
 bb44:
-  %i302 = phi i32 [i32 0, bb42], [%i306, bb51]
-  %i303 = add nuw i32 %i302, %i287
+  %i302 = phi i32 [i32 0, bb43], [%i306, bb51]
+  %i303 = add nuw i32 %i302, %i296
   %i304 = icmp ult %i303, %i275
   br %i304, bb45, bb52
 bb45:
@@ -384,7 +384,7 @@ bb45:
 bb46:
   %i309 = phi i32 [i32 0, bb45], [%i317, bb48]
   %i310 = zext %i309 to i64
-  %i311 = getelementptr inbounds float, %i286, %i310
+  %i311 = getelementptr inbounds float, %i295, %i310
   %i312 = load float, %i311, align 4
   %i313 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i312, %i307
   br %i313, bb47, bb48
@@ -401,9 +401,9 @@ bb49:
   %i322 = call i1 @f10(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, %i321, i32 268435488, i32 268435488, i32 268435488, %i276) convergent "no-builtins"=""
   br %i322, bb50, bb51
 bb50:
-  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, %i321, %i289, i32 536870944, %i276, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i325 = load i32, %i290, align 4
-  %i326 = load i32, %i291, align 4
+  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i62, %i321, %i298, i32 536870944, %i276, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i325 = load i32, %i299, align 4
+  %i326 = load i32, %i300, align 4
   %i327 = shl i32 %i326, i32 8
   %i328 = and i32 %i327, i32 65280
   %i329 = and i32 %i325, i32 255
@@ -431,30 +431,30 @@ bb53:
   %i348 = getelementptr inbounds i32, %a0, %i347
   store %i346, %i348, align 4
   %i350 = icmp eq %i345, i16 0
-  br %i350, bb54, bb56
+  br %i350, bb55, bb54
 bb54:
-  %i352 = call ptr addrspace(0) @f9(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i353 = bitcast %i352 to ptr addrspace(0)
-  %i354 = mul i32 %i346, %a2
-  br %i350, bb65, bb55
+  %i352 = phi i32 [%i353, bb54], [i32 0, bb53]
+  %i353 = add nuw nsw i32 %i352, i32 1
+  %i354 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i353)
+  %i355 = trunc %i352 to i16
+  %i356 = call ptr addrspace(0) @f9(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, %i355, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i357 = bitcast %i356 to ptr addrspace(0)
+  store %i354, %i357, align 4
+  %i359 = icmp eq %i353, %i346
+  br %i359, bb55, bb54, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb55:
-  %i356 = bitcast %i58 to ptr addrspace(0)
-  %i357 = getelementptr inbounds %t29, %i58, i64 0, i64 0
-  %i358 = getelementptr inbounds %t29, %i58, i64 0, i64 1
-  br bb57
+  %i361 = call ptr addrspace(0) @f9(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i362 = bitcast %i361 to ptr addrspace(0)
+  %i363 = mul i32 %i346, %a2
+  br %i350, bb65, bb56
 bb56:
-  %i360 = phi i32 [%i361, bb56], [i32 0, bb53]
-  %i361 = add nuw nsw i32 %i360, i32 1
-  %i362 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i361)
-  %i363 = trunc %i360 to i16
-  %i364 = call ptr addrspace(0) @f9(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, %i363, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i365 = bitcast %i364 to ptr addrspace(0)
-  store %i362, %i365, align 4
-  %i367 = icmp eq %i361, %i346
-  br %i367, bb54, bb56, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i365 = bitcast %i58 to ptr addrspace(0)
+  %i366 = getelementptr inbounds %t29, %i58, i64 0, i64 0
+  %i367 = getelementptr inbounds %t29, %i58, i64 0, i64 1
+  br bb57
 bb57:
-  %i369 = phi i32 [i32 0, bb55], [%i373, bb64]
-  %i370 = add nuw i32 %i369, %i354
+  %i369 = phi i32 [i32 0, bb56], [%i373, bb64]
+  %i370 = add nuw i32 %i369, %i363
   %i371 = icmp ult %i370, %i342
   br %i371, bb58, bb65
 bb58:
@@ -464,7 +464,7 @@ bb58:
 bb59:
   %i376 = phi i32 [i32 0, bb58], [%i384, bb61]
   %i377 = zext %i376 to i64
-  %i378 = getelementptr inbounds float, %i353, %i377
+  %i378 = getelementptr inbounds float, %i362, %i377
   %i379 = load float, %i378, align 4
   %i380 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i379, %i374
   br %i380, bb60, bb61
@@ -481,9 +481,9 @@ bb62:
   %i389 = call i1 @f10(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, %i388, i32 268435488, i32 268435488, i32 268435488, %i343) convergent "no-builtins"=""
   br %i389, bb63, bb64
 bb63:
-  call void @f11(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, %i388, %i356, i32 536870944, %i343, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i392 = load i32, %i357, align 4
-  %i393 = load i32, %i358, align 4
+  call void @f11(i32 2, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i59, %i388, %i365, i32 536870944, %i343, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i392 = load i32, %i366, align 4
+  %i393 = load i32, %i367, align 4
   %i394 = shl i32 %i393, i32 8
   %i395 = and i32 %i394, i32 65280
   %i396 = and i32 %i392, i32 255
@@ -511,30 +511,30 @@ bb66:
   %i415 = getelementptr inbounds i32, %a0, %i414
   store %i413, %i415, align 4
   %i417 = icmp eq %i412, i16 0
-  br %i417, bb67, bb69
+  br %i417, bb68, bb67
 bb67:
-  %i419 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i420 = bitcast %i419 to ptr addrspace(0)
-  %i421 = mul i32 %i413, %a2
-  br %i417, bb78, bb68
+  %i419 = phi i32 [%i420, bb67], [i32 0, bb66]
+  %i420 = add nuw nsw i32 %i419, i32 1
+  %i421 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i420)
+  %i422 = trunc %i419 to i16
+  %i423 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, %i422, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i424 = bitcast %i423 to ptr addrspace(0)
+  store %i421, %i424, align 4
+  %i426 = icmp eq %i420, %i413
+  br %i426, bb68, bb67, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb68:
-  %i423 = bitcast %i55 to ptr addrspace(0)
-  %i424 = getelementptr inbounds %t29, %i55, i64 0, i64 0
-  %i425 = getelementptr inbounds %t29, %i55, i64 0, i64 1
-  br bb70
+  %i428 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i429 = bitcast %i428 to ptr addrspace(0)
+  %i430 = mul i32 %i413, %a2
+  br %i417, bb78, bb69
 bb69:
-  %i427 = phi i32 [%i428, bb69], [i32 0, bb66]
-  %i428 = add nuw nsw i32 %i427, i32 1
-  %i429 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i428)
-  %i430 = trunc %i427 to i16
-  %i431 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, %i430, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i432 = bitcast %i431 to ptr addrspace(0)
-  store %i429, %i432, align 4
-  %i434 = icmp eq %i428, %i413
-  br %i434, bb67, bb69, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i432 = bitcast %i55 to ptr addrspace(0)
+  %i433 = getelementptr inbounds %t29, %i55, i64 0, i64 0
+  %i434 = getelementptr inbounds %t29, %i55, i64 0, i64 1
+  br bb70
 bb70:
-  %i436 = phi i32 [i32 0, bb68], [%i440, bb77]
-  %i437 = add nuw i32 %i436, %i421
+  %i436 = phi i32 [i32 0, bb69], [%i440, bb77]
+  %i437 = add nuw i32 %i436, %i430
   %i438 = icmp ult %i437, %i409
   br %i438, bb71, bb78
 bb71:
@@ -544,7 +544,7 @@ bb71:
 bb72:
   %i443 = phi i32 [i32 0, bb71], [%i451, bb74]
   %i444 = zext %i443 to i64
-  %i445 = getelementptr inbounds float, %i420, %i444
+  %i445 = getelementptr inbounds float, %i429, %i444
   %i446 = load float, %i445, align 4
   %i447 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i446, %i441
   br %i447, bb73, bb74
@@ -561,9 +561,9 @@ bb75:
   %i456 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, %i455, i32 268435488, i32 268435488, i32 268435488, %i410) convergent "no-builtins"=""
   br %i456, bb76, bb77
 bb76:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, %i455, %i423, i32 536870944, %i410, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i459 = load i32, %i424, align 4
-  %i460 = load i32, %i425, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i56, %i455, %i432, i32 536870944, %i410, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i459 = load i32, %i433, align 4
+  %i460 = load i32, %i434, align 4
   %i461 = shl i32 %i460, i32 8
   %i462 = and i32 %i461, i32 65280
   %i463 = and i32 %i459, i32 255
@@ -591,30 +591,30 @@ bb79:
   %i482 = getelementptr inbounds i32, %a0, %i481
   store %i480, %i482, align 4
   %i484 = icmp eq %i479, i16 0
-  br %i484, bb80, bb82
+  br %i484, bb81, bb80
 bb80:
-  %i486 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i487 = bitcast %i486 to ptr addrspace(0)
-  %i488 = mul i32 %i480, %a2
-  br %i484, bb91, bb81
+  %i486 = phi i32 [%i487, bb80], [i32 0, bb79]
+  %i487 = add nuw nsw i32 %i486, i32 1
+  %i488 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i487)
+  %i489 = trunc %i486 to i16
+  %i490 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, %i489, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i491 = bitcast %i490 to ptr addrspace(0)
+  store %i488, %i491, align 2
+  %i493 = icmp eq %i487, %i480
+  br %i493, bb81, bb80, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb81:
-  %i490 = bitcast %i52 to ptr addrspace(0)
-  %i491 = getelementptr inbounds %t29, %i52, i64 0, i64 0
-  %i492 = getelementptr inbounds %t29, %i52, i64 0, i64 1
-  br bb83
+  %i495 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i496 = bitcast %i495 to ptr addrspace(0)
+  %i497 = mul i32 %i480, %a2
+  br %i484, bb91, bb82
 bb82:
-  %i494 = phi i32 [%i495, bb82], [i32 0, bb79]
-  %i495 = add nuw nsw i32 %i494, i32 1
-  %i496 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i495)
-  %i497 = trunc %i494 to i16
-  %i498 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, %i497, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i499 = bitcast %i498 to ptr addrspace(0)
-  store %i496, %i499, align 2
-  %i501 = icmp eq %i495, %i480
-  br %i501, bb80, bb82, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i499 = bitcast %i52 to ptr addrspace(0)
+  %i500 = getelementptr inbounds %t29, %i52, i64 0, i64 0
+  %i501 = getelementptr inbounds %t29, %i52, i64 0, i64 1
+  br bb83
 bb83:
-  %i503 = phi i32 [i32 0, bb81], [%i507, bb90]
-  %i504 = add nuw i32 %i503, %i488
+  %i503 = phi i32 [i32 0, bb82], [%i507, bb90]
+  %i504 = add nuw i32 %i503, %i497
   %i505 = icmp ult %i504, %i476
   br %i505, bb84, bb91
 bb84:
@@ -624,7 +624,7 @@ bb84:
 bb85:
   %i510 = phi i32 [i32 0, bb84], [%i518, bb87]
   %i511 = zext %i510 to i64
-  %i512 = getelementptr inbounds half, %i487, %i511
+  %i512 = getelementptr inbounds half, %i496, %i511
   %i513 = load half, %i512, align 2
   %i514 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i513, %i508
   br %i514, bb86, bb87
@@ -641,9 +641,9 @@ bb88:
   %i523 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, %i522, i32 268435472, i32 268435472, i32 268435488, %i477) convergent "no-builtins"=""
   br %i523, bb89, bb90
 bb89:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, %i522, %i490, i32 536870944, %i477, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i526 = load i32, %i491, align 4
-  %i527 = load i32, %i492, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i53, %i522, %i499, i32 536870944, %i477, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i526 = load i32, %i500, align 4
+  %i527 = load i32, %i501, align 4
   %i528 = shl i32 %i527, i32 8
   %i529 = and i32 %i528, i32 65280
   %i530 = and i32 %i526, i32 255
@@ -671,30 +671,30 @@ bb92:
   %i549 = getelementptr inbounds i32, %a0, %i548
   store %i547, %i549, align 4
   %i551 = icmp eq %i546, i16 0
-  br %i551, bb93, bb95
+  br %i551, bb94, bb93
 bb93:
-  %i553 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i554 = bitcast %i553 to ptr addrspace(0)
-  %i555 = mul i32 %i547, %a2
-  br %i551, bb104, bb94
+  %i553 = phi i32 [%i554, bb93], [i32 0, bb92]
+  %i554 = add nuw nsw i32 %i553, i32 1
+  %i555 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i554)
+  %i556 = trunc %i553 to i16
+  %i557 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, %i556, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i558 = bitcast %i557 to ptr addrspace(0)
+  store %i555, %i558, align 2
+  %i560 = icmp eq %i554, %i547
+  br %i560, bb94, bb93, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb94:
-  %i557 = bitcast %i49 to ptr addrspace(0)
-  %i558 = getelementptr inbounds %t29, %i49, i64 0, i64 0
-  %i559 = getelementptr inbounds %t29, %i49, i64 0, i64 1
-  br bb96
+  %i562 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i563 = bitcast %i562 to ptr addrspace(0)
+  %i564 = mul i32 %i547, %a2
+  br %i551, bb104, bb95
 bb95:
-  %i561 = phi i32 [%i562, bb95], [i32 0, bb92]
-  %i562 = add nuw nsw i32 %i561, i32 1
-  %i563 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i562)
-  %i564 = trunc %i561 to i16
-  %i565 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, %i564, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i566 = bitcast %i565 to ptr addrspace(0)
-  store %i563, %i566, align 2
-  %i568 = icmp eq %i562, %i547
-  br %i568, bb93, bb95, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i566 = bitcast %i49 to ptr addrspace(0)
+  %i567 = getelementptr inbounds %t29, %i49, i64 0, i64 0
+  %i568 = getelementptr inbounds %t29, %i49, i64 0, i64 1
+  br bb96
 bb96:
-  %i570 = phi i32 [i32 0, bb94], [%i574, bb103]
-  %i571 = add nuw i32 %i570, %i555
+  %i570 = phi i32 [i32 0, bb95], [%i574, bb103]
+  %i571 = add nuw i32 %i570, %i564
   %i572 = icmp ult %i571, %i543
   br %i572, bb97, bb104
 bb97:
@@ -704,7 +704,7 @@ bb97:
 bb98:
   %i577 = phi i32 [i32 0, bb97], [%i585, bb100]
   %i578 = zext %i577 to i64
-  %i579 = getelementptr inbounds bfloat, %i554, %i578
+  %i579 = getelementptr inbounds bfloat, %i563, %i578
   %i580 = load bfloat, %i579, align 2
   %i581 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i580, %i575
   br %i581, bb99, bb100
@@ -721,9 +721,9 @@ bb101:
   %i590 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, %i589, i32 2415919120, i32 2415919120, i32 268435488, %i544) convergent "no-builtins"=""
   br %i590, bb102, bb103
 bb102:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, %i589, %i557, i32 536870944, %i544, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i593 = load i32, %i558, align 4
-  %i594 = load i32, %i559, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i50, %i589, %i566, i32 536870944, %i544, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i593 = load i32, %i567, align 4
+  %i594 = load i32, %i568, align 4
   %i595 = shl i32 %i594, i32 8
   %i596 = and i32 %i595, i32 65280
   %i597 = and i32 %i593, i32 255
@@ -751,30 +751,30 @@ bb105:
   %i616 = getelementptr inbounds i32, %a0, %i615
   store %i614, %i616, align 4
   %i618 = icmp eq %i613, i16 0
-  br %i618, bb106, bb108
+  br %i618, bb107, bb106
 bb106:
-  %i620 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i621 = bitcast %i620 to ptr addrspace(0)
-  %i622 = mul i32 %i614, %a2
-  br %i618, bb117, bb107
+  %i620 = phi i32 [%i621, bb106], [i32 0, bb105]
+  %i621 = add nuw nsw i32 %i620, i32 1
+  %i622 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i621)
+  %i623 = trunc %i620 to i16
+  %i624 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, %i623, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i625 = bitcast %i624 to ptr addrspace(0)
+  store %i622, %i625, align 4
+  %i627 = icmp eq %i621, %i614
+  br %i627, bb107, bb106, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb107:
-  %i624 = bitcast %i46 to ptr addrspace(0)
-  %i625 = getelementptr inbounds %t29, %i46, i64 0, i64 0
-  %i626 = getelementptr inbounds %t29, %i46, i64 0, i64 1
-  br bb109
+  %i629 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i630 = bitcast %i629 to ptr addrspace(0)
+  %i631 = mul i32 %i614, %a2
+  br %i618, bb117, bb108
 bb108:
-  %i628 = phi i32 [%i629, bb108], [i32 0, bb105]
-  %i629 = add nuw nsw i32 %i628, i32 1
-  %i630 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i629)
-  %i631 = trunc %i628 to i16
-  %i632 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, %i631, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i633 = bitcast %i632 to ptr addrspace(0)
-  store %i630, %i633, align 4
-  %i635 = icmp eq %i629, %i614
-  br %i635, bb106, bb108, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i633 = bitcast %i46 to ptr addrspace(0)
+  %i634 = getelementptr inbounds %t29, %i46, i64 0, i64 0
+  %i635 = getelementptr inbounds %t29, %i46, i64 0, i64 1
+  br bb109
 bb109:
-  %i637 = phi i32 [i32 0, bb107], [%i641, bb116]
-  %i638 = add nuw i32 %i637, %i622
+  %i637 = phi i32 [i32 0, bb108], [%i641, bb116]
+  %i638 = add nuw i32 %i637, %i631
   %i639 = icmp ult %i638, %i610
   br %i639, bb110, bb117
 bb110:
@@ -784,7 +784,7 @@ bb110:
 bb111:
   %i644 = phi i32 [i32 0, bb110], [%i652, bb113]
   %i645 = zext %i644 to i64
-  %i646 = getelementptr inbounds float, %i621, %i645
+  %i646 = getelementptr inbounds float, %i630, %i645
   %i647 = load float, %i646, align 4
   %i648 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i647, %i642
   br %i648, bb112, bb113
@@ -801,9 +801,9 @@ bb114:
   %i657 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, %i656, i32 268435488, i32 268435488, i32 268435488, %i611) convergent "no-builtins"=""
   br %i657, bb115, bb116
 bb115:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, %i656, %i624, i32 536870944, %i611, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i660 = load i32, %i625, align 4
-  %i661 = load i32, %i626, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i47, %i656, %i633, i32 536870944, %i611, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i660 = load i32, %i634, align 4
+  %i661 = load i32, %i635, align 4
   %i662 = shl i32 %i661, i32 8
   %i663 = and i32 %i662, i32 65280
   %i664 = and i32 %i660, i32 255
@@ -831,30 +831,30 @@ bb118:
   %i683 = getelementptr inbounds i32, %a0, %i682
   store %i681, %i683, align 4
   %i685 = icmp eq %i680, i16 0
-  br %i685, bb119, bb121
+  br %i685, bb120, bb119
 bb119:
-  %i687 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i688 = bitcast %i687 to ptr addrspace(0)
-  %i689 = mul i32 %i681, %a2
-  br %i685, bb130, bb120
+  %i687 = phi i32 [%i688, bb119], [i32 0, bb118]
+  %i688 = add nuw nsw i32 %i687, i32 1
+  %i689 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i688)
+  %i690 = trunc %i687 to i16
+  %i691 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, %i690, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i692 = bitcast %i691 to ptr addrspace(0)
+  store %i689, %i692, align 2
+  %i694 = icmp eq %i688, %i681
+  br %i694, bb120, bb119, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb120:
-  %i691 = bitcast %i43 to ptr addrspace(0)
-  %i692 = getelementptr inbounds %t29, %i43, i64 0, i64 0
-  %i693 = getelementptr inbounds %t29, %i43, i64 0, i64 1
-  br bb122
+  %i696 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i697 = bitcast %i696 to ptr addrspace(0)
+  %i698 = mul i32 %i681, %a2
+  br %i685, bb130, bb121
 bb121:
-  %i695 = phi i32 [%i696, bb121], [i32 0, bb118]
-  %i696 = add nuw nsw i32 %i695, i32 1
-  %i697 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i696)
-  %i698 = trunc %i695 to i16
-  %i699 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, %i698, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i700 = bitcast %i699 to ptr addrspace(0)
-  store %i697, %i700, align 2
-  %i702 = icmp eq %i696, %i681
-  br %i702, bb119, bb121, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i700 = bitcast %i43 to ptr addrspace(0)
+  %i701 = getelementptr inbounds %t29, %i43, i64 0, i64 0
+  %i702 = getelementptr inbounds %t29, %i43, i64 0, i64 1
+  br bb122
 bb122:
-  %i704 = phi i32 [i32 0, bb120], [%i708, bb129]
-  %i705 = add nuw i32 %i704, %i689
+  %i704 = phi i32 [i32 0, bb121], [%i708, bb129]
+  %i705 = add nuw i32 %i704, %i698
   %i706 = icmp ult %i705, %i677
   br %i706, bb123, bb130
 bb123:
@@ -864,7 +864,7 @@ bb123:
 bb124:
   %i711 = phi i32 [i32 0, bb123], [%i719, bb126]
   %i712 = zext %i711 to i64
-  %i713 = getelementptr inbounds half, %i688, %i712
+  %i713 = getelementptr inbounds half, %i697, %i712
   %i714 = load half, %i713, align 2
   %i715 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i714, %i709
   br %i715, bb125, bb126
@@ -881,9 +881,9 @@ bb127:
   %i724 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, %i723, i32 268435472, i32 268435472, i32 268435488, %i678) convergent "no-builtins"=""
   br %i724, bb128, bb129
 bb128:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, %i723, %i691, i32 536870944, %i678, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i727 = load i32, %i692, align 4
-  %i728 = load i32, %i693, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i44, %i723, %i700, i32 536870944, %i678, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i727 = load i32, %i701, align 4
+  %i728 = load i32, %i702, align 4
   %i729 = shl i32 %i728, i32 8
   %i730 = and i32 %i729, i32 65280
   %i731 = and i32 %i727, i32 255
@@ -911,30 +911,30 @@ bb131:
   %i750 = getelementptr inbounds i32, %a0, %i749
   store %i748, %i750, align 4
   %i752 = icmp eq %i747, i16 0
-  br %i752, bb132, bb134
+  br %i752, bb133, bb132
 bb132:
-  %i754 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i755 = bitcast %i754 to ptr addrspace(0)
-  %i756 = mul i32 %i748, %a2
-  br %i752, bb143, bb133
+  %i754 = phi i32 [%i755, bb132], [i32 0, bb131]
+  %i755 = add nuw nsw i32 %i754, i32 1
+  %i756 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i755)
+  %i757 = trunc %i754 to i16
+  %i758 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, %i757, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i759 = bitcast %i758 to ptr addrspace(0)
+  store %i756, %i759, align 2
+  %i761 = icmp eq %i755, %i748
+  br %i761, bb133, bb132, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb133:
-  %i758 = bitcast %i40 to ptr addrspace(0)
-  %i759 = getelementptr inbounds %t29, %i40, i64 0, i64 0
-  %i760 = getelementptr inbounds %t29, %i40, i64 0, i64 1
-  br bb135
+  %i763 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i764 = bitcast %i763 to ptr addrspace(0)
+  %i765 = mul i32 %i748, %a2
+  br %i752, bb143, bb134
 bb134:
-  %i762 = phi i32 [%i763, bb134], [i32 0, bb131]
-  %i763 = add nuw nsw i32 %i762, i32 1
-  %i764 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i763)
-  %i765 = trunc %i762 to i16
-  %i766 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, %i765, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i767 = bitcast %i766 to ptr addrspace(0)
-  store %i764, %i767, align 2
-  %i769 = icmp eq %i763, %i748
-  br %i769, bb132, bb134, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i767 = bitcast %i40 to ptr addrspace(0)
+  %i768 = getelementptr inbounds %t29, %i40, i64 0, i64 0
+  %i769 = getelementptr inbounds %t29, %i40, i64 0, i64 1
+  br bb135
 bb135:
-  %i771 = phi i32 [i32 0, bb133], [%i775, bb142]
-  %i772 = add nuw i32 %i771, %i756
+  %i771 = phi i32 [i32 0, bb134], [%i775, bb142]
+  %i772 = add nuw i32 %i771, %i765
   %i773 = icmp ult %i772, %i744
   br %i773, bb136, bb143
 bb136:
@@ -944,7 +944,7 @@ bb136:
 bb137:
   %i778 = phi i32 [i32 0, bb136], [%i786, bb139]
   %i779 = zext %i778 to i64
-  %i780 = getelementptr inbounds bfloat, %i755, %i779
+  %i780 = getelementptr inbounds bfloat, %i764, %i779
   %i781 = load bfloat, %i780, align 2
   %i782 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i781, %i776
   br %i782, bb138, bb139
@@ -961,9 +961,9 @@ bb140:
   %i791 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, %i790, i32 2415919120, i32 2415919120, i32 268435488, %i745) convergent "no-builtins"=""
   br %i791, bb141, bb142
 bb141:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, %i790, %i758, i32 536870944, %i745, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i794 = load i32, %i759, align 4
-  %i795 = load i32, %i760, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i41, %i790, %i767, i32 536870944, %i745, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i794 = load i32, %i768, align 4
+  %i795 = load i32, %i769, align 4
   %i796 = shl i32 %i795, i32 8
   %i797 = and i32 %i796, i32 65280
   %i798 = and i32 %i794, i32 255
@@ -991,30 +991,30 @@ bb144:
   %i817 = getelementptr inbounds i32, %a0, %i816
   store %i815, %i817, align 4
   %i819 = icmp eq %i814, i16 0
-  br %i819, bb145, bb147
+  br %i819, bb146, bb145
 bb145:
-  %i821 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i822 = bitcast %i821 to ptr addrspace(0)
-  %i823 = mul i32 %i815, %a2
-  br %i819, bb156, bb146
+  %i821 = phi i32 [%i822, bb145], [i32 0, bb144]
+  %i822 = add nuw nsw i32 %i821, i32 1
+  %i823 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i822)
+  %i824 = trunc %i821 to i16
+  %i825 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, %i824, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i826 = bitcast %i825 to ptr addrspace(0)
+  store %i823, %i826, align 4
+  %i828 = icmp eq %i822, %i815
+  br %i828, bb146, bb145, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb146:
-  %i825 = bitcast %i37 to ptr addrspace(0)
-  %i826 = getelementptr inbounds %t29, %i37, i64 0, i64 0
-  %i827 = getelementptr inbounds %t29, %i37, i64 0, i64 1
-  br bb148
+  %i830 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i831 = bitcast %i830 to ptr addrspace(0)
+  %i832 = mul i32 %i815, %a2
+  br %i819, bb156, bb147
 bb147:
-  %i829 = phi i32 [%i830, bb147], [i32 0, bb144]
-  %i830 = add nuw nsw i32 %i829, i32 1
-  %i831 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i830)
-  %i832 = trunc %i829 to i16
-  %i833 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, %i832, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i834 = bitcast %i833 to ptr addrspace(0)
-  store %i831, %i834, align 4
-  %i836 = icmp eq %i830, %i815
-  br %i836, bb145, bb147, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i834 = bitcast %i37 to ptr addrspace(0)
+  %i835 = getelementptr inbounds %t29, %i37, i64 0, i64 0
+  %i836 = getelementptr inbounds %t29, %i37, i64 0, i64 1
+  br bb148
 bb148:
-  %i838 = phi i32 [i32 0, bb146], [%i842, bb155]
-  %i839 = add nuw i32 %i838, %i823
+  %i838 = phi i32 [i32 0, bb147], [%i842, bb155]
+  %i839 = add nuw i32 %i838, %i832
   %i840 = icmp ult %i839, %i811
   br %i840, bb149, bb156
 bb149:
@@ -1024,7 +1024,7 @@ bb149:
 bb150:
   %i845 = phi i32 [i32 0, bb149], [%i853, bb152]
   %i846 = zext %i845 to i64
-  %i847 = getelementptr inbounds float, %i822, %i846
+  %i847 = getelementptr inbounds float, %i831, %i846
   %i848 = load float, %i847, align 4
   %i849 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i848, %i843
   br %i849, bb151, bb152
@@ -1041,9 +1041,9 @@ bb153:
   %i858 = call i1 @f10(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, %i857, i32 268435488, i32 268435488, i32 268435488, %i812) convergent "no-builtins"=""
   br %i858, bb154, bb155
 bb154:
-  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, %i857, %i825, i32 536870944, %i812, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i861 = load i32, %i826, align 4
-  %i862 = load i32, %i827, align 4
+  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i38, %i857, %i834, i32 536870944, %i812, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i861 = load i32, %i835, align 4
+  %i862 = load i32, %i836, align 4
   %i863 = shl i32 %i862, i32 8
   %i864 = and i32 %i863, i32 65280
   %i865 = and i32 %i861, i32 255
@@ -1071,30 +1071,30 @@ bb157:
   %i884 = getelementptr inbounds i32, %a0, %i883
   store %i882, %i884, align 4
   %i886 = icmp eq %i881, i16 0
-  br %i886, bb158, bb160
+  br %i886, bb159, bb158
 bb158:
-  %i888 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i889 = bitcast %i888 to ptr addrspace(0)
-  %i890 = mul i32 %i882, %a2
-  br %i886, bb169, bb159
+  %i888 = phi i32 [%i889, bb158], [i32 0, bb157]
+  %i889 = add nuw nsw i32 %i888, i32 1
+  %i890 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i889)
+  %i891 = trunc %i888 to i16
+  %i892 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, %i891, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i893 = bitcast %i892 to ptr addrspace(0)
+  store %i890, %i893, align 2
+  %i895 = icmp eq %i889, %i882
+  br %i895, bb159, bb158, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb159:
-  %i892 = bitcast %i34 to ptr addrspace(0)
-  %i893 = getelementptr inbounds %t29, %i34, i64 0, i64 0
-  %i894 = getelementptr inbounds %t29, %i34, i64 0, i64 1
-  br bb161
+  %i897 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i898 = bitcast %i897 to ptr addrspace(0)
+  %i899 = mul i32 %i882, %a2
+  br %i886, bb169, bb160
 bb160:
-  %i896 = phi i32 [%i897, bb160], [i32 0, bb157]
-  %i897 = add nuw nsw i32 %i896, i32 1
-  %i898 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i897)
-  %i899 = trunc %i896 to i16
-  %i900 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, %i899, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i901 = bitcast %i900 to ptr addrspace(0)
-  store %i898, %i901, align 2
-  %i903 = icmp eq %i897, %i882
-  br %i903, bb158, bb160, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i901 = bitcast %i34 to ptr addrspace(0)
+  %i902 = getelementptr inbounds %t29, %i34, i64 0, i64 0
+  %i903 = getelementptr inbounds %t29, %i34, i64 0, i64 1
+  br bb161
 bb161:
-  %i905 = phi i32 [i32 0, bb159], [%i909, bb168]
-  %i906 = add nuw i32 %i905, %i890
+  %i905 = phi i32 [i32 0, bb160], [%i909, bb168]
+  %i906 = add nuw i32 %i905, %i899
   %i907 = icmp ult %i906, %i878
   br %i907, bb162, bb169
 bb162:
@@ -1104,7 +1104,7 @@ bb162:
 bb163:
   %i912 = phi i32 [i32 0, bb162], [%i920, bb165]
   %i913 = zext %i912 to i64
-  %i914 = getelementptr inbounds half, %i889, %i913
+  %i914 = getelementptr inbounds half, %i898, %i913
   %i915 = load half, %i914, align 2
   %i916 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i915, %i910
   br %i916, bb164, bb165
@@ -1121,9 +1121,9 @@ bb166:
   %i925 = call i1 @f10(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, %i924, i32 268435472, i32 268435472, i32 268435488, %i879) convergent "no-builtins"=""
   br %i925, bb167, bb168
 bb167:
-  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, %i924, %i892, i32 536870944, %i879, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i928 = load i32, %i893, align 4
-  %i929 = load i32, %i894, align 4
+  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i35, %i924, %i901, i32 536870944, %i879, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i928 = load i32, %i902, align 4
+  %i929 = load i32, %i903, align 4
   %i930 = shl i32 %i929, i32 8
   %i931 = and i32 %i930, i32 65280
   %i932 = and i32 %i928, i32 255
@@ -1151,30 +1151,30 @@ bb170:
   %i951 = getelementptr inbounds i32, %a0, %i950
   store %i949, %i951, align 4
   %i953 = icmp eq %i948, i16 0
-  br %i953, bb171, bb173
+  br %i953, bb172, bb171
 bb171:
-  %i955 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i956 = bitcast %i955 to ptr addrspace(0)
-  %i957 = mul i32 %i949, %a2
-  br %i953, bb182, bb172
+  %i955 = phi i32 [%i956, bb171], [i32 0, bb170]
+  %i956 = add nuw nsw i32 %i955, i32 1
+  %i957 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i956)
+  %i958 = trunc %i955 to i16
+  %i959 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i958, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i960 = bitcast %i959 to ptr addrspace(0)
+  store %i957, %i960, align 2
+  %i962 = icmp eq %i956, %i949
+  br %i962, bb172, bb171, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb172:
-  %i959 = bitcast %i31 to ptr addrspace(0)
-  %i960 = getelementptr inbounds %t29, %i31, i64 0, i64 0
-  %i961 = getelementptr inbounds %t29, %i31, i64 0, i64 1
-  br bb174
+  %i964 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i965 = bitcast %i964 to ptr addrspace(0)
+  %i966 = mul i32 %i949, %a2
+  br %i953, bb182, bb173
 bb173:
-  %i963 = phi i32 [%i964, bb173], [i32 0, bb170]
-  %i964 = add nuw nsw i32 %i963, i32 1
-  %i965 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i964)
-  %i966 = trunc %i963 to i16
-  %i967 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i966, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i968 = bitcast %i967 to ptr addrspace(0)
-  store %i965, %i968, align 2
-  %i970 = icmp eq %i964, %i949
-  br %i970, bb171, bb173, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i968 = bitcast %i31 to ptr addrspace(0)
+  %i969 = getelementptr inbounds %t29, %i31, i64 0, i64 0
+  %i970 = getelementptr inbounds %t29, %i31, i64 0, i64 1
+  br bb174
 bb174:
-  %i972 = phi i32 [i32 0, bb172], [%i976, bb181]
-  %i973 = add nuw i32 %i972, %i957
+  %i972 = phi i32 [i32 0, bb173], [%i976, bb181]
+  %i973 = add nuw i32 %i972, %i966
   %i974 = icmp ult %i973, %i945
   br %i974, bb175, bb182
 bb175:
@@ -1184,7 +1184,7 @@ bb175:
 bb176:
   %i979 = phi i32 [i32 0, bb175], [%i987, bb178]
   %i980 = zext %i979 to i64
-  %i981 = getelementptr inbounds bfloat, %i956, %i980
+  %i981 = getelementptr inbounds bfloat, %i965, %i980
   %i982 = load bfloat, %i981, align 2
   %i983 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i982, %i977
   br %i983, bb177, bb178
@@ -1201,9 +1201,9 @@ bb179:
   %i992 = call i1 @f10(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i991, i32 2415919120, i32 2415919120, i32 268435488, %i946) convergent "no-builtins"=""
   br %i992, bb180, bb181
 bb180:
-  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i991, %i959, i32 536870944, %i946, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i995 = load i32, %i960, align 4
-  %i996 = load i32, %i961, align 4
+  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i991, %i968, i32 536870944, %i946, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i995 = load i32, %i969, align 4
+  %i996 = load i32, %i970, align 4
   %i997 = shl i32 %i996, i32 8
   %i998 = and i32 %i997, i32 65280
   %i999 = and i32 %i995, i32 255
@@ -1231,30 +1231,30 @@ bb183:
   %i1018 = getelementptr inbounds i32, %a0, %i1017
   store %i1016, %i1018, align 4
   %i1020 = icmp eq %i1015, i16 0
-  br %i1020, bb184, bb186
+  br %i1020, bb185, bb184
 bb184:
-  %i1022 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i1023 = bitcast %i1022 to ptr addrspace(0)
-  %i1024 = mul i32 %i1016, %a2
-  br %i1020, bb195, bb185
+  %i1022 = phi i32 [%i1023, bb184], [i32 0, bb183]
+  %i1023 = add nuw nsw i32 %i1022, i32 1
+  %i1024 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1023)
+  %i1025 = trunc %i1022 to i16
+  %i1026 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, %i1025, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i1027 = bitcast %i1026 to ptr addrspace(0)
+  store %i1024, %i1027, align 4
+  %i1029 = icmp eq %i1023, %i1016
+  br %i1029, bb185, bb184, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb185:
-  %i1026 = bitcast %i28 to ptr addrspace(0)
-  %i1027 = getelementptr inbounds %t29, %i28, i64 0, i64 0
-  %i1028 = getelementptr inbounds %t29, %i28, i64 0, i64 1
-  br bb187
+  %i1031 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i1032 = bitcast %i1031 to ptr addrspace(0)
+  %i1033 = mul i32 %i1016, %a2
+  br %i1020, bb195, bb186
 bb186:
-  %i1030 = phi i32 [%i1031, bb186], [i32 0, bb183]
-  %i1031 = add nuw nsw i32 %i1030, i32 1
-  %i1032 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1031)
-  %i1033 = trunc %i1030 to i16
-  %i1034 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, %i1033, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i1035 = bitcast %i1034 to ptr addrspace(0)
-  store %i1032, %i1035, align 4
-  %i1037 = icmp eq %i1031, %i1016
-  br %i1037, bb184, bb186, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1035 = bitcast %i28 to ptr addrspace(0)
+  %i1036 = getelementptr inbounds %t29, %i28, i64 0, i64 0
+  %i1037 = getelementptr inbounds %t29, %i28, i64 0, i64 1
+  br bb187
 bb187:
-  %i1039 = phi i32 [i32 0, bb185], [%i1043, bb194]
-  %i1040 = add nuw i32 %i1039, %i1024
+  %i1039 = phi i32 [i32 0, bb186], [%i1043, bb194]
+  %i1040 = add nuw i32 %i1039, %i1033
   %i1041 = icmp ult %i1040, %i1012
   br %i1041, bb188, bb195
 bb188:
@@ -1264,7 +1264,7 @@ bb188:
 bb189:
   %i1046 = phi i32 [i32 0, bb188], [%i1054, bb191]
   %i1047 = zext %i1046 to i64
-  %i1048 = getelementptr inbounds float, %i1023, %i1047
+  %i1048 = getelementptr inbounds float, %i1032, %i1047
   %i1049 = load float, %i1048, align 4
   %i1050 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1049, %i1044
   br %i1050, bb190, bb191
@@ -1281,9 +1281,9 @@ bb192:
   %i1059 = call i1 @f10(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, %i1058, i32 268435488, i32 268435488, i32 268435488, %i1013) convergent "no-builtins"=""
   br %i1059, bb193, bb194
 bb193:
-  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, %i1058, %i1026, i32 536870944, %i1013, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i1062 = load i32, %i1027, align 4
-  %i1063 = load i32, %i1028, align 4
+  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i29, %i1058, %i1035, i32 536870944, %i1013, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i1062 = load i32, %i1036, align 4
+  %i1063 = load i32, %i1037, align 4
   %i1064 = shl i32 %i1063, i32 8
   %i1065 = and i32 %i1064, i32 65280
   %i1066 = and i32 %i1062, i32 255
@@ -1311,30 +1311,30 @@ bb196:
   %i1085 = getelementptr inbounds i32, %a0, %i1084
   store %i1083, %i1085, align 4
   %i1087 = icmp eq %i1082, i16 0
-  br %i1087, bb197, bb199
+  br %i1087, bb198, bb197
 bb197:
-  %i1089 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1090 = bitcast %i1089 to ptr addrspace(0)
-  %i1091 = mul i32 %i1083, %a2
-  br %i1087, bb208, bb198
+  %i1089 = phi i32 [%i1090, bb197], [i32 0, bb196]
+  %i1090 = add nuw nsw i32 %i1089, i32 1
+  %i1091 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1090)
+  %i1092 = trunc %i1089 to i16
+  %i1093 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, %i1092, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1094 = bitcast %i1093 to ptr addrspace(0)
+  store %i1091, %i1094, align 2
+  %i1096 = icmp eq %i1090, %i1083
+  br %i1096, bb198, bb197, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb198:
-  %i1093 = bitcast %i25 to ptr addrspace(0)
-  %i1094 = getelementptr inbounds %t29, %i25, i64 0, i64 0
-  %i1095 = getelementptr inbounds %t29, %i25, i64 0, i64 1
-  br bb200
+  %i1098 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1099 = bitcast %i1098 to ptr addrspace(0)
+  %i1100 = mul i32 %i1083, %a2
+  br %i1087, bb208, bb199
 bb199:
-  %i1097 = phi i32 [%i1098, bb199], [i32 0, bb196]
-  %i1098 = add nuw nsw i32 %i1097, i32 1
-  %i1099 = call reassoc nnan ninf nsz arcp contract afn half @f24 [air Convert(Convert { dst: NumTy { elem: F16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1098)
-  %i1100 = trunc %i1097 to i16
-  %i1101 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, %i1100, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1102 = bitcast %i1101 to ptr addrspace(0)
-  store %i1099, %i1102, align 2
-  %i1104 = icmp eq %i1098, %i1083
-  br %i1104, bb197, bb199, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1102 = bitcast %i25 to ptr addrspace(0)
+  %i1103 = getelementptr inbounds %t29, %i25, i64 0, i64 0
+  %i1104 = getelementptr inbounds %t29, %i25, i64 0, i64 1
+  br bb200
 bb200:
-  %i1106 = phi i32 [i32 0, bb198], [%i1110, bb207]
-  %i1107 = add nuw i32 %i1106, %i1091
+  %i1106 = phi i32 [i32 0, bb199], [%i1110, bb207]
+  %i1107 = add nuw i32 %i1106, %i1100
   %i1108 = icmp ult %i1107, %i1079
   br %i1108, bb201, bb208
 bb201:
@@ -1344,7 +1344,7 @@ bb201:
 bb202:
   %i1113 = phi i32 [i32 0, bb201], [%i1121, bb204]
   %i1114 = zext %i1113 to i64
-  %i1115 = getelementptr inbounds half, %i1090, %i1114
+  %i1115 = getelementptr inbounds half, %i1099, %i1114
   %i1116 = load half, %i1115, align 2
   %i1117 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1116, %i1111
   br %i1117, bb203, bb204
@@ -1361,9 +1361,9 @@ bb205:
   %i1126 = call i1 @f10(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, %i1125, i32 268435472, i32 268435472, i32 268435488, %i1080) convergent "no-builtins"=""
   br %i1126, bb206, bb207
 bb206:
-  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, %i1125, %i1093, i32 536870944, %i1080, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1129 = load i32, %i1094, align 4
-  %i1130 = load i32, %i1095, align 4
+  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i26, %i1125, %i1102, i32 536870944, %i1080, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1129 = load i32, %i1103, align 4
+  %i1130 = load i32, %i1104, align 4
   %i1131 = shl i32 %i1130, i32 8
   %i1132 = and i32 %i1131, i32 65280
   %i1133 = and i32 %i1129, i32 255
@@ -1391,30 +1391,30 @@ bb209:
   %i1152 = getelementptr inbounds i32, %a0, %i1151
   store %i1150, %i1152, align 4
   %i1154 = icmp eq %i1149, i16 0
-  br %i1154, bb210, bb212
+  br %i1154, bb211, bb210
 bb210:
-  %i1156 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i1157 = bitcast %i1156 to ptr addrspace(0)
-  %i1158 = mul i32 %i1150, %a2
-  br %i1154, bb221, bb211
+  %i1156 = phi i32 [%i1157, bb210], [i32 0, bb209]
+  %i1157 = add nuw nsw i32 %i1156, i32 1
+  %i1158 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1157)
+  %i1159 = trunc %i1156 to i16
+  %i1160 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, %i1159, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i1161 = bitcast %i1160 to ptr addrspace(0)
+  store %i1158, %i1161, align 2
+  %i1163 = icmp eq %i1157, %i1150
+  br %i1163, bb211, bb210, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb211:
-  %i1160 = bitcast %i22 to ptr addrspace(0)
-  %i1161 = getelementptr inbounds %t29, %i22, i64 0, i64 0
-  %i1162 = getelementptr inbounds %t29, %i22, i64 0, i64 1
-  br bb213
+  %i1165 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, i16 0, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i1166 = bitcast %i1165 to ptr addrspace(0)
+  %i1167 = mul i32 %i1150, %a2
+  br %i1154, bb221, bb212
 bb212:
-  %i1164 = phi i32 [%i1165, bb212], [i32 0, bb209]
-  %i1165 = add nuw nsw i32 %i1164, i32 1
-  %i1166 = call reassoc nnan ninf nsz arcp contract afn bfloat @f27 [air Convert(Convert { dst: NumTy { elem: BF16, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1165)
-  %i1167 = trunc %i1164 to i16
-  %i1168 = call ptr addrspace(0) @f9(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, %i1167, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i1169 = bitcast %i1168 to ptr addrspace(0)
-  store %i1166, %i1169, align 2
-  %i1171 = icmp eq %i1165, %i1150
-  br %i1171, bb210, bb212, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1169 = bitcast %i22 to ptr addrspace(0)
+  %i1170 = getelementptr inbounds %t29, %i22, i64 0, i64 0
+  %i1171 = getelementptr inbounds %t29, %i22, i64 0, i64 1
+  br bb213
 bb213:
-  %i1173 = phi i32 [i32 0, bb211], [%i1177, bb220]
-  %i1174 = add nuw i32 %i1173, %i1158
+  %i1173 = phi i32 [i32 0, bb212], [%i1177, bb220]
+  %i1174 = add nuw i32 %i1173, %i1167
   %i1175 = icmp ult %i1174, %i1146
   br %i1175, bb214, bb221
 bb214:
@@ -1424,7 +1424,7 @@ bb214:
 bb215:
   %i1180 = phi i32 [i32 0, bb214], [%i1188, bb217]
   %i1181 = zext %i1180 to i64
-  %i1182 = getelementptr inbounds bfloat, %i1157, %i1181
+  %i1182 = getelementptr inbounds bfloat, %i1166, %i1181
   %i1183 = load bfloat, %i1182, align 2
   %i1184 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1183, %i1178
   br %i1184, bb216, bb217
@@ -1441,9 +1441,9 @@ bb218:
   %i1193 = call i1 @f10(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, %i1192, i32 2415919120, i32 2415919120, i32 268435488, %i1147) convergent "no-builtins"=""
   br %i1193, bb219, bb220
 bb219:
-  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, %i1192, %i1160, i32 536870944, %i1147, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
-  %i1196 = load i32, %i1161, align 4
-  %i1197 = load i32, %i1162, align 4
+  call void @f11(i32 1, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i23, %i1192, %i1169, i32 536870944, %i1147, i32 2415919120, i32 2415919120, i32 268435488) convergent "no-builtins"=""
+  %i1196 = load i32, %i1170, align 4
+  %i1197 = load i32, %i1171, align 4
   %i1198 = shl i32 %i1197, i32 8
   %i1199 = and i32 %i1198, i32 65280
   %i1200 = and i32 %i1196, i32 255
@@ -1472,30 +1472,30 @@ bb222:
   %i1220 = getelementptr inbounds i32, %a0, %i1219
   store %i1218, %i1220, align 4
   %i1222 = icmp eq %i1217, i16 0
-  br %i1222, bb223, bb225
+  br %i1222, bb224, bb223
 bb223:
-  %i1224 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i1225 = bitcast %i1224 to ptr addrspace(0)
-  %i1226 = mul i32 %i1218, %a2
-  br %i1222, bb234, bb224
+  %i1224 = phi i32 [%i1225, bb223], [i32 0, bb222]
+  %i1225 = add nuw nsw i32 %i1224, i32 1
+  %i1226 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1225)
+  %i1227 = trunc %i1224 to i16
+  %i1228 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, %i1227, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i1229 = bitcast %i1228 to ptr addrspace(0)
+  store %i1226, %i1229, align 4
+  %i1231 = icmp eq %i1225, %i1218
+  br %i1231, bb224, bb223, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb224:
-  %i1228 = bitcast %i19 to ptr addrspace(0)
-  %i1229 = getelementptr inbounds %t29, %i19, i64 0, i64 0
-  %i1230 = getelementptr inbounds %t29, %i19, i64 0, i64 1
-  br bb226
+  %i1233 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, i16 0, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i1234 = bitcast %i1233 to ptr addrspace(0)
+  %i1235 = mul i32 %i1218, %a2
+  br %i1222, bb234, bb225
 bb225:
-  %i1232 = phi i32 [%i1233, bb225], [i32 0, bb222]
-  %i1233 = add nuw nsw i32 %i1232, i32 1
-  %i1234 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1233)
-  %i1235 = trunc %i1232 to i16
-  %i1236 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, %i1235, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i1237 = bitcast %i1236 to ptr addrspace(0)
-  store %i1234, %i1237, align 4
-  %i1239 = icmp eq %i1233, %i1218
-  br %i1239, bb223, bb225, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1237 = bitcast %i19 to ptr addrspace(0)
+  %i1238 = getelementptr inbounds %t29, %i19, i64 0, i64 0
+  %i1239 = getelementptr inbounds %t29, %i19, i64 0, i64 1
+  br bb226
 bb226:
-  %i1241 = phi i32 [i32 0, bb224], [%i1245, bb233]
-  %i1242 = add nuw i32 %i1241, %i1226
+  %i1241 = phi i32 [i32 0, bb225], [%i1245, bb233]
+  %i1242 = add nuw i32 %i1241, %i1235
   %i1243 = icmp ult %i1242, %i1213
   br %i1243, bb227, bb234
 bb227:
@@ -1505,7 +1505,7 @@ bb227:
 bb228:
   %i1248 = phi i32 [i32 0, bb227], [%i1256, bb230]
   %i1249 = zext %i1248 to i64
-  %i1250 = getelementptr inbounds float, %i1225, %i1249
+  %i1250 = getelementptr inbounds float, %i1234, %i1249
   %i1251 = load float, %i1250, align 4
   %i1252 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1251, %i1246
   br %i1252, bb229, bb230
@@ -1522,9 +1522,9 @@ bb231:
   %i1261 = call i1 @f10(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, %i1260, i32 268435488, i32 268435488, i32 268435488, %i1215) convergent "no-builtins"=""
   br %i1261, bb232, bb233
 bb232:
-  call void @f11(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, %i1260, %i1228, i32 536870944, %i1215, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
-  %i1264 = load i32, %i1229, align 4
-  %i1265 = load i32, %i1230, align 4
+  call void @f11(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i20, %i1260, %i1237, i32 536870944, %i1215, i32 268435488, i32 268435488, i32 268435488) convergent "no-builtins"=""
+  %i1264 = load i32, %i1238, align 4
+  %i1265 = load i32, %i1239, align 4
   %i1266 = shl i32 %i1265, i32 8
   %i1267 = and i32 %i1266, i32 65280
   %i1268 = and i32 %i1264, i32 255
@@ -1553,30 +1553,30 @@ bb235:
   %i1288 = getelementptr inbounds i32, %a0, %i1287
   store %i1286, %i1288, align 4
   %i1290 = icmp eq %i1285, i16 0
-  br %i1290, bb236, bb238
+  br %i1290, bb237, bb236
 bb236:
-  %i1292 = call ptr addrspace(0) @f9(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1293 = bitcast %i1292 to ptr addrspace(0)
-  %i1294 = mul i32 %i1286, %a2
-  br %i1290, bb247, bb237
+  %i1292 = phi i32 [%i1293, bb236], [i32 0, bb235]
+  %i1293 = add nuw nsw i32 %i1292, i32 1
+  %i1294 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1293)
+  %i1295 = trunc %i1292 to i16
+  %i1296 = call ptr addrspace(0) @f9(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, %i1295, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1297 = bitcast %i1296 to ptr addrspace(0)
+  store %i1294, %i1297, align 4
+  %i1299 = icmp eq %i1293, %i1286
+  br %i1299, bb237, bb236, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb237:
-  %i1296 = bitcast %i16 to ptr addrspace(0)
-  %i1297 = getelementptr inbounds %t29, %i16, i64 0, i64 0
-  %i1298 = getelementptr inbounds %t29, %i16, i64 0, i64 1
-  br bb239
+  %i1301 = call ptr addrspace(0) @f9(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1302 = bitcast %i1301 to ptr addrspace(0)
+  %i1303 = mul i32 %i1286, %a2
+  br %i1290, bb247, bb238
 bb238:
-  %i1300 = phi i32 [%i1301, bb238], [i32 0, bb235]
-  %i1301 = add nuw nsw i32 %i1300, i32 1
-  %i1302 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1301)
-  %i1303 = trunc %i1300 to i16
-  %i1304 = call ptr addrspace(0) @f9(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, %i1303, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1305 = bitcast %i1304 to ptr addrspace(0)
-  store %i1302, %i1305, align 4
-  %i1307 = icmp eq %i1301, %i1286
-  br %i1307, bb236, bb238, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1305 = bitcast %i16 to ptr addrspace(0)
+  %i1306 = getelementptr inbounds %t29, %i16, i64 0, i64 0
+  %i1307 = getelementptr inbounds %t29, %i16, i64 0, i64 1
+  br bb239
 bb239:
-  %i1309 = phi i32 [i32 0, bb237], [%i1313, bb246]
-  %i1310 = add nuw i32 %i1309, %i1294
+  %i1309 = phi i32 [i32 0, bb238], [%i1313, bb246]
+  %i1310 = add nuw i32 %i1309, %i1303
   %i1311 = icmp ult %i1310, %i1281
   br %i1311, bb240, bb247
 bb240:
@@ -1586,7 +1586,7 @@ bb240:
 bb241:
   %i1316 = phi i32 [i32 0, bb240], [%i1324, bb243]
   %i1317 = zext %i1316 to i64
-  %i1318 = getelementptr inbounds float, %i1293, %i1317
+  %i1318 = getelementptr inbounds float, %i1302, %i1317
   %i1319 = load float, %i1318, align 4
   %i1320 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1319, %i1314
   br %i1320, bb242, bb243
@@ -1603,9 +1603,9 @@ bb244:
   %i1329 = call i1 @f10(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, %i1328, i32 268435472, i32 268435472, i32 268435488, %i1283) convergent "no-builtins"=""
   br %i1329, bb245, bb246
 bb245:
-  call void @f11(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, %i1328, %i1296, i32 536870944, %i1283, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1332 = load i32, %i1297, align 4
-  %i1333 = load i32, %i1298, align 4
+  call void @f11(i32 2, i32 128, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i17, %i1328, %i1305, i32 536870944, %i1283, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1332 = load i32, %i1306, align 4
+  %i1333 = load i32, %i1307, align 4
   %i1334 = shl i32 %i1333, i32 8
   %i1335 = and i32 %i1334, i32 65280
   %i1336 = and i32 %i1332, i32 255
@@ -1634,30 +1634,30 @@ bb248:
   %i1356 = getelementptr inbounds i32, %a0, %i1355
   store %i1354, %i1356, align 4
   %i1358 = icmp eq %i1353, i16 0
-  br %i1358, bb249, bb251
+  br %i1358, bb250, bb249
 bb249:
-  %i1360 = call ptr addrspace(0) @f9(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1361 = bitcast %i1360 to ptr addrspace(0)
-  %i1362 = mul i32 %i1354, %a2
-  br %i1358, bb260, bb250
+  %i1360 = phi i32 [%i1361, bb249], [i32 0, bb248]
+  %i1361 = add nuw nsw i32 %i1360, i32 1
+  %i1362 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1361)
+  %i1363 = trunc %i1360 to i16
+  %i1364 = call ptr addrspace(0) @f9(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, %i1363, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1365 = bitcast %i1364 to ptr addrspace(0)
+  store %i1362, %i1365, align 4
+  %i1367 = icmp eq %i1361, %i1354
+  br %i1367, bb250, bb249, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb250:
-  %i1364 = bitcast %i13 to ptr addrspace(0)
-  %i1365 = getelementptr inbounds %t29, %i13, i64 0, i64 0
-  %i1366 = getelementptr inbounds %t29, %i13, i64 0, i64 1
-  br bb252
+  %i1369 = call ptr addrspace(0) @f9(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1370 = bitcast %i1369 to ptr addrspace(0)
+  %i1371 = mul i32 %i1354, %a2
+  br %i1358, bb260, bb251
 bb251:
-  %i1368 = phi i32 [%i1369, bb251], [i32 0, bb248]
-  %i1369 = add nuw nsw i32 %i1368, i32 1
-  %i1370 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1369)
-  %i1371 = trunc %i1368 to i16
-  %i1372 = call ptr addrspace(0) @f9(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, %i1371, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1373 = bitcast %i1372 to ptr addrspace(0)
-  store %i1370, %i1373, align 4
-  %i1375 = icmp eq %i1369, %i1354
-  br %i1375, bb249, bb251, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1373 = bitcast %i13 to ptr addrspace(0)
+  %i1374 = getelementptr inbounds %t29, %i13, i64 0, i64 0
+  %i1375 = getelementptr inbounds %t29, %i13, i64 0, i64 1
+  br bb252
 bb252:
-  %i1377 = phi i32 [i32 0, bb250], [%i1381, bb259]
-  %i1378 = add nuw i32 %i1377, %i1362
+  %i1377 = phi i32 [i32 0, bb251], [%i1381, bb259]
+  %i1378 = add nuw i32 %i1377, %i1371
   %i1379 = icmp ult %i1378, %i1349
   br %i1379, bb253, bb260
 bb253:
@@ -1667,7 +1667,7 @@ bb253:
 bb254:
   %i1384 = phi i32 [i32 0, bb253], [%i1392, bb256]
   %i1385 = zext %i1384 to i64
-  %i1386 = getelementptr inbounds float, %i1361, %i1385
+  %i1386 = getelementptr inbounds float, %i1370, %i1385
   %i1387 = load float, %i1386, align 4
   %i1388 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1387, %i1382
   br %i1388, bb255, bb256
@@ -1684,9 +1684,9 @@ bb257:
   %i1397 = call i1 @f10(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, %i1396, i32 268435472, i32 268435472, i32 268435488, %i1351) convergent "no-builtins"=""
   br %i1397, bb258, bb259
 bb258:
-  call void @f11(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, %i1396, %i1364, i32 536870944, %i1351, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1400 = load i32, %i1365, align 4
-  %i1401 = load i32, %i1366, align 4
+  call void @f11(i32 2, i32 8, i32 128, i32 32, i8 0, i8 0, i8 0, i32 1, %i14, %i1396, %i1373, i32 536870944, %i1351, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1400 = load i32, %i1374, align 4
+  %i1401 = load i32, %i1375, align 4
   %i1402 = shl i32 %i1401, i32 8
   %i1403 = and i32 %i1402, i32 65280
   %i1404 = and i32 %i1400, i32 255
@@ -1715,30 +1715,30 @@ bb261:
   %i1424 = getelementptr inbounds i32, %a0, %i1423
   store %i1422, %i1424, align 4
   %i1426 = icmp eq %i1421, i16 0
-  br %i1426, bb262, bb264
+  br %i1426, bb263, bb262
 bb262:
-  %i1428 = call ptr addrspace(0) @f9(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1429 = bitcast %i1428 to ptr addrspace(0)
-  %i1430 = mul i32 %i1422, %a2
-  br %i1426, bb273, bb263
+  %i1428 = phi i32 [%i1429, bb262], [i32 0, bb261]
+  %i1429 = add nuw nsw i32 %i1428, i32 1
+  %i1430 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1429)
+  %i1431 = trunc %i1428 to i16
+  %i1432 = call ptr addrspace(0) @f9(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, %i1431, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1433 = bitcast %i1432 to ptr addrspace(0)
+  store %i1430, %i1433, align 4
+  %i1435 = icmp eq %i1429, %i1422
+  br %i1435, bb263, bb262, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb263:
-  %i1432 = bitcast %i10 to ptr addrspace(0)
-  %i1433 = getelementptr inbounds %t29, %i10, i64 0, i64 0
-  %i1434 = getelementptr inbounds %t29, %i10, i64 0, i64 1
-  br bb265
+  %i1437 = call ptr addrspace(0) @f9(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, i16 0, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1438 = bitcast %i1437 to ptr addrspace(0)
+  %i1439 = mul i32 %i1422, %a2
+  br %i1426, bb273, bb264
 bb264:
-  %i1436 = phi i32 [%i1437, bb264], [i32 0, bb261]
-  %i1437 = add nuw nsw i32 %i1436, i32 1
-  %i1438 = call reassoc nnan ninf nsz arcp contract afn float @f7 [air Convert(Convert { dst: NumTy { elem: F32, lanes: 1 }, dst_kind: Float, src: NumTy { elem: I32, lanes: 1 }, src_kind: Unsigned, src_fp8: None })](%i1437)
-  %i1439 = trunc %i1436 to i16
-  %i1440 = call ptr addrspace(0) @f9(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, %i1439, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1441 = bitcast %i1440 to ptr addrspace(0)
-  store %i1438, %i1441, align 4
-  %i1443 = icmp eq %i1437, %i1422
-  br %i1443, bb262, bb264, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1441 = bitcast %i10 to ptr addrspace(0)
+  %i1442 = getelementptr inbounds %t29, %i10, i64 0, i64 0
+  %i1443 = getelementptr inbounds %t29, %i10, i64 0, i64 1
+  br bb265
 bb265:
-  %i1445 = phi i32 [i32 0, bb263], [%i1449, bb272]
-  %i1446 = add nuw i32 %i1445, %i1430
+  %i1445 = phi i32 [i32 0, bb264], [%i1449, bb272]
+  %i1446 = add nuw i32 %i1445, %i1439
   %i1447 = icmp ult %i1446, %i1417
   br %i1447, bb266, bb273
 bb266:
@@ -1748,7 +1748,7 @@ bb266:
 bb267:
   %i1452 = phi i32 [i32 0, bb266], [%i1460, bb269]
   %i1453 = zext %i1452 to i64
-  %i1454 = getelementptr inbounds float, %i1429, %i1453
+  %i1454 = getelementptr inbounds float, %i1438, %i1453
   %i1455 = load float, %i1454, align 4
   %i1456 = fcmp reassoc nnan ninf nsz arcp contract afn oeq %i1455, %i1450
   br %i1456, bb268, bb269
@@ -1765,9 +1765,9 @@ bb270:
   %i1465 = call i1 @f10(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, %i1464, i32 268435472, i32 268435472, i32 268435488, %i1419) convergent "no-builtins"=""
   br %i1465, bb271, bb272
 bb271:
-  call void @f11(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, %i1464, %i1432, i32 536870944, %i1419, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
-  %i1468 = load i32, %i1433, align 4
-  %i1469 = load i32, %i1434, align 4
+  call void @f11(i32 2, i32 64, i32 64, i32 32, i8 0, i8 0, i8 0, i32 1, %i11, %i1464, %i1441, i32 536870944, %i1419, i32 268435472, i32 268435472, i32 268435488) convergent "no-builtins"=""
+  %i1468 = load i32, %i1442, align 4
+  %i1469 = load i32, %i1443, align 4
   %i1470 = shl i32 %i1469, i32 8
   %i1471 = and i32 %i1470, i32 65280
   %i1472 = and i32 %i1468, i32 255
@@ -1795,29 +1795,29 @@ bb274:
   %i1491 = getelementptr inbounds i32, %a0, %i1490
   store %i1489, %i1491, align 4
   %i1493 = icmp eq %i1488, i16 0
-  br %i1493, bb275, bb277
+  br %i1493, bb276, bb275
 bb275:
-  %i1495 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, i16 0, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1496 = bitcast %i1495 to ptr addrspace(0)
-  %i1497 = mul i32 %i1489, %a2
-  br %i1493, bb286, bb276
+  %i1495 = phi i32 [%i1496, bb275], [i32 0, bb274]
+  %i1496 = add nuw nsw i32 %i1495, i32 1
+  %i1497 = trunc %i1495 to i16
+  %i1498 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, %i1497, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1499 = bitcast %i1498 to ptr addrspace(0)
+  store %i1496, %i1499, align 4
+  %i1501 = icmp eq %i1496, %i1489
+  br %i1501, bb276, bb275, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb276:
-  %i1499 = bitcast %i7 to ptr addrspace(0)
-  %i1500 = getelementptr inbounds %t29, %i7, i64 0, i64 0
-  %i1501 = getelementptr inbounds %t29, %i7, i64 0, i64 1
-  br bb278
+  %i1503 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, i16 0, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1504 = bitcast %i1503 to ptr addrspace(0)
+  %i1505 = mul i32 %i1489, %a2
+  br %i1493, bb286, bb277
 bb277:
-  %i1503 = phi i32 [%i1504, bb277], [i32 0, bb274]
-  %i1504 = add nuw nsw i32 %i1503, i32 1
-  %i1505 = trunc %i1503 to i16
-  %i1506 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, %i1505, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1507 = bitcast %i1506 to ptr addrspace(0)
-  store %i1504, %i1507, align 4
-  %i1509 = icmp eq %i1504, %i1489
-  br %i1509, bb275, bb277, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1507 = bitcast %i7 to ptr addrspace(0)
+  %i1508 = getelementptr inbounds %t29, %i7, i64 0, i64 0
+  %i1509 = getelementptr inbounds %t29, %i7, i64 0, i64 1
+  br bb278
 bb278:
-  %i1511 = phi i32 [i32 0, bb276], [%i1515, bb285]
-  %i1512 = add nuw i32 %i1511, %i1497
+  %i1511 = phi i32 [i32 0, bb277], [%i1515, bb285]
+  %i1512 = add nuw i32 %i1511, %i1505
   %i1513 = icmp ult %i1512, %i1485
   br %i1513, bb279, bb286
 bb279:
@@ -1826,7 +1826,7 @@ bb279:
 bb280:
   %i1517 = phi i32 [i32 0, bb279], [%i1525, bb282]
   %i1518 = zext %i1517 to i64
-  %i1519 = getelementptr inbounds i32, %i1496, %i1518
+  %i1519 = getelementptr inbounds i32, %i1504, %i1518
   %i1520 = load i32, %i1519, align 4
   %i1521 = icmp eq %i1520, %i1515
   br %i1521, bb281, bb282
@@ -1843,9 +1843,9 @@ bb283:
   %i1530 = call i1 @f10(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, %i1529, i32 536870920, i32 536870920, i32 536870944, %i1486) convergent "no-builtins"=""
   br %i1530, bb284, bb285
 bb284:
-  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, %i1529, %i1499, i32 536870944, %i1486, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1533 = load i32, %i1500, align 4
-  %i1534 = load i32, %i1501, align 4
+  call void @f11(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i8, %i1529, %i1507, i32 536870944, %i1486, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1533 = load i32, %i1508, align 4
+  %i1534 = load i32, %i1509, align 4
   %i1535 = shl i32 %i1534, i32 8
   %i1536 = and i32 %i1535, i32 65280
   %i1537 = and i32 %i1533, i32 255
@@ -1873,28 +1873,28 @@ bb287:
   %i1556 = getelementptr inbounds i32, %a0, %i1555
   store %i1554, %i1556, align 4
   %i1558 = icmp eq %i1553, i16 0
-  br %i1558, bb288, bb290
+  br %i1558, bb289, bb288
 bb288:
-  %i1560 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, i16 0, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1561 = mul i32 %i1554, %a2
-  br %i1558, bb298, bb289
+  %i1560 = phi i32 [%i1561, bb288], [i32 0, bb287]
+  %i1561 = add nuw nsw i32 %i1560, i32 1
+  %i1562 = trunc %i1561 to i8
+  %i1563 = trunc %i1560 to i16
+  %i1564 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, %i1563, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  store %i1562, %i1564, align 1
+  %i1566 = icmp eq %i1561, %i1554
+  br %i1566, bb289, bb288, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb289:
-  %i1563 = bitcast %i4 to ptr addrspace(0)
-  %i1564 = getelementptr inbounds %t29, %i4, i64 0, i64 0
-  %i1565 = getelementptr inbounds %t29, %i4, i64 0, i64 1
-  br bb291
+  %i1568 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, i16 0, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1569 = mul i32 %i1554, %a2
+  br %i1558, bb298, bb290
 bb290:
-  %i1567 = phi i32 [%i1568, bb290], [i32 0, bb287]
-  %i1568 = add nuw nsw i32 %i1567, i32 1
-  %i1569 = trunc %i1568 to i8
-  %i1570 = trunc %i1567 to i16
-  %i1571 = call ptr addrspace(0) @f9(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, %i1570, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  store %i1569, %i1571, align 1
-  %i1573 = icmp eq %i1568, %i1554
-  br %i1573, bb288, bb290, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1571 = bitcast %i4 to ptr addrspace(0)
+  %i1572 = getelementptr inbounds %t29, %i4, i64 0, i64 0
+  %i1573 = getelementptr inbounds %t29, %i4, i64 0, i64 1
+  br bb291
 bb291:
-  %i1575 = phi i32 [i32 0, bb289], [%i1613, bb297]
-  %i1576 = add nuw i32 %i1575, %i1561
+  %i1575 = phi i32 [i32 0, bb290], [%i1613, bb297]
+  %i1576 = add nuw i32 %i1575, %i1569
   %i1577 = icmp ult %i1576, %i1550
   br %i1577, bb292, bb298
 bb292:
@@ -1905,7 +1905,7 @@ bb292:
 bb293:
   %i1583 = phi i32 [i32 0, bb292], [%i1590, bb294]
   %i1584 = zext %i1583 to i64
-  %i1585 = getelementptr inbounds i8, %i1560, %i1584
+  %i1585 = getelementptr inbounds i8, %i1568, %i1584
   %i1586 = load i8, %i1585, align 1
   %i1587 = sext %i1586 to i32
   %i1588 = icmp eq %i1581, %i1587
@@ -1921,9 +1921,9 @@ bb295:
   %i1596 = call i1 @f10(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, %i1595, i32 536870920, i32 536870920, i32 536870944, %i1551) convergent "no-builtins"=""
   br %i1596, bb296, bb297
 bb296:
-  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, %i1595, %i1563, i32 536870944, %i1551, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1599 = load i32, %i1564, align 4
-  %i1600 = load i32, %i1565, align 4
+  call void @f11(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i5, %i1595, %i1571, i32 536870944, %i1551, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1599 = load i32, %i1572, align 4
+  %i1600 = load i32, %i1573, align 4
   %i1601 = shl i32 %i1600, i32 8
   %i1602 = and i32 %i1601, i32 65280
   %i1603 = and i32 %i1599, i32 255
@@ -1953,29 +1953,29 @@ bb299:
   %i1624 = getelementptr inbounds i32, %a0, %i1623
   store %i1622, %i1624, align 4
   %i1626 = icmp eq %i1621, i16 0
-  br %i1626, bb300, bb302
+  br %i1626, bb301, bb300
 bb300:
-  %i1628 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, i16 0, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1629 = bitcast %i1628 to ptr addrspace(0)
-  %i1630 = mul i32 %i1622, %a2
-  br %i1626, bb311, bb301
+  %i1628 = phi i32 [%i1629, bb300], [i32 0, bb299]
+  %i1629 = add nuw nsw i32 %i1628, i32 1
+  %i1630 = trunc %i1628 to i16
+  %i1631 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, %i1630, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1632 = bitcast %i1631 to ptr addrspace(0)
+  store %i1629, %i1632, align 4
+  %i1634 = icmp eq %i1629, %i1622
+  br %i1634, bb301, bb300, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb301:
-  %i1632 = bitcast %i1 to ptr addrspace(0)
-  %i1633 = getelementptr inbounds %t29, %i1, i64 0, i64 0
-  %i1634 = getelementptr inbounds %t29, %i1, i64 0, i64 1
-  br bb303
+  %i1636 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, i16 0, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1637 = bitcast %i1636 to ptr addrspace(0)
+  %i1638 = mul i32 %i1622, %a2
+  br %i1626, bb311, bb302
 bb302:
-  %i1636 = phi i32 [%i1637, bb302], [i32 0, bb299]
-  %i1637 = add nuw nsw i32 %i1636, i32 1
-  %i1638 = trunc %i1636 to i16
-  %i1639 = call ptr addrspace(0) @f9(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, %i1638, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1640 = bitcast %i1639 to ptr addrspace(0)
-  store %i1637, %i1640, align 4
-  %i1642 = icmp eq %i1637, %i1622
-  br %i1642, bb300, bb302, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  %i1640 = bitcast %i1 to ptr addrspace(0)
+  %i1641 = getelementptr inbounds %t29, %i1, i64 0, i64 0
+  %i1642 = getelementptr inbounds %t29, %i1, i64 0, i64 1
+  br bb303
 bb303:
-  %i1644 = phi i32 [i32 0, bb301], [%i1648, bb310]
-  %i1645 = add nuw i32 %i1644, %i1630
+  %i1644 = phi i32 [i32 0, bb302], [%i1648, bb310]
+  %i1645 = add nuw i32 %i1644, %i1638
   %i1646 = icmp ult %i1645, %i1617
   br %i1646, bb304, bb311
 bb304:
@@ -1984,7 +1984,7 @@ bb304:
 bb305:
   %i1650 = phi i32 [i32 0, bb304], [%i1658, bb307]
   %i1651 = zext %i1650 to i64
-  %i1652 = getelementptr inbounds i32, %i1629, %i1651
+  %i1652 = getelementptr inbounds i32, %i1637, %i1651
   %i1653 = load i32, %i1652, align 4
   %i1654 = icmp eq %i1653, %i1648
   br %i1654, bb306, bb307
@@ -2001,9 +2001,9 @@ bb308:
   %i1663 = call i1 @f10(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, %i1662, i32 536870920, i32 536870920, i32 536870944, %i1619) convergent "no-builtins"=""
   br %i1663, bb309, bb310
 bb309:
-  call void @f11(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, %i1662, %i1632, i32 536870944, %i1619, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1666 = load i32, %i1633, align 4
-  %i1667 = load i32, %i1634, align 4
+  call void @f11(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i2, %i1662, %i1640, i32 536870944, %i1619, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1666 = load i32, %i1641, align 4
+  %i1667 = load i32, %i1642, align 4
   %i1668 = shl i32 %i1667, i32 8
   %i1669 = and i32 %i1668, i32 65280
   %i1670 = and i32 %i1666, i32 255

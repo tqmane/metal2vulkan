@@ -70,13 +70,13 @@ define void @a27_memory_order(%struct.Block addrspace(1)* nocapture noundef alig
   %43 = zext i32 %42 to i64
   %44 = add i32 %1, 100
   %45 = bitcast i32* %3 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %45) #8
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %45)
   store i32 7, i32* %3, align 4, !tbaa !32
   %46 = getelementptr inbounds %struct.Block, %struct.Block addrspace(1)* %0, i64 0, i32 0, i64 %43, i32 0
   %47 = call i32 @air.atomic.global.cmpxchg.weak.i32(i32 addrspace(1)* nocapture %46, i32* nocapture nonnull %3, i32 %44, i32 4, i32 2, i32 2, i32 1, i1 false) #6
   %48 = icmp eq i32 %47, 7
   %49 = load i32, i32* %3, align 4, !tbaa !32
-  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %45) #8
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %45)
   tail call void @air.wg.barrier(i32 1, i32 3, i32 1) #7
   tail call void @air.wg.barrier(i32 1, i32 2, i32 1) #7
   tail call void @air.wg.barrier(i32 3, i32 0, i32 1) #7
@@ -104,29 +104,23 @@ define void @a27_memory_order(%struct.Block addrspace(1)* nocapture noundef alig
   ret void
 }
 
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #1
-
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #1
-
 ; Function Attrs: mustprogress nounwind willreturn
-define void @a27_wide_and_float(%struct.Wide addrspace(1)* nocapture noundef align 8 dereferenceable(12) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #2 {
+define void @a27_wide_and_float(%struct.Wide addrspace(1)* nocapture noundef align 8 dereferenceable(12) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #1 {
   %3 = zext i32 %1 to i64
   %4 = shl i64 %3, 33
   %5 = getelementptr inbounds %struct.Wide, %struct.Wide addrspace(1)* %0, i64 0, i32 0, i32 0
   tail call void @air.atomic.global.max.u.i64(i64 addrspace(1)* nocapture %5, i64 %4, i32 0, i32 2, i32 1, i1 false) #6
-  %6 = tail call fast float @air.convert.f.f32.u.i32(i32 %1) #9
+  %6 = tail call fast float @air.convert.f.f32.u.i32(i32 %1) #8
   %7 = getelementptr inbounds %struct.Wide, %struct.Wide addrspace(1)* %0, i64 0, i32 1, i32 0
   %8 = tail call fast float @air.atomic.global.add.f32(float addrspace(1)* nocapture %7, float %6, i32 5, i32 2, i32 31, i1 false) #6
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind readnone willreturn
-declare float @air.convert.f.f32.u.i32(i32) local_unnamed_addr #3
+declare float @air.convert.f.f32.u.i32(i32) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nounwind willreturn
-define void @a27_fragment_atomics(%"struct.metal::_atomic" addrspace(1)* nocapture noundef "air-buffer-no-alias" %0) local_unnamed_addr #2 {
+define void @a27_fragment_atomics(%"struct.metal::_atomic" addrspace(1)* nocapture noundef "air-buffer-no-alias" %0) local_unnamed_addr #1 {
   %2 = getelementptr inbounds %"struct.metal::_atomic", %"struct.metal::_atomic" addrspace(1)* %0, i64 0, i32 0
   %3 = tail call i32 @air.atomic.global.add.u.i32(i32 addrspace(1)* nocapture %2, i32 1, i32 5, i32 2, i32 31, i1 false) #6
   %4 = getelementptr inbounds %"struct.metal::_atomic", %"struct.metal::_atomic" addrspace(1)* %0, i64 1, i32 0
@@ -138,54 +132,59 @@ define void @a27_fragment_atomics(%"struct.metal::_atomic" addrspace(1)* nocaptu
 }
 
 ; Function Attrs: convergent mustprogress nounwind willreturn
-declare void @air.wg.barrier(i32, i32, i32) local_unnamed_addr #4
+declare void @air.wg.barrier(i32, i32, i32) local_unnamed_addr #3
 
 ; Function Attrs: convergent mustprogress nounwind willreturn
-declare void @air.simdgroup.barrier(i32, i32, i32) local_unnamed_addr #4
+declare void @air.simdgroup.barrier(i32, i32, i32) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare void @air.atomic.local.store.i32(i32 addrspace(3)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare void @air.atomic.local.store.i32(i32 addrspace(3)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.local.add.u.i32(i32 addrspace(3)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.local.add.u.i32(i32 addrspace(3)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.local.load.i32(i32 addrspace(3)* nocapture, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.local.load.i32(i32 addrspace(3)* nocapture, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.global.add.u.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.global.add.u.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.global.max.u.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.global.max.u.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.global.or.u.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.global.or.u.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.global.cmpxchg.weak.i32(i32 addrspace(1)* nocapture, i32* nocapture, i32, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.global.cmpxchg.weak.i32(i32 addrspace(1)* nocapture, i32* nocapture, i32, i32, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare void @air.atomic.global.max.u.i64(i64 addrspace(1)* nocapture, i64, i32, i32, i32, i1) local_unnamed_addr #5
+declare void @air.atomic.global.max.u.i64(i64 addrspace(1)* nocapture, i64, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare float @air.atomic.global.add.f32(float addrspace(1)* nocapture, float, i32, i32, i32, i1) local_unnamed_addr #5
+declare float @air.atomic.global.add.f32(float addrspace(1)* nocapture, float, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare i32 @air.atomic.global.load.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i1) local_unnamed_addr #5
+declare i32 @air.atomic.global.load.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i1) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn
-declare void @air.atomic.global.store.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #5
+declare void @air.atomic.global.store.i32(i32 addrspace(1)* nocapture, i32, i32, i32, i32, i1) local_unnamed_addr #4
+
+; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #5
+
+; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #5
 
 attributes #0 = { convergent mustprogress nounwind willreturn "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #1 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
-attributes #2 = { mustprogress nounwind willreturn "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #3 = { mustprogress nofree nosync nounwind readnone willreturn }
-attributes #4 = { convergent mustprogress nounwind willreturn }
-attributes #5 = { mustprogress nounwind willreturn }
+attributes #1 = { mustprogress nounwind willreturn "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
+attributes #2 = { mustprogress nofree nosync nounwind readnone willreturn }
+attributes #3 = { convergent mustprogress nounwind willreturn }
+attributes #4 = { mustprogress nounwind willreturn }
+attributes #5 = { argmemonly nocallback nofree nosync nounwind willreturn }
 attributes #6 = { nounwind willreturn }
 attributes #7 = { convergent nounwind willreturn }
-attributes #8 = { nounwind }
-attributes #9 = { nounwind readnone willreturn }
+attributes #8 = { nounwind readnone willreturn }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9, !16}

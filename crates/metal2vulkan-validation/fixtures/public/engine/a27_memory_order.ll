@@ -70,13 +70,13 @@ define void @a27_memory_order(ptr addrspace(1) noundef align 4 captures(none) de
   %43 = zext i32 %42 to i64
   %44 = add i32 %1, 100
   %45 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %45) #8
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %45)
   store i32 7, ptr %3, align 4, !tbaa !32
   %46 = getelementptr inbounds %struct.Block, ptr addrspace(1) %0, i64 0, i32 0, i64 %43, i32 0
   %47 = call i32 @air.atomic.global.cmpxchg.weak.i32(ptr addrspace(1) captures(none) %46, ptr nonnull captures(none) %3, i32 %44, i32 4, i32 2, i32 2, i32 1, i1 false) #6
   %48 = icmp eq i32 %47, 7
   %49 = load i32, ptr %3, align 4, !tbaa !32
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %45) #8
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %45)
   tail call void @air.wg.barrier(i32 1, i32 3, i32 1) #7
   tail call void @air.wg.barrier(i32 1, i32 2, i32 1) #7
   tail call void @air.wg.barrier(i32 3, i32 0, i32 1) #7
@@ -110,7 +110,7 @@ define void @a27_wide_and_float(ptr addrspace(1) noundef align 8 captures(none) 
   %4 = shl i64 %3, 33
   %5 = getelementptr inbounds %struct.Wide, ptr addrspace(1) %0, i64 0, i32 0, i32 0
   tail call void @air.atomic.global.max.u.i64(ptr addrspace(1) captures(none) %5, i64 %4, i32 0, i32 2, i32 1, i1 false) #6
-  %6 = tail call fast float @air.convert.f.f32.u.i32(i32 %1) #9
+  %6 = tail call fast float @air.convert.f.f32.u.i32(i32 %1) #8
   %7 = getelementptr inbounds %struct.Wide, ptr addrspace(1) %0, i64 0, i32 1, i32 0
   %8 = tail call fast float @air.atomic.global.add.f32(ptr addrspace(1) captures(none) %7, float %6, i32 5, i32 2, i32 31, i1 false) #6
   ret void
@@ -184,8 +184,7 @@ attributes #4 = { mustprogress nounwind willreturn }
 attributes #5 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { nounwind willreturn }
 attributes #7 = { convergent nounwind willreturn }
-attributes #8 = { nounwind }
-attributes #9 = { nounwind willreturn memory(none) }
+attributes #8 = { nounwind willreturn memory(none) }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9, !16}

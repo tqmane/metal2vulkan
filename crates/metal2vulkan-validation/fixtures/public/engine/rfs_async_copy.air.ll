@@ -2,7 +2,7 @@
 ; ModuleID = '-'
 source_filename = "-"
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32"
-target triple = "air64_v28-apple-macosx26.0.0"
+target triple = "air64_v29-apple-macosx27.0.0"
 
 %struct.rfs_event = type opaque
 
@@ -13,328 +13,327 @@ target triple = "air64_v28-apple-macosx26.0.0"
 ; Function Attrs: convergent mustprogress nounwind
 define void @rfs_async_copy_1(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i32 addrspace(1)* nocapture noundef writeonly "air-buffer-no-alias" %1, i64 addrspace(2)* nocapture noundef readonly "air-buffer-no-alias" %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, i32 noundef %6) local_unnamed_addr #0 {
   %8 = alloca %struct.rfs_event*, align 8
-  %9 = icmp ult i32 %3, 4096
-  br i1 %9, label %53, label %10
+  %9 = bitcast %struct.rfs_event** %8 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %9)
+  %10 = icmp ult i32 %3, 4096
+  br i1 %10, label %11, label %17
 
-10:                                               ; preds = %53, %7
-  tail call void @air.wg.barrier(i32 2, i32 1) #4
-  %11 = tail call %struct.rfs_event* @air.get_null_simdgroup_event() #5
-  %12 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %11) #5
-  %13 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 10
-  %14 = load i64, i64 addrspace(2)* %13, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %15 = zext i32 %4 to i64
-  %16 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 12
-  %17 = load i64, i64 addrspace(2)* %16, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %18 = mul nsw i64 %17, %15
-  %19 = add nsw i64 %18, %14
-  %20 = bitcast %struct.rfs_event** %8 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %20) #6
-  %21 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_1PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %19
-  %22 = load i64, i64 addrspace(2)* %2, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %23 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 1
-  %24 = load i64, i64 addrspace(2)* %23, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %25 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 2
-  %26 = load i64, i64 addrspace(2)* %25, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %27 = insertelement <2 x i64> undef, i64 %26, i64 0
-  %28 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 3
-  %29 = load i64, i64 addrspace(2)* %28, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %30 = insertelement <2 x i64> %27, i64 %29, i64 1
-  %31 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 11
-  %32 = load i64, i64 addrspace(2)* %31, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %33 = getelementptr inbounds i8, i8 addrspace(1)* %0, i64 %32
-  %34 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 4
-  %35 = load i64, i64 addrspace(2)* %34, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %36 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 5
-  %37 = load i64, i64 addrspace(2)* %36, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %38 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 6
-  %39 = load i64, i64 addrspace(2)* %38, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %40 = insertelement <2 x i64> undef, i64 %39, i64 0
-  %41 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 7
-  %42 = load i64, i64 addrspace(2)* %41, align 8, !tbaa !27, !alias.scope !31, !noalias !34
-  %43 = insertelement <2 x i64> %40, i64 %42, i64 1
-  %44 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 8
-  %45 = load i64, i64 addrspace(2)* %44, align 8, !tbaa !27, !alias.scope !31, !noalias !34
+11:                                               ; preds = %7, %11
+  %12 = phi i32 [ %15, %11 ], [ %3, %7 ]
+  %13 = zext i32 %12 to i64
+  %14 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_1PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %13
+  store i8 -18, i8 addrspace(3)* %14, align 1, !tbaa !27
+  %15 = add i32 %12, %6
+  %16 = icmp ult i32 %15, 4096
+  br i1 %16, label %11, label %17, !llvm.loop !30
+
+17:                                               ; preds = %11, %7
+  tail call void @air.wg.barrier(i32 2, i32 5, i32 1) #4
+  %18 = tail call %struct.rfs_event* @air.get_null_simdgroup_event() #5
+  %19 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %18) #5
+  %20 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 10
+  %21 = load i64, i64 addrspace(2)* %20, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %22 = zext i32 %4 to i64
+  %23 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 12
+  %24 = load i64, i64 addrspace(2)* %23, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %25 = mul nsw i64 %24, %22
+  %26 = add nsw i64 %25, %21
+  %27 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_1PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %26
+  %28 = load i64, i64 addrspace(2)* %2, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %29 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 1
+  %30 = load i64, i64 addrspace(2)* %29, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %31 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 2
+  %32 = load i64, i64 addrspace(2)* %31, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %33 = insertelement <2 x i64> undef, i64 %32, i64 0
+  %34 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 3
+  %35 = load i64, i64 addrspace(2)* %34, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %36 = insertelement <2 x i64> %33, i64 %35, i64 1
+  %37 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 11
+  %38 = load i64, i64 addrspace(2)* %37, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %39 = getelementptr inbounds i8, i8 addrspace(1)* %0, i64 %38
+  %40 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 4
+  %41 = load i64, i64 addrspace(2)* %40, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %42 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 5
+  %43 = load i64, i64 addrspace(2)* %42, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %44 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 6
+  %45 = load i64, i64 addrspace(2)* %44, align 8, !tbaa !32, !alias.scope !34, !noalias !37
   %46 = insertelement <2 x i64> undef, i64 %45, i64 0
-  %47 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 9
-  %48 = load i64, i64 addrspace(2)* %47, align 8, !tbaa !27, !alias.scope !31, !noalias !34
+  %47 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 7
+  %48 = load i64, i64 addrspace(2)* %47, align 8, !tbaa !32, !alias.scope !34, !noalias !37
   %49 = insertelement <2 x i64> %46, i64 %48, i64 1
-  %50 = tail call %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef 1, i64 noundef 1, i8 addrspace(3)* noundef %21, i64 noundef %22, i64 noundef %24, <2 x i64> noundef %30, i8 addrspace(1)* noundef %33, i64 noundef %35, i64 noundef %37, <2 x i64> noundef %43, <2 x i64> noundef %49, i32 noundef 0) #5
-  store %struct.rfs_event* %50, %struct.rfs_event** %8, align 8, !tbaa !37
-  %51 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %50) #5
+  %50 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 8
+  %51 = load i64, i64 addrspace(2)* %50, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %52 = insertelement <2 x i64> undef, i64 %51, i64 0
+  %53 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 9
+  %54 = load i64, i64 addrspace(2)* %53, align 8, !tbaa !32, !alias.scope !34, !noalias !37
+  %55 = insertelement <2 x i64> %52, i64 %54, i64 1
+  %56 = tail call %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef 1, i64 noundef 1, i8 addrspace(3)* noundef %27, i64 noundef %28, i64 noundef %30, <2 x i64> noundef %36, i8 addrspace(1)* noundef %39, i64 noundef %41, i64 noundef %43, <2 x i64> noundef %49, <2 x i64> noundef %55, i32 noundef 0) #5
+  store %struct.rfs_event* %56, %struct.rfs_event** %8, align 8, !tbaa !40
+  %57 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %56) #5
   call void @air.wait_simdgroup_events(i32 noundef 1, %struct.rfs_event** noundef nonnull %8) #5
-  call void @air.wg.barrier(i32 2, i32 1) #4
-  %52 = icmp ult i32 %3, 1024
-  br i1 %52, label %61, label %59
+  call void @air.wg.barrier(i32 2, i32 5, i32 1) #4
+  %58 = icmp ult i32 %3, 1024
+  br i1 %58, label %59, label %67
 
-53:                                               ; preds = %7, %53
-  %54 = phi i32 [ %57, %53 ], [ %3, %7 ]
-  %55 = zext i32 %54 to i64
-  %56 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_1PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %55
-  store i8 -18, i8 addrspace(3)* %56, align 1, !tbaa !39
-  %57 = add i32 %54, %6
-  %58 = icmp ult i32 %57, 4096
-  br i1 %58, label %53, label %10, !llvm.loop !40
+59:                                               ; preds = %17, %59
+  %60 = phi i32 [ %65, %59 ], [ %3, %17 ]
+  %61 = zext i32 %60 to i64
+  %62 = getelementptr inbounds i32, i32 addrspace(3)* bitcast ([4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_1PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg to i32 addrspace(3)*), i64 %61
+  %63 = load i32, i32 addrspace(3)* %62, align 4, !tbaa !42
+  %64 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %61
+  store i32 %63, i32 addrspace(1)* %64, align 4, !tbaa !42, !alias.scope !44, !noalias !45
+  %65 = add i32 %60, %6
+  %66 = icmp ult i32 %65, 1024
+  br i1 %66, label %59, label %67, !llvm.loop !46
 
-59:                                               ; preds = %61, %10
-  %60 = icmp eq i32 %5, 0
-  br i1 %60, label %69, label %79
+67:                                               ; preds = %59, %17
+  %68 = icmp eq i32 %5, 0
+  br i1 %68, label %69, label %79
 
-61:                                               ; preds = %10, %61
-  %62 = phi i32 [ %67, %61 ], [ %3, %10 ]
-  %63 = zext i32 %62 to i64
-  %64 = getelementptr inbounds i32, i32 addrspace(3)* bitcast ([4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_1PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg to i32 addrspace(3)*), i64 %63
-  %65 = load i32, i32 addrspace(3)* %64, align 4, !tbaa !42
-  %66 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %63
-  store i32 %65, i32 addrspace(1)* %66, align 4, !tbaa !42, !alias.scope !44, !noalias !45
-  %67 = add i32 %62, %6
-  %68 = icmp ult i32 %67, 1024
-  br i1 %68, label %61, label %59, !llvm.loop !46
-
-69:                                               ; preds = %59
-  %70 = zext i1 %51 to i32
+69:                                               ; preds = %67
+  %70 = zext i1 %57 to i32
   %71 = shl i32 %4, 1
   %72 = add i32 %71, 1024
   %73 = zext i32 %72 to i64
   %74 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %73
   store i32 %70, i32 addrspace(1)* %74, align 4, !tbaa !42, !alias.scope !44, !noalias !45
-  %75 = zext i1 %12 to i32
+  %75 = zext i1 %19 to i32
   %76 = add i32 %71, 1025
   %77 = zext i32 %76 to i64
   %78 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %77
   store i32 %75, i32 addrspace(1)* %78, align 4, !tbaa !42, !alias.scope !44, !noalias !45
   br label %79
 
-79:                                               ; preds = %59, %69
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %20) #6
+79:                                               ; preds = %67, %69
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %9)
   ret void
 }
 
 ; Function Attrs: convergent mustprogress nounwind
 define void @rfs_async_copy_2(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i32 addrspace(1)* nocapture noundef writeonly "air-buffer-no-alias" %1, i64 addrspace(2)* nocapture noundef readonly "air-buffer-no-alias" %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, i32 noundef %6) local_unnamed_addr #0 {
   %8 = alloca %struct.rfs_event*, align 8
-  %9 = icmp ult i32 %3, 4096
-  br i1 %9, label %53, label %10
+  %9 = bitcast %struct.rfs_event** %8 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %9)
+  %10 = icmp ult i32 %3, 4096
+  br i1 %10, label %11, label %17
 
-10:                                               ; preds = %53, %7
-  tail call void @air.wg.barrier(i32 2, i32 1) #4
-  %11 = tail call %struct.rfs_event* @air.get_null_simdgroup_event() #5
-  %12 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %11) #5
-  %13 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 10
-  %14 = load i64, i64 addrspace(2)* %13, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %15 = zext i32 %4 to i64
-  %16 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 12
-  %17 = load i64, i64 addrspace(2)* %16, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %18 = mul nsw i64 %17, %15
-  %19 = add nsw i64 %18, %14
-  %20 = bitcast %struct.rfs_event** %8 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %20) #6
-  %21 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_2PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %19
-  %22 = load i64, i64 addrspace(2)* %2, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %23 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 1
-  %24 = load i64, i64 addrspace(2)* %23, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %25 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 2
-  %26 = load i64, i64 addrspace(2)* %25, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %27 = insertelement <2 x i64> undef, i64 %26, i64 0
-  %28 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 3
-  %29 = load i64, i64 addrspace(2)* %28, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %30 = insertelement <2 x i64> %27, i64 %29, i64 1
-  %31 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 11
-  %32 = load i64, i64 addrspace(2)* %31, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %33 = getelementptr inbounds i8, i8 addrspace(1)* %0, i64 %32
-  %34 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 4
-  %35 = load i64, i64 addrspace(2)* %34, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %36 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 5
-  %37 = load i64, i64 addrspace(2)* %36, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %38 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 6
-  %39 = load i64, i64 addrspace(2)* %38, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %40 = insertelement <2 x i64> undef, i64 %39, i64 0
-  %41 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 7
-  %42 = load i64, i64 addrspace(2)* %41, align 8, !tbaa !27, !alias.scope !47, !noalias !50
-  %43 = insertelement <2 x i64> %40, i64 %42, i64 1
-  %44 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 8
-  %45 = load i64, i64 addrspace(2)* %44, align 8, !tbaa !27, !alias.scope !47, !noalias !50
+11:                                               ; preds = %7, %11
+  %12 = phi i32 [ %15, %11 ], [ %3, %7 ]
+  %13 = zext i32 %12 to i64
+  %14 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_2PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %13
+  store i8 -18, i8 addrspace(3)* %14, align 1, !tbaa !27
+  %15 = add i32 %12, %6
+  %16 = icmp ult i32 %15, 4096
+  br i1 %16, label %11, label %17, !llvm.loop !47
+
+17:                                               ; preds = %11, %7
+  tail call void @air.wg.barrier(i32 2, i32 5, i32 1) #4
+  %18 = tail call %struct.rfs_event* @air.get_null_simdgroup_event() #5
+  %19 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %18) #5
+  %20 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 10
+  %21 = load i64, i64 addrspace(2)* %20, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %22 = zext i32 %4 to i64
+  %23 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 12
+  %24 = load i64, i64 addrspace(2)* %23, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %25 = mul nsw i64 %24, %22
+  %26 = add nsw i64 %25, %21
+  %27 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_2PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %26
+  %28 = load i64, i64 addrspace(2)* %2, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %29 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 1
+  %30 = load i64, i64 addrspace(2)* %29, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %31 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 2
+  %32 = load i64, i64 addrspace(2)* %31, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %33 = insertelement <2 x i64> undef, i64 %32, i64 0
+  %34 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 3
+  %35 = load i64, i64 addrspace(2)* %34, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %36 = insertelement <2 x i64> %33, i64 %35, i64 1
+  %37 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 11
+  %38 = load i64, i64 addrspace(2)* %37, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %39 = getelementptr inbounds i8, i8 addrspace(1)* %0, i64 %38
+  %40 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 4
+  %41 = load i64, i64 addrspace(2)* %40, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %42 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 5
+  %43 = load i64, i64 addrspace(2)* %42, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %44 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 6
+  %45 = load i64, i64 addrspace(2)* %44, align 8, !tbaa !32, !alias.scope !48, !noalias !51
   %46 = insertelement <2 x i64> undef, i64 %45, i64 0
-  %47 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 9
-  %48 = load i64, i64 addrspace(2)* %47, align 8, !tbaa !27, !alias.scope !47, !noalias !50
+  %47 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 7
+  %48 = load i64, i64 addrspace(2)* %47, align 8, !tbaa !32, !alias.scope !48, !noalias !51
   %49 = insertelement <2 x i64> %46, i64 %48, i64 1
-  %50 = tail call %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef 2, i64 noundef 2, i8 addrspace(3)* noundef %21, i64 noundef %22, i64 noundef %24, <2 x i64> noundef %30, i8 addrspace(1)* noundef %33, i64 noundef %35, i64 noundef %37, <2 x i64> noundef %43, <2 x i64> noundef %49, i32 noundef 0) #5
-  store %struct.rfs_event* %50, %struct.rfs_event** %8, align 8, !tbaa !37
-  %51 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %50) #5
+  %50 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 8
+  %51 = load i64, i64 addrspace(2)* %50, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %52 = insertelement <2 x i64> undef, i64 %51, i64 0
+  %53 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 9
+  %54 = load i64, i64 addrspace(2)* %53, align 8, !tbaa !32, !alias.scope !48, !noalias !51
+  %55 = insertelement <2 x i64> %52, i64 %54, i64 1
+  %56 = tail call %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef 2, i64 noundef 2, i8 addrspace(3)* noundef %27, i64 noundef %28, i64 noundef %30, <2 x i64> noundef %36, i8 addrspace(1)* noundef %39, i64 noundef %41, i64 noundef %43, <2 x i64> noundef %49, <2 x i64> noundef %55, i32 noundef 0) #5
+  store %struct.rfs_event* %56, %struct.rfs_event** %8, align 8, !tbaa !40
+  %57 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %56) #5
   call void @air.wait_simdgroup_events(i32 noundef 1, %struct.rfs_event** noundef nonnull %8) #5
-  call void @air.wg.barrier(i32 2, i32 1) #4
-  %52 = icmp ult i32 %3, 1024
-  br i1 %52, label %61, label %59
+  call void @air.wg.barrier(i32 2, i32 5, i32 1) #4
+  %58 = icmp ult i32 %3, 1024
+  br i1 %58, label %59, label %67
 
-53:                                               ; preds = %7, %53
-  %54 = phi i32 [ %57, %53 ], [ %3, %7 ]
-  %55 = zext i32 %54 to i64
-  %56 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_2PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %55
-  store i8 -18, i8 addrspace(3)* %56, align 1, !tbaa !39
-  %57 = add i32 %54, %6
-  %58 = icmp ult i32 %57, 4096
-  br i1 %58, label %53, label %10, !llvm.loop !53
+59:                                               ; preds = %17, %59
+  %60 = phi i32 [ %65, %59 ], [ %3, %17 ]
+  %61 = zext i32 %60 to i64
+  %62 = getelementptr inbounds i32, i32 addrspace(3)* bitcast ([4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_2PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg to i32 addrspace(3)*), i64 %61
+  %63 = load i32, i32 addrspace(3)* %62, align 4, !tbaa !42
+  %64 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %61
+  store i32 %63, i32 addrspace(1)* %64, align 4, !tbaa !42, !alias.scope !54, !noalias !55
+  %65 = add i32 %60, %6
+  %66 = icmp ult i32 %65, 1024
+  br i1 %66, label %59, label %67, !llvm.loop !56
 
-59:                                               ; preds = %61, %10
-  %60 = icmp eq i32 %5, 0
-  br i1 %60, label %69, label %79
+67:                                               ; preds = %59, %17
+  %68 = icmp eq i32 %5, 0
+  br i1 %68, label %69, label %79
 
-61:                                               ; preds = %10, %61
-  %62 = phi i32 [ %67, %61 ], [ %3, %10 ]
-  %63 = zext i32 %62 to i64
-  %64 = getelementptr inbounds i32, i32 addrspace(3)* bitcast ([4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_2PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg to i32 addrspace(3)*), i64 %63
-  %65 = load i32, i32 addrspace(3)* %64, align 4, !tbaa !42
-  %66 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %63
-  store i32 %65, i32 addrspace(1)* %66, align 4, !tbaa !42, !alias.scope !54, !noalias !55
-  %67 = add i32 %62, %6
-  %68 = icmp ult i32 %67, 1024
-  br i1 %68, label %61, label %59, !llvm.loop !56
-
-69:                                               ; preds = %59
-  %70 = zext i1 %51 to i32
+69:                                               ; preds = %67
+  %70 = zext i1 %57 to i32
   %71 = shl i32 %4, 1
   %72 = add i32 %71, 1024
   %73 = zext i32 %72 to i64
   %74 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %73
   store i32 %70, i32 addrspace(1)* %74, align 4, !tbaa !42, !alias.scope !54, !noalias !55
-  %75 = zext i1 %12 to i32
+  %75 = zext i1 %19 to i32
   %76 = add i32 %71, 1025
   %77 = zext i32 %76 to i64
   %78 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %77
   store i32 %75, i32 addrspace(1)* %78, align 4, !tbaa !42, !alias.scope !54, !noalias !55
   br label %79
 
-79:                                               ; preds = %59, %69
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %20) #6
+79:                                               ; preds = %67, %69
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %9)
   ret void
 }
 
 ; Function Attrs: convergent mustprogress nounwind
 define void @rfs_async_copy_4(i8 addrspace(1)* noundef "air-buffer-no-alias" %0, i32 addrspace(1)* nocapture noundef writeonly "air-buffer-no-alias" %1, i64 addrspace(2)* nocapture noundef readonly "air-buffer-no-alias" %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, i32 noundef %6) local_unnamed_addr #0 {
   %8 = alloca %struct.rfs_event*, align 8
-  %9 = icmp ult i32 %3, 4096
-  br i1 %9, label %53, label %10
+  %9 = bitcast %struct.rfs_event** %8 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %9)
+  %10 = icmp ult i32 %3, 4096
+  br i1 %10, label %11, label %17
 
-10:                                               ; preds = %53, %7
-  tail call void @air.wg.barrier(i32 2, i32 1) #4
-  %11 = tail call %struct.rfs_event* @air.get_null_simdgroup_event() #5
-  %12 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %11) #5
-  %13 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 10
-  %14 = load i64, i64 addrspace(2)* %13, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %15 = zext i32 %4 to i64
-  %16 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 12
-  %17 = load i64, i64 addrspace(2)* %16, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %18 = mul nsw i64 %17, %15
-  %19 = add nsw i64 %18, %14
-  %20 = bitcast %struct.rfs_event** %8 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %20) #6
-  %21 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_4PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %19
-  %22 = load i64, i64 addrspace(2)* %2, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %23 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 1
-  %24 = load i64, i64 addrspace(2)* %23, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %25 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 2
-  %26 = load i64, i64 addrspace(2)* %25, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %27 = insertelement <2 x i64> undef, i64 %26, i64 0
-  %28 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 3
-  %29 = load i64, i64 addrspace(2)* %28, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %30 = insertelement <2 x i64> %27, i64 %29, i64 1
-  %31 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 11
-  %32 = load i64, i64 addrspace(2)* %31, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %33 = getelementptr inbounds i8, i8 addrspace(1)* %0, i64 %32
-  %34 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 4
-  %35 = load i64, i64 addrspace(2)* %34, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %36 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 5
-  %37 = load i64, i64 addrspace(2)* %36, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %38 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 6
-  %39 = load i64, i64 addrspace(2)* %38, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %40 = insertelement <2 x i64> undef, i64 %39, i64 0
-  %41 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 7
-  %42 = load i64, i64 addrspace(2)* %41, align 8, !tbaa !27, !alias.scope !57, !noalias !60
-  %43 = insertelement <2 x i64> %40, i64 %42, i64 1
-  %44 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 8
-  %45 = load i64, i64 addrspace(2)* %44, align 8, !tbaa !27, !alias.scope !57, !noalias !60
+11:                                               ; preds = %7, %11
+  %12 = phi i32 [ %15, %11 ], [ %3, %7 ]
+  %13 = zext i32 %12 to i64
+  %14 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_4PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %13
+  store i8 -18, i8 addrspace(3)* %14, align 1, !tbaa !27
+  %15 = add i32 %12, %6
+  %16 = icmp ult i32 %15, 4096
+  br i1 %16, label %11, label %17, !llvm.loop !57
+
+17:                                               ; preds = %11, %7
+  tail call void @air.wg.barrier(i32 2, i32 5, i32 1) #4
+  %18 = tail call %struct.rfs_event* @air.get_null_simdgroup_event() #5
+  %19 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %18) #5
+  %20 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 10
+  %21 = load i64, i64 addrspace(2)* %20, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %22 = zext i32 %4 to i64
+  %23 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 12
+  %24 = load i64, i64 addrspace(2)* %23, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %25 = mul nsw i64 %24, %22
+  %26 = add nsw i64 %25, %21
+  %27 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_4PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %26
+  %28 = load i64, i64 addrspace(2)* %2, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %29 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 1
+  %30 = load i64, i64 addrspace(2)* %29, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %31 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 2
+  %32 = load i64, i64 addrspace(2)* %31, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %33 = insertelement <2 x i64> undef, i64 %32, i64 0
+  %34 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 3
+  %35 = load i64, i64 addrspace(2)* %34, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %36 = insertelement <2 x i64> %33, i64 %35, i64 1
+  %37 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 11
+  %38 = load i64, i64 addrspace(2)* %37, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %39 = getelementptr inbounds i8, i8 addrspace(1)* %0, i64 %38
+  %40 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 4
+  %41 = load i64, i64 addrspace(2)* %40, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %42 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 5
+  %43 = load i64, i64 addrspace(2)* %42, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %44 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 6
+  %45 = load i64, i64 addrspace(2)* %44, align 8, !tbaa !32, !alias.scope !58, !noalias !61
   %46 = insertelement <2 x i64> undef, i64 %45, i64 0
-  %47 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 9
-  %48 = load i64, i64 addrspace(2)* %47, align 8, !tbaa !27, !alias.scope !57, !noalias !60
+  %47 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 7
+  %48 = load i64, i64 addrspace(2)* %47, align 8, !tbaa !32, !alias.scope !58, !noalias !61
   %49 = insertelement <2 x i64> %46, i64 %48, i64 1
-  %50 = tail call %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef 4, i64 noundef 4, i8 addrspace(3)* noundef %21, i64 noundef %22, i64 noundef %24, <2 x i64> noundef %30, i8 addrspace(1)* noundef %33, i64 noundef %35, i64 noundef %37, <2 x i64> noundef %43, <2 x i64> noundef %49, i32 noundef 0) #5
-  store %struct.rfs_event* %50, %struct.rfs_event** %8, align 8, !tbaa !37
-  %51 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %50) #5
+  %50 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 8
+  %51 = load i64, i64 addrspace(2)* %50, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %52 = insertelement <2 x i64> undef, i64 %51, i64 0
+  %53 = getelementptr inbounds i64, i64 addrspace(2)* %2, i64 9
+  %54 = load i64, i64 addrspace(2)* %53, align 8, !tbaa !32, !alias.scope !58, !noalias !61
+  %55 = insertelement <2 x i64> %52, i64 %54, i64 1
+  %56 = tail call %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef 4, i64 noundef 4, i8 addrspace(3)* noundef %27, i64 noundef %28, i64 noundef %30, <2 x i64> noundef %36, i8 addrspace(1)* noundef %39, i64 noundef %41, i64 noundef %43, <2 x i64> noundef %49, <2 x i64> noundef %55, i32 noundef 0) #5
+  store %struct.rfs_event* %56, %struct.rfs_event** %8, align 8, !tbaa !40
+  %57 = tail call zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef %56) #5
   call void @air.wait_simdgroup_events(i32 noundef 1, %struct.rfs_event** noundef nonnull %8) #5
-  call void @air.wg.barrier(i32 2, i32 1) #4
-  %52 = icmp ult i32 %3, 1024
-  br i1 %52, label %61, label %59
+  call void @air.wg.barrier(i32 2, i32 5, i32 1) #4
+  %58 = icmp ult i32 %3, 1024
+  br i1 %58, label %59, label %67
 
-53:                                               ; preds = %7, %53
-  %54 = phi i32 [ %57, %53 ], [ %3, %7 ]
-  %55 = zext i32 %54 to i64
-  %56 = getelementptr inbounds [4096 x i8], [4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_4PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg, i64 0, i64 %55
-  store i8 -18, i8 addrspace(3)* %56, align 1, !tbaa !39
-  %57 = add i32 %54, %6
-  %58 = icmp ult i32 %57, 4096
-  br i1 %58, label %53, label %10, !llvm.loop !63
+59:                                               ; preds = %17, %59
+  %60 = phi i32 [ %65, %59 ], [ %3, %17 ]
+  %61 = zext i32 %60 to i64
+  %62 = getelementptr inbounds i32, i32 addrspace(3)* bitcast ([4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_4PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg to i32 addrspace(3)*), i64 %61
+  %63 = load i32, i32 addrspace(3)* %62, align 4, !tbaa !42
+  %64 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %61
+  store i32 %63, i32 addrspace(1)* %64, align 4, !tbaa !42, !alias.scope !64, !noalias !65
+  %65 = add i32 %60, %6
+  %66 = icmp ult i32 %65, 1024
+  br i1 %66, label %59, label %67, !llvm.loop !66
 
-59:                                               ; preds = %61, %10
-  %60 = icmp eq i32 %5, 0
-  br i1 %60, label %69, label %79
+67:                                               ; preds = %59, %17
+  %68 = icmp eq i32 %5, 0
+  br i1 %68, label %69, label %79
 
-61:                                               ; preds = %10, %61
-  %62 = phi i32 [ %67, %61 ], [ %3, %10 ]
-  %63 = zext i32 %62 to i64
-  %64 = getelementptr inbounds i32, i32 addrspace(3)* bitcast ([4096 x i8] addrspace(3)* @_ZZ16rfs_async_copy_4PU9MTLdeviceKhPU9MTLdevicejPU11MTLconstantKljjjjE2tg to i32 addrspace(3)*), i64 %63
-  %65 = load i32, i32 addrspace(3)* %64, align 4, !tbaa !42
-  %66 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %63
-  store i32 %65, i32 addrspace(1)* %66, align 4, !tbaa !42, !alias.scope !64, !noalias !65
-  %67 = add i32 %62, %6
-  %68 = icmp ult i32 %67, 1024
-  br i1 %68, label %61, label %59, !llvm.loop !66
-
-69:                                               ; preds = %59
-  %70 = zext i1 %51 to i32
+69:                                               ; preds = %67
+  %70 = zext i1 %57 to i32
   %71 = shl i32 %4, 1
   %72 = add i32 %71, 1024
   %73 = zext i32 %72 to i64
   %74 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %73
   store i32 %70, i32 addrspace(1)* %74, align 4, !tbaa !42, !alias.scope !64, !noalias !65
-  %75 = zext i1 %12 to i32
+  %75 = zext i1 %19 to i32
   %76 = add i32 %71, 1025
   %77 = zext i32 %76 to i64
   %78 = getelementptr inbounds i32, i32 addrspace(1)* %1, i64 %77
   store i32 %75, i32 addrspace(1)* %78, align 4, !tbaa !42, !alias.scope !64, !noalias !65
   br label %79
 
-79:                                               ; preds = %59, %69
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %20) #6
+79:                                               ; preds = %67, %69
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %9)
   ret void
 }
 
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #1
-
-; Function Attrs: argmemonly mustprogress nocallback nofree nosync nounwind willreturn
-declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #1
+; Function Attrs: convergent
+declare %struct.rfs_event* @air.get_null_simdgroup_event() local_unnamed_addr #1
 
 ; Function Attrs: convergent
-declare %struct.rfs_event* @air.get_null_simdgroup_event() local_unnamed_addr #2
+declare zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef) local_unnamed_addr #1
 
 ; Function Attrs: convergent
-declare zeroext i1 @air.is_null_simdgroup_event(%struct.rfs_event* noundef) local_unnamed_addr #2
+declare %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef, i64 noundef, i8 addrspace(3)* noundef, i64 noundef, i64 noundef, <2 x i64> noundef, i8 addrspace(1)* noundef, i64 noundef, i64 noundef, <2 x i64> noundef, <2 x i64> noundef, i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: convergent
-declare %struct.rfs_event* @air.simdgroup_async_copy_2d.p3i8.p1i8(i64 noundef, i64 noundef, i8 addrspace(3)* noundef, i64 noundef, i64 noundef, <2 x i64> noundef, i8 addrspace(1)* noundef, i64 noundef, i64 noundef, <2 x i64> noundef, <2 x i64> noundef, i32 noundef) local_unnamed_addr #2
-
-; Function Attrs: convergent
-declare void @air.wait_simdgroup_events(i32 noundef, %struct.rfs_event** noundef) local_unnamed_addr #2
+declare void @air.wait_simdgroup_events(i32 noundef, %struct.rfs_event** noundef) local_unnamed_addr #1
 
 ; Function Attrs: convergent mustprogress nounwind willreturn
-declare void @air.wg.barrier(i32, i32) local_unnamed_addr #3
+declare void @air.wg.barrier(i32, i32, i32) local_unnamed_addr #2
+
+; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #3
+
+; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #3
 
 attributes #0 = { convergent mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="128" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #1 = { argmemonly mustprogress nocallback nofree nosync nounwind willreturn }
-attributes #2 = { convergent "approx-func-fp-math"="true" "frame-pointer"="all" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #3 = { convergent mustprogress nounwind willreturn }
+attributes #1 = { convergent "approx-func-fp-math"="true" "frame-pointer"="all" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
+attributes #2 = { convergent mustprogress nounwind willreturn }
+attributes #3 = { argmemonly nocallback nofree nosync nounwind willreturn }
 attributes #4 = { convergent nounwind willreturn }
 attributes #5 = { convergent nobuiltin nounwind "no-builtins" }
-attributes #6 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9, !19, !20}
@@ -368,45 +367,45 @@ attributes #6 = { nounwind }
 !22 = !{!"air.compile.fast_math_enable"}
 !23 = !{!"air.compile.framebuffer_fetch_enable"}
 !24 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
-!25 = !{i32 2, i32 8, i32 0}
+!25 = !{i32 2, i32 9, i32 0}
 !26 = !{!"Metal", i32 4, i32 0, i32 0}
 !27 = !{!28, !28, i64 0}
-!28 = !{!"long", !29, i64 0}
-!29 = !{!"omnipotent char", !30, i64 0}
-!30 = !{!"Simple C++ TBAA"}
-!31 = !{!32}
-!32 = distinct !{!32, !33, !"air-alias-scope-arg(2)"}
-!33 = distinct !{!33, !"air-alias-scopes(rfs_async_copy_1)"}
-!34 = !{!35, !36}
-!35 = distinct !{!35, !33, !"air-alias-scope-arg(0)"}
-!36 = distinct !{!36, !33, !"air-alias-scope-arg(1)"}
-!37 = !{!38, !38, i64 0}
-!38 = !{!"any pointer", !29, i64 0}
-!39 = !{!29, !29, i64 0}
-!40 = distinct !{!40, !41}
-!41 = !{!"llvm.loop.mustprogress"}
+!28 = !{!"omnipotent char", !29, i64 0}
+!29 = !{!"Simple C++ TBAA"}
+!30 = distinct !{!30, !31}
+!31 = !{!"llvm.loop.mustprogress"}
+!32 = !{!33, !33, i64 0}
+!33 = !{!"long", !28, i64 0}
+!34 = !{!35}
+!35 = distinct !{!35, !36, !"air-alias-scope-arg(2)"}
+!36 = distinct !{!36, !"air-alias-scopes(rfs_async_copy_1)"}
+!37 = !{!38, !39}
+!38 = distinct !{!38, !36, !"air-alias-scope-arg(0)"}
+!39 = distinct !{!39, !36, !"air-alias-scope-arg(1)"}
+!40 = !{!41, !41, i64 0}
+!41 = !{!"any pointer", !28, i64 0}
 !42 = !{!43, !43, i64 0}
-!43 = !{!"int", !29, i64 0}
-!44 = !{!36}
-!45 = !{!35, !32}
-!46 = distinct !{!46, !41}
-!47 = !{!48}
-!48 = distinct !{!48, !49, !"air-alias-scope-arg(2)"}
-!49 = distinct !{!49, !"air-alias-scopes(rfs_async_copy_2)"}
-!50 = !{!51, !52}
-!51 = distinct !{!51, !49, !"air-alias-scope-arg(0)"}
-!52 = distinct !{!52, !49, !"air-alias-scope-arg(1)"}
-!53 = distinct !{!53, !41}
-!54 = !{!52}
-!55 = !{!51, !48}
-!56 = distinct !{!56, !41}
-!57 = !{!58}
-!58 = distinct !{!58, !59, !"air-alias-scope-arg(2)"}
-!59 = distinct !{!59, !"air-alias-scopes(rfs_async_copy_4)"}
-!60 = !{!61, !62}
-!61 = distinct !{!61, !59, !"air-alias-scope-arg(0)"}
-!62 = distinct !{!62, !59, !"air-alias-scope-arg(1)"}
-!63 = distinct !{!63, !41}
-!64 = !{!62}
-!65 = !{!61, !58}
-!66 = distinct !{!66, !41}
+!43 = !{!"int", !28, i64 0}
+!44 = !{!39}
+!45 = !{!38, !35}
+!46 = distinct !{!46, !31}
+!47 = distinct !{!47, !31}
+!48 = !{!49}
+!49 = distinct !{!49, !50, !"air-alias-scope-arg(2)"}
+!50 = distinct !{!50, !"air-alias-scopes(rfs_async_copy_2)"}
+!51 = !{!52, !53}
+!52 = distinct !{!52, !50, !"air-alias-scope-arg(0)"}
+!53 = distinct !{!53, !50, !"air-alias-scope-arg(1)"}
+!54 = !{!53}
+!55 = !{!52, !49}
+!56 = distinct !{!56, !31}
+!57 = distinct !{!57, !31}
+!58 = !{!59}
+!59 = distinct !{!59, !60, !"air-alias-scope-arg(2)"}
+!60 = distinct !{!60, !"air-alias-scopes(rfs_async_copy_4)"}
+!61 = !{!62, !63}
+!62 = distinct !{!62, !60, !"air-alias-scope-arg(0)"}
+!63 = distinct !{!63, !60, !"air-alias-scope-arg(1)"}
+!64 = !{!63}
+!65 = !{!62, !59}
+!66 = distinct !{!66, !31}

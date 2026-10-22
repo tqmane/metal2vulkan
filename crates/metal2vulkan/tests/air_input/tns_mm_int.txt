@@ -54,8 +54,8 @@ bb0:
   %i0 = tail call i64 @f2()
   %i1 = tail call i64 @f35()
   %i2 = alloca %t33, i32 1, align 4
-  %i3 = alloca %t33, i32 1, align 4
-  %i4 = alloca %t6, i32 1, align 4
+  %i3 = alloca %t6, i32 1, align 4
+  %i4 = alloca %t33, i32 1, align 4
   %i5 = alloca %t34, i32 1, align 4
   %i6 = alloca %t34, i32 1, align 4
   %i7 = alloca %t34, i32 1, align 4
@@ -65,8 +65,8 @@ bb0:
   %i11 = alloca i8, %i1, align 4
   %i12 = tail call i64 @f33()
   %i13 = alloca %t33, i32 1, align 4
-  %i14 = alloca %t33, i32 1, align 4
-  %i15 = alloca %t6, i32 1, align 4
+  %i14 = alloca %t6, i32 1, align 4
+  %i15 = alloca %t33, i32 1, align 4
   %i16 = alloca %t34, i32 1, align 4
   %i17 = alloca %t34, i32 1, align 4
   %i18 = alloca %t34, i32 1, align 4
@@ -77,8 +77,8 @@ bb0:
   %i23 = tail call i64 @f6()
   %i24 = tail call i64 @f30()
   %i25 = alloca %t33, i32 1, align 4
-  %i26 = alloca %t33, i32 1, align 4
-  %i27 = alloca %t6, i32 1, align 4
+  %i26 = alloca %t6, i32 1, align 4
+  %i27 = alloca %t33, i32 1, align 4
   %i28 = alloca %t33, i32 1, align 4
   %i29 = alloca %t34, i32 1, align 4
   %i30 = alloca %t34, i32 1, align 4
@@ -87,8 +87,8 @@ bb0:
   %i33 = alloca i8, %i24, align 1
   %i34 = tail call i64 @f5()
   %i35 = alloca %t33, i32 1, align 4
-  %i36 = alloca %t33, i32 1, align 4
-  %i37 = alloca %t6, i32 1, align 4
+  %i36 = alloca %t6, i32 1, align 4
+  %i37 = alloca %t33, i32 1, align 4
   %i38 = alloca %t34, i32 1, align 4
   %i39 = alloca %t34, i32 1, align 4
   %i40 = alloca %t34, i32 1, align 4
@@ -97,8 +97,8 @@ bb0:
   %i43 = alloca i8, %i34, align 8
   %i44 = alloca i8, %i23, align 4
   %i45 = alloca %t33, i32 1, align 4
-  %i46 = alloca %t33, i32 1, align 4
-  %i47 = alloca %t6, i32 1, align 4
+  %i46 = alloca %t6, i32 1, align 4
+  %i47 = alloca %t33, i32 1, align 4
   %i48 = alloca %t34, i32 1, align 4
   %i49 = alloca %t34, i32 1, align 4
   %i50 = alloca %t34, i32 1, align 4
@@ -107,8 +107,8 @@ bb0:
   %i53 = alloca i8, %i34, align 8
   %i54 = alloca i8, %i23, align 4
   %i55 = alloca %t33, i32 1, align 4
-  %i56 = alloca %t33, i32 1, align 4
-  %i57 = alloca %t6, i32 1, align 4
+  %i56 = alloca %t6, i32 1, align 4
+  %i57 = alloca %t33, i32 1, align 4
   %i58 = alloca %t34, i32 1, align 4
   %i59 = alloca %t34, i32 1, align 4
   %i60 = alloca %t34, i32 1, align 4
@@ -118,8 +118,8 @@ bb0:
   %i64 = alloca i8, %i23, align 4
   %i65 = tail call i64 @f24()
   %i66 = alloca %t33, i32 1, align 4
-  %i67 = alloca %t33, i32 1, align 4
-  %i68 = alloca %t6, i32 1, align 4
+  %i67 = alloca %t6, i32 1, align 4
+  %i68 = alloca %t33, i32 1, align 4
   %i69 = alloca %t34, i32 1, align 4
   %i70 = alloca %t34, i32 1, align 4
   %i71 = alloca %t34, i32 1, align 4
@@ -129,8 +129,8 @@ bb0:
   %i75 = alloca i8, %i65, align 4
   %i76 = tail call i64 @f22()
   %i77 = alloca %t33, i32 1, align 4
-  %i78 = alloca %t33, i32 1, align 4
-  %i79 = alloca %t6, i32 1, align 4
+  %i78 = alloca %t6, i32 1, align 4
+  %i79 = alloca %t33, i32 1, align 4
   %i80 = alloca %t34, i32 1, align 4
   %i81 = alloca %t34, i32 1, align 4
   %i82 = alloca %t34, i32 1, align 4
@@ -140,8 +140,8 @@ bb0:
   %i86 = alloca i8, %i76, align 4
   %i87 = tail call i64 @f20()
   %i88 = alloca %t33, i32 1, align 4
-  %i89 = alloca %t33, i32 1, align 4
-  %i90 = alloca %t6, i32 1, align 4
+  %i89 = alloca %t6, i32 1, align 4
+  %i90 = alloca %t33, i32 1, align 4
   %i91 = alloca %t34, i32 1, align 4
   %i92 = alloca %t34, i32 1, align 4
   %i93 = alloca %t34, i32 1, align 4
@@ -151,8 +151,8 @@ bb0:
   %i97 = alloca i8, %i87, align 4
   %i98 = tail call i64 @f18()
   %i99 = alloca %t33, i32 1, align 4
-  %i100 = alloca %t33, i32 1, align 4
-  %i101 = alloca %t6, i32 1, align 4
+  %i100 = alloca %t6, i32 1, align 4
+  %i101 = alloca %t33, i32 1, align 4
   %i102 = alloca %t34, i32 1, align 4
   %i103 = alloca %t34, i32 1, align 4
   %i104 = alloca %t34, i32 1, align 4
@@ -161,8 +161,8 @@ bb0:
   %i107 = alloca i8, %i0, align 8
   %i108 = alloca i8, %i98, align 4
   %i109 = alloca %t33, i32 1, align 4
-  %i110 = alloca %t33, i32 1, align 4
-  %i111 = alloca %t6, i32 1, align 4
+  %i110 = alloca %t6, i32 1, align 4
+  %i111 = alloca %t33, i32 1, align 4
   %i112 = alloca %t34, i32 1, align 4
   %i113 = alloca %t34, i32 1, align 4
   %i114 = alloca %t34, i32 1, align 4
@@ -181,71 +181,71 @@ bb1:
   %i126 = load i32, %i125, align 4
   %i127 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i128 = load i32, %i127, align 4
-  %i129 = bitcast %i116 to ptr addrspace(0)
-  %i130 = bitcast %i114 to ptr addrspace(0)
-  %i131 = getelementptr inbounds %t34, %i114, i64 0, i32 0, i64 0
-  store %i122, %i131, align 4
-  %i133 = getelementptr inbounds %t34, %i114, i64 0, i32 0, i64 1
-  store %i124, %i133, align 4
-  %i135 = bitcast %i115 to ptr addrspace(0)
+  %i129 = bitcast %i114 to ptr addrspace(0)
+  %i130 = bitcast %i115 to ptr addrspace(0)
+  %i131 = bitcast %i116 to ptr addrspace(0)
+  %i132 = getelementptr inbounds %t34, %i114, i64 0, i32 0, i64 0
+  store %i122, %i132, align 4
+  %i134 = getelementptr inbounds %t34, %i114, i64 0, i32 0, i64 1
+  store %i124, %i134, align 4
   %i136 = getelementptr inbounds %t34, %i115, i64 0, i32 0, i64 0
   store i32 1, %i136, align 4
   %i138 = getelementptr inbounds %t34, %i115, i64 0, i32 0, i64 1
   store %i122, %i138, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i129, i16 2, %a0, %i130, %i135, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i141 = bitcast %i117 to ptr addrspace(0)
-  %i142 = bitcast %i112 to ptr addrspace(0)
-  %i143 = getelementptr inbounds %t34, %i112, i64 0, i32 0, i64 0
-  store %i126, %i143, align 4
-  %i145 = getelementptr inbounds %t34, %i112, i64 0, i32 0, i64 1
-  store %i128, %i145, align 4
-  %i147 = bitcast %i113 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i131, i16 2, %a0, %i129, %i130, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i141 = bitcast %i112 to ptr addrspace(0)
+  %i142 = bitcast %i113 to ptr addrspace(0)
+  %i143 = bitcast %i117 to ptr addrspace(0)
+  %i144 = getelementptr inbounds %t34, %i112, i64 0, i32 0, i64 0
+  store %i126, %i144, align 4
+  %i146 = getelementptr inbounds %t34, %i112, i64 0, i32 0, i64 1
+  store %i128, %i146, align 4
   %i148 = getelementptr inbounds %t34, %i113, i64 0, i32 0, i64 0
   store i32 1, %i148, align 4
   %i150 = getelementptr inbounds %t34, %i113, i64 0, i32 0, i64 1
   store %i126, %i150, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i141, i16 2, %a1, %i142, %i147, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i143, i16 2, %a1, %i141, %i142, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i153 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, i32 536870920, i32 536870920, i32 536870944, %i153) convergent "no-builtins"=""
-  %i155 = bitcast %i110 to ptr addrspace(0)
-  %i156 = getelementptr inbounds %t33, %i110, i64 0, i64 0
-  %i157 = getelementptr inbounds %t33, %i110, i64 0, i64 1
+  %i155 = bitcast %i111 to ptr addrspace(0)
+  %i156 = getelementptr inbounds %t33, %i111, i64 0, i64 0
+  %i157 = getelementptr inbounds %t33, %i111, i64 0, i64 1
   br bb2
 bb2:
-  %i159 = phi i16 [i16 0, bb1], [%i185, bb6]
+  %i159 = phi i16 [i16 0, bb1], [%i177, bb5]
   %i160 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, i32 536870920, i32 536870920, %i153) convergent "no-builtins"=""
   %i161 = icmp ult %i159, %i160
-  br %i161, bb4, bb3
+  br %i161, bb3, bb6
 bb3:
-  %i163 = bitcast %i111 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i163, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i165 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i111, %i116, i32 2, %i117, i32 2, %i165, %i153) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i167 = bitcast %i109 to ptr addrspace(0)
-  %i168 = getelementptr inbounds %t33, %i109, i64 0, i64 0
-  %i169 = getelementptr inbounds %t33, %i109, i64 0, i64 1
-  br bb7
+  %i163 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i159, i32 536870920, i32 536870920, i32 536870944, %i153) convergent "no-builtins"=""
+  br %i163, bb4, bb5
 bb4:
-  %i171 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i159, i32 536870920, i32 536870920, i32 536870944, %i153) convergent "no-builtins"=""
-  br %i171, bb5, bb6
-bb5:
   call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i159, %i155, i32 536870944, %i153, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i174 = load i32, %i156, align 4
-  %i175 = load i32, %i157, align 4
-  %i176 = shl i32 %i175, i32 6
-  %i177 = add i32 %i176, %i174
-  %i178 = zext %i177 to i64
-  %i179 = getelementptr inbounds i32, %a2, %i178
-  %i180 = load i32, %i179, align 4
-  %i181 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i159, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i182 = bitcast %i181 to ptr addrspace(0)
-  store %i180, %i182, align 4
-  br bb6
-bb6:
-  %i185 = add nuw i16 %i159, i16 1
+  %i166 = load i32, %i156, align 4
+  %i167 = load i32, %i157, align 4
+  %i168 = shl i32 %i167, i32 6
+  %i169 = add i32 %i168, %i166
+  %i170 = zext %i169 to i64
+  %i171 = getelementptr inbounds i32, %a2, %i170
+  %i172 = load i32, %i171, align 4
+  %i173 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i159, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i174 = bitcast %i173 to ptr addrspace(0)
+  store %i172, %i174, align 4
+  br bb5
+bb5:
+  %i177 = add nuw i16 %i159, i16 1
   br bb2, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb6:
+  %i179 = bitcast %i110 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i179, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i181 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i110, %i116, i32 2, %i117, i32 2, %i181, %i153) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i183 = bitcast %i109 to ptr addrspace(0)
+  %i184 = getelementptr inbounds %t33, %i109, i64 0, i64 0
+  %i185 = getelementptr inbounds %t33, %i109, i64 0, i64 1
+  br bb7
 bb7:
-  %i187 = phi i16 [i16 0, bb3], [%i205, bb10]
+  %i187 = phi i16 [i16 0, bb6], [%i205, bb10]
   %i188 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, i32 536870920, i32 536870920, %i153) convergent "no-builtins"=""
   %i189 = icmp ult %i187, %i188
   br %i189, bb8, bb11
@@ -253,9 +253,9 @@ bb8:
   %i191 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i187, i32 536870920, i32 536870920, i32 536870944, %i153) convergent "no-builtins"=""
   br %i191, bb9, bb10
 bb9:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i187, %i167, i32 536870944, %i153, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i194 = load i32, %i168, align 4
-  %i195 = load i32, %i169, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i187, %i183, i32 536870944, %i153, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i194 = load i32, %i184, align 4
+  %i195 = load i32, %i185, align 4
   %i196 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i118, %i187, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i197 = bitcast %i196 to ptr addrspace(0)
   %i198 = load i32, %i197, align 4
@@ -279,71 +279,71 @@ bb12:
   %i213 = load i32, %i212, align 4
   %i214 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i215 = load i32, %i214, align 4
-  %i216 = bitcast %i106 to ptr addrspace(0)
-  %i217 = bitcast %i104 to ptr addrspace(0)
-  %i218 = getelementptr inbounds %t34, %i104, i64 0, i32 0, i64 0
-  store %i209, %i218, align 4
-  %i220 = getelementptr inbounds %t34, %i104, i64 0, i32 0, i64 1
-  store %i211, %i220, align 4
-  %i222 = bitcast %i105 to ptr addrspace(0)
+  %i216 = bitcast %i104 to ptr addrspace(0)
+  %i217 = bitcast %i105 to ptr addrspace(0)
+  %i218 = bitcast %i106 to ptr addrspace(0)
+  %i219 = getelementptr inbounds %t34, %i104, i64 0, i32 0, i64 0
+  store %i209, %i219, align 4
+  %i221 = getelementptr inbounds %t34, %i104, i64 0, i32 0, i64 1
+  store %i211, %i221, align 4
   %i223 = getelementptr inbounds %t34, %i105, i64 0, i32 0, i64 0
   store i32 1, %i223, align 4
   %i225 = getelementptr inbounds %t34, %i105, i64 0, i32 0, i64 1
   store %i209, %i225, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i216, i16 2, %a0, %i217, %i222, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i228 = bitcast %i107 to ptr addrspace(0)
-  %i229 = bitcast %i102 to ptr addrspace(0)
-  %i230 = getelementptr inbounds %t34, %i102, i64 0, i32 0, i64 0
-  store %i213, %i230, align 4
-  %i232 = getelementptr inbounds %t34, %i102, i64 0, i32 0, i64 1
-  store %i215, %i232, align 4
-  %i234 = bitcast %i103 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i218, i16 2, %a0, %i216, %i217, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i228 = bitcast %i102 to ptr addrspace(0)
+  %i229 = bitcast %i103 to ptr addrspace(0)
+  %i230 = bitcast %i107 to ptr addrspace(0)
+  %i231 = getelementptr inbounds %t34, %i102, i64 0, i32 0, i64 0
+  store %i213, %i231, align 4
+  %i233 = getelementptr inbounds %t34, %i102, i64 0, i32 0, i64 1
+  store %i215, %i233, align 4
   %i235 = getelementptr inbounds %t34, %i103, i64 0, i32 0, i64 0
   store i32 1, %i235, align 4
   %i237 = getelementptr inbounds %t34, %i103, i64 0, i32 0, i64 1
   store %i213, %i237, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i228, i16 2, %a1, %i229, %i234, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i230, i16 2, %a1, %i228, %i229, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i240 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, i32 536870920, i32 536870920, i32 536870944, %i240) convergent "no-builtins"=""
-  %i242 = bitcast %i100 to ptr addrspace(0)
-  %i243 = getelementptr inbounds %t33, %i100, i64 0, i64 0
-  %i244 = getelementptr inbounds %t33, %i100, i64 0, i64 1
+  %i242 = bitcast %i101 to ptr addrspace(0)
+  %i243 = getelementptr inbounds %t33, %i101, i64 0, i64 0
+  %i244 = getelementptr inbounds %t33, %i101, i64 0, i64 1
   br bb13
 bb13:
-  %i246 = phi i16 [i16 0, bb12], [%i272, bb17]
+  %i246 = phi i16 [i16 0, bb12], [%i264, bb16]
   %i247 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, i32 536870920, i32 536870920, %i240) convergent "no-builtins"=""
   %i248 = icmp ult %i246, %i247
-  br %i248, bb15, bb14
+  br %i248, bb14, bb17
 bb14:
-  %i250 = bitcast %i101 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i250, ptr addrspace(0) @g5, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i252 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i101, %i106, i32 2, %i107, i32 2, %i252, %i240) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i254 = bitcast %i99 to ptr addrspace(0)
-  %i255 = getelementptr inbounds %t33, %i99, i64 0, i64 0
-  %i256 = getelementptr inbounds %t33, %i99, i64 0, i64 1
-  br bb18
+  %i250 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i246, i32 536870920, i32 536870920, i32 536870944, %i240) convergent "no-builtins"=""
+  br %i250, bb15, bb16
 bb15:
-  %i258 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i246, i32 536870920, i32 536870920, i32 536870944, %i240) convergent "no-builtins"=""
-  br %i258, bb16, bb17
-bb16:
   call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i246, %i242, i32 536870944, %i240, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i261 = load i32, %i243, align 4
-  %i262 = load i32, %i244, align 4
-  %i263 = shl i32 %i262, i32 6
-  %i264 = add i32 %i263, %i261
-  %i265 = zext %i264 to i64
-  %i266 = getelementptr inbounds i32, %a2, %i265
-  %i267 = load i32, %i266, align 4
-  %i268 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i246, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i269 = bitcast %i268 to ptr addrspace(0)
-  store %i267, %i269, align 4
-  br bb17
-bb17:
-  %i272 = add nuw i16 %i246, i16 1
+  %i253 = load i32, %i243, align 4
+  %i254 = load i32, %i244, align 4
+  %i255 = shl i32 %i254, i32 6
+  %i256 = add i32 %i255, %i253
+  %i257 = zext %i256 to i64
+  %i258 = getelementptr inbounds i32, %a2, %i257
+  %i259 = load i32, %i258, align 4
+  %i260 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i246, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i261 = bitcast %i260 to ptr addrspace(0)
+  store %i259, %i261, align 4
+  br bb16
+bb16:
+  %i264 = add nuw i16 %i246, i16 1
   br bb13, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb17:
+  %i266 = bitcast %i100 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i266, ptr addrspace(0) @g5, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i268 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i100, %i106, i32 2, %i107, i32 2, %i268, %i240) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i270 = bitcast %i99 to ptr addrspace(0)
+  %i271 = getelementptr inbounds %t33, %i99, i64 0, i64 0
+  %i272 = getelementptr inbounds %t33, %i99, i64 0, i64 1
+  br bb18
 bb18:
-  %i274 = phi i16 [i16 0, bb14], [%i292, bb21]
+  %i274 = phi i16 [i16 0, bb17], [%i292, bb21]
   %i275 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, i32 536870920, i32 536870920, %i240) convergent "no-builtins"=""
   %i276 = icmp ult %i274, %i275
   br %i276, bb19, bb22
@@ -351,9 +351,9 @@ bb19:
   %i278 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i274, i32 536870920, i32 536870920, i32 536870944, %i240) convergent "no-builtins"=""
   br %i278, bb20, bb21
 bb20:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i274, %i254, i32 536870944, %i240, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i281 = load i32, %i255, align 4
-  %i282 = load i32, %i256, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i274, %i270, i32 536870944, %i240, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i281 = load i32, %i271, align 4
+  %i282 = load i32, %i272, align 4
   %i283 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 1, i8 0, i32 1, %i108, %i274, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i284 = bitcast %i283 to ptr addrspace(0)
   %i285 = load i32, %i284, align 4
@@ -377,71 +377,71 @@ bb23:
   %i300 = load i32, %i299, align 4
   %i301 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i302 = load i32, %i301, align 4
-  %i303 = bitcast %i95 to ptr addrspace(0)
-  %i304 = bitcast %i93 to ptr addrspace(0)
-  %i305 = getelementptr inbounds %t34, %i93, i64 0, i32 0, i64 0
-  store %i296, %i305, align 4
-  %i307 = getelementptr inbounds %t34, %i93, i64 0, i32 0, i64 1
-  store %i298, %i307, align 4
-  %i309 = bitcast %i94 to ptr addrspace(0)
+  %i303 = bitcast %i93 to ptr addrspace(0)
+  %i304 = bitcast %i94 to ptr addrspace(0)
+  %i305 = bitcast %i95 to ptr addrspace(0)
+  %i306 = getelementptr inbounds %t34, %i93, i64 0, i32 0, i64 0
+  store %i296, %i306, align 4
+  %i308 = getelementptr inbounds %t34, %i93, i64 0, i32 0, i64 1
+  store %i298, %i308, align 4
   %i310 = getelementptr inbounds %t34, %i94, i64 0, i32 0, i64 0
   store i32 1, %i310, align 4
   %i312 = getelementptr inbounds %t34, %i94, i64 0, i32 0, i64 1
   store %i296, %i312, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i303, i16 2, %a0, %i304, %i309, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i315 = bitcast %i96 to ptr addrspace(0)
-  %i316 = bitcast %i91 to ptr addrspace(0)
-  %i317 = getelementptr inbounds %t34, %i91, i64 0, i32 0, i64 0
-  store %i300, %i317, align 4
-  %i319 = getelementptr inbounds %t34, %i91, i64 0, i32 0, i64 1
-  store %i302, %i319, align 4
-  %i321 = bitcast %i92 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i305, i16 2, %a0, %i303, %i304, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i315 = bitcast %i91 to ptr addrspace(0)
+  %i316 = bitcast %i92 to ptr addrspace(0)
+  %i317 = bitcast %i96 to ptr addrspace(0)
+  %i318 = getelementptr inbounds %t34, %i91, i64 0, i32 0, i64 0
+  store %i300, %i318, align 4
+  %i320 = getelementptr inbounds %t34, %i91, i64 0, i32 0, i64 1
+  store %i302, %i320, align 4
   %i322 = getelementptr inbounds %t34, %i92, i64 0, i32 0, i64 0
   store i32 1, %i322, align 4
   %i324 = getelementptr inbounds %t34, %i92, i64 0, i32 0, i64 1
   store %i300, %i324, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i315, i16 2, %a1, %i316, %i321, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i317, i16 2, %a1, %i315, %i316, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i327 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, i32 536870920, i32 536870920, i32 536870944, %i327) convergent "no-builtins"=""
-  %i329 = bitcast %i89 to ptr addrspace(0)
-  %i330 = getelementptr inbounds %t33, %i89, i64 0, i64 0
-  %i331 = getelementptr inbounds %t33, %i89, i64 0, i64 1
+  %i329 = bitcast %i90 to ptr addrspace(0)
+  %i330 = getelementptr inbounds %t33, %i90, i64 0, i64 0
+  %i331 = getelementptr inbounds %t33, %i90, i64 0, i64 1
   br bb24
 bb24:
-  %i333 = phi i16 [i16 0, bb23], [%i359, bb28]
+  %i333 = phi i16 [i16 0, bb23], [%i351, bb27]
   %i334 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, i32 536870920, i32 536870920, %i327) convergent "no-builtins"=""
   %i335 = icmp ult %i333, %i334
-  br %i335, bb26, bb25
+  br %i335, bb25, bb28
 bb25:
-  %i337 = bitcast %i90 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i337, ptr addrspace(0) @g6, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i339 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i90, %i95, i32 2, %i96, i32 2, %i339, %i327) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i341 = bitcast %i88 to ptr addrspace(0)
-  %i342 = getelementptr inbounds %t33, %i88, i64 0, i64 0
-  %i343 = getelementptr inbounds %t33, %i88, i64 0, i64 1
-  br bb29
+  %i337 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i333, i32 536870920, i32 536870920, i32 536870944, %i327) convergent "no-builtins"=""
+  br %i337, bb26, bb27
 bb26:
-  %i345 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i333, i32 536870920, i32 536870920, i32 536870944, %i327) convergent "no-builtins"=""
-  br %i345, bb27, bb28
-bb27:
   call void @f15(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i333, %i329, i32 536870944, %i327, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i348 = load i32, %i330, align 4
-  %i349 = load i32, %i331, align 4
-  %i350 = shl i32 %i349, i32 6
-  %i351 = add i32 %i350, %i348
-  %i352 = zext %i351 to i64
-  %i353 = getelementptr inbounds i32, %a2, %i352
-  %i354 = load i32, %i353, align 4
-  %i355 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i333, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i356 = bitcast %i355 to ptr addrspace(0)
-  store %i354, %i356, align 4
-  br bb28
-bb28:
-  %i359 = add nuw i16 %i333, i16 1
+  %i340 = load i32, %i330, align 4
+  %i341 = load i32, %i331, align 4
+  %i342 = shl i32 %i341, i32 6
+  %i343 = add i32 %i342, %i340
+  %i344 = zext %i343 to i64
+  %i345 = getelementptr inbounds i32, %a2, %i344
+  %i346 = load i32, %i345, align 4
+  %i347 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i333, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i348 = bitcast %i347 to ptr addrspace(0)
+  store %i346, %i348, align 4
+  br bb27
+bb27:
+  %i351 = add nuw i16 %i333, i16 1
   br bb24, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb28:
+  %i353 = bitcast %i89 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i353, ptr addrspace(0) @g6, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i355 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i89, %i95, i32 2, %i96, i32 2, %i355, %i327) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i357 = bitcast %i88 to ptr addrspace(0)
+  %i358 = getelementptr inbounds %t33, %i88, i64 0, i64 0
+  %i359 = getelementptr inbounds %t33, %i88, i64 0, i64 1
+  br bb29
 bb29:
-  %i361 = phi i16 [i16 0, bb25], [%i379, bb32]
+  %i361 = phi i16 [i16 0, bb28], [%i379, bb32]
   %i362 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, i32 536870920, i32 536870920, %i327) convergent "no-builtins"=""
   %i363 = icmp ult %i361, %i362
   br %i363, bb30, bb33
@@ -449,9 +449,9 @@ bb30:
   %i365 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i361, i32 536870920, i32 536870920, i32 536870944, %i327) convergent "no-builtins"=""
   br %i365, bb31, bb32
 bb31:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i361, %i341, i32 536870944, %i327, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i368 = load i32, %i342, align 4
-  %i369 = load i32, %i343, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i361, %i357, i32 536870944, %i327, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i368 = load i32, %i358, align 4
+  %i369 = load i32, %i359, align 4
   %i370 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 0, i8 0, i32 1, %i97, %i361, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i371 = bitcast %i370 to ptr addrspace(0)
   %i372 = load i32, %i371, align 4
@@ -475,71 +475,71 @@ bb34:
   %i387 = load i32, %i386, align 4
   %i388 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i389 = load i32, %i388, align 4
-  %i390 = bitcast %i84 to ptr addrspace(0)
-  %i391 = bitcast %i82 to ptr addrspace(0)
-  %i392 = getelementptr inbounds %t34, %i82, i64 0, i32 0, i64 0
-  store %i383, %i392, align 4
-  %i394 = getelementptr inbounds %t34, %i82, i64 0, i32 0, i64 1
-  store %i385, %i394, align 4
-  %i396 = bitcast %i83 to ptr addrspace(0)
+  %i390 = bitcast %i82 to ptr addrspace(0)
+  %i391 = bitcast %i83 to ptr addrspace(0)
+  %i392 = bitcast %i84 to ptr addrspace(0)
+  %i393 = getelementptr inbounds %t34, %i82, i64 0, i32 0, i64 0
+  store %i383, %i393, align 4
+  %i395 = getelementptr inbounds %t34, %i82, i64 0, i32 0, i64 1
+  store %i385, %i395, align 4
   %i397 = getelementptr inbounds %t34, %i83, i64 0, i32 0, i64 0
   store i32 1, %i397, align 4
   %i399 = getelementptr inbounds %t34, %i83, i64 0, i32 0, i64 1
   store %i383, %i399, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i390, i16 2, %a0, %i391, %i396, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i402 = bitcast %i85 to ptr addrspace(0)
-  %i403 = bitcast %i80 to ptr addrspace(0)
-  %i404 = getelementptr inbounds %t34, %i80, i64 0, i32 0, i64 0
-  store %i387, %i404, align 4
-  %i406 = getelementptr inbounds %t34, %i80, i64 0, i32 0, i64 1
-  store %i389, %i406, align 4
-  %i408 = bitcast %i81 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i392, i16 2, %a0, %i390, %i391, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i402 = bitcast %i80 to ptr addrspace(0)
+  %i403 = bitcast %i81 to ptr addrspace(0)
+  %i404 = bitcast %i85 to ptr addrspace(0)
+  %i405 = getelementptr inbounds %t34, %i80, i64 0, i32 0, i64 0
+  store %i387, %i405, align 4
+  %i407 = getelementptr inbounds %t34, %i80, i64 0, i32 0, i64 1
+  store %i389, %i407, align 4
   %i409 = getelementptr inbounds %t34, %i81, i64 0, i32 0, i64 0
   store i32 1, %i409, align 4
   %i411 = getelementptr inbounds %t34, %i81, i64 0, i32 0, i64 1
   store %i387, %i411, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i402, i16 2, %a1, %i403, %i408, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i404, i16 2, %a1, %i402, %i403, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i414 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, i32 536870920, i32 536870920, i32 536870944, %i414) convergent "no-builtins"=""
-  %i416 = bitcast %i78 to ptr addrspace(0)
-  %i417 = getelementptr inbounds %t33, %i78, i64 0, i64 0
-  %i418 = getelementptr inbounds %t33, %i78, i64 0, i64 1
+  %i416 = bitcast %i79 to ptr addrspace(0)
+  %i417 = getelementptr inbounds %t33, %i79, i64 0, i64 0
+  %i418 = getelementptr inbounds %t33, %i79, i64 0, i64 1
   br bb35
 bb35:
-  %i420 = phi i16 [i16 0, bb34], [%i446, bb39]
+  %i420 = phi i16 [i16 0, bb34], [%i438, bb38]
   %i421 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, i32 536870920, i32 536870920, %i414) convergent "no-builtins"=""
   %i422 = icmp ult %i420, %i421
-  br %i422, bb37, bb36
+  br %i422, bb36, bb39
 bb36:
-  %i424 = bitcast %i79 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i424, ptr addrspace(0) @g7, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i426 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i79, %i84, i32 2, %i85, i32 2, %i426, %i414) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i428 = bitcast %i77 to ptr addrspace(0)
-  %i429 = getelementptr inbounds %t33, %i77, i64 0, i64 0
-  %i430 = getelementptr inbounds %t33, %i77, i64 0, i64 1
-  br bb40
+  %i424 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i420, i32 536870920, i32 536870920, i32 536870944, %i414) convergent "no-builtins"=""
+  br %i424, bb37, bb38
 bb37:
-  %i432 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i420, i32 536870920, i32 536870920, i32 536870944, %i414) convergent "no-builtins"=""
-  br %i432, bb38, bb39
-bb38:
   call void @f15(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i420, %i416, i32 536870944, %i414, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i435 = load i32, %i417, align 4
-  %i436 = load i32, %i418, align 4
-  %i437 = shl i32 %i436, i32 6
-  %i438 = add i32 %i437, %i435
-  %i439 = zext %i438 to i64
-  %i440 = getelementptr inbounds i32, %a2, %i439
-  %i441 = load i32, %i440, align 4
-  %i442 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i420, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i443 = bitcast %i442 to ptr addrspace(0)
-  store %i441, %i443, align 4
-  br bb39
-bb39:
-  %i446 = add nuw i16 %i420, i16 1
+  %i427 = load i32, %i417, align 4
+  %i428 = load i32, %i418, align 4
+  %i429 = shl i32 %i428, i32 6
+  %i430 = add i32 %i429, %i427
+  %i431 = zext %i430 to i64
+  %i432 = getelementptr inbounds i32, %a2, %i431
+  %i433 = load i32, %i432, align 4
+  %i434 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i420, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i435 = bitcast %i434 to ptr addrspace(0)
+  store %i433, %i435, align 4
+  br bb38
+bb38:
+  %i438 = add nuw i16 %i420, i16 1
   br bb35, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb39:
+  %i440 = bitcast %i78 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i440, ptr addrspace(0) @g7, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i442 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i78, %i84, i32 2, %i85, i32 2, %i442, %i414) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i444 = bitcast %i77 to ptr addrspace(0)
+  %i445 = getelementptr inbounds %t33, %i77, i64 0, i64 0
+  %i446 = getelementptr inbounds %t33, %i77, i64 0, i64 1
+  br bb40
 bb40:
-  %i448 = phi i16 [i16 0, bb36], [%i466, bb43]
+  %i448 = phi i16 [i16 0, bb39], [%i466, bb43]
   %i449 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, i32 536870920, i32 536870920, %i414) convergent "no-builtins"=""
   %i450 = icmp ult %i448, %i449
   br %i450, bb41, bb44
@@ -547,9 +547,9 @@ bb41:
   %i452 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i448, i32 536870920, i32 536870920, i32 536870944, %i414) convergent "no-builtins"=""
   br %i452, bb42, bb43
 bb42:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i448, %i428, i32 536870944, %i414, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i455 = load i32, %i429, align 4
-  %i456 = load i32, %i430, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i448, %i444, i32 536870944, %i414, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i455 = load i32, %i445, align 4
+  %i456 = load i32, %i446, align 4
   %i457 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 1, i8 1, i8 0, i32 1, %i86, %i448, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i458 = bitcast %i457 to ptr addrspace(0)
   %i459 = load i32, %i458, align 4
@@ -573,71 +573,71 @@ bb45:
   %i474 = load i32, %i473, align 4
   %i475 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i476 = load i32, %i475, align 4
-  %i477 = bitcast %i73 to ptr addrspace(0)
-  %i478 = bitcast %i71 to ptr addrspace(0)
-  %i479 = getelementptr inbounds %t34, %i71, i64 0, i32 0, i64 0
-  store %i470, %i479, align 4
-  %i481 = getelementptr inbounds %t34, %i71, i64 0, i32 0, i64 1
-  store %i472, %i481, align 4
-  %i483 = bitcast %i72 to ptr addrspace(0)
+  %i477 = bitcast %i71 to ptr addrspace(0)
+  %i478 = bitcast %i72 to ptr addrspace(0)
+  %i479 = bitcast %i73 to ptr addrspace(0)
+  %i480 = getelementptr inbounds %t34, %i71, i64 0, i32 0, i64 0
+  store %i470, %i480, align 4
+  %i482 = getelementptr inbounds %t34, %i71, i64 0, i32 0, i64 1
+  store %i472, %i482, align 4
   %i484 = getelementptr inbounds %t34, %i72, i64 0, i32 0, i64 0
   store i32 1, %i484, align 4
   %i486 = getelementptr inbounds %t34, %i72, i64 0, i32 0, i64 1
   store %i470, %i486, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i477, i16 2, %a0, %i478, %i483, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i489 = bitcast %i74 to ptr addrspace(0)
-  %i490 = bitcast %i69 to ptr addrspace(0)
-  %i491 = getelementptr inbounds %t34, %i69, i64 0, i32 0, i64 0
-  store %i474, %i491, align 4
-  %i493 = getelementptr inbounds %t34, %i69, i64 0, i32 0, i64 1
-  store %i476, %i493, align 4
-  %i495 = bitcast %i70 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i479, i16 2, %a0, %i477, %i478, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i489 = bitcast %i69 to ptr addrspace(0)
+  %i490 = bitcast %i70 to ptr addrspace(0)
+  %i491 = bitcast %i74 to ptr addrspace(0)
+  %i492 = getelementptr inbounds %t34, %i69, i64 0, i32 0, i64 0
+  store %i474, %i492, align 4
+  %i494 = getelementptr inbounds %t34, %i69, i64 0, i32 0, i64 1
+  store %i476, %i494, align 4
   %i496 = getelementptr inbounds %t34, %i70, i64 0, i32 0, i64 0
   store i32 1, %i496, align 4
   %i498 = getelementptr inbounds %t34, %i70, i64 0, i32 0, i64 1
   store %i474, %i498, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i489, i16 2, %a1, %i490, %i495, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i491, i16 2, %a1, %i489, %i490, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i501 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, i32 536870920, i32 536870920, i32 536870944, %i501) convergent "no-builtins"=""
-  %i503 = bitcast %i67 to ptr addrspace(0)
-  %i504 = getelementptr inbounds %t33, %i67, i64 0, i64 0
-  %i505 = getelementptr inbounds %t33, %i67, i64 0, i64 1
+  %i503 = bitcast %i68 to ptr addrspace(0)
+  %i504 = getelementptr inbounds %t33, %i68, i64 0, i64 0
+  %i505 = getelementptr inbounds %t33, %i68, i64 0, i64 1
   br bb46
 bb46:
-  %i507 = phi i16 [i16 0, bb45], [%i533, bb50]
+  %i507 = phi i16 [i16 0, bb45], [%i525, bb49]
   %i508 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, i32 536870920, i32 536870920, %i501) convergent "no-builtins"=""
   %i509 = icmp ult %i507, %i508
-  br %i509, bb48, bb47
+  br %i509, bb47, bb50
 bb47:
-  %i511 = bitcast %i68 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i511, ptr addrspace(0) @g8, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i513 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i68, %i73, i32 2, %i74, i32 2, %i513, %i501) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i515 = bitcast %i66 to ptr addrspace(0)
-  %i516 = getelementptr inbounds %t33, %i66, i64 0, i64 0
-  %i517 = getelementptr inbounds %t33, %i66, i64 0, i64 1
-  br bb51
+  %i511 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i507, i32 536870920, i32 536870920, i32 536870944, %i501) convergent "no-builtins"=""
+  br %i511, bb48, bb49
 bb48:
-  %i519 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i507, i32 536870920, i32 536870920, i32 536870944, %i501) convergent "no-builtins"=""
-  br %i519, bb49, bb50
-bb49:
   call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i507, %i503, i32 536870944, %i501, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i522 = load i32, %i504, align 4
-  %i523 = load i32, %i505, align 4
-  %i524 = shl i32 %i523, i32 6
-  %i525 = add i32 %i524, %i522
-  %i526 = zext %i525 to i64
-  %i527 = getelementptr inbounds i32, %a2, %i526
-  %i528 = load i32, %i527, align 4
-  %i529 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i507, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i530 = bitcast %i529 to ptr addrspace(0)
-  store %i528, %i530, align 4
-  br bb50
-bb50:
-  %i533 = add nuw i16 %i507, i16 1
+  %i514 = load i32, %i504, align 4
+  %i515 = load i32, %i505, align 4
+  %i516 = shl i32 %i515, i32 6
+  %i517 = add i32 %i516, %i514
+  %i518 = zext %i517 to i64
+  %i519 = getelementptr inbounds i32, %a2, %i518
+  %i520 = load i32, %i519, align 4
+  %i521 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i507, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i522 = bitcast %i521 to ptr addrspace(0)
+  store %i520, %i522, align 4
+  br bb49
+bb49:
+  %i525 = add nuw i16 %i507, i16 1
   br bb46, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb50:
+  %i527 = bitcast %i67 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i527, ptr addrspace(0) @g8, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i529 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i67, %i73, i32 2, %i74, i32 2, %i529, %i501) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i531 = bitcast %i66 to ptr addrspace(0)
+  %i532 = getelementptr inbounds %t33, %i66, i64 0, i64 0
+  %i533 = getelementptr inbounds %t33, %i66, i64 0, i64 1
+  br bb51
 bb51:
-  %i535 = phi i16 [i16 0, bb47], [%i553, bb54]
+  %i535 = phi i16 [i16 0, bb50], [%i553, bb54]
   %i536 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, i32 536870920, i32 536870920, %i501) convergent "no-builtins"=""
   %i537 = icmp ult %i535, %i536
   br %i537, bb52, bb55
@@ -645,9 +645,9 @@ bb52:
   %i539 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i535, i32 536870920, i32 536870920, i32 536870944, %i501) convergent "no-builtins"=""
   br %i539, bb53, bb54
 bb53:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i535, %i515, i32 536870944, %i501, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i542 = load i32, %i516, align 4
-  %i543 = load i32, %i517, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i535, %i531, i32 536870944, %i501, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i542 = load i32, %i532, align 4
+  %i543 = load i32, %i533, align 4
   %i544 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 0, %i75, %i535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i545 = bitcast %i544 to ptr addrspace(0)
   %i546 = load i32, %i545, align 4
@@ -672,102 +672,102 @@ bb56:
   %i562 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i563 = load i32, %i562, align 4
   %i564 = icmp slt %a5, i32 2048
-  br %i564, bb57, bb58
+  br %i564, bb57, bb61
 bb57:
   %i566 = mul nsw i32 %i563, %i561
-  br bb59
+  br bb58
 bb58:
-  tail call void @f26 [air Sync(Barrier { name: Threadgroup, flags: MemFlags { device: false, threadgroup: true, texture: false, threadgroup_imageblock: false, object_data: false }, order: None, scope: Threadgroup, memory: Threadgroup })](i32 2, i32 1) convergent
-  %i569 = bitcast %i62 to ptr addrspace(0)
-  %i570 = bitcast %i60 to ptr addrspace(0)
-  %i571 = getelementptr inbounds %t34, %i60, i64 0, i32 0, i64 0
-  store %i557, %i571, align 4
-  %i573 = getelementptr inbounds %t34, %i60, i64 0, i32 0, i64 1
-  store %i559, %i573, align 4
-  %i575 = bitcast %i61 to ptr addrspace(0)
-  %i576 = getelementptr inbounds %t34, %i61, i64 0, i32 0, i64 0
-  store i32 1, %i576, align 4
-  %i578 = getelementptr inbounds %t34, %i61, i64 0, i32 0, i64 1
-  store %i557, %i578, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i569, i16 2, %a0, %i570, %i575, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i581 = bitcast %i63 to ptr addrspace(0)
-  %i582 = bitcast %i58 to ptr addrspace(0)
-  %i583 = getelementptr inbounds %t34, %i58, i64 0, i32 0, i64 0
-  store %i561, %i583, align 4
-  %i585 = getelementptr inbounds %t34, %i58, i64 0, i32 0, i64 1
-  store %i563, %i585, align 4
-  %i587 = bitcast %i59 to ptr addrspace(0)
-  %i588 = getelementptr inbounds %t34, %i59, i64 0, i32 0, i64 0
-  store i32 1, %i588, align 4
-  %i590 = getelementptr inbounds %t34, %i59, i64 0, i32 0, i64 1
-  store %i561, %i590, align 4
-  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i581, i16 2, ptr addrspace(3) @g2, %i582, %i587, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i593 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
-  call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i32 536870920, i32 536870920, i32 536870944, %i593) convergent "no-builtins"=""
-  %i595 = bitcast %i56 to ptr addrspace(0)
-  %i596 = getelementptr inbounds %t33, %i56, i64 0, i64 0
-  %i597 = getelementptr inbounds %t33, %i56, i64 0, i64 1
-  br bb62
+  %i568 = phi i32 [%a5, bb57], [%i577, bb60]
+  %i569 = icmp slt %i568, %i566
+  br %i569, bb59, bb60
 bb59:
-  %i599 = phi i32 [%a5, bb57], [%i608, bb61]
-  %i600 = icmp slt %i599, %i566
-  br %i600, bb60, bb61
+  %i571 = sext %i568 to i64
+  %i572 = getelementptr inbounds i8, %a1, %i571
+  %i573 = getelementptr inbounds %t4, ptr addrspace(3) @g2, i64 0, %i571
+  %i574 = load i8, %i572, align 1
+  store %i574, %i573, align 1
+  br bb60
 bb60:
-  %i602 = sext %i599 to i64
-  %i603 = getelementptr inbounds i8, %a1, %i602
-  %i604 = getelementptr inbounds %t4, ptr addrspace(3) @g2, i64 0, %i602
-  %i605 = load i8, %i603, align 1
-  store %i605, %i604, align 1
-  br bb61
+  %i577 = add i32 %i568, %a6
+  %i578 = icmp slt %i577, i32 2048
+  br %i578, bb58, bb61, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb61:
-  %i608 = add i32 %i599, %a6
-  %i609 = icmp slt %i608, i32 2048
-  br %i609, bb59, bb58, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  tail call void @f26 [air Sync(Barrier { name: Threadgroup, flags: MemFlags { device: false, threadgroup: true, texture: false, threadgroup_imageblock: false, object_data: false }, order: None, scope: Threadgroup, memory: Threadgroup })](i32 2, i32 1) convergent
+  %i581 = bitcast %i60 to ptr addrspace(0)
+  %i582 = bitcast %i61 to ptr addrspace(0)
+  %i583 = bitcast %i62 to ptr addrspace(0)
+  %i584 = getelementptr inbounds %t34, %i60, i64 0, i32 0, i64 0
+  store %i557, %i584, align 4
+  %i586 = getelementptr inbounds %t34, %i60, i64 0, i32 0, i64 1
+  store %i559, %i586, align 4
+  %i588 = getelementptr inbounds %t34, %i61, i64 0, i32 0, i64 0
+  store i32 1, %i588, align 4
+  %i590 = getelementptr inbounds %t34, %i61, i64 0, i32 0, i64 1
+  store %i557, %i590, align 4
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i583, i16 2, %a0, %i581, %i582, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i593 = bitcast %i58 to ptr addrspace(0)
+  %i594 = bitcast %i59 to ptr addrspace(0)
+  %i595 = bitcast %i63 to ptr addrspace(0)
+  %i596 = getelementptr inbounds %t34, %i58, i64 0, i32 0, i64 0
+  store %i561, %i596, align 4
+  %i598 = getelementptr inbounds %t34, %i58, i64 0, i32 0, i64 1
+  store %i563, %i598, align 4
+  %i600 = getelementptr inbounds %t34, %i59, i64 0, i32 0, i64 0
+  store i32 1, %i600, align 4
+  %i602 = getelementptr inbounds %t34, %i59, i64 0, i32 0, i64 1
+  store %i561, %i602, align 4
+  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i595, i16 2, ptr addrspace(3) @g2, %i593, %i594, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i605 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
+  call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i32 536870920, i32 536870920, i32 536870944, %i605) convergent "no-builtins"=""
+  %i607 = bitcast %i57 to ptr addrspace(0)
+  %i608 = getelementptr inbounds %t33, %i57, i64 0, i64 0
+  %i609 = getelementptr inbounds %t33, %i57, i64 0, i64 1
+  br bb62
 bb62:
-  %i611 = phi i16 [i16 0, bb58], [%i637, bb66]
-  %i612 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i32 536870920, i32 536870920, %i593) convergent "no-builtins"=""
+  %i611 = phi i16 [i16 0, bb61], [%i629, bb65]
+  %i612 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i32 536870920, i32 536870920, %i605) convergent "no-builtins"=""
   %i613 = icmp ult %i611, %i612
-  br %i613, bb64, bb63
+  br %i613, bb63, bb66
 bb63:
-  %i615 = bitcast %i57 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i615, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i617 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f27(%i57, %i62, i32 2, %i63, i32 2, %i617, %i593) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i619 = bitcast %i55 to ptr addrspace(0)
-  %i620 = getelementptr inbounds %t33, %i55, i64 0, i64 0
-  %i621 = getelementptr inbounds %t33, %i55, i64 0, i64 1
-  br bb67
+  %i615 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i611, i32 536870920, i32 536870920, i32 536870944, %i605) convergent "no-builtins"=""
+  br %i615, bb64, bb65
 bb64:
-  %i623 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i611, i32 536870920, i32 536870920, i32 536870944, %i593) convergent "no-builtins"=""
-  br %i623, bb65, bb66
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i611, %i607, i32 536870944, %i605, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i618 = load i32, %i608, align 4
+  %i619 = load i32, %i609, align 4
+  %i620 = shl i32 %i619, i32 6
+  %i621 = add i32 %i620, %i618
+  %i622 = zext %i621 to i64
+  %i623 = getelementptr inbounds i32, %a2, %i622
+  %i624 = load i32, %i623, align 4
+  %i625 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i611, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i626 = bitcast %i625 to ptr addrspace(0)
+  store %i624, %i626, align 4
+  br bb65
 bb65:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i611, %i595, i32 536870944, %i593, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i626 = load i32, %i596, align 4
-  %i627 = load i32, %i597, align 4
-  %i628 = shl i32 %i627, i32 6
-  %i629 = add i32 %i628, %i626
-  %i630 = zext %i629 to i64
-  %i631 = getelementptr inbounds i32, %a2, %i630
-  %i632 = load i32, %i631, align 4
-  %i633 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i611, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i634 = bitcast %i633 to ptr addrspace(0)
-  store %i632, %i634, align 4
-  br bb66
-bb66:
-  %i637 = add nuw i16 %i611, i16 1
+  %i629 = add nuw i16 %i611, i16 1
   br bb62, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb66:
+  %i631 = bitcast %i56 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i631, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i633 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f27(%i56, %i62, i32 2, %i63, i32 2, %i633, %i605) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i635 = bitcast %i55 to ptr addrspace(0)
+  %i636 = getelementptr inbounds %t33, %i55, i64 0, i64 0
+  %i637 = getelementptr inbounds %t33, %i55, i64 0, i64 1
+  br bb67
 bb67:
-  %i639 = phi i16 [i16 0, bb63], [%i657, bb70]
-  %i640 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i32 536870920, i32 536870920, %i593) convergent "no-builtins"=""
+  %i639 = phi i16 [i16 0, bb66], [%i657, bb70]
+  %i640 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, i32 536870920, i32 536870920, %i605) convergent "no-builtins"=""
   %i641 = icmp ult %i639, %i640
   br %i641, bb68, bb71
 bb68:
-  %i643 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i639, i32 536870920, i32 536870920, i32 536870944, %i593) convergent "no-builtins"=""
+  %i643 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i639, i32 536870920, i32 536870920, i32 536870944, %i605) convergent "no-builtins"=""
   br %i643, bb69, bb70
 bb69:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i639, %i619, i32 536870944, %i593, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i646 = load i32, %i620, align 4
-  %i647 = load i32, %i621, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i639, %i635, i32 536870944, %i605, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i646 = load i32, %i636, align 4
+  %i647 = load i32, %i637, align 4
   %i648 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i64, %i639, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i649 = bitcast %i648 to ptr addrspace(0)
   %i650 = load i32, %i649, align 4
@@ -792,113 +792,113 @@ bb72:
   %i666 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i667 = load i32, %i666, align 4
   %i668 = icmp slt %a5, i32 2048
-  br %i668, bb73, bb74
+  br %i668, bb73, bb79
 bb73:
   %i670 = mul nsw i32 %i663, %i661
   %i671 = mul nsw i32 %i667, %i665
-  br bb75
+  br bb74
 bb74:
-  tail call void @f26 [air Sync(Barrier { name: Threadgroup, flags: MemFlags { device: false, threadgroup: true, texture: false, threadgroup_imageblock: false, object_data: false }, order: None, scope: Threadgroup, memory: Threadgroup })](i32 2, i32 1) convergent
-  %i674 = bitcast %i52 to ptr addrspace(0)
-  %i675 = bitcast %i50 to ptr addrspace(0)
-  %i676 = getelementptr inbounds %t34, %i50, i64 0, i32 0, i64 0
-  store %i661, %i676, align 4
-  %i678 = getelementptr inbounds %t34, %i50, i64 0, i32 0, i64 1
-  store %i663, %i678, align 4
-  %i680 = bitcast %i51 to ptr addrspace(0)
-  %i681 = getelementptr inbounds %t34, %i51, i64 0, i32 0, i64 0
-  store i32 1, %i681, align 4
-  %i683 = getelementptr inbounds %t34, %i51, i64 0, i32 0, i64 1
-  store %i661, %i683, align 4
-  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i674, i16 2, ptr addrspace(3) @g1, %i675, %i680, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i686 = bitcast %i53 to ptr addrspace(0)
-  %i687 = bitcast %i48 to ptr addrspace(0)
-  %i688 = getelementptr inbounds %t34, %i48, i64 0, i32 0, i64 0
-  store %i665, %i688, align 4
-  %i690 = getelementptr inbounds %t34, %i48, i64 0, i32 0, i64 1
-  store %i667, %i690, align 4
-  %i692 = bitcast %i49 to ptr addrspace(0)
-  %i693 = getelementptr inbounds %t34, %i49, i64 0, i32 0, i64 0
-  store i32 1, %i693, align 4
-  %i695 = getelementptr inbounds %t34, %i49, i64 0, i32 0, i64 1
-  store %i665, %i695, align 4
-  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i686, i16 2, ptr addrspace(3) @g2, %i687, %i692, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i698 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
-  call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i32 536870920, i32 536870920, i32 536870944, %i698) convergent "no-builtins"=""
-  %i700 = bitcast %i46 to ptr addrspace(0)
-  %i701 = getelementptr inbounds %t33, %i46, i64 0, i64 0
-  %i702 = getelementptr inbounds %t33, %i46, i64 0, i64 1
-  br bb80
+  %i673 = phi i32 [%a5, bb73], [%i690, bb78]
+  %i674 = icmp slt %i673, %i670
+  br %i674, bb75, bb76
 bb75:
-  %i704 = phi i32 [%a5, bb73], [%i721, bb79]
-  %i705 = icmp slt %i704, %i670
-  br %i705, bb76, bb77
+  %i676 = sext %i673 to i64
+  %i677 = getelementptr inbounds i8, %a0, %i676
+  %i678 = getelementptr inbounds %t4, ptr addrspace(3) @g1, i64 0, %i676
+  %i679 = load i8, %i677, align 1
+  store %i679, %i678, align 1
+  br bb76
 bb76:
-  %i707 = sext %i704 to i64
-  %i708 = getelementptr inbounds i8, %a0, %i707
-  %i709 = getelementptr inbounds %t4, ptr addrspace(3) @g1, i64 0, %i707
-  %i710 = load i8, %i708, align 1
-  store %i710, %i709, align 1
-  br bb77
+  %i682 = icmp slt %i673, %i671
+  br %i682, bb77, bb78
 bb77:
-  %i713 = icmp slt %i704, %i671
-  br %i713, bb78, bb79
+  %i684 = sext %i673 to i64
+  %i685 = getelementptr inbounds i8, %a1, %i684
+  %i686 = getelementptr inbounds %t4, ptr addrspace(3) @g2, i64 0, %i684
+  %i687 = load i8, %i685, align 1
+  store %i687, %i686, align 1
+  br bb78
 bb78:
-  %i715 = sext %i704 to i64
-  %i716 = getelementptr inbounds i8, %a1, %i715
-  %i717 = getelementptr inbounds %t4, ptr addrspace(3) @g2, i64 0, %i715
-  %i718 = load i8, %i716, align 1
-  store %i718, %i717, align 1
-  br bb79
+  %i690 = add i32 %i673, %a6
+  %i691 = icmp slt %i690, i32 2048
+  br %i691, bb74, bb79, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb79:
-  %i721 = add i32 %i704, %a6
-  %i722 = icmp slt %i721, i32 2048
-  br %i722, bb75, bb74, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  tail call void @f26 [air Sync(Barrier { name: Threadgroup, flags: MemFlags { device: false, threadgroup: true, texture: false, threadgroup_imageblock: false, object_data: false }, order: None, scope: Threadgroup, memory: Threadgroup })](i32 2, i32 1) convergent
+  %i694 = bitcast %i50 to ptr addrspace(0)
+  %i695 = bitcast %i51 to ptr addrspace(0)
+  %i696 = bitcast %i52 to ptr addrspace(0)
+  %i697 = getelementptr inbounds %t34, %i50, i64 0, i32 0, i64 0
+  store %i661, %i697, align 4
+  %i699 = getelementptr inbounds %t34, %i50, i64 0, i32 0, i64 1
+  store %i663, %i699, align 4
+  %i701 = getelementptr inbounds %t34, %i51, i64 0, i32 0, i64 0
+  store i32 1, %i701, align 4
+  %i703 = getelementptr inbounds %t34, %i51, i64 0, i32 0, i64 1
+  store %i661, %i703, align 4
+  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i696, i16 2, ptr addrspace(3) @g1, %i694, %i695, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i706 = bitcast %i48 to ptr addrspace(0)
+  %i707 = bitcast %i49 to ptr addrspace(0)
+  %i708 = bitcast %i53 to ptr addrspace(0)
+  %i709 = getelementptr inbounds %t34, %i48, i64 0, i32 0, i64 0
+  store %i665, %i709, align 4
+  %i711 = getelementptr inbounds %t34, %i48, i64 0, i32 0, i64 1
+  store %i667, %i711, align 4
+  %i713 = getelementptr inbounds %t34, %i49, i64 0, i32 0, i64 0
+  store i32 1, %i713, align 4
+  %i715 = getelementptr inbounds %t34, %i49, i64 0, i32 0, i64 1
+  store %i665, %i715, align 4
+  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i708, i16 2, ptr addrspace(3) @g2, %i706, %i707, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i718 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
+  call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i32 536870920, i32 536870920, i32 536870944, %i718) convergent "no-builtins"=""
+  %i720 = bitcast %i47 to ptr addrspace(0)
+  %i721 = getelementptr inbounds %t33, %i47, i64 0, i64 0
+  %i722 = getelementptr inbounds %t33, %i47, i64 0, i64 1
+  br bb80
 bb80:
-  %i724 = phi i16 [i16 0, bb74], [%i750, bb84]
-  %i725 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i32 536870920, i32 536870920, %i698) convergent "no-builtins"=""
+  %i724 = phi i16 [i16 0, bb79], [%i742, bb83]
+  %i725 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i32 536870920, i32 536870920, %i718) convergent "no-builtins"=""
   %i726 = icmp ult %i724, %i725
-  br %i726, bb82, bb81
+  br %i726, bb81, bb84
 bb81:
-  %i728 = bitcast %i47 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i728, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i730 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f28(%i47, %i52, i32 2, %i53, i32 2, %i730, %i698) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i732 = bitcast %i45 to ptr addrspace(0)
-  %i733 = getelementptr inbounds %t33, %i45, i64 0, i64 0
-  %i734 = getelementptr inbounds %t33, %i45, i64 0, i64 1
-  br bb85
+  %i728 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i724, i32 536870920, i32 536870920, i32 536870944, %i718) convergent "no-builtins"=""
+  br %i728, bb82, bb83
 bb82:
-  %i736 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i724, i32 536870920, i32 536870920, i32 536870944, %i698) convergent "no-builtins"=""
-  br %i736, bb83, bb84
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i724, %i720, i32 536870944, %i718, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i731 = load i32, %i721, align 4
+  %i732 = load i32, %i722, align 4
+  %i733 = shl i32 %i732, i32 6
+  %i734 = add i32 %i733, %i731
+  %i735 = zext %i734 to i64
+  %i736 = getelementptr inbounds i32, %a2, %i735
+  %i737 = load i32, %i736, align 4
+  %i738 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i724, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i739 = bitcast %i738 to ptr addrspace(0)
+  store %i737, %i739, align 4
+  br bb83
 bb83:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i724, %i700, i32 536870944, %i698, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i739 = load i32, %i701, align 4
-  %i740 = load i32, %i702, align 4
-  %i741 = shl i32 %i740, i32 6
-  %i742 = add i32 %i741, %i739
-  %i743 = zext %i742 to i64
-  %i744 = getelementptr inbounds i32, %a2, %i743
-  %i745 = load i32, %i744, align 4
-  %i746 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i724, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i747 = bitcast %i746 to ptr addrspace(0)
-  store %i745, %i747, align 4
-  br bb84
-bb84:
-  %i750 = add nuw i16 %i724, i16 1
+  %i742 = add nuw i16 %i724, i16 1
   br bb80, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb84:
+  %i744 = bitcast %i46 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i744, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i746 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f28(%i46, %i52, i32 2, %i53, i32 2, %i746, %i718) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i748 = bitcast %i45 to ptr addrspace(0)
+  %i749 = getelementptr inbounds %t33, %i45, i64 0, i64 0
+  %i750 = getelementptr inbounds %t33, %i45, i64 0, i64 1
+  br bb85
 bb85:
-  %i752 = phi i16 [i16 0, bb81], [%i770, bb88]
-  %i753 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i32 536870920, i32 536870920, %i698) convergent "no-builtins"=""
+  %i752 = phi i16 [i16 0, bb84], [%i770, bb88]
+  %i753 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, i32 536870920, i32 536870920, %i718) convergent "no-builtins"=""
   %i754 = icmp ult %i752, %i753
   br %i754, bb86, bb89
 bb86:
-  %i756 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i752, i32 536870920, i32 536870920, i32 536870944, %i698) convergent "no-builtins"=""
+  %i756 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i752, i32 536870920, i32 536870920, i32 536870944, %i718) convergent "no-builtins"=""
   br %i756, bb87, bb88
 bb87:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i752, %i732, i32 536870944, %i698, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i759 = load i32, %i733, align 4
-  %i760 = load i32, %i734, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i752, %i748, i32 536870944, %i718, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i759 = load i32, %i749, align 4
+  %i760 = load i32, %i750, align 4
   %i761 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i54, %i752, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i762 = bitcast %i761 to ptr addrspace(0)
   %i763 = load i32, %i762, align 4
@@ -923,102 +923,102 @@ bb90:
   %i779 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i780 = load i32, %i779, align 4
   %i781 = icmp slt %a5, i32 2048
-  br %i781, bb91, bb92
+  br %i781, bb91, bb95
 bb91:
   %i783 = mul nsw i32 %i776, %i774
-  br bb93
+  br bb92
 bb92:
-  tail call void @f26 [air Sync(Barrier { name: Threadgroup, flags: MemFlags { device: false, threadgroup: true, texture: false, threadgroup_imageblock: false, object_data: false }, order: None, scope: Threadgroup, memory: Threadgroup })](i32 2, i32 1) convergent
-  %i786 = bitcast %i42 to ptr addrspace(0)
-  %i787 = bitcast %i40 to ptr addrspace(0)
-  %i788 = getelementptr inbounds %t34, %i40, i64 0, i32 0, i64 0
-  store %i778, %i788, align 4
-  %i790 = getelementptr inbounds %t34, %i40, i64 0, i32 0, i64 1
-  store %i780, %i790, align 4
-  %i792 = bitcast %i41 to ptr addrspace(0)
-  %i793 = getelementptr inbounds %t34, %i41, i64 0, i32 0, i64 0
-  store i32 1, %i793, align 4
-  %i795 = getelementptr inbounds %t34, %i41, i64 0, i32 0, i64 1
-  store %i778, %i795, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i786, i16 2, %a1, %i787, %i792, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i798 = bitcast %i43 to ptr addrspace(0)
-  %i799 = bitcast %i38 to ptr addrspace(0)
-  %i800 = getelementptr inbounds %t34, %i38, i64 0, i32 0, i64 0
-  store %i774, %i800, align 4
-  %i802 = getelementptr inbounds %t34, %i38, i64 0, i32 0, i64 1
-  store %i776, %i802, align 4
-  %i804 = bitcast %i39 to ptr addrspace(0)
-  %i805 = getelementptr inbounds %t34, %i39, i64 0, i32 0, i64 0
-  store i32 1, %i805, align 4
-  %i807 = getelementptr inbounds %t34, %i39, i64 0, i32 0, i64 1
-  store %i774, %i807, align 4
-  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i798, i16 2, ptr addrspace(3) @g1, %i799, %i804, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i810 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
-  call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i32 536870920, i32 536870920, i32 536870944, %i810) convergent "no-builtins"=""
-  %i812 = bitcast %i36 to ptr addrspace(0)
-  %i813 = getelementptr inbounds %t33, %i36, i64 0, i64 0
-  %i814 = getelementptr inbounds %t33, %i36, i64 0, i64 1
-  br bb96
+  %i785 = phi i32 [%a5, bb91], [%i794, bb94]
+  %i786 = icmp slt %i785, %i783
+  br %i786, bb93, bb94
 bb93:
-  %i816 = phi i32 [%a5, bb91], [%i825, bb95]
-  %i817 = icmp slt %i816, %i783
-  br %i817, bb94, bb95
+  %i788 = sext %i785 to i64
+  %i789 = getelementptr inbounds i8, %a0, %i788
+  %i790 = getelementptr inbounds %t4, ptr addrspace(3) @g1, i64 0, %i788
+  %i791 = load i8, %i789, align 1
+  store %i791, %i790, align 1
+  br bb94
 bb94:
-  %i819 = sext %i816 to i64
-  %i820 = getelementptr inbounds i8, %a0, %i819
-  %i821 = getelementptr inbounds %t4, ptr addrspace(3) @g1, i64 0, %i819
-  %i822 = load i8, %i820, align 1
-  store %i822, %i821, align 1
-  br bb95
+  %i794 = add i32 %i785, %a6
+  %i795 = icmp slt %i794, i32 2048
+  br %i795, bb92, bb95, !llvm.loop LoopHints { unroll: Default, must_progress: true }
 bb95:
-  %i825 = add i32 %i816, %a6
-  %i826 = icmp slt %i825, i32 2048
-  br %i826, bb93, bb92, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+  tail call void @f26 [air Sync(Barrier { name: Threadgroup, flags: MemFlags { device: false, threadgroup: true, texture: false, threadgroup_imageblock: false, object_data: false }, order: None, scope: Threadgroup, memory: Threadgroup })](i32 2, i32 1) convergent
+  %i798 = bitcast %i40 to ptr addrspace(0)
+  %i799 = bitcast %i41 to ptr addrspace(0)
+  %i800 = bitcast %i42 to ptr addrspace(0)
+  %i801 = getelementptr inbounds %t34, %i40, i64 0, i32 0, i64 0
+  store %i778, %i801, align 4
+  %i803 = getelementptr inbounds %t34, %i40, i64 0, i32 0, i64 1
+  store %i780, %i803, align 4
+  %i805 = getelementptr inbounds %t34, %i41, i64 0, i32 0, i64 0
+  store i32 1, %i805, align 4
+  %i807 = getelementptr inbounds %t34, %i41, i64 0, i32 0, i64 1
+  store %i778, %i807, align 4
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i800, i16 2, %a1, %i798, %i799, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i810 = bitcast %i38 to ptr addrspace(0)
+  %i811 = bitcast %i39 to ptr addrspace(0)
+  %i812 = bitcast %i43 to ptr addrspace(0)
+  %i813 = getelementptr inbounds %t34, %i38, i64 0, i32 0, i64 0
+  store %i774, %i813, align 4
+  %i815 = getelementptr inbounds %t34, %i38, i64 0, i32 0, i64 1
+  store %i776, %i815, align 4
+  %i817 = getelementptr inbounds %t34, %i39, i64 0, i32 0, i64 0
+  store i32 1, %i817, align 4
+  %i819 = getelementptr inbounds %t34, %i39, i64 0, i32 0, i64 1
+  store %i774, %i819, align 4
+  call void @f9 [air Tensor(InitStrided { data: Threadgroup })](%i812, i16 2, ptr addrspace(3) @g1, %i810, %i811, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i822 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
+  call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i32 536870920, i32 536870920, i32 536870944, %i822) convergent "no-builtins"=""
+  %i824 = bitcast %i37 to ptr addrspace(0)
+  %i825 = getelementptr inbounds %t33, %i37, i64 0, i64 0
+  %i826 = getelementptr inbounds %t33, %i37, i64 0, i64 1
+  br bb96
 bb96:
-  %i828 = phi i16 [i16 0, bb92], [%i854, bb100]
-  %i829 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i32 536870920, i32 536870920, %i810) convergent "no-builtins"=""
+  %i828 = phi i16 [i16 0, bb95], [%i846, bb99]
+  %i829 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i32 536870920, i32 536870920, %i822) convergent "no-builtins"=""
   %i830 = icmp ult %i828, %i829
-  br %i830, bb98, bb97
+  br %i830, bb97, bb100
 bb97:
-  %i832 = bitcast %i37 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i832, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i834 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f29(%i37, %i43, i32 2, %i42, i32 2, %i834, %i810) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i836 = bitcast %i35 to ptr addrspace(0)
-  %i837 = getelementptr inbounds %t33, %i35, i64 0, i64 0
-  %i838 = getelementptr inbounds %t33, %i35, i64 0, i64 1
-  br bb101
+  %i832 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i828, i32 536870920, i32 536870920, i32 536870944, %i822) convergent "no-builtins"=""
+  br %i832, bb98, bb99
 bb98:
-  %i840 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i828, i32 536870920, i32 536870920, i32 536870944, %i810) convergent "no-builtins"=""
-  br %i840, bb99, bb100
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i828, %i824, i32 536870944, %i822, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i835 = load i32, %i825, align 4
+  %i836 = load i32, %i826, align 4
+  %i837 = shl i32 %i836, i32 6
+  %i838 = add i32 %i837, %i835
+  %i839 = zext %i838 to i64
+  %i840 = getelementptr inbounds i32, %a2, %i839
+  %i841 = load i32, %i840, align 4
+  %i842 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i828, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i843 = bitcast %i842 to ptr addrspace(0)
+  store %i841, %i843, align 4
+  br bb99
 bb99:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i828, %i812, i32 536870944, %i810, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i843 = load i32, %i813, align 4
-  %i844 = load i32, %i814, align 4
-  %i845 = shl i32 %i844, i32 6
-  %i846 = add i32 %i845, %i843
-  %i847 = zext %i846 to i64
-  %i848 = getelementptr inbounds i32, %a2, %i847
-  %i849 = load i32, %i848, align 4
-  %i850 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i828, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i851 = bitcast %i850 to ptr addrspace(0)
-  store %i849, %i851, align 4
-  br bb100
-bb100:
-  %i854 = add nuw i16 %i828, i16 1
+  %i846 = add nuw i16 %i828, i16 1
   br bb96, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb100:
+  %i848 = bitcast %i36 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i848, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i850 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f29(%i36, %i43, i32 2, %i42, i32 2, %i850, %i822) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i852 = bitcast %i35 to ptr addrspace(0)
+  %i853 = getelementptr inbounds %t33, %i35, i64 0, i64 0
+  %i854 = getelementptr inbounds %t33, %i35, i64 0, i64 1
+  br bb101
 bb101:
-  %i856 = phi i16 [i16 0, bb97], [%i874, bb104]
-  %i857 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i32 536870920, i32 536870920, %i810) convergent "no-builtins"=""
+  %i856 = phi i16 [i16 0, bb100], [%i874, bb104]
+  %i857 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, i32 536870920, i32 536870920, %i822) convergent "no-builtins"=""
   %i858 = icmp ult %i856, %i857
   br %i858, bb102, bb105
 bb102:
-  %i860 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i856, i32 536870920, i32 536870920, i32 536870944, %i810) convergent "no-builtins"=""
+  %i860 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i856, i32 536870920, i32 536870920, i32 536870944, %i822) convergent "no-builtins"=""
   br %i860, bb103, bb104
 bb103:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i856, %i836, i32 536870944, %i810, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i863 = load i32, %i837, align 4
-  %i864 = load i32, %i838, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i856, %i852, i32 536870944, %i822, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i863 = load i32, %i853, align 4
+  %i864 = load i32, %i854, align 4
   %i865 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i44, %i856, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i866 = bitcast %i865 to ptr addrspace(0)
   %i867 = load i32, %i866, align 4
@@ -1038,18 +1038,18 @@ bb106:
   %i878 = load i32, %i877, align 4
   %i879 = getelementptr inbounds %t36, %a4, i64 0, i32 1
   %i880 = load i32, %i879, align 4
-  %i881 = bitcast %i31 to ptr addrspace(0)
-  %i882 = bitcast %i29 to ptr addrspace(0)
-  %i883 = getelementptr inbounds %t34, %i29, i64 0, i32 0, i64 0
-  store %i878, %i883, align 4
-  %i885 = getelementptr inbounds %t34, %i29, i64 0, i32 0, i64 1
-  store %i880, %i885, align 4
-  %i887 = bitcast %i30 to ptr addrspace(0)
+  %i881 = bitcast %i29 to ptr addrspace(0)
+  %i882 = bitcast %i30 to ptr addrspace(0)
+  %i883 = bitcast %i31 to ptr addrspace(0)
+  %i884 = getelementptr inbounds %t34, %i29, i64 0, i32 0, i64 0
+  store %i878, %i884, align 4
+  %i886 = getelementptr inbounds %t34, %i29, i64 0, i32 0, i64 1
+  store %i880, %i886, align 4
   %i888 = getelementptr inbounds %t34, %i30, i64 0, i32 0, i64 0
   store i32 1, %i888, align 4
   %i890 = getelementptr inbounds %t34, %i30, i64 0, i32 0, i64 1
   store %i878, %i890, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i881, i16 2, %a0, %i882, %i887, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i883, i16 2, %a0, %i881, %i882, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i893 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
   %i895 = bitcast %i28 to ptr addrspace(0)
@@ -1057,82 +1057,82 @@ bb106:
   %i897 = getelementptr inbounds %t33, %i28, i64 0, i64 1
   br bb107
 bb107:
-  %i899 = phi i16 [i16 0, bb106], [%i924, bb111]
+  %i899 = phi i16 [i16 0, bb106], [%i917, bb110]
   %i900 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i32 536870920, i32 536870920, %i893) convergent "no-builtins"=""
   %i901 = icmp ult %i899, %i900
-  br %i901, bb109, bb108
+  br %i901, bb108, bb111
 bb108:
-  %i903 = getelementptr inbounds %t36, %a4, i64 0, i32 2
-  %i904 = getelementptr inbounds %t36, %a4, i64 0, i32 3
-  call void @f12(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
-  %i906 = bitcast %i26 to ptr addrspace(0)
-  %i907 = getelementptr inbounds %t33, %i26, i64 0, i64 0
-  %i908 = getelementptr inbounds %t33, %i26, i64 0, i64 1
-  br bb112
+  %i903 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i899, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
+  br %i903, bb109, bb110
 bb109:
-  %i910 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i899, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
-  br %i910, bb110, bb111
-bb110:
   call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i899, %i895, i32 536870944, %i893, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i913 = load i32, %i896, align 4
-  %i914 = load i32, %i897, align 4
-  %i915 = shl i32 %i914, i32 6
-  %i916 = add i32 %i915, %i913
-  %i917 = zext %i916 to i64
-  %i918 = getelementptr inbounds i32, %a2, %i917
-  %i919 = load i32, %i918, align 4
-  %i920 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i899, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i921 = bitcast %i920 to ptr addrspace(0)
-  store %i919, %i921, align 4
-  br bb111
-bb111:
-  %i924 = add nuw i16 %i899, i16 1
+  %i906 = load i32, %i896, align 4
+  %i907 = load i32, %i897, align 4
+  %i908 = shl i32 %i907, i32 6
+  %i909 = add i32 %i908, %i906
+  %i910 = zext %i909 to i64
+  %i911 = getelementptr inbounds i32, %a2, %i910
+  %i912 = load i32, %i911, align 4
+  %i913 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i899, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i914 = bitcast %i913 to ptr addrspace(0)
+  store %i912, %i914, align 4
+  br bb110
+bb110:
+  %i917 = add nuw i16 %i899, i16 1
   br bb107, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb111:
+  %i919 = getelementptr inbounds %t36, %a4, i64 0, i32 2
+  %i920 = getelementptr inbounds %t36, %a4, i64 0, i32 3
+  call void @f12(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
+  %i922 = bitcast %i27 to ptr addrspace(0)
+  %i923 = getelementptr inbounds %t33, %i27, i64 0, i64 0
+  %i924 = getelementptr inbounds %t33, %i27, i64 0, i64 1
+  br bb112
 bb112:
-  %i926 = phi i16 [i16 0, bb108], [%i960, bb118]
+  %i926 = phi i16 [i16 0, bb111], [%i951, bb117]
   %i927 = call i16 @f13(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, i32 536870920, i32 536870920, %i893) convergent "no-builtins"=""
   %i928 = icmp ult %i926, %i927
-  br %i928, bb114, bb113
+  br %i928, bb113, bb118
 bb113:
-  %i930 = bitcast %i27 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i930, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i932 = call ptr addrspace(0) @f16(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i933 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f32(%i27, %i31, i32 2, %i932, %i933, %i893) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i935 = bitcast %i25 to ptr addrspace(0)
-  %i936 = getelementptr inbounds %t33, %i25, i64 0, i64 0
-  %i937 = getelementptr inbounds %t33, %i25, i64 0, i64 1
-  br bb119
+  %i930 = call i1 @f14(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, %i926, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
+  br %i930, bb114, bb117
 bb114:
-  %i939 = call i1 @f14(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, %i926, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
-  br %i939, bb115, bb118
+  call void @f15(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, %i926, %i922, i32 536870944, %i893, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i933 = load i32, %i923, align 4
+  %i934 = load i32, %i924, align 4
+  %i935 = load i32, %i919, align 4
+  %i936 = icmp slt %i933, %i935
+  %i937 = load i32, %i920, align 4
+  %i938 = icmp slt %i934, %i937
+  %i939 = select i1 %i936, %i938, i1 0
+  br %i939, bb115, bb116
 bb115:
-  call void @f15(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, %i926, %i906, i32 536870944, %i893, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i942 = load i32, %i907, align 4
-  %i943 = load i32, %i908, align 4
-  %i944 = load i32, %i903, align 4
-  %i945 = icmp slt %i942, %i944
-  %i946 = load i32, %i904, align 4
-  %i947 = icmp slt %i943, %i946
-  %i948 = select i1 %i945, %i947, i1 0
-  br %i948, bb116, bb117
+  %i941 = mul nsw i32 %i935, %i934
+  %i942 = add nsw i32 %i941, %i933
+  %i943 = sext %i942 to i64
+  %i944 = getelementptr inbounds i8, %a1, %i943
+  %i945 = load i8, %i944, align 1
+  br bb116
 bb116:
-  %i950 = mul nsw i32 %i944, %i943
-  %i951 = add nsw i32 %i950, %i942
-  %i952 = sext %i951 to i64
-  %i953 = getelementptr inbounds i8, %a1, %i952
-  %i954 = load i8, %i953, align 1
+  %i947 = phi i8 [%i945, bb115], [i8 0, bb114]
+  %i948 = call ptr addrspace(0) @f16(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, %i926, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  store %i947, %i948, align 1
   br bb117
 bb117:
-  %i956 = phi i8 [%i954, bb116], [i8 0, bb115]
-  %i957 = call ptr addrspace(0) @f16(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, %i926, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  store %i956, %i957, align 1
-  br bb118
-bb118:
-  %i960 = add nuw i16 %i926, i16 1
+  %i951 = add nuw i16 %i926, i16 1
   br bb112, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb118:
+  %i953 = bitcast %i26 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i953, ptr addrspace(0) @g4, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i955 = call ptr addrspace(0) @f16(i32 1, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i33, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i956 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f32(%i26, %i31, i32 2, %i955, %i956, %i893) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i958 = bitcast %i25 to ptr addrspace(0)
+  %i959 = getelementptr inbounds %t33, %i25, i64 0, i64 0
+  %i960 = getelementptr inbounds %t33, %i25, i64 0, i64 1
+  br bb119
 bb119:
-  %i962 = phi i16 [i16 0, bb113], [%i980, bb122]
+  %i962 = phi i16 [i16 0, bb118], [%i980, bb122]
   %i963 = call i16 @f13(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, i32 536870920, i32 536870920, %i893) convergent "no-builtins"=""
   %i964 = icmp ult %i962, %i963
   br %i964, bb120, bb123
@@ -1140,9 +1140,9 @@ bb120:
   %i966 = call i1 @f14(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i962, i32 536870920, i32 536870920, i32 536870944, %i893) convergent "no-builtins"=""
   br %i966, bb121, bb122
 bb121:
-  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i962, %i935, i32 536870944, %i893, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i969 = load i32, %i936, align 4
-  %i970 = load i32, %i937, align 4
+  call void @f15(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i962, %i958, i32 536870944, %i893, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i969 = load i32, %i959, align 4
+  %i970 = load i32, %i960, align 4
   %i971 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 16, i32 32, i8 0, i8 0, i8 0, i32 1, %i32, %i962, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i972 = bitcast %i971 to ptr addrspace(0)
   %i973 = load i32, %i972, align 4
@@ -1166,71 +1166,71 @@ bb124:
   %i988 = load i32, %i987, align 4
   %i989 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i990 = load i32, %i989, align 4
-  %i991 = bitcast %i20 to ptr addrspace(0)
-  %i992 = bitcast %i18 to ptr addrspace(0)
-  %i993 = getelementptr inbounds %t34, %i18, i64 0, i32 0, i64 0
-  store %i984, %i993, align 4
-  %i995 = getelementptr inbounds %t34, %i18, i64 0, i32 0, i64 1
-  store %i986, %i995, align 4
-  %i997 = bitcast %i19 to ptr addrspace(0)
+  %i991 = bitcast %i18 to ptr addrspace(0)
+  %i992 = bitcast %i19 to ptr addrspace(0)
+  %i993 = bitcast %i20 to ptr addrspace(0)
+  %i994 = getelementptr inbounds %t34, %i18, i64 0, i32 0, i64 0
+  store %i984, %i994, align 4
+  %i996 = getelementptr inbounds %t34, %i18, i64 0, i32 0, i64 1
+  store %i986, %i996, align 4
   %i998 = getelementptr inbounds %t34, %i19, i64 0, i32 0, i64 0
   store i32 1, %i998, align 4
   %i1000 = getelementptr inbounds %t34, %i19, i64 0, i32 0, i64 1
   store %i984, %i1000, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i991, i16 2, %a0, %i992, %i997, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i1003 = bitcast %i21 to ptr addrspace(0)
-  %i1004 = bitcast %i16 to ptr addrspace(0)
-  %i1005 = getelementptr inbounds %t34, %i16, i64 0, i32 0, i64 0
-  store %i988, %i1005, align 4
-  %i1007 = getelementptr inbounds %t34, %i16, i64 0, i32 0, i64 1
-  store %i990, %i1007, align 4
-  %i1009 = bitcast %i17 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i993, i16 2, %a0, %i991, %i992, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i1003 = bitcast %i16 to ptr addrspace(0)
+  %i1004 = bitcast %i17 to ptr addrspace(0)
+  %i1005 = bitcast %i21 to ptr addrspace(0)
+  %i1006 = getelementptr inbounds %t34, %i16, i64 0, i32 0, i64 0
+  store %i988, %i1006, align 4
+  %i1008 = getelementptr inbounds %t34, %i16, i64 0, i32 0, i64 1
+  store %i990, %i1008, align 4
   %i1010 = getelementptr inbounds %t34, %i17, i64 0, i32 0, i64 0
   store i32 1, %i1010, align 4
   %i1012 = getelementptr inbounds %t34, %i17, i64 0, i32 0, i64 1
   store %i988, %i1012, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i1003, i16 2, %a1, %i1004, %i1009, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i1005, i16 2, %a1, %i1003, %i1004, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i1015 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   call void @f12(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, i32 536870920, i32 536870920, i32 536870944, %i1015) convergent "no-builtins"=""
-  %i1017 = bitcast %i14 to ptr addrspace(0)
-  %i1018 = getelementptr inbounds %t33, %i14, i64 0, i64 0
-  %i1019 = getelementptr inbounds %t33, %i14, i64 0, i64 1
+  %i1017 = bitcast %i15 to ptr addrspace(0)
+  %i1018 = getelementptr inbounds %t33, %i15, i64 0, i64 0
+  %i1019 = getelementptr inbounds %t33, %i15, i64 0, i64 1
   br bb125
 bb125:
-  %i1021 = phi i16 [i16 0, bb124], [%i1047, bb129]
+  %i1021 = phi i16 [i16 0, bb124], [%i1039, bb128]
   %i1022 = call i16 @f13(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, i32 536870920, i32 536870920, %i1015) convergent "no-builtins"=""
   %i1023 = icmp ult %i1021, %i1022
-  br %i1023, bb127, bb126
+  br %i1023, bb126, bb129
 bb126:
-  %i1025 = bitcast %i15 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i1025, ptr addrspace(0) @g9, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i1027 = call ptr addrspace(0) @f16(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i15, %i20, i32 2, %i21, i32 2, %i1027, %i1015) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i1029 = bitcast %i13 to ptr addrspace(0)
-  %i1030 = getelementptr inbounds %t33, %i13, i64 0, i64 0
-  %i1031 = getelementptr inbounds %t33, %i13, i64 0, i64 1
-  br bb130
+  %i1025 = call i1 @f14(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1021, i32 536870920, i32 536870920, i32 536870944, %i1015) convergent "no-builtins"=""
+  br %i1025, bb127, bb128
 bb127:
-  %i1033 = call i1 @f14(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1021, i32 536870920, i32 536870920, i32 536870944, %i1015) convergent "no-builtins"=""
-  br %i1033, bb128, bb129
-bb128:
   call void @f15(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1021, %i1017, i32 536870944, %i1015, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1036 = load i32, %i1018, align 4
-  %i1037 = load i32, %i1019, align 4
-  %i1038 = shl i32 %i1037, i32 6
-  %i1039 = add i32 %i1038, %i1036
-  %i1040 = zext %i1039 to i64
-  %i1041 = getelementptr inbounds i32, %a2, %i1040
-  %i1042 = load i32, %i1041, align 4
-  %i1043 = call ptr addrspace(0) @f16(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1021, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1044 = bitcast %i1043 to ptr addrspace(0)
-  store %i1042, %i1044, align 4
-  br bb129
-bb129:
-  %i1047 = add nuw i16 %i1021, i16 1
+  %i1028 = load i32, %i1018, align 4
+  %i1029 = load i32, %i1019, align 4
+  %i1030 = shl i32 %i1029, i32 6
+  %i1031 = add i32 %i1030, %i1028
+  %i1032 = zext %i1031 to i64
+  %i1033 = getelementptr inbounds i32, %a2, %i1032
+  %i1034 = load i32, %i1033, align 4
+  %i1035 = call ptr addrspace(0) @f16(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1021, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1036 = bitcast %i1035 to ptr addrspace(0)
+  store %i1034, %i1036, align 4
+  br bb128
+bb128:
+  %i1039 = add nuw i16 %i1021, i16 1
   br bb125, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb129:
+  %i1041 = bitcast %i14 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i1041, ptr addrspace(0) @g9, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i1043 = call ptr addrspace(0) @f16(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i14, %i20, i32 2, %i21, i32 2, %i1043, %i1015) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i1045 = bitcast %i13 to ptr addrspace(0)
+  %i1046 = getelementptr inbounds %t33, %i13, i64 0, i64 0
+  %i1047 = getelementptr inbounds %t33, %i13, i64 0, i64 1
+  br bb130
 bb130:
-  %i1049 = phi i16 [i16 0, bb126], [%i1067, bb133]
+  %i1049 = phi i16 [i16 0, bb129], [%i1067, bb133]
   %i1050 = call i16 @f13(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, i32 536870920, i32 536870920, %i1015) convergent "no-builtins"=""
   %i1051 = icmp ult %i1049, %i1050
   br %i1051, bb131, bb134
@@ -1238,9 +1238,9 @@ bb131:
   %i1053 = call i1 @f14(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1049, i32 536870920, i32 536870920, i32 536870944, %i1015) convergent "no-builtins"=""
   br %i1053, bb132, bb133
 bb132:
-  call void @f15(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1049, %i1029, i32 536870944, %i1015, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1056 = load i32, %i1030, align 4
-  %i1057 = load i32, %i1031, align 4
+  call void @f15(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1049, %i1045, i32 536870944, %i1015, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1056 = load i32, %i1046, align 4
+  %i1057 = load i32, %i1047, align 4
   %i1058 = call ptr addrspace(0) @f16(i32 2, i32 32, i32 32, i32 32, i8 0, i8 1, i8 0, i32 1, %i22, %i1049, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i1059 = bitcast %i1058 to ptr addrspace(0)
   %i1060 = load i32, %i1059, align 4
@@ -1264,72 +1264,72 @@ bb135:
   %i1075 = load i32, %i1074, align 4
   %i1076 = getelementptr inbounds %t36, %a4, i64 0, i32 3
   %i1077 = load i32, %i1076, align 4
-  %i1078 = bitcast %i9 to ptr addrspace(0)
-  %i1079 = bitcast %i7 to ptr addrspace(0)
-  %i1080 = getelementptr inbounds %t34, %i7, i64 0, i32 0, i64 0
-  store %i1071, %i1080, align 4
-  %i1082 = getelementptr inbounds %t34, %i7, i64 0, i32 0, i64 1
-  store %i1073, %i1082, align 4
-  %i1084 = bitcast %i8 to ptr addrspace(0)
+  %i1078 = bitcast %i7 to ptr addrspace(0)
+  %i1079 = bitcast %i8 to ptr addrspace(0)
+  %i1080 = bitcast %i9 to ptr addrspace(0)
+  %i1081 = getelementptr inbounds %t34, %i7, i64 0, i32 0, i64 0
+  store %i1071, %i1081, align 4
+  %i1083 = getelementptr inbounds %t34, %i7, i64 0, i32 0, i64 1
+  store %i1073, %i1083, align 4
   %i1085 = getelementptr inbounds %t34, %i8, i64 0, i32 0, i64 0
   store i32 1, %i1085, align 4
   %i1087 = getelementptr inbounds %t34, %i8, i64 0, i32 0, i64 1
   store %i1071, %i1087, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i1078, i16 2, %a0, %i1079, %i1084, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
-  %i1090 = bitcast %i10 to ptr addrspace(0)
-  %i1091 = bitcast %i5 to ptr addrspace(0)
-  %i1092 = getelementptr inbounds %t34, %i5, i64 0, i32 0, i64 0
-  store %i1075, %i1092, align 4
-  %i1094 = getelementptr inbounds %t34, %i5, i64 0, i32 0, i64 1
-  store %i1077, %i1094, align 4
-  %i1096 = bitcast %i6 to ptr addrspace(0)
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i1080, i16 2, %a0, %i1078, %i1079, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  %i1090 = bitcast %i5 to ptr addrspace(0)
+  %i1091 = bitcast %i6 to ptr addrspace(0)
+  %i1092 = bitcast %i10 to ptr addrspace(0)
+  %i1093 = getelementptr inbounds %t34, %i5, i64 0, i32 0, i64 0
+  store %i1075, %i1093, align 4
+  %i1095 = getelementptr inbounds %t34, %i5, i64 0, i32 0, i64 1
+  store %i1077, %i1095, align 4
   %i1097 = getelementptr inbounds %t34, %i6, i64 0, i32 0, i64 0
   store i32 1, %i1097, align 4
   %i1099 = getelementptr inbounds %t34, %i6, i64 0, i32 0, i64 1
   store %i1075, %i1099, align 4
-  call void @f8 [air Tensor(InitStrided { data: Device })](%i1090, i16 2, %a1, %i1091, %i1096, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
+  call void @f8 [air Tensor(InitStrided { data: Device })](%i1092, i16 2, %a1, %i1090, %i1091, i8 3) arg0( Mod nocapture ) arg2( NoModRef ) arg3( Ref nocapture ) arg4( Ref nocapture )
   %i1102 = tail call i32 @f11 [air SimdgroupSize(SimdgroupSize { ty: I32 })]()
   %i1103 = shl i32 %i1102, i32 1
   call void @f12(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, i32 536870920, i32 536870920, i32 536870944, %i1103) convergent "no-builtins"=""
-  %i1105 = bitcast %i3 to ptr addrspace(0)
-  %i1106 = getelementptr inbounds %t33, %i3, i64 0, i64 0
-  %i1107 = getelementptr inbounds %t33, %i3, i64 0, i64 1
+  %i1105 = bitcast %i4 to ptr addrspace(0)
+  %i1106 = getelementptr inbounds %t33, %i4, i64 0, i64 0
+  %i1107 = getelementptr inbounds %t33, %i4, i64 0, i64 1
   br bb136
 bb136:
-  %i1109 = phi i16 [i16 0, bb135], [%i1135, bb140]
+  %i1109 = phi i16 [i16 0, bb135], [%i1127, bb139]
   %i1110 = call i16 @f13(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, i32 536870920, i32 536870920, %i1103) convergent "no-builtins"=""
   %i1111 = icmp ult %i1109, %i1110
-  br %i1111, bb138, bb137
+  br %i1111, bb137, bb140
 bb137:
-  %i1113 = bitcast %i4 to ptr addrspace(0)
-  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i1113, ptr addrspace(0) @g10, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
-  %i1115 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  call void @f17(%i4, %i9, i32 2, %i10, i32 2, %i1115, %i1103) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
-  %i1117 = bitcast %i2 to ptr addrspace(0)
-  %i1118 = getelementptr inbounds %t33, %i2, i64 0, i64 0
-  %i1119 = getelementptr inbounds %t33, %i2, i64 0, i64 1
-  br bb141
+  %i1113 = call i1 @f14(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1109, i32 536870920, i32 536870920, i32 536870944, %i1103) convergent "no-builtins"=""
+  br %i1113, bb138, bb139
 bb138:
-  %i1121 = call i1 @f14(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1109, i32 536870920, i32 536870920, i32 536870944, %i1103) convergent "no-builtins"=""
-  br %i1121, bb139, bb140
-bb139:
   call void @f15(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1109, %i1105, i32 536870944, %i1103, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1124 = load i32, %i1106, align 4
-  %i1125 = load i32, %i1107, align 4
-  %i1126 = shl i32 %i1125, i32 6
-  %i1127 = add i32 %i1126, %i1124
-  %i1128 = zext %i1127 to i64
-  %i1129 = getelementptr inbounds i32, %a2, %i1128
-  %i1130 = load i32, %i1129, align 4
-  %i1131 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1109, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1132 = bitcast %i1131 to ptr addrspace(0)
-  store %i1130, %i1132, align 4
-  br bb140
-bb140:
-  %i1135 = add nuw i16 %i1109, i16 1
+  %i1116 = load i32, %i1106, align 4
+  %i1117 = load i32, %i1107, align 4
+  %i1118 = shl i32 %i1117, i32 6
+  %i1119 = add i32 %i1118, %i1116
+  %i1120 = zext %i1119 to i64
+  %i1121 = getelementptr inbounds i32, %a2, %i1120
+  %i1122 = load i32, %i1121, align 4
+  %i1123 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1109, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1124 = bitcast %i1123 to ptr addrspace(0)
+  store %i1122, %i1124, align 4
+  br bb139
+bb139:
+  %i1127 = add nuw i16 %i1109, i16 1
   br bb136, !llvm.loop LoopHints { unroll: Default, must_progress: true }
+bb140:
+  %i1129 = bitcast %i3 to ptr addrspace(0)
+  call void @f38 [llvm Memcpy { dst: Thread, src: Thread, len: I64, volatile: false }](%i1129, ptr addrspace(0) @g10, i64 20, i1 0) arg0( align 4 dereferenceable(20) ) arg1( align 4 dereferenceable(20) )
+  %i1131 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, i16 65535, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  call void @f17(%i3, %i9, i32 2, %i10, i32 2, %i1131, %i1103) convergent "no-builtins"="" arg0( align 4 dereferenceable(20) )
+  %i1133 = bitcast %i2 to ptr addrspace(0)
+  %i1134 = getelementptr inbounds %t33, %i2, i64 0, i64 0
+  %i1135 = getelementptr inbounds %t33, %i2, i64 0, i64 1
+  br bb141
 bb141:
-  %i1137 = phi i16 [i16 0, bb137], [%i1155, bb144]
+  %i1137 = phi i16 [i16 0, bb140], [%i1155, bb144]
   %i1138 = call i16 @f13(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, i32 536870920, i32 536870920, %i1103) convergent "no-builtins"=""
   %i1139 = icmp ult %i1137, %i1138
   br %i1139, bb142, bb145
@@ -1337,9 +1337,9 @@ bb142:
   %i1141 = call i1 @f14(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1137, i32 536870920, i32 536870920, i32 536870944, %i1103) convergent "no-builtins"=""
   br %i1141, bb143, bb144
 bb143:
-  call void @f15(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1137, %i1117, i32 536870944, %i1103, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
-  %i1144 = load i32, %i1118, align 4
-  %i1145 = load i32, %i1119, align 4
+  call void @f15(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1137, %i1133, i32 536870944, %i1103, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
+  %i1144 = load i32, %i1134, align 4
+  %i1145 = load i32, %i1135, align 4
   %i1146 = call ptr addrspace(0) @f16(i32 2, i32 16, i32 64, i32 16, i8 0, i8 0, i8 0, i32 1, %i11, %i1137, i32 536870920, i32 536870920, i32 536870944) convergent "no-builtins"=""
   %i1147 = bitcast %i1146 to ptr addrspace(0)
   %i1148 = load i32, %i1147, align 4

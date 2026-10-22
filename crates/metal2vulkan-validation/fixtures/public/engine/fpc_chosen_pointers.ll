@@ -2,7 +2,7 @@
 ; ModuleID = '<stdin>'
 source_filename = "-"
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32"
-target triple = "air64_v28-apple-macosx26.0.0"
+target triple = "air64_v29-apple-macosx27.0.0"
 
 @_ZZ15fpc_threadgroupPU9MTLdevicejjjE4slot = internal unnamed_addr addrspace(3) global [4 x ptr] undef, align 8
 
@@ -62,87 +62,81 @@ declare i32 @fpc_sq.MTL_VISIBLE_FN_REF(i32) section "air.externally_defined"
 
 ; Function Attrs: convergent mustprogress nounwind
 define void @fpc_loop(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #0 {
-  br label %6
+  br label %3
 
-3:                                                ; preds = %6
-  %4 = zext i32 %1 to i64
-  %5 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %4
-  store i32 %10, ptr addrspace(1) %5, align 4, !tbaa !49, !alias.scope !61
+3:                                                ; preds = %3, %2
+  %4 = phi i32 [ 0, %2 ], [ %11, %3 ]
+  %5 = phi i32 [ %1, %2 ], [ %7, %3 ]
+  %6 = phi ptr [ @fpc_inc.MTL_VISIBLE_FN_REF, %2 ], [ %10, %3 ]
+  %7 = tail call i32 %6(i32 noundef %5) #7
+  %8 = and i32 %7, 1
+  %9 = icmp eq i32 %8, 0
+  %10 = select i1 %9, ptr @fpc_dbl.MTL_VISIBLE_FN_REF, ptr @fpc_inc.MTL_VISIBLE_FN_REF
+  %11 = add nuw nsw i32 %4, 1
+  %12 = icmp eq i32 %11, 4
+  br i1 %12, label %13, label %3, !llvm.loop !61
+
+13:                                               ; preds = %3
+  %14 = zext i32 %1 to i64
+  %15 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %14
+  store i32 %7, ptr addrspace(1) %15, align 4, !tbaa !49, !alias.scope !63
   ret void
-
-6:                                                ; preds = %6, %2
-  %7 = phi i32 [ 0, %2 ], [ %14, %6 ]
-  %8 = phi i32 [ %1, %2 ], [ %10, %6 ]
-  %9 = phi ptr [ @fpc_inc.MTL_VISIBLE_FN_REF, %2 ], [ %13, %6 ]
-  %10 = tail call i32 %9(i32 noundef %8) #7
-  %11 = and i32 %10, 1
-  %12 = icmp eq i32 %11, 0
-  %13 = select i1 %12, ptr @fpc_dbl.MTL_VISIBLE_FN_REF, ptr @fpc_inc.MTL_VISIBLE_FN_REF
-  %14 = add nuw nsw i32 %7, 1
-  %15 = icmp eq i32 %14, 4
-  br i1 %15, label %3, label %6, !llvm.loop !64
 }
 
 ; Function Attrs: convergent mustprogress nounwind
 define void @fpc_private_array(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #0 {
   %3 = alloca [3 x ptr], align 8
-  %4 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #8
-  %5 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 0
-  store ptr @fpc_inc.MTL_VISIBLE_FN_REF, ptr %5, align 8
-  %6 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 1
-  store ptr @fpc_dbl.MTL_VISIBLE_FN_REF, ptr %6, align 8
-  %7 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 2
-  store ptr @fpc_sq.MTL_VISIBLE_FN_REF, ptr %7, align 8
-  %8 = urem i32 %1, 3
-  %9 = zext i32 %8 to i64
-  %10 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 %9
-  %11 = load ptr, ptr %10, align 8, !tbaa !66
-  %12 = tail call i32 %11(i32 noundef %1) #7
-  %13 = zext i32 %1 to i64
-  %14 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %13
-  store i32 %12, ptr addrspace(1) %14, align 4, !tbaa !49, !alias.scope !68
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #8
+  %4 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 0
+  store ptr @fpc_inc.MTL_VISIBLE_FN_REF, ptr %4, align 8
+  %5 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 1
+  store ptr @fpc_dbl.MTL_VISIBLE_FN_REF, ptr %5, align 8
+  %6 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 2
+  store ptr @fpc_sq.MTL_VISIBLE_FN_REF, ptr %6, align 8
+  %7 = urem i32 %1, 3
+  %8 = zext i32 %7 to i64
+  %9 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 %8
+  %10 = load ptr, ptr %9, align 8, !tbaa !66
+  %11 = tail call i32 %10(i32 noundef %1) #7
+  %12 = zext i32 %1 to i64
+  %13 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %12
+  store i32 %11, ptr addrspace(1) %13, align 4, !tbaa !49, !alias.scope !68
   ret void
 }
 
-; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write)
+; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write)
 define void @fpc_compare(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #1 {
   %3 = alloca [4 x ptr], align 8
-  %4 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #8
-  %5 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 0
-  store ptr @fpc_inc.MTL_VISIBLE_FN_REF, ptr %5, align 8
-  %6 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 1
-  store ptr @fpc_dbl.MTL_VISIBLE_FN_REF, ptr %6, align 8
-  %7 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 2
-  store ptr @fpc_sq.MTL_VISIBLE_FN_REF, ptr %7, align 8
-  %8 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 3
-  store ptr @fpc_inc.MTL_VISIBLE_FN_REF, ptr %8, align 8
-  %9 = and i32 %1, 3
-  %10 = zext i32 %9 to i64
-  %11 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %10
-  %12 = load ptr, ptr %11, align 8, !tbaa !66
-  %13 = lshr i32 %1, 2
-  %14 = and i32 %13, 3
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !66
-  %18 = icmp eq ptr %12, %17
-  %19 = zext i1 %18 to i32
-  %20 = icmp eq ptr %12, @fpc_inc.MTL_VISIBLE_FN_REF
-  %21 = select i1 %20, i32 2, i32 0
-  %22 = icmp eq ptr %12, null
-  %23 = select i1 %22, i32 0, i32 4
-  %24 = icmp eq ptr %17, @fpc_sq.MTL_VISIBLE_FN_REF
-  %25 = select i1 %24, i32 8, i32 0
-  %26 = or i32 %23, %21
-  %27 = or i32 %26, %19
-  %28 = or i32 %27, %25
-  %29 = zext i32 %1 to i64
-  %30 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %29
-  store i32 %28, ptr addrspace(1) %30, align 4, !tbaa !49, !alias.scope !71
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #8
+  %4 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 0
+  store ptr @fpc_inc.MTL_VISIBLE_FN_REF, ptr %4, align 8
+  %5 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 1
+  store ptr @fpc_dbl.MTL_VISIBLE_FN_REF, ptr %5, align 8
+  %6 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 2
+  store ptr @fpc_sq.MTL_VISIBLE_FN_REF, ptr %6, align 8
+  %7 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 3
+  store ptr @fpc_inc.MTL_VISIBLE_FN_REF, ptr %7, align 8
+  %8 = and i32 %1, 3
+  %9 = zext i32 %8 to i64
+  %10 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %9
+  %11 = load ptr, ptr %10, align 8, !tbaa !66
+  %12 = lshr i32 %1, 2
+  %13 = and i32 %12, 3
+  %14 = zext i32 %13 to i64
+  %15 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %14
+  %16 = load ptr, ptr %15, align 8, !tbaa !66
+  %17 = icmp eq ptr %11, %16
+  %18 = zext i1 %17 to i32
+  %19 = icmp eq ptr %11, @fpc_inc.MTL_VISIBLE_FN_REF
+  %20 = select i1 %19, i32 2, i32 0
+  %21 = icmp eq ptr %11, null
+  %22 = select i1 %21, i32 0, i32 4
+  %23 = icmp eq ptr %16, @fpc_sq.MTL_VISIBLE_FN_REF
+  %24 = select i1 %23, i32 8, i32 0
+  %25 = or i32 %22, %20
+  %26 = or i32 %25, %18
+  %27 = or i32 %26, %24
+  %28 = zext i32 %1 to i64
+  %29 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %28
+  store i32 %27, ptr addrspace(1) %29, align 4, !tbaa !49, !alias.scope !71
   ret void
 }
 
@@ -167,7 +161,7 @@ define void @fpc_threadgroup(ptr addrspace(1) noundef writeonly captures(none) "
   br label %12
 
 12:                                               ; preds = %11, %10, %3
-  tail call void @air.wg.barrier(i32 2, i32 1) #9
+  tail call void @air.wg.barrier(i32 2, i32 5, i32 1) #8
   %13 = and i32 %1, 3
   %14 = zext i32 %13 to i64
   %15 = getelementptr inbounds [4 x ptr], ptr addrspace(3) @_ZZ15fpc_threadgroupPU9MTLdevicejjjE4slot, i64 0, i64 %14
@@ -187,7 +181,7 @@ define void @fpc_int_back(ptr addrspace(1) noundef writeonly captures(none) "air
   %7 = zext i32 %2 to i64
   %8 = getelementptr inbounds i64, ptr addrspace(1) %1, i64 %7
   store i64 %6, ptr addrspace(1) %8, align 8, !tbaa !77, !alias.scope !79, !noalias !82
-  tail call void @air.wg.barrier(i32 1, i32 1) #9
+  tail call void @air.wg.barrier(i32 1, i32 5, i32 1) #8
   %9 = xor i32 %2, 1
   %10 = zext i32 %9 to i64
   %11 = getelementptr inbounds i64, ptr addrspace(1) %1, i64 %10
@@ -202,7 +196,7 @@ define void @fpc_int_back(ptr addrspace(1) noundef writeonly captures(none) "air
 ; Function Attrs: convergent mustprogress nounwind
 define void @fpc_table_mix(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, ptr addrspace(1) readonly captures(none) %1, i32 noundef %2) local_unnamed_addr #0 {
   %4 = urem i32 %2, 3
-  %5 = tail call ptr @air.get_function_pointer_visible_function_table(ptr addrspace(1) readonly captures(none) %1, i32 %4) #10, !alias.scope !84, !noalias !87
+  %5 = tail call ptr @air.get_function_pointer_visible_function_table(ptr addrspace(1) readonly captures(none) %1, i32 %4) #9, !alias.scope !84, !noalias !87
   %6 = bitcast ptr %5 to ptr
   %7 = and i32 %2, 4
   %8 = icmp eq i32 %7, 0
@@ -223,24 +217,21 @@ define void @fpc_table_mix(ptr addrspace(1) noundef writeonly captures(none) "ai
 ; Function Attrs: convergent mustprogress nounwind
 define void @fpc_table_store(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, ptr addrspace(1) readonly captures(none) %1, i32 noundef %2) local_unnamed_addr #0 {
   %4 = alloca [2 x ptr], align 8
-  %5 = bitcast ptr %4 to ptr
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #8
-  %6 = urem i32 %2, 3
-  %7 = tail call ptr @air.get_function_pointer_visible_function_table(ptr addrspace(1) readonly captures(none) %1, i32 %6) #10, !alias.scope !89, !noalias !92
-  %8 = bitcast ptr %4 to ptr
-  store ptr %7, ptr %8, align 8, !tbaa !66
-  %9 = getelementptr inbounds [2 x ptr], ptr %4, i64 0, i64 1
-  store ptr @fpc_sq.MTL_VISIBLE_FN_REF, ptr %9, align 8, !tbaa !66
-  %10 = lshr i32 %2, 1
-  %11 = and i32 %10, 1
-  %12 = zext i32 %11 to i64
-  %13 = getelementptr inbounds [2 x ptr], ptr %4, i64 0, i64 %12
-  %14 = load ptr, ptr %13, align 8, !tbaa !66
-  %15 = tail call i32 %14(i32 noundef %2) #7
-  %16 = zext i32 %2 to i64
-  %17 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %16
-  store i32 %15, ptr addrspace(1) %17, align 4, !tbaa !49, !alias.scope !92, !noalias !89
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #8
+  %5 = urem i32 %2, 3
+  %6 = tail call ptr @air.get_function_pointer_visible_function_table(ptr addrspace(1) readonly captures(none) %1, i32 %5) #9, !alias.scope !89, !noalias !92
+  %7 = bitcast ptr %4 to ptr
+  store ptr %6, ptr %7, align 8, !tbaa !66
+  %8 = getelementptr inbounds [2 x ptr], ptr %4, i64 0, i64 1
+  store ptr @fpc_sq.MTL_VISIBLE_FN_REF, ptr %8, align 8, !tbaa !66
+  %9 = lshr i32 %2, 1
+  %10 = and i32 %9, 1
+  %11 = zext i32 %10 to i64
+  %12 = getelementptr inbounds [2 x ptr], ptr %4, i64 0, i64 %11
+  %13 = load ptr, ptr %12, align 8, !tbaa !66
+  %14 = tail call i32 %13(i32 noundef %2) #7
+  %15 = zext i32 %2 to i64
+  %16 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %15
+  store i32 %14, ptr addrspace(1) %16, align 4, !tbaa !49, !alias.scope !92, !noalias !89
   ret void
 }
 
@@ -289,23 +280,20 @@ define internal i32 @_ZL7own_dblj(i32 noundef %0) #2 {
 ; Function Attrs: convergent mustprogress nounwind
 define void @fpc_own_private_array(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #0 {
   %3 = alloca [3 x ptr], align 8
-  %4 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #8
-  %5 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 0
-  store ptr @_ZL7own_incj, ptr %5, align 8
-  %6 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 1
-  store ptr @_ZL7own_dblj, ptr %6, align 8
-  %7 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 2
-  store ptr @_ZL6own_sqj, ptr %7, align 8
-  %8 = urem i32 %1, 3
-  %9 = zext i32 %8 to i64
-  %10 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 %9
-  %11 = load ptr, ptr %10, align 8, !tbaa !66
-  %12 = tail call i32 %11(i32 noundef %1) #7
-  %13 = zext i32 %1 to i64
-  %14 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %13
-  store i32 %12, ptr addrspace(1) %14, align 4, !tbaa !49, !alias.scope !102
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #8
+  %4 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 0
+  store ptr @_ZL7own_incj, ptr %4, align 8
+  %5 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 1
+  store ptr @_ZL7own_dblj, ptr %5, align 8
+  %6 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 2
+  store ptr @_ZL6own_sqj, ptr %6, align 8
+  %7 = urem i32 %1, 3
+  %8 = zext i32 %7 to i64
+  %9 = getelementptr inbounds [3 x ptr], ptr %3, i64 0, i64 %8
+  %10 = load ptr, ptr %9, align 8, !tbaa !66
+  %11 = tail call i32 %10(i32 noundef %1) #7
+  %12 = zext i32 %1 to i64
+  %13 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %12
+  store i32 %11, ptr addrspace(1) %13, align 4, !tbaa !49, !alias.scope !102
   ret void
 }
 
@@ -315,51 +303,48 @@ define internal i32 @_ZL6own_sqj(i32 noundef %0) #2 {
   ret i32 %2
 }
 
-; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write)
+; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write)
 define void @fpc_own_compare(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #1 {
   %3 = alloca [4 x ptr], align 8
-  %4 = bitcast ptr %3 to ptr
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #8
-  %5 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 0
-  store ptr @_ZL7own_incj, ptr %5, align 8
-  %6 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 1
-  store ptr @_ZL7own_dblj, ptr %6, align 8
-  %7 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 2
-  store ptr @_ZL6own_sqj, ptr %7, align 8
-  %8 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 3
-  store ptr @_ZL7own_incj, ptr %8, align 8
-  %9 = and i32 %1, 3
-  %10 = zext i32 %9 to i64
-  %11 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %10
-  %12 = load ptr, ptr %11, align 8, !tbaa !66
-  %13 = lshr i32 %1, 2
-  %14 = and i32 %13, 3
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !66
-  %18 = icmp eq ptr %12, %17
-  %19 = zext i1 %18 to i32
-  %20 = icmp eq ptr %12, @_ZL7own_incj
-  %21 = select i1 %20, i32 2, i32 0
-  %22 = icmp eq ptr %12, null
-  %23 = select i1 %22, i32 0, i32 4
-  %24 = icmp eq ptr %17, @_ZL6own_sqj
-  %25 = select i1 %24, i32 8, i32 0
-  %26 = or i32 %23, %21
-  %27 = or i32 %26, %19
-  %28 = or i32 %27, %25
-  %29 = zext i32 %1 to i64
-  %30 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %29
-  store i32 %28, ptr addrspace(1) %30, align 4, !tbaa !49, !alias.scope !105
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #8
+  %4 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 0
+  store ptr @_ZL7own_incj, ptr %4, align 8
+  %5 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 1
+  store ptr @_ZL7own_dblj, ptr %5, align 8
+  %6 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 2
+  store ptr @_ZL6own_sqj, ptr %6, align 8
+  %7 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 3
+  store ptr @_ZL7own_incj, ptr %7, align 8
+  %8 = and i32 %1, 3
+  %9 = zext i32 %8 to i64
+  %10 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %9
+  %11 = load ptr, ptr %10, align 8, !tbaa !66
+  %12 = lshr i32 %1, 2
+  %13 = and i32 %12, 3
+  %14 = zext i32 %13 to i64
+  %15 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %14
+  %16 = load ptr, ptr %15, align 8, !tbaa !66
+  %17 = icmp eq ptr %11, %16
+  %18 = zext i1 %17 to i32
+  %19 = icmp eq ptr %11, @_ZL7own_incj
+  %20 = select i1 %19, i32 2, i32 0
+  %21 = icmp eq ptr %11, null
+  %22 = select i1 %21, i32 0, i32 4
+  %23 = icmp eq ptr %16, @_ZL6own_sqj
+  %24 = select i1 %23, i32 8, i32 0
+  %25 = or i32 %22, %20
+  %26 = or i32 %25, %18
+  %27 = or i32 %26, %24
+  %28 = zext i32 %1 to i64
+  %29 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %28
+  store i32 %27, ptr addrspace(1) %29, align 4, !tbaa !49, !alias.scope !105
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write)
-define void @fpc_wide(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #1 {
+define void @fpc_wide(ptr addrspace(1) noundef writeonly captures(none) "air-buffer-no-alias" %0, i32 noundef %1) local_unnamed_addr #3 {
   %3 = zext i32 %1 to i64
   %4 = mul nuw i64 %3, 4294967297
-  %5 = tail call i64 @air.popcount.i64(i64 %4) #11
+  %5 = tail call i64 @air.popcount.i64(i64 %4) #10
   %6 = trunc i64 %5 to i32
   %7 = getelementptr inbounds i32, ptr addrspace(1) %0, i64 %3
   store i32 %6, ptr addrspace(1) %7, align 4, !tbaa !49, !alias.scope !108
@@ -367,32 +352,25 @@ define void @fpc_wide(ptr addrspace(1) noundef writeonly captures(none) "air-buf
 }
 
 ; Function Attrs: convergent mustprogress nounwind willreturn
-declare void @air.wg.barrier(i32, i32) local_unnamed_addr #3
+declare void @air.wg.barrier(i32, i32, i32) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none)
-declare i64 @air.popcount.i64(i64) local_unnamed_addr #4
+declare i64 @air.popcount.i64(i64) local_unnamed_addr #5
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
-declare ptr @air.get_function_pointer_visible_function_table(ptr addrspace(1) readonly captures(none), i32) local_unnamed_addr #5
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr captures(none)) #6
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr captures(none)) #6
+declare ptr @air.get_function_pointer_visible_function_table(ptr addrspace(1) readonly captures(none), i32) local_unnamed_addr #6
 
 attributes #0 = { convergent mustprogress nounwind "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #1 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
+attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
 attributes #2 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
-attributes #3 = { convergent mustprogress nounwind willreturn }
-attributes #4 = { mustprogress nofree nosync nounwind willreturn memory(none) }
-attributes #5 = { mustprogress nofree nounwind willreturn memory(argmem: read) }
-attributes #6 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
+attributes #3 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) "approx-func-fp-math"="true" "frame-pointer"="all" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="true" "no-nans-fp-math"="true" "no-signed-zeros-fp-math"="true" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "unsafe-fp-math"="true" }
+attributes #4 = { convergent mustprogress nounwind willreturn }
+attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(none) }
+attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) }
 attributes #7 = { convergent nobuiltin nounwind "no-builtins" }
-attributes #8 = { nounwind }
-attributes #9 = { convergent nounwind willreturn }
-attributes #10 = { nounwind willreturn memory(argmem: read) }
-attributes #11 = { nounwind willreturn memory(none) }
+attributes #8 = { convergent nounwind willreturn }
+attributes #9 = { nounwind willreturn memory(argmem: read) }
+attributes #10 = { nounwind willreturn memory(none) }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !air.kernel = !{!9, !14, !18, !19, !20, !21, !24, !27, !30, !31, !34, !35, !36, !37}
@@ -449,7 +427,7 @@ attributes #11 = { nounwind willreturn memory(none) }
 !44 = !{!"air.visible_function_reference", ptr @fpc_rec_odd.MTL_VISIBLE_FN_REF, !"fpc_rec_odd"}
 !45 = !{!"air.visible_function_reference", ptr @fpc_rec_even.MTL_VISIBLE_FN_REF, !"fpc_rec_even"}
 !46 = !{!"Apple metal version 32023.921 (metalfe-32023.921.6)"}
-!47 = !{i32 2, i32 8, i32 0}
+!47 = !{i32 2, i32 9, i32 0}
 !48 = !{!"Metal", i32 4, i32 0, i32 0}
 !49 = !{!50, !50, i64 0}
 !50 = !{!"int", !51, i64 0}
@@ -463,11 +441,11 @@ attributes #11 = { nounwind willreturn memory(none) }
 !58 = distinct !{!58, !"air-alias-scopes(fpc_phi)"}
 !59 = !{!60}
 !60 = distinct !{!60, !58, !"air-alias-scope-arg(0)"}
-!61 = !{!62}
-!62 = distinct !{!62, !63, !"air-alias-scope-arg(0)"}
-!63 = distinct !{!63, !"air-alias-scopes(fpc_loop)"}
-!64 = distinct !{!64, !65}
-!65 = !{!"llvm.loop.mustprogress"}
+!61 = distinct !{!61, !62}
+!62 = !{!"llvm.loop.mustprogress"}
+!63 = !{!64}
+!64 = distinct !{!64, !65, !"air-alias-scope-arg(0)"}
+!65 = distinct !{!65, !"air-alias-scopes(fpc_loop)"}
 !66 = !{!67, !67, i64 0}
 !67 = !{!"any pointer", !51, i64 0}
 !68 = !{!69}
