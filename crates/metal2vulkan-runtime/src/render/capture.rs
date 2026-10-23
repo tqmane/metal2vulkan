@@ -248,16 +248,20 @@ impl RenderCommandEncoder {
     /// device cannot: the pass's reach is then the host's, announced as before.
     pub(super) fn capture_reach(&mut self) -> Option<CapturedReach> {
         let reach = PassReach::of(&self.layout, self.called, self.drew);
-        let drawn = self.drawn.tiles(&self.layout);
-        let reaches = drawn.as_ref().is_none_or(|tiles| !tiles.is_empty());
-        let consumed = super::unused_bits_load::consumes_capture(&self.layout, true);
-        if !self.rewrites_unused_bits || reach != PassReach::Draws || !reaches || !consumed {
+        if !self.rewrites_unused_bits
+            || reach != PassReach::Draws
+            || !super::unused_bits_load::consumes_capture(&self.layout, true)
+        {
             return None;
         }
         let Keeping::Draws(kept, records) = &self.keeping else {
             return None;
         };
         if kept.is_empty() {
+            return None;
+        }
+        let drawn = self.drawn.tiles(&self.layout);
+        if drawn.as_ref().is_some_and(|tiles| tiles.is_empty()) {
             return None;
         }
         let records = *records;
