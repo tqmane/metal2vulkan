@@ -16,6 +16,7 @@ pub(crate) struct Counters {
     command_pools_made: AtomicU64,
     live_tables_uploaded: AtomicU64,
     timeline_waits: AtomicU64,
+    combined_submissions: AtomicU64,
     timestamp_slots_taken: AtomicU64,
     storage_forms_taken: AtomicU64,
     addressable_buffers_made: AtomicU64,
@@ -149,6 +150,11 @@ impl Counters {
     /// (`command_buffer/completion.rs`).
     pub(crate) fn timeline_wait(&self) {
         self.timeline_waits.fetch_add(1, Ordering::Relaxed);
+    }
+
+    /// A batch's work and end were accepted as one `VkSubmitInfo`.
+    pub(crate) fn combined_submission(&self) {
+        self.combined_submissions.fetch_add(1, Ordering::Relaxed);
     }
 
     /// A committed command buffer took a slot of one of the device's timestamp pools, to write
@@ -548,6 +554,8 @@ pub struct WorkCounts {
     /// The completion thread's waits for a timeline's value, where the batch it waited for had
     /// no fence.
     pub timeline_waits: u64,
+    /// Batches with work accepted as one `VkSubmitInfo`, with no separate event-order wait.
+    pub combined_submissions: u64,
     /// Command buffers that took a slot of the device's timestamp pools: only those that encoded
     /// work, on a device that times them by GPU timestamps.
     pub timestamp_slots_taken: u64,
@@ -827,6 +835,7 @@ impl Device {
             command_pools_made: counters.command_pools_made.load(Ordering::Relaxed),
             live_tables_uploaded: counters.live_tables_uploaded.load(Ordering::Relaxed),
             timeline_waits: counters.timeline_waits.load(Ordering::Relaxed),
+            combined_submissions: counters.combined_submissions.load(Ordering::Relaxed),
             timestamp_slots_taken: counters.timestamp_slots_taken.load(Ordering::Relaxed),
             storage_forms_taken: counters.storage_forms_taken.load(Ordering::Relaxed),
             addressable_buffers_made: counters.addressable_buffers_made.load(Ordering::Relaxed),

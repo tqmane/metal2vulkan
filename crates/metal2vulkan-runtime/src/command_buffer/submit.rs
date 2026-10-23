@@ -1,7 +1,8 @@
 //! Submitting one batch of a command buffer, on the scheduler's thread, in its order, under its
 //! lock.
 //!
-//! One `vkQueueSubmit` of two `VkSubmitInfo`s on the queue's `VkQueue`:
+//! One `vkQueueSubmit` on the queue's `VkQueue`, split into two `VkSubmitInfo`s only when the
+//! end waits for an earlier event signal on another queue:
 //! 1. The work: the batch's waits, Vulkan waits for its events' signal indices, for the caller's
 //!    binary semaphores and the tracker's waits for other `VkQueue`s' timelines, then its encoders'
 //!    `VkCommandBuffer`s (an encoder's segments among its own), each encoder after the barrier the
@@ -13,9 +14,9 @@
 //!    `VkQueue`, this part waits for it, so the event's semaphore is signaled in index order
 //!    without holding back the work.
 //!
-//! A batch with no work is one `VkSubmitInfo` of every wait, the end and the signals: a wait
-//! orders only its own `VkSubmitInfo`'s commands, so a signal after a wait with nothing between
-//! needs both in one.
+//! Without that extra wait, the work and end are one batch, in that order, with every wait and
+//! signal kept. A batch with no work is one `VkSubmitInfo` too: a signal after a wait with nothing
+//! between needs both in one.
 //!
 //! **The caller's images** ([`Device::new_texture_with_vk_image`]). A batch whose encoders use a
 //! wrapped image that is not at rest in `GENERAL` moves it there before its first encoder and back
@@ -429,8 +430,8 @@ impl CommandBufferShared {
             order_waits.iter().map(|&(s, _)| s).collect();
         let mut order_values: Vec<u64> = order_waits.iter().map(|&(_, value)| value).collect();
         let mut order_stages = vec![vk::PipelineStageFlags::ALL_COMMANDS; order_waits.len()];
-        // No work: every wait goes with the end, which it then orders.
-        let single = work.is_empty();
+        let combined = !work.is_empty() && order_waits.is_empty();
+        let single = combine_work_and_end(&mut work, finale[0], !order_waits.is_empty());
         if single {
             order_semaphores.append(&mut wait_semaphores);
             order_values.append(&mut wait_values);
@@ -476,7 +477,7 @@ impl CommandBufferShared {
         let second = vk::SubmitInfo::default()
             .wait_semaphores(&order_semaphores)
             .wait_dst_stage_mask(&order_stages)
-            .command_buffers(&finale)
+            .command_buffers(if single { &work } else { &finale })
             .signal_semaphores(&signal_semaphores)
             .push_next(&mut end_timeline);
         let infos = [first, second];
@@ -564,6 +565,9 @@ impl CommandBufferShared {
                 drop(first_work.submitted(None));
             }
             return Err(submission_error(device, error));
+        }
+        if combined {
+            shared.counts.combined_submission();
         }
         if last {
             state.times.kernel_end = gpu_time::host_nanos();
@@ -770,6 +774,19 @@ impl CommandBufferShared {
     }
 }
 
+/// Keep a separate end only where its wait must not hold back the work.
+fn combine_work_and_end(
+    work: &mut Vec<vk::CommandBuffer>,
+    end: vk::CommandBuffer,
+    ordered_end: bool,
+) -> bool {
+    if !work.is_empty() && ordered_end {
+        return false;
+    }
+    work.push(end);
+    true
+}
+
 /// The command buffer's failure for a batch's sparse binding that failed: a heap filled inside a
 /// device unit, the device's memory, or the bind itself.
 fn bind_error(device: &crate::Device, failure: BindFailure) -> CommandBufferError {
@@ -787,4 +804,37 @@ fn bind_error(device: &crate::Device, failure: BindFailure) -> CommandBufferErro
 struct Stamps {
     start: Option<(vk::QueryPool, u32)>,
     end: Option<(vk::QueryPool, u32)>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ash::vk::Handle;
+
+    #[test]
+    fn submission_combines_work_before_the_end_without_an_extra_wait() {
+        let first = vk::CommandBuffer::from_raw(1);
+        let second = vk::CommandBuffer::from_raw(2);
+        let end = vk::CommandBuffer::from_raw(3);
+        let mut work = vec![first, second];
+        assert!(combine_work_and_end(&mut work, end, false));
+        assert_eq!(work, [first, second, end]);
+    }
+
+    #[test]
+    fn submission_keeps_the_ordering_wait_separate_from_work() {
+        let first = vk::CommandBuffer::from_raw(1);
+        let end = vk::CommandBuffer::from_raw(2);
+        let mut work = vec![first];
+        assert!(!combine_work_and_end(&mut work, end, true));
+        assert_eq!(work, [first]);
+    }
+
+    #[test]
+    fn submission_without_work_keeps_all_waits_with_the_end() {
+        let end = vk::CommandBuffer::from_raw(1);
+        let mut work = Vec::new();
+        assert!(combine_work_and_end(&mut work, end, true));
+        assert_eq!(work, [end]);
+    }
 }
