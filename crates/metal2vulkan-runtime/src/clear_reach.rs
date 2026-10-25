@@ -336,22 +336,47 @@ impl DrawnArea {
     pub(super) fn tiles(&self, layout: &PassLayout) -> Option<DrawnTiles> {
         let tile = layout.tile.tile.filter(|_| !self.whole)?;
         let [per_row, rows] = [0, 1].map(|axis| layout.extent[axis].div_ceil(tile[axis]));
+        let count = per_row as usize * rows as usize;
+        if count == 0
+            || self.rects.iter().any(|&[x0, y0, x1, y1]| {
+                x0 / tile[0] == 0
+                    && y0 / tile[1] == 0
+                    && x1.div_ceil(tile[0]) >= per_row
+                    && y1.div_ceil(tile[1]) >= rows
+            })
+        {
+            return None;
+        }
         let mut tiles = DrawnTiles {
             tile,
             per_row,
             rows,
-            words: vec![0; (per_row as usize * rows as usize).div_ceil(32)],
+            words: vec![0; count.div_ceil(32)],
         };
         for &[x0, y0, x1, y1] in &self.rects {
+            let first = x0 / tile[0];
+            let end = x1.div_ceil(tile[0]).min(per_row);
+            if first >= end {
+                continue;
+            }
             for ty in y0 / tile[1]..y1.div_ceil(tile[1]).min(rows) {
-                for tx in x0 / tile[0]..x1.div_ceil(tile[0]).min(per_row) {
-                    let t = (ty * per_row + tx) as usize;
-                    tiles.words[t / 32] |= 1 << (t % 32);
+                let row = ty * per_row;
+                let start = (row + first) as usize;
+                let last = (row + (end - 1)) as usize;
+                let left = u32::MAX << (start % 32);
+                let right = u32::MAX >> (31 - last % 32);
+                if start / 32 == last / 32 {
+                    tiles.words[start / 32] |= left & right;
+                } else {
+                    tiles.words[start / 32] |= left;
+                    tiles.words[start / 32 + 1..last / 32].fill(u32::MAX);
+                    tiles.words[last / 32] |= right;
                 }
             }
         }
-        let all = (0..per_row as usize * rows as usize)
-            .all(|t| tiles.words[t / 32] & (1 << (t % 32)) != 0);
+        let (last, words) = tiles.words.split_last()?;
+        let tail = u32::MAX >> (31 - (count - 1) % 32);
+        let all = *last == tail && words.iter().all(|&word| word == u32::MAX);
         (!all).then_some(tiles)
     }
 }
@@ -677,9 +702,193 @@ fn rect([width, height]: [u32; 2]) -> vk::Rect2D {
 
 #[cfg(test)]
 mod tests {
-    use super::dont_care_clear;
+    use super::{dont_care_clear, DrawnArea, DrawnTiles, PassLayout, MOST_RECTS};
+    use ash::vk;
     use metal2vulkan::metal::format::{ClearRoute, ExtendedRange};
     use metal2vulkan::metal::PixelFormat;
+
+    fn tile_layout(extent: [u32; 2], tile: Option<[u32; 2]>) -> PassLayout {
+        PassLayout {
+            colors: Vec::new(),
+            depth_stencil: None,
+            extent,
+            layers: 1,
+            samples: 1,
+            visibility: None,
+            fetch_inputs: false,
+            tile: crate::tile_pass::TilePass {
+                tile,
+                sample_length: 0,
+                threadgroup_memory_length: 0,
+            },
+            sample_positions: Vec::new(),
+            fails_command_buffer: None,
+        }
+    }
+
+    // The previous per-tile implementation is the differential oracle.
+    fn reference_tiles(area: &DrawnArea, layout: &PassLayout) -> Option<DrawnTiles> {
+        let tile = layout.tile.tile.filter(|_| !area.whole)?;
+        let [per_row, rows] = [0, 1].map(|axis| layout.extent[axis].div_ceil(tile[axis]));
+        let mut tiles = DrawnTiles {
+            tile,
+            per_row,
+            rows,
+            words: vec![0; (per_row as usize * rows as usize).div_ceil(32)],
+        };
+        for &[x0, y0, x1, y1] in &area.rects {
+            for ty in y0 / tile[1]..y1.div_ceil(tile[1]).min(rows) {
+                for tx in x0 / tile[0]..x1.div_ceil(tile[0]).min(per_row) {
+                    let t = (ty * per_row + tx) as usize;
+                    tiles.words[t / 32] |= 1 << (t % 32);
+                }
+            }
+        }
+        let all = (0..per_row as usize * rows as usize)
+            .all(|t| tiles.words[t / 32] & (1 << (t % 32)) != 0);
+        (!all).then_some(tiles)
+    }
+
+    fn check_tiles(area: &DrawnArea, layout: &PassLayout) {
+        let fields = |tiles: DrawnTiles| (tiles.tile, tiles.per_row, tiles.rows, tiles.words);
+        assert_eq!(
+            area.tiles(layout).map(fields),
+            reference_tiles(area, layout).map(fields),
+            "extent {:?}, tile {:?}, area {area:?}",
+            layout.extent,
+            layout.tile.tile,
+        );
+    }
+
+    #[test]
+    fn tile_words_match_per_tile_reference() {
+        for extent in [
+            [0, 0],
+            [0, 33],
+            [33, 0],
+            [1, 1],
+            [31, 2],
+            [32, 2],
+            [33, 3],
+            [63, 3],
+            [65, 3],
+            [1919, 1079],
+            [1920, 1080],
+            [3840, 2160],
+            [7680, 4320],
+        ] {
+            for tile in [
+                None,
+                Some([1, 1]),
+                Some([16, 16]),
+                Some([32, 16]),
+                Some([32, 32]),
+            ] {
+                // Pixel-sized tiles exercise word boundaries on small grids only.
+                if tile == Some([1, 1]) && extent[0] > 65 {
+                    continue;
+                }
+                let layout = tile_layout(extent, tile);
+                check_tiles(&DrawnArea::default(), &layout);
+                check_tiles(&DrawnArea::unbounded(), &layout);
+                let [w, h] = extent;
+                for rects in [
+                    vec![[0, 0, w, h]],
+                    vec![[1, 1, w, h]],
+                    vec![[0, 0, w / 2, h], [w / 2, 0, w, h]],
+                    vec![[0, 0, w.saturating_sub(1), h.saturating_sub(1)]],
+                    vec![[31, 0, 33, h], [32, 0, 65, h]],
+                    vec![[w, h, u32::MAX, u32::MAX]],
+                ] {
+                    check_tiles(
+                        &DrawnArea {
+                            rects: rects.into_iter().collect(),
+                            whole: false,
+                        },
+                        &layout,
+                    );
+                }
+                let mut seed = 1u32;
+                let mut next = || {
+                    seed = seed.wrapping_mul(1664525).wrapping_add(1013904223);
+                    seed
+                };
+                let mut area = DrawnArea::default();
+                for _ in 0..64 {
+                    let x0 = next() % w.saturating_add(65);
+                    let y0 = next() % h.saturating_add(65);
+                    let x1 = x0.saturating_add(next() % w.saturating_add(1));
+                    let y1 = y0.saturating_add(next() % h.saturating_add(1));
+                    area.rects.insert([x0, y0, x1, y1]);
+                    check_tiles(&area, &layout);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn tile_words_keep_saturated_rectangles_and_rectangle_limit() {
+        let layout = tile_layout([3840, 2160], Some([32, 32]));
+        let mut area = DrawnArea::default();
+        for (x, y, width, height) in [
+            (-1, -1, 0, 5),
+            (1, 1, 0, 0),
+            (i32::MAX, i32::MAX, u32::MAX, u32::MAX),
+            (33, 17, u32::MAX, u32::MAX),
+        ] {
+            let rect = vk::Rect2D {
+                offset: vk::Offset2D { x, y },
+                extent: vk::Extent2D { width, height },
+            };
+            area.add(&[rect, rect]);
+            check_tiles(&area, &layout);
+        }
+        let mut area = DrawnArea::default();
+        for x in 0..=MOST_RECTS {
+            area.add(&[vk::Rect2D {
+                offset: vk::Offset2D { x: x as i32, y: 0 },
+                extent: vk::Extent2D {
+                    width: 1,
+                    height: 1,
+                },
+            }]);
+        }
+        assert!(area.whole);
+        check_tiles(&area, &layout);
+    }
+
+    #[test]
+    #[ignore = "CPU timing diagnostic; run explicitly with --ignored --nocapture"]
+    fn tile_words_cpu_benchmark() {
+        use std::hint::black_box;
+        use std::time::Instant;
+
+        const ITERATIONS: u32 = 64;
+        for [w, h] in [[1920, 1080], [3392, 2400], [3840, 2160], [7680, 4320]] {
+            let layout = tile_layout([w, h], Some([32, 32]));
+            for (kind, rects) in [
+                ("full", vec![[0, 0, w, h]]),
+                ("partial", vec![[w / 8, h / 8, w * 7 / 8, h * 7 / 8]]),
+            ] {
+                let area = DrawnArea {
+                    rects: rects.into_iter().collect(),
+                    whole: false,
+                };
+                check_tiles(&area, &layout);
+                let start = Instant::now();
+                for _ in 0..ITERATIONS {
+                    black_box(reference_tiles(black_box(&area), black_box(&layout)));
+                }
+                let reference = start.elapsed() / ITERATIONS;
+                let start = Instant::now();
+                for _ in 0..ITERATIONS {
+                    black_box(black_box(&area).tiles(black_box(&layout)));
+                }
+                let optimized = start.elapsed() / ITERATIONS;
+                eprintln!("tiles {w}x{h} {kind}: reference {reference:?}, words {optimized:?} per call ({ITERATIONS} iterations)");
+            }
+        }
+    }
 
     /// A `DontCare` load that clears writes each format's zero as Metal's tile holds it: an
     /// extended-range attachment's raw texel of `(0, 0, 0, 0)`, its codes 384, not zero bits; a
