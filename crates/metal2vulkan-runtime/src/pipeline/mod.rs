@@ -993,7 +993,7 @@ impl ComputePipelineState {
             BufferForms::Large => variant.key.covers(&settled),
         };
         if !runs {
-            return Err(internal(format!(
+            return Err(internal(&format!(
                 "the plan of a compiled variant asks for another variant: \
                  forms={forms:?}; wanted={wanted:?}; replanned={settled:?}"
             )));
