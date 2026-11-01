@@ -5,9 +5,13 @@
 //!   made outside a heap, and later a Metal heap (step 7: a heap is one block, its resources placed
 //!   at offsets).
 //! - **Pooling.** Resources share blocks of [`BLOCK_BYTES`], so `maxMemoryAllocationCount` (4096
-//!   on many devices) stays out of reach. A request larger than half a block takes a dedicated
-//!   block of its own size, freed with it. A pooled block is freed when it empties, except one
-//!   empty block per memory type that is kept for the next request.
+//!   on many devices) stays out of reach. A request larger than half a block takes a block of its
+//!   own size, pooled if it fits within [`BLOCK_BYTES`], dedicated otherwise. A pooled block is
+//!   freed when it empties, except the largest empty block per memory type, kept for reuse.
+//!   On an RTX 4070 SUPER, eight 48 MiB buffers made and dropped after one 17 MiB buffer stayed
+//!   live allocated another 384 MiB before fitting large blocks were pooled; after warmup they
+//!   allocate none (`full_block_buffers_reuse_an_idle_pool_block`). No allocation is rounded up
+//!   beyond the previous policy, and the idle cache still holds one block of at most `BLOCK_BYTES`.
 //! - **Entry point.** [`allocate`] with the resource's memory requirements and its
 //!   [`MemoryClass`]; [`Memory::free`] with the placement it gave. Buffers use it in step 1;
 //!   textures and heaps add their classes and callers in their own steps. Imported host memory
@@ -15,6 +19,10 @@
 //!   pooled, freed through the same [`Memory::free`]. A dma-buf's import
 //!   (`Memory::import_dma_buf`) is in no block: the placement in it keeps it, and frees it as it
 //!   goes (`dma_buf.rs`'s `DmaBufPages`).
+//! - **Release outside the allocator lock.** Live resource releases use [`free`]: return the
+//!   range and take its retired block under the lock, then destroy the native objects with the
+//!   lock released. Driver teardown can wait; it must not stall other threads' placements. The
+//!   release remains synchronous, before its caller releases host keep-alives or deallocators.
 //!
 //! - **Addresses** ([`allocate_addressed`]). A buffer placed for a device address gets it from its
 //!   block: a block that holds such a buffer has one buffer over its whole memory with the
@@ -348,26 +356,31 @@ impl<T> Pool<T> {
             .map(|block| &mut block.payload)
     }
 
-    /// Return `[offset, offset + size)` of block `index`. The block's payload when the block
-    /// must now be freed: a dedicated block, or a pooled block that emptied while another empty
-    /// pooled block is kept.
+    /// Return `[offset, offset + size)` of block `index`. The payload of an empty block to free,
+    /// keeping only the largest idle pooled block; a dedicated block is always freed.
     pub(super) fn release(&mut self, index: usize, offset: u64, size: u64) -> Option<T> {
         let block = self.blocks.get_mut(index)?.as_mut()?;
         block.ranges.free(offset, size);
         if !block.ranges.is_empty() {
             return None;
         }
-        let keep = !block.dedicated
-            && !self.blocks.iter().enumerate().any(|(other, block)| {
-                other != index
-                    && block
-                        .as_ref()
-                        .is_some_and(|block| !block.dedicated && block.ranges.is_empty())
-            });
-        if keep {
-            return None;
-        }
-        self.blocks[index].take().map(|block| block.payload)
+        let released = if block.dedicated {
+            index
+        } else {
+            let capacity = block.ranges.longest(1);
+            let (other, other_capacity) =
+                self.blocks.iter().enumerate().find_map(|(other, block)| {
+                    let block = block.as_ref()?;
+                    (other != index && !block.dedicated && block.ranges.is_empty())
+                        .then(|| (other, block.ranges.longest(1)))
+                })?;
+            if other_capacity >= capacity {
+                index
+            } else {
+                other
+            }
+        };
+        self.blocks[released].take().map(|block| block.payload)
     }
 
     /// Every block's payload, emptying the pool.
@@ -1047,19 +1060,23 @@ impl Memory {
             .is_some_and(|flags| flags.contains(vk::MemoryPropertyFlags::DEVICE_LOCAL))
     }
 
-    /// Return `placement`'s memory, freeing its block when it empties.
-    pub(super) fn free(&mut self, device: &ash::Device, placement: &Placement) {
+    /// Return a placement, taking ownership of a native block that may now be released.
+    fn take_free(&mut self, placement: &Placement) -> Option<Block> {
         // The caller's memory is the caller's to free.
-        let Some(index) = placement.block else {
-            return;
-        };
-        self.release_range(
-            device,
-            (placement.holds, placement.type_index),
+        let index = placement.block?;
+        self.pool(placement.holds, placement.type_index).release(
             index,
             placement.offset,
             placement.size,
-        );
+        )
+    }
+
+    /// Free with exclusive allocator access; shared callers use [`crate::memory::free`].
+    pub(super) fn free(&mut self, device: &ash::Device, placement: &Placement) {
+        if let Some(block) = self.take_free(placement) {
+            // SAFETY: no resource is placed in the block any more.
+            unsafe { block.release(device) };
+        }
     }
 
     /// Free every block: the device is being destroyed and no resource is left.
@@ -1332,8 +1349,12 @@ fn place(
     if candidates.is_empty() {
         return Err(Error::OutOfMemory(MemoryKind::Device));
     }
-    let dedicated = fit == Fit::Apart || size > maker.block_bytes / 2;
-    let block_size = if dedicated { size } else { maker.block_bytes };
+    let dedicated = fit == Fit::Apart || size > maker.block_bytes;
+    let block_size = if fit == Fit::Apart || size > maker.block_bytes / 2 {
+        size
+    } else {
+        maker.block_bytes
+    };
     let mut failure = Error::OutOfMemory(MemoryKind::Device);
     for type_index in candidates {
         let pool = (holds, type_index);
@@ -1357,11 +1378,12 @@ fn place(
     Err(failure)
 }
 
-/// Keep room for any pooled placement (half a block) in each pool the runtime's encodings and
+/// Keep room for common pooled placements (half a block) in each pool the runtime's encodings and
 /// commits place their own resources in ([`Memory::kept`]), making a block, with `memory`'s lock
 /// released, for a pool that lacks it. The device's creation calls, which may wait, keep it, so
 /// that an encoding or a commit, which must wait for no other process's GPU work, finds a block
-/// with room rather than making one. A block of buffers gets its buffer of addresses (counted in
+/// with room rather than making one. Larger placements may allocate on first use, then reuse
+/// their block. A block of buffers gets its buffer of addresses (counted in
 /// `counts`) where blocks carry one. A block that fails to be made, or a pool the query fails for,
 /// is left to the placement that needs it.
 pub(super) fn keep_room(memory: &Mutex<Memory>, device: &ash::Device, counts: &Counters) {
@@ -1394,3 +1416,16 @@ pub(super) fn keep_room(memory: &Mutex<Memory>, device: &ash::Device, counts: &C
         memory.add_block(pool, block, maker.block_bytes, false, 0);
     }
 }
+
+/// Return a placement, then release its native block without holding the allocator mutex.
+pub(super) fn free(memory: &Mutex<Memory>, device: &ash::Device, placement: &Placement) {
+    let retired = lock(memory).take_free(placement);
+    if let Some(block) = retired {
+        // SAFETY: the last placement was returned; native release stays synchronous.
+        unsafe { block.release(device) };
+    }
+}
+
+#[cfg(test)]
+#[path = "tests/memory_release.rs"]
+mod release_tests;

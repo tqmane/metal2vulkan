@@ -270,6 +270,21 @@ fn dedicated_blocks_take_no_other_placement_and_free_with_their_resource() {
     assert_eq!(pool.blocks(), 0);
 }
 
+#[test]
+fn the_largest_idle_pooled_block_is_kept_for_later_requests() {
+    let mut pool: Pool<&str> = Pool::default();
+    let small = pool.add(48, false, "small", 48);
+    let large = pool.add(64, false, "large", 64);
+    assert_eq!(pool.release(small, 0, 48), None);
+    assert_eq!(pool.release(large, 0, 64), Some("small"));
+    assert_eq!(pool.blocks(), 1);
+    assert_eq!(pool.place(60, 1), Some((large, 0)));
+    assert_eq!(pool.release(large, 0, 60), None);
+    let smaller = pool.add(32, false, "smaller", 32);
+    assert_eq!(pool.release(smaller, 0, 32), Some("smaller"));
+    assert_eq!(pool.place(64, 1), Some((large, 0)));
+}
+
 /// A pool has room for a placement where a pooled block holds a free range that long at the
 /// largest alignment asked of the pool so far; a dedicated block's room counts for none.
 #[test]

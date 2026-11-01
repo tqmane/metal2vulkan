@@ -1009,7 +1009,7 @@ impl FirstMoves {
 
     /// Release the buffer of zeros, the patterns' and the scratch images into `memory`; the
     /// device is idle.
-    pub(crate) fn destroy(&self, device: &ash::Device, memory: &mut Memory) {
+    pub(crate) fn destroy(&self, device: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         if let Some(zeros) = &*lock(&self.zeros) {
             zeros.destroy(device, memory);
         }
@@ -1023,7 +1023,7 @@ impl FirstMoves {
             if let Some(scratch) = scratch {
                 // SAFETY: no submission uses the image.
                 unsafe { release::object(device, scratch.image) };
-                memory.free(device, &scratch.placement);
+                crate::memory::free(memory, device, &scratch.placement);
             }
         }
     }
@@ -1088,7 +1088,7 @@ impl Scratch {
         if let Err(error) = bound {
             // SAFETY: the image is unused.
             unsafe { release::object(raw_device, image) };
-            lock(&shared.memory).free(raw_device, &placement);
+            crate::memory::free(&shared.memory, raw_device, &placement);
             return Err(vulkan(error));
         }
         Ok(Some(Scratch { image, placement }))
@@ -1136,7 +1136,7 @@ impl Zeros {
         let mapped = match bound {
             Ok(mapped) => mapped,
             Err(error) => {
-                made.destroy(raw_device, &mut lock(&shared.memory));
+                made.destroy(raw_device, &shared.memory);
                 return Err(error);
             }
         };
@@ -1188,17 +1188,17 @@ impl Zeros {
             raw_device.bind_buffer_memory(raw, made.placement.memory, made.placement.offset)
         };
         if let Err(error) = bound {
-            made.destroy(raw_device, &mut lock(&shared.memory));
+            made.destroy(raw_device, &shared.memory);
             return Err(vulkan(error));
         }
         Ok(made)
     }
 
     /// Release the buffer and its memory into `memory`; nothing uses them.
-    fn destroy(&self, device: &ash::Device, memory: &mut Memory) {
+    fn destroy(&self, device: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         // SAFETY: no submission uses the buffer.
         unsafe { release::object(device, self.raw) };
-        memory.free(device, &self.placement);
+        crate::memory::free(memory, device, &self.placement);
     }
 }
 

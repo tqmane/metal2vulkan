@@ -168,7 +168,7 @@ impl Drop for Freed {
             return;
         };
         let shared = self.device.shared();
-        lock(&shared.memory).free(shared.vk(), &self.placement);
+        crate::memory::free(&shared.memory, shared.vk(), &self.placement);
     }
 }
 

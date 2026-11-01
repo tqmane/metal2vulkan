@@ -446,7 +446,7 @@ impl Drop for FixedPages {
             unsafe { release::object(shared.vk(), self.pages.raw) };
         }
         // The caller's `VkBuffer`'s placement returns nothing.
-        lock(&shared.memory).free(shared.vk(), &self.pages.memory.placement);
+        crate::memory::free(&shared.memory, shared.vk(), &self.pages.memory.placement);
         drop(busy);
     }
 }
@@ -628,7 +628,7 @@ impl Drop for HostImport {
         // holds the image, which holds the import (`heap_sets.rs`), and every buffer over them
         // let go of them; their binding completed.
         unsafe { release::object(shared.vk(), self.pages.raw) };
-        lock(&shared.memory).free(shared.vk(), &self.pages.memory.placement);
+        crate::memory::free(&shared.memory, shared.vk(), &self.pages.memory.placement);
         drop(busy);
         self.device
             .note_import_freed(self.pages.memory.placement.size());
@@ -845,7 +845,7 @@ impl Drop for BufferShared {
 unsafe fn release_mirror(shared: &DeviceShared, mirror: &Mirror) {
     // SAFETY: the caller's.
     unsafe { release::object(shared.vk(), mirror.raw) };
-    lock(&shared.memory).free(shared.vk(), &mirror.placement);
+    crate::memory::free(&shared.memory, shared.vk(), &mirror.placement);
 }
 
 /// A buffer's parts once its `VkBuffer` is bound and its addresses held
@@ -1221,7 +1221,7 @@ impl Device {
             {
                 Ok(()) => Ok(placement),
                 Err(error) => {
-                    lock(&shared.memory).free(raw_device, &placement);
+                    crate::memory::free(&shared.memory, raw_device, &placement);
                     Err(vulkan(error))
                 }
             }
@@ -1235,7 +1235,7 @@ impl Device {
             Ok(placement) => {
                 // SAFETY: the buffer is unused.
                 unsafe { release::object(raw_device, raw) };
-                lock(&shared.memory).free(raw_device, &placement);
+                crate::memory::free(&shared.memory, raw_device, &placement);
                 Err(internal("a managed buffer's host copy is not mapped"))
             }
             Err(error) => {
@@ -1539,14 +1539,14 @@ impl Device {
         let address = match bound {
             Ok(()) => lock(&shared.addresses).place(at, length),
             Err(error) => {
-                lock(&shared.memory).free(raw_device, &placement);
+                crate::memory::free(&shared.memory, raw_device, &placement);
                 return Err(vulkan(error));
             }
         };
         match address {
             Ok(address) => Ok((placement, address)),
             Err(error) => {
-                lock(&shared.memory).free(raw_device, &placement);
+                crate::memory::free(&shared.memory, raw_device, &placement);
                 Err(error)
             }
         }
