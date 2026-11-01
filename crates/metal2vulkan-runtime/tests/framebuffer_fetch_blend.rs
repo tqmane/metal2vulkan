@@ -1,4 +1,4 @@
-//! Authored fetch plus source-over on the native device, with no guest shaders.
+//! Authored native-device resource and rendering regressions, with no guest shaders.
 #![cfg(any(m2v_gpu, m2v_cpu_icd))]
 
 use metal2vulkan::metal::{BlendFactor, ColorWriteMask, PixelFormat, PrimitiveType, TextureUsage};
@@ -28,6 +28,69 @@ fn library(device: &Device, name: &str) -> Library {
     device.new_library_with_compile_library(
         metal2vulkan::library::Library::from_air(&bitcode).unwrap(),
     )
+}
+
+#[test]
+fn full_block_buffers_reuse_an_idle_pool_block() {
+    let errors = Arc::new(Mutex::new(Vec::new()));
+    let collected = Arc::clone(&errors);
+    let mut options = DeviceOptions::default();
+    options.kinds = if cfg!(m2v_cpu_icd) {
+        vec![DeviceKind::Cpu]
+    } else {
+        vec![DeviceKind::Discrete, DeviceKind::Integrated]
+    };
+    options.layers = vec![c"VK_LAYER_KHRONOS_validation".to_owned()];
+    options.messages = Some(MessageSink::new(move |message| {
+        if message.kind.validation && message.severity == MessageSeverity::Error {
+            collected.lock().unwrap().push(message.text.clone());
+        }
+    }));
+    let device = Device::system_default_with(&options).unwrap();
+    // Leave more than half a block free, but not enough for the larger buffer.
+    let occupied = device
+        .new_buffer(17 << 20, ResourceOptions::private())
+        .unwrap();
+    for length in [48 << 20, 64 << 20] {
+        drop(
+            device
+                .new_buffer(length, ResourceOptions::private())
+                .unwrap(),
+        );
+        let warmed = device.work_counts().device_memory_allocated;
+        for _ in 0..8 {
+            let buffer = device
+                .new_buffer(length, ResourceOptions::private())
+                .unwrap();
+            assert_eq!(buffer.length(), length);
+            drop(buffer);
+        }
+        let after = device.work_counts().device_memory_allocated;
+        eprintln!(
+            "{}: {length} bytes, allocated after warmup {warmed} -> {after}",
+            device.name()
+        );
+        assert_eq!(
+            after, warmed,
+            "a fitting, completed allocation should reuse its block"
+        );
+    }
+    let length = (64 << 20) + 256;
+    let before = device.work_counts().device_memory_allocated;
+    for _ in 0..2 {
+        drop(
+            device
+                .new_buffer(length, ResourceOptions::private())
+                .unwrap(),
+        );
+    }
+    assert!(device.work_counts().device_memory_allocated - before >= 2 * length);
+    drop(occupied);
+    assert!(
+        errors.lock().unwrap().is_empty(),
+        "{:?}",
+        errors.lock().unwrap()
+    );
 }
 
 #[test]
