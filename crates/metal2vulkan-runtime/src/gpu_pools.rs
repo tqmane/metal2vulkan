@@ -126,7 +126,7 @@ impl GpuPools {
     }
 
     /// Release the spares as the device is destroyed.
-    pub(super) fn destroy(&self, device: &ash::Device, memory: &mut Memory) {
+    pub(super) fn destroy(&self, device: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         for kind in [PoolKind::Index, PoolKind::MeshRecords] {
             lock(self.spare(kind)).destroy(device, memory);
         }
@@ -173,7 +173,7 @@ impl Drop for PoolLease {
         if let Some(block) = released {
             // SAFETY: a lease ends when its command buffer completes or is dropped unsubmitted,
             // and the spare is leased to none, so no command uses either block.
-            unsafe { block.release(shared.vk(), &mut lock(&shared.memory)) };
+            unsafe { block.release(shared.vk(), &shared.memory) };
         }
     }
 }
@@ -221,7 +221,7 @@ impl Device {
             Take::Make(stale) => {
                 if let Some(block) = stale {
                     // SAFETY: the spare was leased to none, so no command uses it.
-                    unsafe { block.release(shared.vk(), &mut lock(&shared.memory)) };
+                    unsafe { block.release(shared.vk(), &shared.memory) };
                 }
                 self.make_block(bytes, kind.usage())?
             }

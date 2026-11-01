@@ -19,6 +19,10 @@
 //!   pooled, freed through the same [`Memory::free`]. A dma-buf's import
 //!   (`Memory::import_dma_buf`) is in no block: the placement in it keeps it, and frees it as it
 //!   goes (`dma_buf.rs`'s `DmaBufPages`).
+//! - **Release outside the allocator lock.** Live resource releases use [`free`]: return the
+//!   range and take its retired block under the lock, then destroy the native objects with the
+//!   lock released. Driver teardown can wait; it must not stall other threads' placements. The
+//!   release remains synchronous, before its caller releases host keep-alives or deallocators.
 //!
 //! - **Addresses** ([`allocate_addressed`]). A buffer placed for a device address gets it from its
 //!   block: a block that holds such a buffer has one buffer over its whole memory with the
@@ -1056,19 +1060,23 @@ impl Memory {
             .is_some_and(|flags| flags.contains(vk::MemoryPropertyFlags::DEVICE_LOCAL))
     }
 
-    /// Return `placement`'s memory, freeing its block when it empties.
-    pub(super) fn free(&mut self, device: &ash::Device, placement: &Placement) {
+    /// Return a placement, taking ownership of a native block that may now be released.
+    fn take_free(&mut self, placement: &Placement) -> Option<Block> {
         // The caller's memory is the caller's to free.
-        let Some(index) = placement.block else {
-            return;
-        };
-        self.release_range(
-            device,
-            (placement.holds, placement.type_index),
+        let index = placement.block?;
+        self.pool(placement.holds, placement.type_index).release(
             index,
             placement.offset,
             placement.size,
-        );
+        )
+    }
+
+    /// Free with exclusive allocator access; shared callers use [`crate::memory::free`].
+    pub(super) fn free(&mut self, device: &ash::Device, placement: &Placement) {
+        if let Some(block) = self.take_free(placement) {
+            // SAFETY: no resource is placed in the block any more.
+            unsafe { block.release(device) };
+        }
     }
 
     /// Free every block: the device is being destroyed and no resource is left.
@@ -1408,3 +1416,16 @@ pub(super) fn keep_room(memory: &Mutex<Memory>, device: &ash::Device, counts: &C
         memory.add_block(pool, block, maker.block_bytes, false, 0);
     }
 }
+
+/// Return a placement, then release its native block without holding the allocator mutex.
+pub(super) fn free(memory: &Mutex<Memory>, device: &ash::Device, placement: &Placement) {
+    let retired = lock(memory).take_free(placement);
+    if let Some(block) = retired {
+        // SAFETY: the last placement was returned; native release stays synchronous.
+        unsafe { block.release(device) };
+    }
+}
+
+#[cfg(test)]
+#[path = "tests/memory_release.rs"]
+mod release_tests;

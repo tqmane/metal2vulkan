@@ -857,7 +857,7 @@ impl Device {
         placement.settle();
         // SAFETY: the buffer is unused, and its binding completed.
         unsafe { release::object(shared.vk(), buffer.raw) };
-        lock(&shared.memory).free(shared.vk(), &placement);
+        crate::memory::free(&shared.memory, shared.vk(), &placement);
     }
 
     /// The Metal addresses of a no-copy buffer of `length` bytes `window.offset` bytes into
@@ -986,7 +986,7 @@ impl Device {
         match bound {
             Ok(()) => Ok(placement),
             Err(error) => {
-                lock(&shared.memory).free(raw_device, &placement);
+                crate::memory::free(&shared.memory, raw_device, &placement);
                 Err(vulkan(error))
             }
         }

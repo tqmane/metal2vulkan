@@ -85,7 +85,7 @@ impl Drop for StandIn {
             // SAFETY: no image presents the stand-in any more, and a command buffer that may read
             // it holds the image that presented it until it completes.
             unsafe { release::object(shared.vk(), image.raw) };
-            lock(&shared.memory).free(shared.vk(), &image.placement);
+            crate::memory::free(&shared.memory, shared.vk(), &image.placement);
         }
     }
 }
@@ -258,7 +258,7 @@ impl Device {
         let shared = self.shared();
         // SAFETY: no command uses the image.
         unsafe { release::object(shared.vk(), image.raw) };
-        lock(&shared.memory).free(shared.vk(), &image.placement);
+        crate::memory::free(&shared.memory, shared.vk(), &image.placement);
     }
 }
 

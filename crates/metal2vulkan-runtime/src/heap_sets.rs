@@ -281,7 +281,7 @@ impl Table {
             raw.bind_buffer_memory(buffer, table.placement.memory, table.placement.offset)
         };
         if let Err(error) = bound.map_err(vulkan).and_then(|()| table.start()) {
-            table.destroy(raw, &mut lock(&shared.memory));
+            table.destroy(raw, &shared.memory);
             return Err(error);
         }
         for id in 0..u64::from(TABLE_ENTRIES) {
@@ -330,16 +330,16 @@ impl Table {
     }
 
     /// Destroy the buffer, freeing its memory into `memory`. Nothing uses it.
-    fn destroy(&self, raw: &ash::Device, memory: &mut Memory) {
+    fn destroy(&self, raw: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         // SAFETY: the caller's.
         unsafe { release::object(raw, self.buffer) };
-        memory.free(raw, &self.placement);
+        crate::memory::free(memory, raw, &self.placement);
     }
 }
 
 impl DeviceHeaps {
     /// Destroy the texture table, freeing its memory into `memory`: the device is idle.
-    pub(super) fn destroy(&self, raw: &ash::Device, memory: &mut Memory) {
+    pub(super) fn destroy(&self, raw: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         if let Some(table) = &self.table {
             table.destroy(raw, memory);
         }

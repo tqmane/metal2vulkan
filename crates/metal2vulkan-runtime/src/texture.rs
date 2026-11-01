@@ -1095,7 +1095,7 @@ impl Drop for Image {
             }
         }
         if let Some(placement) = memory {
-            lock(&shared.memory).free(shared.vk(), placement);
+            crate::memory::free(&shared.memory, shared.vk(), placement);
         }
         if let Owner::Caller(wrapped) = &self.owner {
             shared.interop.wrapped.forget(wrapped);
@@ -1686,7 +1686,7 @@ impl Device {
         if let Err(error) =
             unsafe { raw_device.bind_image_memory(raw, placement.memory, placement.offset) }
         {
-            lock(&shared.memory).free(raw_device, &placement);
+            crate::memory::free(&shared.memory, raw_device, &placement);
             // SAFETY: the image is unused.
             unsafe { release::object(raw_device, raw) };
             return Err(vulkan(error));
@@ -1709,7 +1709,7 @@ impl Device {
                 Err(error) => {
                     // SAFETY: the image is unused.
                     unsafe { release::object(raw_device, raw) };
-                    lock(&shared.memory).free(raw_device, &placement);
+                    crate::memory::free(&shared.memory, raw_device, &placement);
                     return Err(error);
                 }
             }
@@ -2943,7 +2943,7 @@ impl Device {
         if let Err(error) =
             unsafe { raw_device.bind_image_memory(raw, placement.memory, placement.offset) }
         {
-            lock(&shared.memory).free(raw_device, &placement);
+            crate::memory::free(&shared.memory, raw_device, &placement);
             // SAFETY: the image is unused.
             unsafe { release::object(raw_device, raw) };
             return Err(vulkan(error));
@@ -3856,7 +3856,7 @@ impl Drop for Staging<'_> {
         let shared = self.device.shared();
         // SAFETY: every submission that used the buffer completed.
         unsafe { release::object(shared.vk(), self.raw) };
-        lock(&shared.memory).free(shared.vk(), &self.placement);
+        crate::memory::free(&shared.memory, shared.vk(), &self.placement);
     }
 }
 

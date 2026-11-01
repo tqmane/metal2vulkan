@@ -226,7 +226,7 @@ impl Device {
             }
         };
         let release = |placement: &Placement| {
-            lock(&shared.memory).free(raw_device, placement);
+            crate::memory::free(&shared.memory, raw_device, placement);
             // SAFETY: the buffer is unused.
             unsafe { release::object(raw_device, buffer) };
         };
@@ -265,7 +265,7 @@ impl Device {
                 release::object(raw_device, texels.view);
                 release::object(raw_device, texels.buffer);
             }
-            lock(&shared.memory).free(raw_device, &texels.placement);
+            crate::memory::free(&shared.memory, raw_device, &texels.placement);
             return Err(error);
         }
         Ok(texels)
@@ -369,7 +369,7 @@ impl Device {
             }
         };
         let release = |placement: &Placement| {
-            lock(&shared.memory).free(raw_device, placement);
+            crate::memory::free(&shared.memory, raw_device, placement);
             // SAFETY: the image is unused.
             unsafe { release::object(raw_device, image) };
         };

@@ -98,10 +98,10 @@ impl Block {
     /// # Safety
     ///
     /// No command that uses the buffer is pending.
-    pub(super) unsafe fn release(self, device: &ash::Device, memory: &mut Memory) {
+    pub(super) unsafe fn release(self, device: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         // SAFETY: the caller's.
         unsafe { release::object(device, self.raw) };
-        memory.free(device, &self.placement);
+        crate::memory::free(memory, device, &self.placement);
     }
 }
 
@@ -110,7 +110,7 @@ pub(super) type MipmapScratch = Spare<Block>;
 
 impl Spare<Block> {
     /// Release the spare as the device is destroyed.
-    pub(super) fn destroy(&mut self, device: &ash::Device, memory: &mut Memory) {
+    pub(super) fn destroy(&mut self, device: &ash::Device, memory: &std::sync::Mutex<Memory>) {
         if let Some((block, _)) = self.idle.take() {
             // SAFETY: the device is idle, so no command uses the block.
             unsafe { block.release(device, memory) };
@@ -144,7 +144,7 @@ impl Drop for Lease {
         if let Some(block) = released {
             // SAFETY: a lease ends when its command buffer completes or is dropped unsubmitted,
             // and the spare is leased to none, so no command uses either block.
-            unsafe { block.release(shared.vk(), &mut lock(&shared.memory)) };
+            unsafe { block.release(shared.vk(), &shared.memory) };
         }
     }
 }
@@ -160,7 +160,7 @@ impl Device {
             Take::Make(stale) => {
                 if let Some(block) = stale {
                     // SAFETY: the spare was leased to none, so no command uses it.
-                    unsafe { block.release(shared.vk(), &mut lock(&shared.memory)) };
+                    unsafe { block.release(shared.vk(), &shared.memory) };
                 }
                 match self.make_block(need, MIPMAP_USAGE) {
                     Ok(block) => (block, need),
@@ -208,7 +208,7 @@ impl Device {
             {
                 Ok(()) => Ok(placement),
                 Err(error) => {
-                    lock(&shared.memory).free(raw_device, &placement);
+                    crate::memory::free(&shared.memory, raw_device, &placement);
                     Err(vulkan(error))
                 }
             }
