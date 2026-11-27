@@ -137,6 +137,10 @@ const FRAGMENT_DEPTH_CHANGES: &[(DriverId, &str)] = &[
         DriverId::NVIDIA_PROPRIETARY,
         "denormals are flushed to zero of their sign, and NaN is stored as -inf",
     ),
+    (
+        DriverId::INTEL_PROPRIETARY_WINDOWS,
+        "unmeasured on Intel Windows proprietary driver (fallback enabled)",
+    ),
 ];
 
 /// The values the `FragDepth` draw changes on `device`'s driver, where they are measured

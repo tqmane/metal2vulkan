@@ -607,7 +607,11 @@ fn plan_held(
     // into: its attachment format is its render shadow's or a pipeline's alone
     // (`FormatEmulation::YCbCrRendered`, `YCbCrPassRefused`).
     let attachment = attachment_mapping.as_ref().ok().copied().filter(|m| {
-        m.format == direct
+        (m.format == direct
+            || matches!(
+                m.emulation,
+                FormatEmulation::StencilInCombined | FormatEmulation::DepthInCombined
+            ))
             && !matches!(
                 m.emulation,
                 FormatEmulation::YCbCrRendered | FormatEmulation::YCbCrPassRefused
@@ -770,7 +774,13 @@ fn plan_held(
         }
     }
     if wants(TextureUsage::RENDER_TARGET) {
-        if wants_attachment && format == direct {
+        if wants_attachment
+            && (format == direct
+                || matches!(
+                    mapping.emulation,
+                    FormatEmulation::StencilInCombined | FormatEmulation::DepthInCombined
+                ))
+        {
             usage_flags |= attachment_flag(depth_stencil, profile);
             views.insert(format);
             // A multisampled depth attachment is made for a pass's custom sample positions
